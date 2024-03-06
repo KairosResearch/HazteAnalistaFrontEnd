@@ -19,29 +19,9 @@ import {lessons} from '@/lib/data';
 
 const Lessons = () => {
   return (
-    <section className='py-4' id='lecciones-main-page'>
-        {/* Header de lecciones: titulo y buscador */}
-        <div className="md:flex lessons-header">
-          <h1 className='text-2xl font-bold'>
-            Lecciones:
-          </h1>
-          <div className="relative w-full ">
-            <input 
-              type="text" 
-              className="block w-full bg-transparent border-b-2 focus:border-green-light border-green-dark focus:outline-none
-               text-grey-light placeholder-grey-light transition-colors duration-200 ease-in-out p-2 mt-2" 
-              placeholder="Busca una lección..."  
-            />
-            <svg xmlns="http://www.w3.org/2000/svg" style={{transform: 'translateY(-50%)'}} className="absolute right-5 top-[50%] w-6 h-6" 
-                viewBox="0 0 24 24" fill="none" stroke="#edf4fb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="11" cy="11" r="8"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-          </div>
-        </div>
-
-        {/* Carousel de lecciones */}
-        <div className=' hidden md:flex p-14 '>
+    <>
+    {/* Carousel de lecciones */}
+      <div className=' hidden md:flex p-14 md:py-8 md:px-20 mt-9 xl:px-44 '>
           <Carousel
             opts={{
               loop: true,
@@ -55,7 +35,7 @@ const Lessons = () => {
                 <CarouselItem className='basis-1/3' key={lesson.id}>
                   <Card className='h-full'>
                     <CardHeader className=''>
-                      <img src={lesson.img} alt="" />
+                      <img style={{height: '200px'}} src={lesson.img}  alt="" />
                     </CardHeader>
                     <CardContent>
                       <p>
@@ -95,9 +75,7 @@ const Lessons = () => {
                 ))}
               
         </div>
-        
-
-      </section>
+    </> 
   )
 }
 

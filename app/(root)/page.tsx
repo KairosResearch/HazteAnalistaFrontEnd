@@ -1,6 +1,7 @@
 'use client';
 import React from 'react'
 import Lessons from '@/components/shared/Lessons';
+import InputSearcher from '@/components/shared/InputSearcher';
 import {
   Table,
   TableBody,
@@ -47,8 +48,16 @@ const HomePage = () => {
       </button>
 
       {/* Seccion de lecciones*/}
+      <section className='py-4 lg:px-10' id='lecciones-main-page'>
+        <div className="md:flex items-center justify-between md:px-14 lessons-header ">
+            <h1 className='text-2xl md:text-4xl  font-bold'>
+              Lecciones:
+            </h1>
+            <InputSearcher />
+        </div>
+        <Lessons />
+      </section>
       
-      <Lessons />
 
       {/* <section className="seguimiento">
         <h1
