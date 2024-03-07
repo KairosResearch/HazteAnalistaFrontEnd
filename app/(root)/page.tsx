@@ -2,15 +2,7 @@
 import React from 'react'
 import Lessons from '@/components/shared/Lessons';
 import InputSearcher from '@/components/shared/InputSearcher';
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
+import Dashboard from '@/components/shared/Dashboard';
 
 
 
@@ -47,9 +39,10 @@ const HomePage = () => {
         </svg>
       </button>
 
+    <div className="md:px-24">
       {/* Seccion de lecciones*/}
-      <section className='py-4 lg:px-10' id='lecciones-main-page'>
-        <div className="md:flex items-center justify-between md:px-14 lessons-header ">
+      <section className='py-4' id='lecciones-main-page'>
+        <div className="md:flex items-center justify-between lessons-header ">
             <h1 className='text-2xl md:text-4xl  font-bold'>
               Lecciones:
             </h1>
@@ -57,33 +50,21 @@ const HomePage = () => {
         </div>
         <Lessons />
       </section>
+
+      <section className="seguimiento">
+        <h1
+          className='text-2xl font-bold my-4 md:my-8 md:text-4xl'
+        >Dashboard de seguimiento:</h1>
+        
+        <Dashboard />
+      </section>
+    </div>
+
+      
+      
       
 
-      {/* <section className="seguimiento">
-        <h1
-          className='text-2xl font-bold'
-        >Dashboard de seguimiento:</h1>
-        <Table>
-          
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-[100px]">Invoice</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Method</TableHead>
-              <TableHead className="text-right">Amount</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow>
-              <TableCell className="font-medium">INV001</TableCell>
-              <TableCell>Paid</TableCell>
-              <TableCell>Credit Card</TableCell>
-              <TableCell className="text-right">$250.00</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-
-      </section> */}
+      
       
     </div>
   )

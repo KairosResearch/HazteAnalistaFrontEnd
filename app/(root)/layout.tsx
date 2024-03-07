@@ -8,9 +8,10 @@ const Layout = ({children}: {children: React.ReactNode}) => {
     <ContextProvider>
       <main className='root'>
         <Navbar />
+        
           <div className="root-container md:flex">
-            <Sidebar />
-              <div className="wrapper">
+              <Sidebar />
+              <div className="wrapper w-full">
                   {children}
               </div>
           </div>

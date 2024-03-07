@@ -3,7 +3,8 @@ import {createContext, useContext, useState} from 'react';
 
 const StateContext = createContext({
     activeMenu: true,
-    setActiveMenu: (activeMenu: boolean) => {}
+    setActiveMenu: (activeMenu: boolean) => {},
+   
 });
 
 
@@ -23,6 +24,7 @@ export const ContextProvider = ({children}: {children: React.ReactNode}) => {
         value={{
             activeMenu, 
             setActiveMenu,
+            
         }}>
             {children}
         </StateContext.Provider>
