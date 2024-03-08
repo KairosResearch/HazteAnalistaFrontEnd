@@ -75,7 +75,7 @@
   }
 }
 .root {
-  @apply flex min-h-screen w-full flex-col ;
+  @apply flex max-h-screen w-full flex-col ;
 }
 .root-container {
   @apply flex-1 overflow-auto lg:max-h-screen 

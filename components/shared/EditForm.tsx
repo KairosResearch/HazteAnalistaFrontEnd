@@ -7,6 +7,7 @@ import { z } from "zod"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
+import {Badge} from "@/components/ui/badge"
 
 import {
   Form,
@@ -56,7 +57,13 @@ export function ComboboxForm() {
           name="language"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Language</FormLabel>
+              <FormLabel>Ticker</FormLabel>
+              
+                  <FormControl>
+                    <input type="text" id="ticker" className="h-8" placeholder="Ticker" />
+                  </FormControl>
+                
+              <FormLabel>4E</FormLabel>
               <Popover>
                 <PopoverTrigger asChild>
                   <FormControl>
@@ -68,56 +75,50 @@ export function ComboboxForm() {
                         !field.value && "text-muted-foreground"
                       )}
                     >
-                      Hola
+                      Elije tus 4E
                     </Button>
                   </FormControl>
                 </PopoverTrigger>
-                <PopoverContent className="w-[200px] p-0">
+                <PopoverContent className="w-[200px] p-2">
                     <div className="grid gap-4">
-                    <div className="space-y-2">
-                        <h4 className="font-medium leading-none">Dimensions</h4>
-                        <p className="text-sm text-muted-foreground">
-                        Set the dimensions for the layer.
-                        </p>
-                    </div>
+                      <div className="space-y-2">
+                          <Badge color="red">
+                            Chao
+                          </Badge>
+                      </div>
                     <div className="grid gap-2">
                         <div className="grid grid-cols-3 items-center gap-4">
-                            <label htmlFor="width">Width</label>
-                            <input
-                                id="width"
-                                defaultValue="100%"
-                                className="col-span-2 h-8"
-                            />
+                            <label htmlFor="width">Pendiente</label>
+                            <Badge color="red">
+                              Chao
+                            </Badge>
+                            <Badge color="red">
+                              Chao
+                            </Badge>
+                            
                             </div>
                             <div className="grid grid-cols-3 items-center gap-4">
-                            <label htmlFor="maxWidth">Max. width</label>
-                            <input
-                                id="maxWidth"
-                                defaultValue="300px"
-                                className="col-span-2 h-8"
-                            />
+                            <label htmlFor="maxWidth">En curso</label>
+                              <Badge 
+                                color="red" 
+                              >
+                                Chao
+                              </Badge>
                             </div>
                             <div className="grid grid-cols-3 items-center gap-4">
-                            <label htmlFor="height">Height</label>
-                            <input
-                                id="height"
-                                defaultValue="25px"
-                                className="col-span-2 h-8"
-                            />
+                            <label htmlFor="height">Completado</label>
+                            <Badge 
+                              color="red"
+                            >
+                              Chao
+                            </Badge>
                             </div>
-                            <div className="grid grid-cols-3 items-center gap-4">
-                            <label htmlFor="maxHeight">Max. height</label>
-                            <input
-                                id="maxHeight"
-                                defaultValue="none"
-                                className="col-span-2 h-8"
-                            />
-                            </div>
+                            
                         </div>
                     </div>
                 </PopoverContent>
               </Popover>
-              <FormLabel>Language</FormLabel>
+              <FormLabel>Decision</FormLabel>
               <Popover>
                 <PopoverTrigger asChild>
                   <FormControl>
@@ -129,56 +130,45 @@ export function ComboboxForm() {
                         !field.value && "text-muted-foreground"
                       )}
                     >
-                      Hola
+                      Que vas a hacer?
                     </Button>
                   </FormControl>
                 </PopoverTrigger>
                 <PopoverContent className="w-[200px] p-0">
                     <div className="grid gap-4">
                     <div className="space-y-2">
-                        <h4 className="font-medium leading-none">Dimensions</h4>
-                        <p className="text-sm text-muted-foreground">
-                        Set the dimensions for the layer.
-                        </p>
+                    <Badge 
+                          color="red"
+                        >
+                          Chao
+                        </Badge>
+                        
                     </div>
                     <div className="grid gap-2">
                         <div className="grid grid-cols-3 items-center gap-4">
                             <label htmlFor="width">Width</label>
-                            <input
-                                id="width"
-                                defaultValue="100%"
-                                className="col-span-2 h-8"
-                            />
-                            </div>
-                            <div className="grid grid-cols-3 items-center gap-4">
-                            <label htmlFor="maxWidth">Max. width</label>
-                            <input
-                                id="maxWidth"
-                                defaultValue="300px"
-                                className="col-span-2 h-8"
-                            />
-                            </div>
-                            <div className="grid grid-cols-3 items-center gap-4">
-                            <label htmlFor="height">Height</label>
-                            <input
-                                id="height"
-                                defaultValue="25px"
-                                className="col-span-2 h-8"
-                            />
-                            </div>
-                            <div className="grid grid-cols-3 items-center gap-4">
-                            <label htmlFor="maxHeight">Max. height</label>
-                            <input
-                                id="maxHeight"
-                                defaultValue="none"
-                                className="col-span-2 h-8"
-                            />
-                            </div>
+                            <Badge color="red">
+                              Chao
+                            </Badge>
+                            
                         </div>
+                        <div className="grid grid-cols-3 items-center gap-4">
+                            <label htmlFor="maxWidth">Max. width</label>
+                            <Badge color="red">
+                              Chao
+                            </Badge>
+                        </div>
+                      </div> 
                     </div>
                 </PopoverContent>
               </Popover>
-              <FormLabel>Language</FormLabel>
+              <FormLabel>Market Cap</FormLabel>
+              
+                  <FormControl>
+                    <input type="text" id="Cap Market" className="h-8" placeholder="Cap Market" />
+                  </FormControl>
+
+              <FormLabel>Exchange</FormLabel>
               <Popover>
                 <PopoverTrigger asChild>
                   <FormControl>
@@ -190,57 +180,49 @@ export function ComboboxForm() {
                         !field.value && "text-muted-foreground"
                       )}
                     >
-                      Hola
+                      Elige el Exchange
                     </Button>
                   </FormControl>
                 </PopoverTrigger>
                 <PopoverContent className="w-[200px] p-0">
                     <div className="grid gap-4">
                     <div className="space-y-2">
-                        <h4 className="font-medium leading-none">Dimensions</h4>
-                        <p className="text-sm text-muted-foreground">
-                        Set the dimensions for the layer.
-                        </p>
+                        <Badge color="red">
+                          Chao
+                        </Badge>
                     </div>
                     <div className="grid gap-2">
                         <div className="grid grid-cols-3 items-center gap-4">
                             <label htmlFor="width">Width</label>
-                            <input
-                                id="width"
-                                defaultValue="100%"
-                                className="col-span-2 h-8"
-                            />
+                            <Badge color="red">
+                                Chao
+                              </Badge>
                             </div>
                             <div className="grid grid-cols-3 items-center gap-4">
                             <label htmlFor="maxWidth">Max. width</label>
-                            <input
-                                id="maxWidth"
-                                defaultValue="300px"
-                                className="col-span-2 h-8"
-                            />
+                            <Badge color="red">
+                                Chao
+                              </Badge>
                             </div>
                             <div className="grid grid-cols-3 items-center gap-4">
                             <label htmlFor="height">Height</label>
-                            <input
-                                id="height"
-                                defaultValue="25px"
-                                className="col-span-2 h-8"
-                            />
+                            <Badge color="red">
+                                Chao
+                              </Badge>
                             </div>
                             <div className="grid grid-cols-3 items-center gap-4">
                             <label htmlFor="maxHeight">Max. height</label>
-                            <input
-                                id="maxHeight"
-                                defaultValue="none"
-                                className="col-span-2 h-8"
-                            />
+                            <Badge color="red">
+                                Chao
+                              </Badge>
                             </div>
                         </div>
                     </div>
                 </PopoverContent>
               </Popover>
 
-              <FormLabel>Language</FormLabel>
+              <FormLabel>Sector</FormLabel>
+
               <Popover>
                 <PopoverTrigger asChild>
                   <FormControl>
@@ -252,117 +234,56 @@ export function ComboboxForm() {
                         !field.value && "text-muted-foreground"
                       )}
                     >
-                      Hola
+                      Elige el sector
                     </Button>
                   </FormControl>
                 </PopoverTrigger>
                 <PopoverContent className="w-[200px] p-0">
                     <div className="grid gap-4">
                     <div className="space-y-2">
-                        <h4 className="font-medium leading-none">Dimensions</h4>
-                        <p className="text-sm text-muted-foreground">
-                        Set the dimensions for the layer.
-                        </p>
+                        <Badge color="red">
+                          Chao
+                        </Badge>
+
                     </div>
                     <div className="grid gap-2">
                         <div className="grid grid-cols-3 items-center gap-4">
                             <label htmlFor="width">Width</label>
-                            <input
-                                id="width"
-                                defaultValue="100%"
-                                className="col-span-2 h-8"
-                            />
+                            <Badge color="red">
+                                Chao
+                              </Badge>
                             </div>
                             <div className="grid grid-cols-3 items-center gap-4">
                             <label htmlFor="maxWidth">Max. width</label>
-                            <input
-                                id="maxWidth"
-                                defaultValue="300px"
-                                className="col-span-2 h-8"
-                            />
+                            <Badge color="red">
+                                Chao
+                              </Badge>
                             </div>
                             <div className="grid grid-cols-3 items-center gap-4">
                             <label htmlFor="height">Height</label>
-                            <input
-                                id="height"
-                                defaultValue="25px"
-                                className="col-span-2 h-8"
-                            />
+                            <Badge color="red">
+                                Chao
+                              </Badge>
                             </div>
                             <div className="grid grid-cols-3 items-center gap-4">
                             <label htmlFor="maxHeight">Max. height</label>
-                            <input
-                                id="maxHeight"
-                                defaultValue="none"
-                                className="col-span-2 h-8"
-                            />
+                            <Badge color="red">
+                                Chao
+                              </Badge>
                             </div>
                         </div>
                     </div>
                 </PopoverContent>
               </Popover>
 
-              <FormLabel>Language</FormLabel>
-              <Popover>
-                <PopoverTrigger asChild>
+
+              <FormLabel>Precio</FormLabel>
+              
                   <FormControl>
-                    <Button
-                      variant="outline"
-                      role="combobox"
-                      className={cn(
-                        "w-[200px] justify-between",
-                        !field.value && "text-muted-foreground"
-                      )}
-                    >
-                      Hola
-                    </Button>
+                    <input type="text" id="Precio" className="h-8" placeholder="Precio" />
                   </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="w-[200px] p-0">
-                    <div className="grid gap-4">
-                    <div className="space-y-2">
-                        <h4 className="font-medium leading-none">Dimensions</h4>
-                        <p className="text-sm text-muted-foreground">
-                        Set the dimensions for the layer.
-                        </p>
-                    </div>
-                    <div className="grid gap-2">
-                        <div className="grid grid-cols-3 items-center gap-4">
-                            <label htmlFor="width">Width</label>
-                            <input
-                                id="width"
-                                defaultValue="100%"
-                                className="col-span-2 h-8"
-                            />
-                            </div>
-                            <div className="grid grid-cols-3 items-center gap-4">
-                            <label htmlFor="maxWidth">Max. width</label>
-                            <input
-                                id="maxWidth"
-                                defaultValue="300px"
-                                className="col-span-2 h-8"
-                            />
-                            </div>
-                            <div className="grid grid-cols-3 items-center gap-4">
-                            <label htmlFor="height">Height</label>
-                            <input
-                                id="height"
-                                defaultValue="25px"
-                                className="col-span-2 h-8"
-                            />
-                            </div>
-                            <div className="grid grid-cols-3 items-center gap-4">
-                            <label htmlFor="maxHeight">Max. height</label>
-                            <input
-                                id="maxHeight"
-                                defaultValue="none"
-                                className="col-span-2 h-8"
-                            />
-                            </div>
-                        </div>
-                    </div>
-                </PopoverContent>
-              </Popover>
+
+              
               <FormDescription>
                 This is the language that will be used in the dashboard.
               </FormDescription>
