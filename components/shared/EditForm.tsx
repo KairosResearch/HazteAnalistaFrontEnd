@@ -8,290 +8,342 @@ import { z } from "zod"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {Badge} from "@/components/ui/badge"
-
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+
 import { toast } from "@/components/ui/use-toast"
+import { Input } from "../ui/input"
 
 
 
 const FormSchema = z.object({
-  language: z.string({
-    required_error: "Please select a language.",
-  }),
-})
+  ticket: z.string({ required_error: "El campo 'ticket' no puede estar vacío." }),
+  fourE: z.string({ required_error: "El campo '4E' no puede estar vacío." }),
+  Decision: z.string({ required_error: "El campo 'Decision' no puede estar vacío." }),
+  MarketCap: z.number().nonnegative( "El campo 'market cap' debe ser un número." ),
+  exchange: z.string({required_error: "El campo 'exchange' no puede estar vacío." }),
+  sector: z.string({ required_error: "El campo 'sector' no puede estar vacío." }),
+  precio: z.number().nonnegative( "El campo 'precio' debe ser un número." ),
+});
 
-export function ComboboxForm() {
+export function EditionItemForm() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
+    defaultValues: {
+      ticket: '',
+      fourE: '',
+      Decision: '',
+      MarketCap: 0,
+      exchange: '',
+      sector: '',
+      precio: 0,
+    },
+
   })
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    })
+      console.log(JSON.stringify(data, null, 2))
   }
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        <FormField
-          control={form.control}
-          name="language"
-          render={({ field }) => (
-            <FormItem className="flex flex-col">
-              <FormLabel>Ticker</FormLabel>
-              
-                  <FormControl>
-                    <input type="text" id="ticker" className="h-8" placeholder="Ticker" />
-                  </FormControl>
-                
-              <FormLabel>4E</FormLabel>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <FormControl>
-                    <Button
-                      variant="outline"
-                      role="combobox"
-                      className={cn(
-                        "w-[200px] justify-between",
-                        !field.value && "text-muted-foreground"
-                      )}
-                    >
-                      Elije tus 4E
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="w-[200px] p-2">
-                    <div className="grid gap-4">
-                      <div className="space-y-2">
-                          <Badge color="red">
-                            Chao
-                          </Badge>
-                      </div>
-                    <div className="grid gap-2">
-                        <div className="grid grid-cols-3 items-center gap-4">
-                            <label htmlFor="width">Pendiente</label>
-                            <Badge color="red">
-                              Chao
-                            </Badge>
-                            <Badge color="red">
-                              Chao
-                            </Badge>
-                            
-                            </div>
-                            <div className="grid grid-cols-3 items-center gap-4">
-                            <label htmlFor="maxWidth">En curso</label>
-                              <Badge 
-                                color="red" 
-                              >
-                                Chao
-                              </Badge>
-                            </div>
-                            <div className="grid grid-cols-3 items-center gap-4">
-                            <label htmlFor="height">Completado</label>
-                            <Badge 
-                              color="red"
-                            >
-                              Chao
-                            </Badge>
-                            </div>
-                            
-                        </div>
-                    </div>
-                </PopoverContent>
-              </Popover>
-              <FormLabel>Decision</FormLabel>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <FormControl>
-                    <Button
-                      variant="outline"
-                      role="combobox"
-                      className={cn(
-                        "w-[200px] justify-between",
-                        !field.value && "text-muted-foreground"
-                      )}
-                    >
-                      Que vas a hacer?
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="w-[200px] p-0">
-                    <div className="grid gap-4">
-                    <div className="space-y-2">
-                    <Badge 
-                          color="red"
-                        >
-                          Chao
-                        </Badge>
-                        
-                    </div>
-                    <div className="grid gap-2">
-                        <div className="grid grid-cols-3 items-center gap-4">
-                            <label htmlFor="width">Width</label>
-                            <Badge color="red">
-                              Chao
-                            </Badge>
-                            
-                        </div>
-                        <div className="grid grid-cols-3 items-center gap-4">
-                            <label htmlFor="maxWidth">Max. width</label>
-                            <Badge color="red">
-                              Chao
-                            </Badge>
-                        </div>
-                      </div> 
-                    </div>
-                </PopoverContent>
-              </Popover>
-              <FormLabel>Market Cap</FormLabel>
-              
-                  <FormControl>
-                    <input type="text" id="Cap Market" className="h-8" placeholder="Cap Market" />
-                  </FormControl>
+      <FormField
+        name="ticket"
+        control={form.control}
+        render={({ field }) => (
+          <FormItem className="flex flex-col">
+            <FormLabel htmlFor="ticket" >
+              TTicket
+            </FormLabel>
+            <FormControl>
+              <Input  {...field}/>
+            </FormControl>
 
-              <FormLabel>Exchange</FormLabel>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <FormControl>
-                    <Button
-                      variant="outline"
-                      role="combobox"
-                      className={cn(
-                        "w-[200px] justify-between",
-                        !field.value && "text-muted-foreground"
-                      )}
-                    >
-                      Elige el Exchange
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="w-[200px] p-0">
-                    <div className="grid gap-4">
-                    <div className="space-y-2">
-                        <Badge color="red">
-                          Chao
-                        </Badge>
-                    </div>
-                    <div className="grid gap-2">
-                        <div className="grid grid-cols-3 items-center gap-4">
-                            <label htmlFor="width">Width</label>
-                            <Badge color="red">
-                                Chao
-                              </Badge>
-                            </div>
-                            <div className="grid grid-cols-3 items-center gap-4">
-                            <label htmlFor="maxWidth">Max. width</label>
-                            <Badge color="red">
-                                Chao
-                              </Badge>
-                            </div>
-                            <div className="grid grid-cols-3 items-center gap-4">
-                            <label htmlFor="height">Height</label>
-                            <Badge color="red">
-                                Chao
-                              </Badge>
-                            </div>
-                            <div className="grid grid-cols-3 items-center gap-4">
-                            <label htmlFor="maxHeight">Max. height</label>
-                            <Badge color="red">
-                                Chao
-                              </Badge>
-                            </div>
-                        </div>
-                    </div>
-                </PopoverContent>
-              </Popover>
-
-              <FormLabel>Sector</FormLabel>
-
-              <Popover>
-                <PopoverTrigger asChild>
-                  <FormControl>
-                    <Button
-                      variant="outline"
-                      role="combobox"
-                      className={cn(
-                        "w-[200px] justify-between",
-                        !field.value && "text-muted-foreground"
-                      )}
-                    >
-                      Elige el sector
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="w-[200px] p-0">
-                    <div className="grid gap-4">
-                    <div className="space-y-2">
-                        <Badge color="red">
-                          Chao
-                        </Badge>
-
-                    </div>
-                    <div className="grid gap-2">
-                        <div className="grid grid-cols-3 items-center gap-4">
-                            <label htmlFor="width">Width</label>
-                            <Badge color="red">
-                                Chao
-                              </Badge>
-                            </div>
-                            <div className="grid grid-cols-3 items-center gap-4">
-                            <label htmlFor="maxWidth">Max. width</label>
-                            <Badge color="red">
-                                Chao
-                              </Badge>
-                            </div>
-                            <div className="grid grid-cols-3 items-center gap-4">
-                            <label htmlFor="height">Height</label>
-                            <Badge color="red">
-                                Chao
-                              </Badge>
-                            </div>
-                            <div className="grid grid-cols-3 items-center gap-4">
-                            <label htmlFor="maxHeight">Max. height</label>
-                            <Badge color="red">
-                                Chao
-                              </Badge>
-                            </div>
-                        </div>
-                    </div>
-                </PopoverContent>
-              </Popover>
-
-
-              <FormLabel>Precio</FormLabel>
-              
-                  <FormControl>
-                    <input type="text" id="Precio" className="h-8" placeholder="Precio" />
-                  </FormControl>
-
-              
-              <FormDescription>
-                This is the language that will be used in the dashboard.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
+            
+          </FormItem>
           )}
-        />
-        <Button type="submit">Submit</Button>
+      />
+     <FormField
+        name="fourE"
+        control={form.control}
+        render={({ field }) => (
+          <FormItem className="flex flex-col">
+            <FormLabel htmlFor="fourE">
+              4E
+            </FormLabel>
+            <FormControl>
+
+            <Popover>
+                <PopoverTrigger asChild>
+                    <FormControl>
+                        <Button
+                            variant="outline"
+                            role="popover-trigger"
+                            className={cn("w-[300px] justify-between", )} 
+                        >4E</Button>
+                    </FormControl>
+                </PopoverTrigger>
+                <PopoverContent className="w-[300px] p-0 ">
+                    <div className="grid divide-y divide-slate-white">
+                        <div>
+                            <Badge>Hola</Badge>
+                        </div>
+                        <div className="p-2">
+                          <span className="text-xs block"> Pendiente</span>
+                          <div className="grid grid-cols-3 gap-2 pt-2">
+                            <Badge>Evaluar</Badge>
+                            <Badge>Holakk </Badge>
+                            <Badge>Hola</Badge>
+                          </div>
+                        </div>
+                        <div className="p-2">
+                          <span className="text-xs block"> En curso</span>
+                          <div className="grid grid-cols-3 gap-2 pt-2">
+                            <Badge>Evaluar</Badge>
+                            <Badge>Holakk </Badge>
+                            <Badge>Hola</Badge>
+                          </div>
+                        </div>
+                        <div className="p-2">
+                          <span className="text-xs block"> Completado</span>
+                          <div className="grid grid-cols-3 gap-2 pt-2">
+                            <Badge>Evaluar</Badge>
+                            <Badge>Holakk </Badge>
+                            <Badge>Hola</Badge>
+                          </div>
+                        </div>
+                        <div className="p-2">
+                          <span className="text-xs block"> Editar propiedad</span>
+                          <div className="grid grid-cols-3 gap-2 pt-2">
+                            <Badge>Evaluar</Badge>
+                          </div>
+                        </div>
+                    </div>
+                </PopoverContent>
+            </Popover>
+
+            </FormControl>
+          </FormItem>
+          )}
+      />
+      
+      <FormField
+        name="Decision"
+        control={form.control}
+        render={({ field }) => (
+          <FormItem className="flex flex-col">
+            <FormLabel htmlFor="Decision">Decision</FormLabel>
+            <FormControl>
+            <Popover>
+                <PopoverTrigger asChild>
+                    <FormControl>
+                        <Button
+                            variant="outline"
+                            role="popover-trigger"
+                            className={cn("w-[300px] justify-between", )} 
+                        >Decision</Button>
+                    </FormControl>
+                </PopoverTrigger>
+                <PopoverContent className="w-[300px] p-0 ">
+                    <div className="grid divide-y divide-slate-white">
+                        <div>
+                            <Badge>Hola</Badge>
+                        </div>
+                        <div className="p-2">
+                          <span className="text-xs block"> Pendiente</span>
+                          <div className="grid grid-cols-3 gap-2 pt-2">
+                            <Badge>Evaluar</Badge>
+                            <Badge>Holakk </Badge>
+                            <Badge>Hola</Badge>
+                          </div>
+                        </div>
+                        <div className="p-2">
+                          <span className="text-xs block"> En curso</span>
+                          <div className="grid grid-cols-3 gap-2 pt-2">
+                            <Badge>Evaluar</Badge>
+                            <Badge>Holakk </Badge>
+                            <Badge>Hola</Badge>
+                          </div>
+                        </div>
+                        <div className="p-2">
+                          <span className="text-xs block"> Completado</span>
+                          <div className="grid grid-cols-3 gap-2 pt-2">
+                            <Badge>Evaluar</Badge>
+                            <Badge>Holakk </Badge>
+                            <Badge>Hola</Badge>
+                          </div>
+                        </div>
+                        <div className="p-2">
+                          <span className="text-xs block"> Editar propiedad</span>
+                          <div className="grid grid-cols-3 gap-2 pt-2">
+                            <Badge>Evaluar</Badge>
+                          </div>
+                        </div>
+                    </div>
+                </PopoverContent>
+            </Popover>
+            </FormControl>
+          </FormItem>
+        )}
+      />
+      <FormField
+        name="MarketCap"
+        control={form.control}
+        render={({ field }) => (
+          <FormItem className="flex flex-col">
+            <FormLabel htmlFor="MarketCap">Market Cap</FormLabel>
+            <FormControl>
+              <Input {...field} type="number" />
+            </FormControl>
+          </FormItem>
+        )}
+      />
+      <FormField
+        name="exchange"
+        control={form.control}
+        render={({ field }) => (
+          <FormItem className="flex flex-col">
+            <FormLabel htmlFor="exchange">Exchange</FormLabel>
+            <FormControl>
+              <Popover>
+                  <PopoverTrigger asChild>
+                      <FormControl>
+                          <Button
+                              variant="outline"
+                              role="popover-trigger"
+                              className={cn("w-[300px] justify-between", )} 
+                          >Exchange</Button>
+                      </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-[300px] p-0 ">
+                      <div className="grid divide-y divide-slate-white">
+                          <div>
+                              <Badge>Hola</Badge>
+                          </div>
+                          <div className="p-2">
+                            <span className="text-xs block"> Pendiente</span>
+                            <div className="grid grid-cols-3 gap-2 pt-2">
+                              <Badge>Evaluar</Badge>
+                              <Badge>Holakk </Badge>
+                              <Badge>Hola</Badge>
+                            </div>
+                          </div>
+                          <div className="p-2">
+                            <span className="text-xs block"> En curso</span>
+                            <div className="grid grid-cols-3 gap-2 pt-2">
+                              <Badge>Evaluar</Badge>
+                              <Badge>Holakk </Badge>
+                              <Badge>Hola</Badge>
+                            </div>
+                          </div>
+                          <div className="p-2">
+                            <span className="text-xs block"> Completado</span>
+                            <div className="grid grid-cols-3 gap-2 pt-2">
+                              <Badge>Evaluar</Badge>
+                              <Badge>Holakk </Badge>
+                              <Badge>Hola</Badge>
+                            </div>
+                          </div>
+                          <div className="p-2">
+                            <span className="text-xs block"> Editar propiedad</span>
+                            <div className="grid grid-cols-3 gap-2 pt-2">
+                              <Badge>Evaluar</Badge>
+                            </div>
+                          </div>
+                      </div>
+                  </PopoverContent>
+              </Popover>
+            </FormControl>
+          </FormItem>
+        )}
+      />
+      <FormField
+        name="sector"
+        control={form.control}
+        render={({ field }) => (
+          <FormItem className="flex flex-col">
+            <FormLabel htmlFor="sector">Sector</FormLabel>
+            <FormControl>
+              <Popover>
+                    <PopoverTrigger asChild>
+                        <FormControl>
+                            <Button
+                                variant="outline"
+                                role="popover-trigger"
+                                className={cn("w-[300px] justify-between", )} 
+                            >Exchange</Button>
+                        </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-[300px] p-0 ">
+                        <div className="grid divide-y divide-slate-white">
+                            <div>
+                                <Badge>Hola</Badge>
+                            </div>
+                            <div className="p-2">
+                              <span className="text-xs block"> Pendiente</span>
+                              <div className="grid grid-cols-3 gap-2 pt-2">
+                                <Badge>Evaluar</Badge>
+                                <Badge>Holakk </Badge>
+                                <Badge>Hola</Badge>
+                              </div>
+                            </div>
+                            <div className="p-2">
+                              <span className="text-xs block"> En curso</span>
+                              <div className="grid grid-cols-3 gap-2 pt-2">
+                                <Badge>Evaluar</Badge>
+                                <Badge>Holakk </Badge>
+                                <Badge>Hola</Badge>
+                              </div>
+                            </div>
+                            <div className="p-2">
+                              <span className="text-xs block"> Completado</span>
+                              <div className="grid grid-cols-3 gap-2 pt-2">
+                                <Badge>Evaluar</Badge>
+                                <Badge>Holakk </Badge>
+                                <Badge>Hola</Badge>
+                              </div>
+                            </div>
+                            <div className="p-2">
+                              <span className="text-xs block"> Editar propiedad</span>
+                              <div className="grid grid-cols-3 gap-2 pt-2">
+                                <Badge>Evaluar</Badge>
+                              </div>
+                            </div>
+                        </div>
+                    </PopoverContent>
+                </Popover>
+            </FormControl>
+          </FormItem>
+        )}
+      />
+      <FormField
+        name="precio"
+        control={form.control}
+        render={({ field }) => (
+          <FormItem className="flex flex-col">
+            <FormLabel htmlFor="precio">Precio</FormLabel>
+            <FormControl>
+              <Input {...field} type="number" />
+            </FormControl>
+          </FormItem>
+        )}
+      />
+      <Button type="submit"  className="w-full">
+        Editar
+      </Button>
       </form>
     </Form>
   )
