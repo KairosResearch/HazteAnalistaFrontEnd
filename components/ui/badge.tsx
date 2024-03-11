@@ -3,6 +3,16 @@ import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
 
+const colorMap = {
+  red: 'bg-red-500',
+  blue: 'bg-blue-500',
+  green: 'bg-green-500',
+  yellow: 'bg-yellow-500',
+  brown: 'bg-white',
+  // Add more colors as needed
+}
+
+
 const badgeVariants = cva(
   "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
   {
@@ -27,10 +37,11 @@ export interface BadgeProps
   extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof badgeVariants> {}
 
-function Badge({ className, variant, ...props }: BadgeProps) {
+function Badge({ className, variant, color, ...props }: BadgeProps) {
+  const colorClass = colorMap[color as keyof typeof colorMap] || colorMap.blue;
   return (
     <div className={cn(badgeVariants({ variant }), className)} {...props}>
-      <span className={`inline-block h-2 w-2 rounded-full bg-${props.color} mr-1 align-middle`} />
+      <span className={`inline-block h-2 w-2 rounded-full ${colorClass} mr-1 align-middle`} />
       {props.children}
     </div>
   )

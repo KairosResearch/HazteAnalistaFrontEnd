@@ -2,6 +2,8 @@ import React from 'react'
 import Sidebar from '@/components/shared/Sidebar';
 import Navbar from '@/components/shared/Navbar';
 import{ ContextProvider} from '@/contexts/ContextProvider';
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
+
 
 const Layout = ({children}: {children: React.ReactNode}) => {
   return (
@@ -9,11 +11,13 @@ const Layout = ({children}: {children: React.ReactNode}) => {
       <main className='root'>
         <Navbar />
         
-          <div className="root-container md:flex">
+          <div className="root-container  md:flex">
               <Sidebar />
-              <div className="wrapper w-full">
-                  {children}
+              <div className='wrapper w-full'>
+                    {children}      
               </div>
+              
+                    
           </div>
       </main>
     </ContextProvider>

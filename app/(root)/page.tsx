@@ -10,6 +10,8 @@ import Dashboard from '@/components/shared/Dashboard';
 
 //Context (menu)
 import {useStateContext}  from '@/contexts/ContextProvider';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Button } from '@/components/ui/button';
 
 
 const HomePage = () => {
@@ -41,9 +43,9 @@ const HomePage = () => {
 
     <div className="md:px-24">
       {/* Seccion de lecciones*/}
-      <section className='py-4' id='lecciones-main-page'>
+      <section className='pb-4 pt-2' id='lecciones-main-page'>
         <div className="md:flex items-center justify-between lessons-header ">
-            <h1 className='text-2xl md:text-4xl  font-bold'>
+            <h1 className='text-2xl md:text-4xl font-bold hidden md:block'>
               Lecciones:
             </h1>
             <InputSearcher />
@@ -51,20 +53,27 @@ const HomePage = () => {
         <Lessons />
       </section>
 
-      <section className="seguimiento">
-        <h1
-          className='text-2xl font-bold my-4 md:my-8 md:text-4xl'
-        >Dashboard de seguimiento:</h1>
+      <section className="seguimiento pb-8">
+        <div className='flex items-center justify-between'>
+          <h1
+            className='text-2xl font-bold my-4 md:my-8 md:text-4xl'
+          >Dashboard de seguimiento:</h1>
+          <Button
+            className='hover:bg-card-foreground hover:text-card text-card-foreground rounded-lg px-4 py-2 text-sm font-bold'
+            variant='outline'  
+          >
+            <p>
+            <span className='hidden md:inline'>Agregar proyecto</span>
+            <span>+</span>
+            </p>
+          </Button>
+        </div>
         
-        <Dashboard />
+          <Dashboard />
+        
       </section>
+
     </div>
-
-      
-      
-      
-
-      
       
     </div>
   )

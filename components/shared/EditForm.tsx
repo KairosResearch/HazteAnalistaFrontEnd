@@ -25,11 +25,14 @@ import {
 
 import { toast } from "@/components/ui/use-toast"
 import { Input } from "../ui/input"
+import { Checkbox } from "../ui/checkbox"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
 
 
 
 const FormSchema = z.object({
   ticket: z.string({ required_error: "El campo 'ticket' no puede estar vacío." }),
+  tipo: z.string({ required_error: "El campo 'tipo' no puede estar vacío." }),
   fourE: z.string({ required_error: "El campo '4E' no puede estar vacío." }),
   Decision: z.string({ required_error: "El campo 'Decision' no puede estar vacío." }),
   MarketCap: z.number().nonnegative( "El campo 'market cap' debe ser un número." ),
@@ -43,12 +46,14 @@ export function EditionItemForm() {
     resolver: zodResolver(FormSchema),
     defaultValues: {
       ticket: '',
+      tipo: '',
       fourE: '',
       Decision: '',
       MarketCap: 0,
       exchange: '',
       sector: '',
       precio: 0,
+
     },
 
   })
@@ -59,7 +64,10 @@ export function EditionItemForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 md:grid grid-flow-row grid-cols-3 gap-6 ">
+
+        {/*******Ticket **********/}
+      
       <FormField
         name="ticket"
         control={form.control}
@@ -76,6 +84,33 @@ export function EditionItemForm() {
           </FormItem>
           )}
       />
+      {/*******Tipo **********/}
+      <FormField
+        name="tipo"
+        control={form.control}
+        render={({ field }) => (
+          <FormItem className="flex flex-col">
+            <FormLabel htmlFor="precio">Tipo</FormLabel>
+            
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Selecciona el tipo" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="reflexion"><Badge>Reflexión</Badge></SelectItem>
+                    <SelectItem value="narrativa"><Badge>Narrativa</Badge></SelectItem>
+                    <SelectItem value="Proyecto"><Badge>Proyecto</Badge></SelectItem>
+                  </SelectContent>
+                </Select>
+            
+          </FormItem>
+        )}
+      />
+
+           {/*******4E **********/}
+
      <FormField
         name="fourE"
         control={form.control}
@@ -92,11 +127,11 @@ export function EditionItemForm() {
                         <Button
                             variant="outline"
                             role="popover-trigger"
-                            className={cn("w-[300px] justify-between", )} 
+                            className={cn("w-full justify-between", )} 
                         >4E</Button>
                     </FormControl>
                 </PopoverTrigger>
-                <PopoverContent className="w-[300px] p-0 ">
+                <PopoverContent className="p-0 ">
                     <div className="grid divide-y divide-slate-white">
                         <div>
                             <Badge>Hola</Badge>
@@ -139,6 +174,9 @@ export function EditionItemForm() {
           </FormItem>
           )}
       />
+
+
+       {/*******Decision **********/}
       
       <FormField
         name="Decision"
@@ -147,58 +185,96 @@ export function EditionItemForm() {
           <FormItem className="flex flex-col">
             <FormLabel htmlFor="Decision">Decision</FormLabel>
             <FormControl>
-            <Popover>
-                <PopoverTrigger asChild>
-                    <FormControl>
-                        <Button
-                            variant="outline"
-                            role="popover-trigger"
-                            className={cn("w-[300px] justify-between", )} 
-                        >Decision</Button>
-                    </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="w-[300px] p-0 ">
-                    <div className="grid divide-y divide-slate-white">
-                        <div>
-                            <Badge>Hola</Badge>
-                        </div>
-                        <div className="p-2">
-                          <span className="text-xs block"> Pendiente</span>
-                          <div className="grid grid-cols-3 gap-2 pt-2">
-                            <Badge>Evaluar</Badge>
-                            <Badge>Holakk </Badge>
-                            <Badge>Hola</Badge>
+              <Popover>
+                  <PopoverTrigger asChild>
+                      <FormControl>
+                          <Button
+                              variant="outline"
+                              role="popover-trigger"
+                              className={cn("w-full justify-between", )} 
+                          >Decision</Button>
+                      </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="p-0 ">
+                      <div className="grid divide-y divide-slate-white">
+                          <div className="px-3 py-1">
+                              <Badge>Hola</Badge>
                           </div>
-                        </div>
-                        <div className="p-2">
-                          <span className="text-xs block"> En curso</span>
-                          <div className="grid grid-cols-3 gap-2 pt-2">
-                            <Badge>Evaluar</Badge>
-                            <Badge>Holakk </Badge>
-                            <Badge>Hola</Badge>
+                          <div className="p-2">
+                            <span className="text-xs block"> Seleccionar opción</span>
+                            <div className="pt-2">
+                              <FormField
+                                control={form.control}
+                                name="Decision"
+                                render={({ field }) => {
+                                  return (
+                                    <FormItem
+                                      className="flex flex-row items-start space-x-3 space-y-0"
+                                    >
+                                      <FormControl>
+                                        <Checkbox {...field}
+                                        />
+                                      </FormControl>
+                                      <FormLabel className="font-normal">
+                                        <Badge>Watchlist</Badge>
+                                      </FormLabel>
+                                    </FormItem>
+                                  )
+                                }}
+                              />
+                              <FormField
+                                control={form.control}
+                                name="Decision"
+                                render={({ field }) => {
+                                  return (
+                                    <FormItem
+                                      className="flex flex-row items-start space-x-3 space-y-0"
+                                    >
+                                      <FormControl>
+                                        <Checkbox {...field}
+                                        />
+                                      </FormControl>
+                                      <FormLabel className="font-normal">
+                                        <Badge>Dejar</Badge>
+                                      </FormLabel>
+                                    </FormItem>
+                                  )
+                                }}
+                              />
+                              <FormField
+                                control={form.control}
+                                name="Decision"
+                                render={({ field }) => {
+                                  return (
+                                    <FormItem
+                                      className="flex flex-row items-start space-x-3 space-y-0"
+                                    >
+                                      <FormControl>
+                                        <Checkbox {...field}
+                                        />
+                                      </FormControl>
+                                      <FormLabel className="font-normal">
+                                      <Badge> Invertir</Badge>
+                                      </FormLabel>
+                                    </FormItem>
+                                  )
+                                }}
+                              />
+                            </div>
                           </div>
-                        </div>
-                        <div className="p-2">
-                          <span className="text-xs block"> Completado</span>
-                          <div className="grid grid-cols-3 gap-2 pt-2">
-                            <Badge>Evaluar</Badge>
-                            <Badge>Holakk </Badge>
-                            <Badge>Hola</Badge>
-                          </div>
-                        </div>
-                        <div className="p-2">
-                          <span className="text-xs block"> Editar propiedad</span>
-                          <div className="grid grid-cols-3 gap-2 pt-2">
-                            <Badge>Evaluar</Badge>
-                          </div>
-                        </div>
-                    </div>
-                </PopoverContent>
-            </Popover>
+                          
+                      </div>
+                  </PopoverContent>
+              </Popover>
             </FormControl>
           </FormItem>
         )}
       />
+
+
+      {/*******MarketCap **********/}
+
+
       <FormField
         name="MarketCap"
         control={form.control}
@@ -211,6 +287,10 @@ export function EditionItemForm() {
           </FormItem>
         )}
       />
+
+      {/*******Exchange **********/}
+
+
       <FormField
         name="exchange"
         control={form.control}
@@ -224,43 +304,75 @@ export function EditionItemForm() {
                           <Button
                               variant="outline"
                               role="popover-trigger"
-                              className={cn("w-[300px] justify-between", )} 
+                              className={cn("w-full justify-between", )} 
                           >Exchange</Button>
                       </FormControl>
                   </PopoverTrigger>
-                  <PopoverContent className="w-[300px] p-0 ">
+                  <PopoverContent className="p-0 ">
                       <div className="grid divide-y divide-slate-white">
                           <div>
                               <Badge>Hola</Badge>
                           </div>
                           <div className="p-2">
-                            <span className="text-xs block"> Pendiente</span>
-                            <div className="grid grid-cols-3 gap-2 pt-2">
-                              <Badge>Evaluar</Badge>
-                              <Badge>Holakk </Badge>
-                              <Badge>Hola</Badge>
-                            </div>
-                          </div>
-                          <div className="p-2">
-                            <span className="text-xs block"> En curso</span>
-                            <div className="grid grid-cols-3 gap-2 pt-2">
-                              <Badge>Evaluar</Badge>
-                              <Badge>Holakk </Badge>
-                              <Badge>Hola</Badge>
-                            </div>
-                          </div>
-                          <div className="p-2">
-                            <span className="text-xs block"> Completado</span>
-                            <div className="grid grid-cols-3 gap-2 pt-2">
-                              <Badge>Evaluar</Badge>
-                              <Badge>Holakk </Badge>
-                              <Badge>Hola</Badge>
-                            </div>
-                          </div>
-                          <div className="p-2">
-                            <span className="text-xs block"> Editar propiedad</span>
-                            <div className="grid grid-cols-3 gap-2 pt-2">
-                              <Badge>Evaluar</Badge>
+                            <span className="text-xs block"> Seleccionar opcion</span>
+                            <div className="pt-2">
+                            <FormField
+                              control={form.control}
+                              name="exchange"
+                              render={({ field }) => {
+                                return (
+                                  <FormItem
+                                    className="flex flex-row items-start space-x-3 space-y-0"
+                                  >
+                                    <FormControl>
+                                      <Checkbox {...field}
+                                      />
+                                    </FormControl>
+                                    <FormLabel className="font-normal">
+                                      <Badge>Watchlist</Badge>
+                                    </FormLabel>
+                                  </FormItem>
+                                )
+                              }}
+                            />
+                            <FormField
+                              control={form.control}
+                              name="exchange"
+                              render={({ field }) => {
+                                return (
+                                  <FormItem
+                                    className="flex flex-row items-start space-x-3 space-y-0"
+                                  >
+                                    <FormControl>
+                                      <Checkbox {...field}
+                                      />
+                                    </FormControl>
+                                    <FormLabel className="font-normal">
+                                      <Badge>Dejar</Badge>
+                                    </FormLabel>
+                                  </FormItem>
+                                )
+                              }}
+                            />
+                            <FormField
+                              control={form.control}
+                              name="exchange"
+                              render={({ field }) => {
+                                return (
+                                  <FormItem
+                                    className="flex flex-row items-start space-x-3 space-y-0"
+                                  >
+                                    <FormControl>
+                                      <Checkbox {...field}
+                                      />
+                                    </FormControl>
+                                    <FormLabel className="font-normal">
+                                     <Badge> Invertir</Badge>
+                                    </FormLabel>
+                                  </FormItem>
+                                )
+                              }}
+                            />
                             </div>
                           </div>
                       </div>
@@ -270,6 +382,11 @@ export function EditionItemForm() {
           </FormItem>
         )}
       />
+
+
+      {/*******Sector **********/}
+
+      
       <FormField
         name="sector"
         control={form.control}
@@ -283,45 +400,78 @@ export function EditionItemForm() {
                             <Button
                                 variant="outline"
                                 role="popover-trigger"
-                                className={cn("w-[300px] justify-between", )} 
-                            >Exchange</Button>
+                                className={cn("w-full justify-between", )} 
+                            >Sector</Button>
                         </FormControl>
                     </PopoverTrigger>
-                    <PopoverContent className="w-[300px] p-0 ">
+                    <PopoverContent className="p-0 ">
                         <div className="grid divide-y divide-slate-white">
                             <div>
                                 <Badge>Hola</Badge>
                             </div>
                             <div className="p-2">
-                              <span className="text-xs block"> Pendiente</span>
-                              <div className="grid grid-cols-3 gap-2 pt-2">
-                                <Badge>Evaluar</Badge>
-                                <Badge>Holakk </Badge>
-                                <Badge>Hola</Badge>
-                              </div>
+                            <span className="text-xs block"> Seleccionar opcion</span>
+                            <div className="pt-2">
+                            <FormField
+                              control={form.control}
+                              name="exchange"
+                              render={({ field }) => {
+                                return (
+                                  <FormItem
+                                    className="flex flex-row items-start space-x-3 space-y-0"
+                                  >
+                                    <FormControl>
+                                      <Checkbox {...field}
+                                      />
+                                    </FormControl>
+                                    <FormLabel className="font-normal">
+                                      <Badge>Watchlist</Badge>
+                                    </FormLabel>
+                                  </FormItem>
+                                )
+                              }}
+                            />
+                            <FormField
+                              control={form.control}
+                              name="exchange"
+                              render={({ field }) => {
+                                return (
+                                  <FormItem
+                                    className="flex flex-row items-start space-x-3 space-y-0"
+                                  >
+                                    <FormControl>
+                                      <Checkbox {...field}
+                                      />
+                                    </FormControl>
+                                    <FormLabel className="font-normal">
+                                      <Badge>Dejar</Badge>
+                                    </FormLabel>
+                                  </FormItem>
+                                )
+                              }}
+                            />
+                            <FormField
+                              control={form.control}
+                              name="exchange"
+                              render={({ field }) => {
+                                return (
+                                  <FormItem
+                                    className="flex flex-row items-start space-x-3 space-y-0"
+                                  >
+                                    <FormControl>
+                                      <Checkbox {...field}
+                                      />
+                                    </FormControl>
+                                    <FormLabel className="font-normal">
+                                     <Badge> Invertir</Badge>
+                                    </FormLabel>
+                                  </FormItem>
+                                )
+                              }}
+                            />
                             </div>
-                            <div className="p-2">
-                              <span className="text-xs block"> En curso</span>
-                              <div className="grid grid-cols-3 gap-2 pt-2">
-                                <Badge>Evaluar</Badge>
-                                <Badge>Holakk </Badge>
-                                <Badge>Hola</Badge>
-                              </div>
-                            </div>
-                            <div className="p-2">
-                              <span className="text-xs block"> Completado</span>
-                              <div className="grid grid-cols-3 gap-2 pt-2">
-                                <Badge>Evaluar</Badge>
-                                <Badge>Holakk </Badge>
-                                <Badge>Hola</Badge>
-                              </div>
-                            </div>
-                            <div className="p-2">
-                              <span className="text-xs block"> Editar propiedad</span>
-                              <div className="grid grid-cols-3 gap-2 pt-2">
-                                <Badge>Evaluar</Badge>
-                              </div>
-                            </div>
+                          </div>
+                            
                         </div>
                     </PopoverContent>
                 </Popover>
@@ -329,6 +479,9 @@ export function EditionItemForm() {
           </FormItem>
         )}
       />
+
+           {/*******Precio **********/}
+
       <FormField
         name="precio"
         control={form.control}
