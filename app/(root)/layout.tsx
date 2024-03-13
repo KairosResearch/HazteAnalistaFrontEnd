@@ -11,9 +11,10 @@ const Layout = ({children}: {children: React.ReactNode}) => {
       <main className='root'>
         <Navbar />
         
-          <div className="root-container  md:flex">
+          <div className="root-container overflow-hidden md:flex">
               <Sidebar />
-              <div className='wrapper w-full'>
+              
+              <div className='wrapper w-full relative'>
                     {children}      
               </div>
               

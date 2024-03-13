@@ -41,7 +41,7 @@ const FormSchema = z.object({
   precio: z.number().nonnegative( "El campo 'precio' debe ser un número." ),
 });
 
-export function EditionItemForm() {
+export function AddItemForm() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -64,7 +64,8 @@ export function EditionItemForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 md:grid grid-flow-row grid-cols-3 gap-6 ">
+      <form onSubmit={form.handleSubmit(onSubmit)} >
+        <div className="space-y-6 md:grid grid-flow-row grid-cols-3 gap-6 ">
 
         {/*******Ticket **********/}
       
@@ -72,9 +73,9 @@ export function EditionItemForm() {
         name="ticket"
         control={form.control}
         render={({ field }) => (
-          <FormItem className="flex flex-col">
+          <FormItem className=" mt-6">
             <FormLabel htmlFor="ticket" >
-              TTicket
+              Ticket
             </FormLabel>
             <FormControl>
               <Input  {...field}/>
@@ -89,7 +90,7 @@ export function EditionItemForm() {
         name="tipo"
         control={form.control}
         render={({ field }) => (
-          <FormItem className="flex flex-col">
+          <FormItem className="">
             <FormLabel htmlFor="precio">Tipo</FormLabel>
             
               <Select onValueChange={field.onChange} defaultValue={field.value}>
@@ -115,7 +116,7 @@ export function EditionItemForm() {
         name="fourE"
         control={form.control}
         render={({ field }) => (
-          <FormItem className="flex flex-col">
+          <FormItem className="">
             <FormLabel htmlFor="fourE">
               4E
             </FormLabel>
@@ -182,7 +183,7 @@ export function EditionItemForm() {
         name="Decision"
         control={form.control}
         render={({ field }) => (
-          <FormItem className="flex flex-col">
+          <FormItem className="">
             <FormLabel htmlFor="Decision">Decision</FormLabel>
             <FormControl>
               <Popover>
@@ -279,7 +280,7 @@ export function EditionItemForm() {
         name="MarketCap"
         control={form.control}
         render={({ field }) => (
-          <FormItem className="flex flex-col">
+          <FormItem className="">
             <FormLabel htmlFor="MarketCap">Market Cap</FormLabel>
             <FormControl>
               <Input {...field} type="number" />
@@ -295,7 +296,7 @@ export function EditionItemForm() {
         name="exchange"
         control={form.control}
         render={({ field }) => (
-          <FormItem className="flex flex-col">
+          <FormItem className="">
             <FormLabel htmlFor="exchange">Exchange</FormLabel>
             <FormControl>
               <Popover>
@@ -391,7 +392,7 @@ export function EditionItemForm() {
         name="sector"
         control={form.control}
         render={({ field }) => (
-          <FormItem className="flex flex-col">
+          <FormItem className="">
             <FormLabel htmlFor="sector">Sector</FormLabel>
             <FormControl>
               <Popover>
@@ -486,7 +487,7 @@ export function EditionItemForm() {
         name="precio"
         control={form.control}
         render={({ field }) => (
-          <FormItem className="flex flex-col">
+          <FormItem className="">
             <FormLabel htmlFor="precio">Precio</FormLabel>
             <FormControl>
               <Input {...field} type="number" />
@@ -494,9 +495,13 @@ export function EditionItemForm() {
           </FormItem>
         )}
       />
-      <Button type="submit"  className="w-full">
-        Editar
-      </Button>
+      </div>
+      <div className="flex justify-center mt-8">
+        <Button type="submit" variant='secondary' className="w-1/5">
+          Añadir
+        </Button>
+      </div>
+      
       </form>
     </Form>
   )

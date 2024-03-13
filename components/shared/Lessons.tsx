@@ -21,7 +21,7 @@ const Lessons = () => {
   return (
     <>
     {/* Carousel de lecciones */}
-      <div className=' hidden md:flex p-14 md:py-8 md:px-20 mt-9 xl:px-32 '>
+      <div className=' hidden md:flex p-14 md:py-2 md:px-20 mt-9 xl:px-32 '>
           <Carousel
             opts={{
               loop: true,
@@ -56,7 +56,7 @@ const Lessons = () => {
         </div>
 
         {/* Carousel de lecciones en mobile */}
-        <div className='md:hidden px-1 pt-12 flex overflow-x-scroll gap-6'>
+        <div className='md:hidden px-1 pt-8 flex overflow-x-scroll gap-6'>
                 {lessons.map((lesson) => (
                     <Card className='min-w-64 ' key={lesson.id}>
                       <CardHeader className='max-h-[180px]'>

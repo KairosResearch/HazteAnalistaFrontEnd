@@ -18,6 +18,11 @@ const config = {
       },
     },
     extend: {
+      scrollbar: {
+        thin: '10px',
+        thumb: '#888',
+        track: '#f1f1f1',
+      },
       colors: {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
@@ -84,7 +89,11 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("tailwind-scrollbar"),
+  ],
+  
 } satisfies Config
 
 export default config

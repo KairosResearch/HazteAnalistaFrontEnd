@@ -10,12 +10,9 @@ import {
     TableRow,
   } from "@/components/ui/table"
 
-import EditProjectItem from './EditProjectItem';
-  
-
-
 import { tableData } from '@/lib/data';
 import { Badge } from '../ui/badge';
+import DialogItem from './DialogItem';
 //import {useStateContext}  from '@/contexts/ContextProvider';
 
 
@@ -23,15 +20,15 @@ import { Badge } from '../ui/badge';
 const Dashboard = () => {
   return (
     <Table className="border border-grey-light">
-      <TableHeader>
+      <TableHeader className=''>
         <TableRow className='divide-x divide-y divide-grey-light bg-dark-grey'>
           <TableHead colSpan={1}>Proyecto</TableHead>
-          <TableHead className="text-center" colSpan={9}>Protocolos</TableHead>
+          <TableHead className="md:text-center" colSpan={9}>Protocolos</TableHead>
         </TableRow>
-        <TableRow className='divide-x divide-gray-200 '>
-          <TableHead>Proyecto</TableHead>
-          <TableHead>Tipo</TableHead>
+        <TableRow className='divide-x divide-y divide-gray-200'>
+          <TableHead className=''>Proyecto</TableHead>
           <TableHead>Ticket</TableHead>
+          <TableHead>Tipo</TableHead>
           <TableHead>Metodo 4E</TableHead>
           <TableHead>Decisión</TableHead>
           <TableHead>Market Cap</TableHead>
@@ -43,11 +40,11 @@ const Dashboard = () => {
       </TableHeader>
       <TableBody>
         {tableData.map((data) => (
-          <TableRow className='divide-x divide-y divide-green-dark' key={data.proyectName}>
-            <TableCell className="font-medium relative">
+          <TableRow className='divide-x-2 divide-y-2 divide-green-dark' key={data.proyectName}>
+            <TableCell className="font-medium border-2 border-green-dark relative">
               <p>
                 {data.proyectName}
-                <EditProjectItem />
+                <DialogItem mode="edit" />
               </p>
             </TableCell>
             <TableCell>
@@ -71,7 +68,7 @@ const Dashboard = () => {
             </TableCell>
             <TableCell>
               <Badge
-                variant='destructive'
+                variant='outline'
                 color={
                 (data.theE === 'Evaluar') ? 'red' : (data.theE === 'Encontrar') ? 'green' : (data.theE === 'Estudiar') ? 'blue' : (data.theE === 'Ejecutar') ? 'yellow' : 'blue'
               }>
@@ -84,7 +81,7 @@ const Dashboard = () => {
             </TableCell>
             <TableCell>
               <Badge 
-                variant='outline'
+                variant='destructive'
                 color={
                 (data.rango === 'Blue Chips') ? 'blue' : (data.rango === 'Mid Caps') ? 'yellow' : (data.rango === 'Large Caps') ? 'green' : 'brown'
               }>
@@ -93,7 +90,7 @@ const Dashboard = () => {
             </TableCell>
             <TableCell>
               <Badge 
-                variant='destructive'
+                variant='outline'
                 color={
                 (data.theE === 'Evaluar') ? 'red' : (data.theE === 'Encontrar') ? 'green' : (data.theE === 'Estudiar') ? 'blue' : (data.theE === 'Ejecutar') ? 'yellow' : 'blue'
               }>

@@ -124,7 +124,7 @@
   }
 
   .sidebar-nav_element {
-    @apply flex-center cursor-pointer rounded-full font-semibold p-2 leading-[140%] w-full whitespace-nowrap hover:bg-green-dark hover:shadow-inner;
+    @apply flex-center  mt-4 cursor-pointer rounded-full font-semibold p-2 leading-[140%] w-full whitespace-nowrap hover:bg-green-dark hover:shadow-inner;
   }
 
   .sidebar-link {
