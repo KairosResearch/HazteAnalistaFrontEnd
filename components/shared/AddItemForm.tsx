@@ -20,13 +20,14 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
 } from "@/components/ui/form"
 
 import { toast } from "@/components/ui/use-toast"
 import { Input } from "../ui/input"
 import { Checkbox } from "../ui/checkbox"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectSeparator } from "../ui/select"
+//Data
+import {tickets, exchange, sector, metodo, decision, tipo} from "@/lib/data"
 
 
 
@@ -78,7 +79,24 @@ export function AddItemForm() {
               Ticket
             </FormLabel>
             <FormControl>
-              <Input  {...field}/>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Selecciona el ticket" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {tickets.map((ticket) => (
+                      <>
+                        <SelectItem key={ticket.id} value={ticket.ticket}>
+                        + {ticket.ticket}
+                      </SelectItem>
+                      <SelectSeparator />
+                      </>
+                      
+                    ))}
+                  </SelectContent>
+                </Select>
             </FormControl>
 
             
@@ -100,9 +118,14 @@ export function AddItemForm() {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="reflexion"><Badge>Reflexión</Badge></SelectItem>
-                    <SelectItem value="narrativa"><Badge>Narrativa</Badge></SelectItem>
-                    <SelectItem value="Proyecto"><Badge>Proyecto</Badge></SelectItem>
+                    { tipo.map((tipo) => (
+                      <SelectItem key={tipo.id} value={tipo.title}>
+                        <Badge variant={(tipo.title === 'Reflexion') ? 'typeReflection' : (tipo.title === 'Narrativa') ? 'typeNarrative' :  'typeProyect'}>
+                          {tipo.title}
+                        </Badge>
+                      </SelectItem>
+                    ))}
+
                   </SelectContent>
                 </Select>
             
@@ -110,7 +133,7 @@ export function AddItemForm() {
         )}
       />
 
-           {/*******4E **********/}
+      {/*******4E **********/}
 
      <FormField
         name="fourE"
@@ -122,54 +145,34 @@ export function AddItemForm() {
             </FormLabel>
             <FormControl>
 
-            <Popover>
-                <PopoverTrigger asChild>
-                    <FormControl>
-                        <Button
-                            variant="outline"
-                            role="popover-trigger"
-                            className={cn("w-full justify-between", )} 
-                        >4E</Button>
-                    </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="p-0 ">
-                    <div className="grid divide-y divide-slate-white">
-                        <div>
-                            <Badge>Hola</Badge>
-                        </div>
-                        <div className="p-2">
-                          <span className="text-xs block"> Pendiente</span>
-                          <div className="grid grid-cols-3 gap-2 pt-2">
-                            <Badge>Evaluar</Badge>
-                            <Badge>Holakk </Badge>
-                            <Badge>Hola</Badge>
-                          </div>
-                        </div>
-                        <div className="p-2">
-                          <span className="text-xs block"> En curso</span>
-                          <div className="grid grid-cols-3 gap-2 pt-2">
-                            <Badge>Evaluar</Badge>
-                            <Badge>Holakk </Badge>
-                            <Badge>Hola</Badge>
-                          </div>
-                        </div>
-                        <div className="p-2">
-                          <span className="text-xs block"> Completado</span>
-                          <div className="grid grid-cols-3 gap-2 pt-2">
-                            <Badge>Evaluar</Badge>
-                            <Badge>Holakk </Badge>
-                            <Badge>Hola</Badge>
-                          </div>
-                        </div>
-                        <div className="p-2">
-                          <span className="text-xs block"> Editar propiedad</span>
-                          <div className="grid grid-cols-3 gap-2 pt-2">
-                            <Badge>Evaluar</Badge>
-                          </div>
-                        </div>
-                    </div>
-                </PopoverContent>
-            </Popover>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Selecciona el 4E" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    { metodo.map((metodo) => (
+                      <SelectItem key={metodo.id} value={metodo.title}>
+                        <Badge
+                          variant="fourE"
+                          color={
+                            metodo.title === "Evaluar"
+                          ? "yellow"
+                          : metodo.title === "Encontrar"
+                          ? "grey"
+                          : metodo.title === "Estudiar"
+                          ? "blue"
+                          : "green"
+                          }
+                        >
+                          {metodo.title}
+                        </Badge>
+                      </SelectItem>
+                    ))}
+
+                  </SelectContent>
+                </Select>
 
             </FormControl>
           </FormItem>
@@ -185,89 +188,34 @@ export function AddItemForm() {
         render={({ field }) => (
           <FormItem className="">
             <FormLabel htmlFor="Decision">Decision</FormLabel>
-            <FormControl>
-              <Popover>
-                  <PopoverTrigger asChild>
-                      <FormControl>
-                          <Button
-                              variant="outline"
-                              role="popover-trigger"
-                              className={cn("w-full justify-between", )} 
-                          >Decision</Button>
-                      </FormControl>
-                  </PopoverTrigger>
-                  <PopoverContent className="p-0 ">
-                      <div className="grid divide-y divide-slate-white">
-                          <div className="px-3 py-1">
-                              <Badge>Hola</Badge>
-                          </div>
-                          <div className="p-2">
-                            <span className="text-xs block"> Seleccionar opción</span>
-                            <div className="pt-2">
-                              <FormField
-                                control={form.control}
-                                name="Decision"
-                                render={({ field }) => {
-                                  return (
-                                    <FormItem
-                                      className="flex flex-row items-start space-x-3 space-y-0"
-                                    >
-                                      <FormControl>
-                                        <Checkbox {...field}
-                                        />
-                                      </FormControl>
-                                      <FormLabel className="font-normal">
-                                        <Badge>Watchlist</Badge>
-                                      </FormLabel>
-                                    </FormItem>
-                                  )
-                                }}
-                              />
-                              <FormField
-                                control={form.control}
-                                name="Decision"
-                                render={({ field }) => {
-                                  return (
-                                    <FormItem
-                                      className="flex flex-row items-start space-x-3 space-y-0"
-                                    >
-                                      <FormControl>
-                                        <Checkbox {...field}
-                                        />
-                                      </FormControl>
-                                      <FormLabel className="font-normal">
-                                        <Badge>Dejar</Badge>
-                                      </FormLabel>
-                                    </FormItem>
-                                  )
-                                }}
-                              />
-                              <FormField
-                                control={form.control}
-                                name="Decision"
-                                render={({ field }) => {
-                                  return (
-                                    <FormItem
-                                      className="flex flex-row items-start space-x-3 space-y-0"
-                                    >
-                                      <FormControl>
-                                        <Checkbox {...field}
-                                        />
-                                      </FormControl>
-                                      <FormLabel className="font-normal">
-                                      <Badge> Invertir</Badge>
-                                      </FormLabel>
-                                    </FormItem>
-                                  )
-                                }}
-                              />
-                            </div>
-                          </div>
-                          
-                      </div>
-                  </PopoverContent>
-              </Popover>
-            </FormControl>
+
+            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Decision sobre el proyecto" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    { decision.map((decision) => (
+                      <SelectItem key={decision.id} value={decision.title}>
+                        <Badge
+                          variant={
+                            decision.title === "Watchlist"
+                          ? "decisionWatchlist"
+                          : decision.title === "Descartar"
+                          ? "desicionLeave"
+                          : "desicionInvest"
+                          }
+                        >
+                          {decision.title}
+                        </Badge>
+                      </SelectItem>
+                    ))}
+                      
+                  </SelectContent>
+                </Select>
+          
+
           </FormItem>
         )}
       />
@@ -297,89 +245,25 @@ export function AddItemForm() {
         control={form.control}
         render={({ field }) => (
           <FormItem className="">
-            <FormLabel htmlFor="exchange">Exchange</FormLabel>
-            <FormControl>
-              <Popover>
-                  <PopoverTrigger asChild>
-                      <FormControl>
-                          <Button
-                              variant="outline"
-                              role="popover-trigger"
-                              className={cn("w-full justify-between", )} 
-                          >Exchange</Button>
-                      </FormControl>
-                  </PopoverTrigger>
-                  <PopoverContent className="p-0 ">
-                      <div className="grid divide-y divide-slate-white">
-                          <div>
-                              <Badge>Hola</Badge>
-                          </div>
-                          <div className="p-2">
-                            <span className="text-xs block"> Seleccionar opcion</span>
-                            <div className="pt-2">
-                            <FormField
-                              control={form.control}
-                              name="exchange"
-                              render={({ field }) => {
-                                return (
-                                  <FormItem
-                                    className="flex flex-row items-start space-x-3 space-y-0"
-                                  >
-                                    <FormControl>
-                                      <Checkbox {...field}
-                                      />
-                                    </FormControl>
-                                    <FormLabel className="font-normal">
-                                      <Badge>Watchlist</Badge>
-                                    </FormLabel>
-                                  </FormItem>
-                                )
-                              }}
-                            />
-                            <FormField
-                              control={form.control}
-                              name="exchange"
-                              render={({ field }) => {
-                                return (
-                                  <FormItem
-                                    className="flex flex-row items-start space-x-3 space-y-0"
-                                  >
-                                    <FormControl>
-                                      <Checkbox {...field}
-                                      />
-                                    </FormControl>
-                                    <FormLabel className="font-normal">
-                                      <Badge>Dejar</Badge>
-                                    </FormLabel>
-                                  </FormItem>
-                                )
-                              }}
-                            />
-                            <FormField
-                              control={form.control}
-                              name="exchange"
-                              render={({ field }) => {
-                                return (
-                                  <FormItem
-                                    className="flex flex-row items-start space-x-3 space-y-0"
-                                  >
-                                    <FormControl>
-                                      <Checkbox {...field}
-                                      />
-                                    </FormControl>
-                                    <FormLabel className="font-normal">
-                                     <Badge> Invertir</Badge>
-                                    </FormLabel>
-                                  </FormItem>
-                                )
-                              }}
-                            />
-                            </div>
-                          </div>
-                      </div>
-                  </PopoverContent>
-              </Popover>
-            </FormControl>
+        <FormLabel htmlFor="exchange">Exchange</FormLabel>
+          <FormControl>
+            <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <FormControl>
+                <SelectTrigger>
+                  <SelectValue placeholder="Selecciona el exchange" />
+                </SelectTrigger>
+              </FormControl>
+              <SelectContent>
+                {exchange.map((exchange) => (
+                  <SelectItem key={exchange.id} value={exchange.title}>
+                    <Badge>
+                    {exchange.title}
+                    </Badge>
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>  
+          </FormControl>
           </FormItem>
         )}
       />
@@ -393,89 +277,51 @@ export function AddItemForm() {
         control={form.control}
         render={({ field }) => (
           <FormItem className="">
-            <FormLabel htmlFor="sector">Sector</FormLabel>
+        <FormLabel htmlFor="sector">Sector</FormLabel>
             <FormControl>
               <Popover>
-                    <PopoverTrigger asChild>
-                        <FormControl>
-                            <Button
-                                variant="outline"
-                                role="popover-trigger"
-                                className={cn("w-full justify-between", )} 
-                            >Sector</Button>
-                        </FormControl>
-                    </PopoverTrigger>
-                    <PopoverContent className="p-0 ">
-                        <div className="grid divide-y divide-slate-white">
-                            <div>
-                                <Badge>Hola</Badge>
-                            </div>
-                            <div className="p-2">
-                            <span className="text-xs block"> Seleccionar opcion</span>
-                            <div className="pt-2">
-                            <FormField
-                              control={form.control}
-                              name="exchange"
-                              render={({ field }) => {
-                                return (
-                                  <FormItem
-                                    className="flex flex-row items-start space-x-3 space-y-0"
-                                  >
-                                    <FormControl>
-                                      <Checkbox {...field}
-                                      />
-                                    </FormControl>
-                                    <FormLabel className="font-normal">
-                                      <Badge>Watchlist</Badge>
-                                    </FormLabel>
-                                  </FormItem>
-                                )
-                              }}
-                            />
-                            <FormField
-                              control={form.control}
-                              name="exchange"
-                              render={({ field }) => {
-                                return (
-                                  <FormItem
-                                    className="flex flex-row items-start space-x-3 space-y-0"
-                                  >
-                                    <FormControl>
-                                      <Checkbox {...field}
-                                      />
-                                    </FormControl>
-                                    <FormLabel className="font-normal">
-                                      <Badge>Dejar</Badge>
-                                    </FormLabel>
-                                  </FormItem>
-                                )
-                              }}
-                            />
-                            <FormField
-                              control={form.control}
-                              name="exchange"
-                              render={({ field }) => {
-                                return (
-                                  <FormItem
-                                    className="flex flex-row items-start space-x-3 space-y-0"
-                                  >
-                                    <FormControl>
-                                      <Checkbox {...field}
-                                      />
-                                    </FormControl>
-                                    <FormLabel className="font-normal">
-                                     <Badge> Invertir</Badge>
-                                    </FormLabel>
-                                  </FormItem>
-                                )
-                              }}
-                            />
-                            </div>
-                          </div>
-                            
-                        </div>
-                    </PopoverContent>
-                </Popover>
+                <PopoverTrigger asChild>
+              <FormControl>
+                <Button
+                  variant="outline"
+                  role="popover-trigger"
+                  className={cn("w-full justify-between")}
+                >
+                  Sector
+                </Button>
+              </FormControl>
+                </PopoverTrigger>
+                <PopoverContent className="p-0">
+                  <div className="grid divide-y divide-slate-white">
+                    <div className="p-1">
+                      <Badge>Hola</Badge>
+                    </div>
+                    <div className="p-2">
+                      <span className="text-xs block"> Seleccionar opcion</span>
+                      <div className="">
+                    {sector.map((sector) => (
+                      <FormField
+                        control={form.control}
+                        name="sector"
+                        render={({ field }) => {
+                      return (
+                        <FormItem className="flex flex-row items-start space-x-3 space-y-3">
+                          <FormControl>
+                        <Checkbox className="mt-3" {...field} />
+                          </FormControl>
+                          <FormLabel className="font-normal">
+                        <Badge>{sector.title}</Badge>
+                          </FormLabel>
+                        </FormItem>
+                      );
+                        }}
+                      />
+                    ))}
+                      </div>
+                    </div>
+                  </div>
+                </PopoverContent>
+              </Popover>
             </FormControl>
           </FormItem>
         )}

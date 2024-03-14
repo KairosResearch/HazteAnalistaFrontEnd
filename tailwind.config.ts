@@ -47,25 +47,31 @@ const config = {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
         },
-        /**destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
-        },
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
-        },
-        accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
-        },**/
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
-        },
+        // popover: {
+        //   DEFAULT: "hsl(var(--popover))",
+        //   foreground: "hsl(var(--popover-foreground))",
+        // },
         card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
+           DEFAULT: "hsl(var(--card))",
+           foreground: "hsl(var(--card-foreground))",
+        },
+        typeProyect: {
+          DEFAULT: '#3b82f6', // blue-500
+        },
+        typeNarrative: {
+          DEFAULT: '#fb923c', // orange-400
+        },
+        typeReflection: {
+          DEFAULT: '#10b981', // green-500
+        },
+        decisionWatchlist: {
+          DEFAULT: '#06b6d4', // cyan-500
+        },
+        desicionLeave: {
+          DEFAULT: '#9ca3af', // neutral-500
+        },
+        desicionInvest: {
+          DEFAULT: '#10b981', // green-500
         },
       },
       borderRadius: {

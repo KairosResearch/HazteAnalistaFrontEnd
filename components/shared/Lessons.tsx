@@ -1,5 +1,10 @@
 'use client';
 import React from 'react'
+import Link from 'next/link';
+
+//Context (menu)
+import {useStateContext}  from '@/contexts/ContextProvider';
+
 //Components
 import {
     Carousel,
@@ -17,7 +22,10 @@ import {
 import {lessons} from '@/lib/data';
 
 
+
+
 const Lessons = () => {
+  const { activeMenu,  } = useStateContext();
   return (
     <>
     {/* Carousel de lecciones */}
@@ -32,20 +40,24 @@ const Lessons = () => {
             </CarouselPrevious>
             <CarouselContent className='flex items-stretch'>
               {lessons.map((lesson) => (
-                <CarouselItem className='basis-1/3 w-28' key={lesson.id}>
-                  <Card className='h-full'>
-                    <CardHeader className='max-h-[180px]'>
-                      <img style={{height: '180px'}} src={lesson.img}  alt="" />
-                    </CardHeader>
-                    <CardContent>
-                      <p className='text-sm line-clamp-1'>
-                        {lesson.title}
-                      </p>
-                      <span className='opacity-75 text-xs'>
-                        {lesson.date}
-                      </span>
-                    </CardContent>
-                  </Card>
+                <CarouselItem className={`${activeMenu ? 'basis-1/3': 'basis-1/5'}` } key={lesson.id}>
+                  <Link href='#'>
+                    <Card className='h-full'>
+                      <CardHeader className='max-h-[180px]'>
+                        
+                        <img style={{height: '180px'}} src={lesson.img}  alt="" />
+                      </CardHeader>
+                      <CardContent>
+                        <Link href='#' className='text-sm line-clamp-1'>
+                          {lesson.title}
+                        </Link>
+                        <span className='opacity-75 text-xs'>
+                          {lesson.date}
+                        </span>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                  
                 </CarouselItem>
               ))}
             </CarouselContent>
@@ -63,9 +75,9 @@ const Lessons = () => {
                       <img style={{height: '180px'}} src={lesson.img} alt="" /> 
                       </CardHeader>
                       <CardContent>
-                        <p className=' text-sm line-clamp-2'>
+                        <Link href='#' className='text-sm line-clamp-2'>
                           {lesson.title}
-                        </p>
+                        </Link>
                         <span className='opacity-75 text-xs'>
                           {lesson.date}
                         </span>

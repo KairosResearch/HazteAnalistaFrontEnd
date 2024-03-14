@@ -25,19 +25,20 @@ const DialogItem = (props: DialogItemProps) => {
             <Dialog>
                 <DialogTrigger >
                     {props.mode === 'edit' ? (
-                        <span className='absolute underline right-2 bottom-2 cursor-pointer text-xs text-green-light'>
+                        <span className='absolute underline right-2 bottom-1 cursor-pointer text-xs text-green-light'>
                             Editar
                         </span>
                     ) : (
-                        <Button
-                        className='hover:bg-card-foreground hover:text-card text-card-foreground rounded-lg px-4 py-2 text-sm font-bold'
-                        variant='outline'  
+                        <div
+                        className='hover:bg-card-foreground hover:text-card text-card-foreground rounded-lg px-4 py-2 text-sm font-bold
+                        border border-input bg-background'
+                        // variant='outline'  
                       >
                         <p>
                         <span className='hidden md:inline'>Agregar proyecto</span>
                         <span> +</span>
                         </p>
-                      </Button>
+                      </div>
                     )}
                 </DialogTrigger>
 

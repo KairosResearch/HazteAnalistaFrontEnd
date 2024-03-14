@@ -51,56 +51,54 @@ const Dashboard = () => {
               {data.ticket}
 
             </TableCell>
+            {/******Tipo**** */}
             <TableCell>
               <Badge 
-                variant='secondary'
-                color={
-                (data.tipo === 'Reflexion') ? 'red' : (data.tipo === 'Narrativa') ? 'green' :  'blue'
-              }>{data.tipo}
+                variant={(data.tipo === 'Reflexion') ? 'typeReflection' : (data.tipo === 'Narrativa') ? 'typeNarrative' :  'typeProyect'}
+                >{data.tipo}
               </Badge>
               </TableCell>
+              {/******Metodo 4E**** */}
             <TableCell>
-              <Badge color={
-                (data.theE === 'Evaluar') ? 'red' : (data.theE === 'Encontrar') ? 'green' : (data.theE === 'Estudiar') ? 'blue' : (data.theE === 'Ejecutar') ? 'yellow' : 'blue'
+              <Badge
+                variant='fourE'
+                color={
+                (data.theE === 'Evaluar') ? 'yellow' : (data.theE === 'Encontrar') ? 'grey' : (data.theE === 'Estudiar') ? 'blue' : 'green'
               }>
                 {data.theE}
               </Badge>
             </TableCell>
+            {/******Decision**** */}
             <TableCell>
               <Badge
-                variant='outline'
-                color={
-                (data.theE === 'Evaluar') ? 'red' : (data.theE === 'Encontrar') ? 'green' : (data.theE === 'Estudiar') ? 'blue' : (data.theE === 'Ejecutar') ? 'yellow' : 'blue'
-              }>
+                variant={(data.decision === 'Watchlist') ? 'decisionWatchlist' : (data.decision === 'Invertir') ? 'desicionInvest' : 'desicionLeave'}
+              >
               {data.decision}
               </Badge>
             </TableCell>
             <TableCell>
-              {data.cap}
+              $ {data.cap}
 
             </TableCell>
+            {/******Rango**** */}
             <TableCell>
               <Badge 
-                variant='destructive'
+                variant='range'
                 color={
-                (data.rango === 'Blue Chips') ? 'blue' : (data.rango === 'Mid Caps') ? 'yellow' : (data.rango === 'Large Caps') ? 'green' : 'brown'
+                (data.rango === 'Blue Chips') ? 'blue' : (data.rango === 'Mid Caps') ? 'orange' : (data.rango === 'Large Caps') ? 'green' : 'brown'
               }>
               {data.rango}
               </Badge>
             </TableCell>
+            {/******Sector**** */}
             <TableCell>
-              <Badge 
-                variant='outline'
-                color={
-                (data.theE === 'Evaluar') ? 'red' : (data.theE === 'Encontrar') ? 'green' : (data.theE === 'Estudiar') ? 'blue' : (data.theE === 'Ejecutar') ? 'yellow' : 'blue'
-              }>
+              <Badge>
               {data.sector}
               </Badge>
             </TableCell>
+            {/******Exchange**** */}
             <TableCell>
-              <Badge color={
-                (data.theE === 'Evaluar') ? 'red' : (data.theE === 'Encontrar') ? 'green' : (data.theE === 'Estudiar') ? 'blue' : (data.theE === 'Ejecutar') ? 'yellow' : 'blue'
-              }>
+              <Badge>
               {data.exchange}
               </Badge>
             </TableCell>
