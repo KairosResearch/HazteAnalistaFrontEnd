@@ -10,9 +10,11 @@ import {
     TableRow,
   } from "@/components/ui/table"
 
+  
 import { tableData } from '@/lib/data';
 import { Badge } from '../ui/badge';
 import DialogItem from './DialogItem';
+import DialogAlert from './DialogAlert';
 //import {useStateContext}  from '@/contexts/ContextProvider';
 
 
@@ -22,43 +24,38 @@ const Dashboard = () => {
     <Table className="border border-grey-light">
       <TableHeader className=''>
         <TableRow className='divide-x divide-y divide-grey-light bg-dark-grey'>
-          <TableHead colSpan={1}>Proyecto</TableHead>
-          <TableHead className="md:text-center" colSpan={9}>Protocolos</TableHead>
+          <TableHead className="" colSpan={1}>Proyecto</TableHead>
+          <TableHead className=" md:text-center" colSpan={10}>Protocolos</TableHead>
         </TableRow>
-        <TableRow className='divide-x divide-y divide-gray-200'>
-          <TableHead className=''>Proyecto</TableHead>
-          <TableHead>Ticket</TableHead>
-          <TableHead>Tipo</TableHead>
-          <TableHead>Metodo 4E</TableHead>
-          <TableHead>Decisión</TableHead>
-          <TableHead>Market Cap</TableHead>
-          <TableHead>Rango</TableHead>
-          <TableHead>Sector</TableHead>
-          <TableHead>Exchange</TableHead>
-          <TableHead className="text-right">Registro</TableHead>
+        <TableRow className='divide-x-2 divide-y sticky top-[-1px] border-grey-light bg-dark-grey/95 z-50 divide-grey-light'>
+          <TableHead className="" >Proyecto</TableHead>
+          <TableHead className="">Ticket</TableHead>
+          <TableHead className="">Metodo 4E</TableHead>
+          <TableHead className="">Decisión</TableHead>
+          <TableHead className="">Market Cap</TableHead>
+          <TableHead className="">Rango</TableHead>
+          <TableHead className="">Si Ath</TableHead>
+          <TableHead className="">Sector</TableHead>
+          <TableHead className="">Exchange</TableHead>
+          <TableHead className="">Precio Entrada</TableHead>
+          <TableHead className="">Precio Actual</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         {tableData.map((data) => (
           <TableRow className='divide-x-2 divide-y-2 divide-green-dark' key={data.proyectName}>
             <TableCell className="font-medium border-2 border-green-dark relative">
-              <p>
+              <p className='pb-3 '> 
                 {data.proyectName}
                 <DialogItem mode="edit" />
+                <DialogAlert action="deleteProyect"/>
               </p>
             </TableCell>
             <TableCell>
               {data.ticket}
 
             </TableCell>
-            {/******Tipo**** */}
-            <TableCell>
-              <Badge 
-                variant={(data.tipo === 'Reflexion') ? 'typeReflection' : (data.tipo === 'Narrativa') ? 'typeNarrative' :  'typeProyect'}
-                >{data.tipo}
-              </Badge>
-              </TableCell>
-              {/******Metodo 4E**** */}
+            {/******Metodo 4E**** */}
             <TableCell>
               <Badge
                 variant='fourE'
@@ -76,6 +73,7 @@ const Dashboard = () => {
               {data.decision}
               </Badge>
             </TableCell>
+            {/******Market Cap**** */}
             <TableCell>
               $ {data.cap}
 
@@ -90,6 +88,10 @@ const Dashboard = () => {
               {data.rango}
               </Badge>
             </TableCell>
+            {/******Si ATH**** */}
+            <TableCell>
+              {data.siAth}X
+              </TableCell>
             {/******Sector**** */}
             <TableCell>
               <Badge>
@@ -102,10 +104,15 @@ const Dashboard = () => {
               {data.exchange}
               </Badge>
             </TableCell>
+            {/****** precio entrada**** */}
             <TableCell>
-          
-              {data.fecha}
-              
+              $ {data.precioEntrada}
+
+            </TableCell>
+            {/******precio salida**** */}
+            <TableCell>
+              $ {data.precioSalida}
+
             </TableCell>
           </TableRow>
         ))}

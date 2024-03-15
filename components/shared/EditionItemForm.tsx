@@ -28,19 +28,28 @@ import { Input } from "../ui/input"
 import { Checkbox } from "../ui/checkbox"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
 //Data
-import {tickets, exchange, sector, metodo, decision, tipo} from "@/lib/data"
+import {tickets, exchange, sector, metodo, decision} from "@/lib/data"
 
 
 
 const FormSchema = z.object({
   ticket: z.string({ required_error: "El campo 'ticket' no puede estar vacío." }),
-  tipo: z.string({ required_error: "El campo 'tipo' no puede estar vacío." }),
   fourE: z.string({ required_error: "El campo '4E' no puede estar vacío." }),
   Decision: z.string({ required_error: "El campo 'Decision' no puede estar vacío." }),
-  MarketCap: z.number().nonnegative( "El campo 'market cap' debe ser un número." ),
-  exchange: z.string({required_error: "El campo 'exchange' no puede estar vacío." }),
+  MarketCap: z.number().nonnegative("El campo 'Market Cap' debe ser un número."),
+  siAth: z
+    .number()
+    .nonnegative("El campo 'Si Ath' debe ser un número.")
+    .min(1, "El campo 'Si Ath' debe ser mayor o igual a 1.")
+    .max(100, "El campo 'Si Ath' debe ser menor o igual a 100.")
+    .refine(value => {
+      const decimalPart = value.toString().split(".")[1];
+      return !decimalPart || decimalPart.length <= 2;
+    }, "El campo 'Si Ath' debe tener hasta dos decimales."),
+  exchange: z.string({ required_error: "El campo 'exchange' no puede estar vacío." }),
   sector: z.string({ required_error: "El campo 'sector' no puede estar vacío." }),
-  precio: z.number().nonnegative( "El campo 'precio' debe ser un número." ),
+  precioEntrada: z.number().nonnegative("El campo 'precio' debe ser un número."),
+  precioActual: z.number().nonnegative("El campo 'precio' debe ser un número."),
 });
 
 export function EditionItemForm() {
@@ -48,13 +57,14 @@ export function EditionItemForm() {
     resolver: zodResolver(FormSchema),
     defaultValues: {
       ticket: '',
-      tipo: '',
       fourE: '',
       Decision: '',
       MarketCap: 0,
+      siAth: 0,
       exchange: '',
       sector: '',
-      precio: 0,
+      precioEntrada: 0,
+      precioActual: 0,
 
     },
 
@@ -100,35 +110,7 @@ export function EditionItemForm() {
           </FormItem>
           )}
       />
-      {/*******Tipo **********/}
-      <FormField
-        name="tipo"
-        control={form.control}
-        render={({ field }) => (
-          <FormItem className="">
-            <FormLabel htmlFor="precio">Tipo</FormLabel>
-            
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Selecciona el tipo" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    { tipo.map((tipo) => (
-                      <SelectItem key={tipo.id} value={tipo.title}>
-                        <Badge variant={(tipo.title === 'Reflexion') ? 'typeReflection' : (tipo.title === 'Narrativa') ? 'typeNarrative' :  'typeProyect'}>
-                          {tipo.title}
-                        </Badge>
-                      </SelectItem>
-                    ))}
-
-                  </SelectContent>
-                </Select>
-            
-          </FormItem>
-        )}
-      />
+    
 
       {/*******4E **********/}
 
@@ -265,83 +247,84 @@ export function EditionItemForm() {
         )}
       />
 
+    {/*******SiAth **********/}
+
+
+    <FormField
+            name="siAth"
+            control={form.control}
+            render={({ field }) => (
+              <FormItem className="">
+                <FormLabel htmlFor="siAthp">Si Ath</FormLabel>
+                <FormControl>
+                  <Input {...field} type="number" step='0.01' min='0'/>
+                </FormControl>
+              </FormItem>
+            )}
+          />
+
 
       {/*******Sector **********/}
-
-      
       <FormField
         name="sector"
         control={form.control}
         render={({ field }) => (
           <FormItem className="">
-        <FormLabel htmlFor="sector">Sector</FormLabel>
+            <FormLabel htmlFor="sector">Sector</FormLabel>
             <FormControl>
-              <Popover>
-                <PopoverTrigger asChild>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecciona el sector" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {sector.map((sector) => (
+                    <SelectItem key={sector.id} value={sector.title}>
+                      <Badge>
+                      {sector.title}
+                      </Badge>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </FormControl>
+          </FormItem>
+        )}
+      />
+
+    {/*******Precio Entrada**********/}
+
+        <FormField
+          name="precioEntrada"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem className="">
+              <FormLabel htmlFor="precio">Precio Entrada</FormLabel>
               <FormControl>
-                <Button
-                  variant="outline"
-                  role="popover-trigger"
-                  className={cn("w-full justify-between")}
-                >
-                  Sector
-                </Button>
+                <Input {...field} type="number" />
               </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="p-0 ">
-                  <div className="grid divide-y divide-slate-white">
-                    <div className="p-1">
-                      <Badge>Hola</Badge>
-                    </div>
-                    <div className="p-2">
-                      <span className="text-xs block"> Seleccionar opcion</span>
-                      <div className="">
-                    {sector.map((sector) => (
-                      <FormField
-                        control={form.control}
-                        name="sector"
-                        render={({ field }) => {
-                      return (
-                        <FormItem className="flex flex-row items-start space-x-3 space-y-3">
-                          <FormControl>
-                        <Checkbox className="mt-3" {...field} />
-                          </FormControl>
-                          <FormLabel className="font-normal">
-                        <Badge>{sector.title}</Badge>
-                          </FormLabel>
-                        </FormItem>
-                      );
-                        }}
-                      />
-                    ))}
-                      </div>
-                    </div>
-                  </div>
-                </PopoverContent>
-              </Popover>
-            </FormControl>
-          </FormItem>
-        )}
-      />
+            </FormItem>
+          )}
+        />
+        {/*******Precio Actual**********/}
 
-           {/*******Precio **********/}
-
-      <FormField
-        name="precio"
-        control={form.control}
-        render={({ field }) => (
-          <FormItem className="">
-            <FormLabel htmlFor="precio">Precio</FormLabel>
-            <FormControl>
-              <Input {...field} type="number" />
-            </FormControl>
-          </FormItem>
-        )}
-      />
+        <FormField
+          name="precioActual"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem className="">
+              <FormLabel htmlFor="precio">Precio Actual</FormLabel>
+              <FormControl>
+                <Input {...field} type="number" />
+              </FormControl>
+            </FormItem>
+          )}
+        />
       </div>
       <div className="flex justify-center mt-8">
         <Button type="submit" variant='secondary' className="w-1/5">
-          Añadir
+          Editar
         </Button>
       </div>
       

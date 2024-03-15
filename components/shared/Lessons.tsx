@@ -41,7 +41,7 @@ const Lessons = () => {
             <CarouselContent className='flex items-stretch'>
               {lessons.map((lesson) => (
                 <CarouselItem className={`${activeMenu ? 'basis-1/3': 'basis-1/5'}` } key={lesson.id}>
-                  <Link href='#'>
+                  
                     <Card className='h-full'>
                       <CardHeader className='max-h-[180px]'>
                         
@@ -56,7 +56,7 @@ const Lessons = () => {
                         </span>
                       </CardContent>
                     </Card>
-                  </Link>
+                  
                   
                 </CarouselItem>
               ))}

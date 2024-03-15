@@ -99,6 +99,9 @@ const config = {
     require("tailwindcss-animate"),
     require("tailwind-scrollbar"),
   ],
+  corePlugins: {
+    position: true,
+  },
   
 } satisfies Config
 

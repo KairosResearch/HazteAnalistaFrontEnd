@@ -8,6 +8,9 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+
+
 
 const Navbar = () => {
   return (
@@ -35,10 +38,12 @@ const Navbar = () => {
                 </ul>
             </nav>
           <div className='flex gap-4 flex-center'>
-            <div className='rounded-full bg-green-light p-2 text-dark-grey'>
-              Us
-            </div>
-            <div className="sm:hidden">
+            <Avatar>
+              <AvatarImage src="" />
+              <AvatarFallback>Us</AvatarFallback>
+            </Avatar>
+
+            <div className="md:hidden">
             <Sheet>
                 <SheetTrigger>
                     <svg
