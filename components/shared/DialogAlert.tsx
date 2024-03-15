@@ -35,16 +35,16 @@ const DialogAlert = (props:DialogAlertProps) => {
                 Eliminar
             </span>
         </AlertDialogTrigger>
-        <AlertDialogContent>
+        <AlertDialogContent className='w-96'>
             <AlertDialogHeader>
             <AlertDialogTitle>Seguro que quieres eliminar el proyecto</AlertDialogTitle>
             <AlertDialogDescription>
                 Elminiarás este proyecto de tu Dashboard de seguimiento
             </AlertDialogDescription>
             </AlertDialogHeader>
-            <AlertDialogFooter>
+            <AlertDialogFooter className='my-3'>
             <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <AlertDialogAction><Button variant='destructive'>Si, eliminar</Button></AlertDialogAction>
+            <AlertDialogAction><Button variant='destructive' className='w-full'>Si, eliminar</Button></AlertDialogAction>
             </AlertDialogFooter>
         </AlertDialogContent>
     </AlertDialog>
