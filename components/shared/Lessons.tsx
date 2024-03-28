@@ -29,7 +29,7 @@ const Lessons = () => {
   return (
     <>
     {/* Carousel de lecciones */}
-      <div className=' hidden md:flex p-14 md:py-2 md:px-20 mt-9 xl:px-32 '>
+      <div className={` hidden md:flex 2xl:p-14 2xl:py-2 2xl:px-20 md:px-10 2xl:mt-9 mt-3 `}>
           <Carousel
             opts={{
               loop: true,
@@ -38,14 +38,14 @@ const Lessons = () => {
             <CarouselPrevious>
               
             </CarouselPrevious>
-            <CarouselContent className='flex items-stretch'>
+            <CarouselContent className={` flex items-stretch`}>
               {lessons.map((lesson) => (
-                <CarouselItem className={`${activeMenu ? 'basis-1/3': 'basis-1/5'}` } key={lesson.id}>
+                <CarouselItem className={`${activeMenu ? 'md:basis-1/3 md:w-[100px] 2xl:w-full': '2xl:basis-1/5 basis-1/3'} ` } key={lesson.id}>
                   
                     <Card className='h-full'>
-                      <CardHeader className='max-h-[180px]'>
+                      <CardHeader className='max-h-[22vh]'>
                         
-                        <img style={{height: '180px'}} src={lesson.img}  alt="" />
+                        <img style={{height:'22vh'}} src={lesson.img}  alt="" />
                       </CardHeader>
                       <CardContent>
                         <Link href='#' className='text-sm line-clamp-1'>
