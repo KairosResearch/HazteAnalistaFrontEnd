@@ -18,6 +18,10 @@ const config = {
       },
     },
     extend: {
+      backgroundImage: {
+        'hero-pattern': "url('/bg-hero-login.jpg')",
+        'footer-texture': "url('/img/footer-texture.png')",
+      },
       scrollbar: {
         thin: '10px',
         thumb: '#888',
