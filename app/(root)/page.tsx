@@ -1,18 +1,18 @@
-'use client';
+//'use client';
 import React from 'react'
 import Lessons from '@/components/shared/Lessons';
 import InputSearcher from '@/components/shared/InputSearcher';
 import Dashboard from '@/components/shared/Dashboard';
 import DialogItem from '@/components/shared/DialogItem';
 import Collapser from '@/components/ui/Collapser';
-import { useStateContext } from '@/contexts/ContextProvider';
+//import { useStateContext } from '@/contexts/ContextProvider';
 
 
 
 const HomePage = () => {
- const { activeMenu } = useStateContext();
+ //const { activeMenu } = useStateContext();
   return (
-    <div className={`${activeMenu ? 'md:w-10/12': 'md:w-full'} px-4 2xl:w-full  `}
+    <div className={`md:w-full px-4 2xl:w-full  `}
       
     >
       <Collapser />

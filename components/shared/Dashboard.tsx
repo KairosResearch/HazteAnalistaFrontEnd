@@ -21,7 +21,7 @@ import DialogAlert from './DialogAlert';
 
 const Dashboard = () => {
   return (
-    <Table className="border border-grey-light">
+    <Table className="border border-grey-light ">
       <TableHeader className=''>
         <TableRow className='divide-x divide-y divide-grey-light bg-dark-grey'>
           <TableHead className="" colSpan={1}>Proyecto</TableHead>

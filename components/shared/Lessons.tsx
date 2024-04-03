@@ -40,12 +40,12 @@ const Lessons = () => {
             </CarouselPrevious>
             <CarouselContent className={` flex items-stretch`}>
               {lessons.map((lesson) => (
-                <CarouselItem className={`${activeMenu ? 'md:basis-1/3 md:w-[100px] 2xl:w-full': '2xl:basis-1/5 basis-1/3'} ` } key={lesson.id}>
+                <CarouselItem className={`${activeMenu ? 'md:basis-1/3 md:w-[99px] 2xl:w-full': '2xl:basis-1/5 basis-1/3'} ` } key={lesson.id}>
                   
                     <Card className='h-full'>
-                      <CardHeader className='max-h-[22vh]'>
+                      <CardHeader className='max-h-[20vh]'>
                         
-                        <img style={{height:'22vh'}} src={lesson.img}  alt="" />
+                        <img style={{height:'20vh'}} src={lesson.img}  alt="" />
                       </CardHeader>
                       <CardContent>
                         <Link href='#' className='text-sm line-clamp-1'>
