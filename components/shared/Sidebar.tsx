@@ -7,9 +7,9 @@ const Sidebar = () => {
     const {activeMenu} = useStateContext();
 //2xl:w-72 xl:w-64 md:w-56
     return (
-        <div className={`${activeMenu ? 'w-1/5' : 'w-0'} hidden md:flex transition-all duration-300 ease-in-out`}>
+        <div className={`${activeMenu ? 'max-xl:w-1/5' : 'w-0'} hidden md:flex `}>
             {activeMenu &&
-            <aside className='sidebar w-1/5 '>
+            <aside className='sidebar '>
                 <nav className='sidebar-nav'>
                     <ul className='sidebar-nav_elements'>
                         <li className='sidebar-nav_element'>
