@@ -15,12 +15,11 @@ const Layout = ({children}: {children: React.ReactNode}) => {
           <div className="root-container overflow-hidden md:flex">
               <Sidebar />
               
-              <div className='wrapper w-full relative overflow-y-scroll'>
+              <div className='wrapper w-full relative overflow-auto overflow-y-scroll'>
                     {children} 
                     <Footer />  
               </div>
               
-                    
           </div>
       </main>
     </ContextProvider>
