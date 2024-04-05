@@ -1,25 +1,52 @@
 'use client';
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
     TableHead,
     TableHeader,
     TableRow,
   } from "@/components/ui/table"
-
   
-import { tableData } from '@/lib/data';
+//import { tableData } from '@/lib/data';
 import { Badge } from '../ui/badge';
 import DialogItem from './DialogItem';
 import DialogAlert from './DialogAlert';
 //import {useStateContext}  from '@/contexts/ContextProvider';
 
+interface TableData {
+  proyectName: string;
+  ticket: string;
+  theE: string;
+  decision: string;
+  cap: number;
+  rango: string;
+  siAth: number;
+  sector: string;
+  exchange: string;
+  precioEntrada: number;
+  precioSalida: number;
+}
+
 
 
 const Dashboard = () => {
+  const [tableData, setTableData] = useState<TableData[]>([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch('http://localhost:3000/api/table');
+      const {tableData} = await response.json();
+      setTableData(tableData);
+      console.log(tableData);
+    };
+  
+    fetchData();
+  }, []);
+  
+
+   
+
   return (
     <Table className="border border-grey-light">
       <TableHeader className=''>
@@ -42,7 +69,7 @@ const Dashboard = () => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {tableData.map((data) => (
+        {tableData && tableData.map((data) => (
           <TableRow className='divide-x-2 divide-y-2 divide-green-dark' key={data.proyectName}>
             <TableCell className="font-medium border-2 border-green-dark relative">
               <p className='pb-3 '> 
