@@ -77,7 +77,7 @@
   }
 }
 .root {
-  @apply flex max-h-screen w-full flex-col ;
+  @apply flex md:max-h-screen w-full flex-col ;
 }
 .root-container {
   @apply flex-1 lg:max-h-screen 
