@@ -1,4 +1,3 @@
-//'use client';
 import React from 'react'
 import Lessons from '@/components/shared/Lessons';
 import InputSearcher from '@/components/shared/InputSearcher';
@@ -9,7 +8,14 @@ import Collapser from '@/components/ui/Collapser';
 
 
 
-const HomePage = () => {
+
+
+const HomePage  = async () => {
+  
+  const response = await fetch('http://localhost:3000/api/lessons');
+  const {lessons} = await response.json();
+ 
+ 
  //const { activeMenu } = useStateContext();
   return (
     <div className={`md:w-full px-4 2xl:w-full  `}
@@ -25,7 +31,9 @@ const HomePage = () => {
               </h1>
               <InputSearcher />
           </div>
-          <Lessons />
+          <Lessons 
+            lessons={lessons}
+          />
         </section>
 
         <section className="seguimiento mb-8">

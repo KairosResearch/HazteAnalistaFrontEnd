@@ -1,18 +1,12 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Check, ChevronsUpDown } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
-import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {Badge} from "@/components/ui/badge"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
+
 
 import {
   Form,
@@ -22,9 +16,7 @@ import {
   FormLabel,
 } from "@/components/ui/form"
 
-import { toast } from "@/components/ui/use-toast"
 import { Input } from "../ui/input"
-import { Checkbox } from "../ui/checkbox"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectSeparator } from "../ui/select"
 //Data
 import {tickets, exchange, sector, metodo, decision} from "@/lib/data"
@@ -272,9 +264,9 @@ export function AddItemForm() {
         render={({ field }) => (
           <FormItem className="">
             <FormLabel htmlFor="sector">Sector</FormLabel>
-            <FormControl>
+            
               <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
+               
                   <SelectTrigger>
                     <SelectValue placeholder="Selecciona el sector" />
                   </SelectTrigger>
@@ -289,7 +281,7 @@ export function AddItemForm() {
                   ))}
                 </SelectContent>
               </Select>
-            </FormControl>
+            
           </FormItem>
         )}
       />

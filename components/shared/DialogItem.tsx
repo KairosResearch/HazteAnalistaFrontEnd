@@ -14,6 +14,7 @@ import {
 import { EditionItemForm } from './EditionItemForm';
 import { AddItemForm } from './AddItemForm';
 import { Button } from '../ui/button';
+import DashboardDataForm from './DashboardDataForm';
 
 interface DialogItemProps {
     mode: 'edit' | 'add';
@@ -72,9 +73,15 @@ const DialogItem = (props: DialogItemProps) => {
                         </DialogDescription>
                     </DialogHeader>
                     {props.mode === 'edit' ? (
-                        <EditionItemForm />
+                        <DashboardDataForm
+                            type='update'
+                            data={null}
+                        />
                     ) : (
-                        <AddItemForm />
+                        <DashboardDataForm
+                            type='create'
+                            data={null}
+                        />
                     )}
 
                     <DialogFooter>
