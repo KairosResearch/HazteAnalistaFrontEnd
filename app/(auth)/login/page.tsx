@@ -2,8 +2,12 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import Link from 'next/link';
+import { getLogin } from '@/services/backend/login';
 
-const Login = () => {
+const Login = async () => {
+    const login = await getLogin();
+    console.log(login);
+    
   return (
 
         <div className="bg-[#2c2c2c] p-10 rounded-lg shadow-md w-full">
