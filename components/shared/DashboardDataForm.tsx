@@ -15,11 +15,11 @@ import {
 import { Button } from "@/components/ui/button"
 import {Badge} from "@/components/ui/badge"
 import { Input } from "../ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectSeparator } from "../ui/select"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
 import { CustomField } from "./CustomField"
 //import CustomField from "@/components/shared/CustomField"
 //Data
-import {tickets, exchange, sector, metodo, decision} from "@/lib/data"
+import {exchange, sector, metodo, decision} from "@/lib/data"
 //Data for default values
 const defaultValues = {
     name: "",
@@ -110,7 +110,8 @@ const DashboardDataForm = ({type, data = null}: DashboardDataFormProps) => {
         <form onSubmit={form.handleSubmit(onSubmit)} action="">
             <div className="space-y-6 md:grid grid-flow-row grid-cols-3 gap-6">
                 {/**Name */}
-                <CustomField 
+                <CustomField
+                    
                     control={form.control}
                     name='name'
                     formLabel='Nombre'
@@ -120,7 +121,8 @@ const DashboardDataForm = ({type, data = null}: DashboardDataFormProps) => {
                     )}
                 />
                 {/**Ticket */}
-                <CustomField 
+                <CustomField
+                     
                     control={form.control}
                     name='ticket'
                     formLabel='Ticket'
@@ -130,7 +132,8 @@ const DashboardDataForm = ({type, data = null}: DashboardDataFormProps) => {
                     )}
                 />
                 {/**4E */}
-                <CustomField 
+                <CustomField
+                     
                     control={form.control}
                     name='fourE'
                     formLabel='4E'
@@ -167,7 +170,8 @@ const DashboardDataForm = ({type, data = null}: DashboardDataFormProps) => {
                     )}
                 />
                 {/**Decision */}
-                <CustomField 
+                <CustomField
+                     
                     control={form.control}
                     name='Decision'
                     formLabel='Decision'
@@ -202,7 +206,8 @@ const DashboardDataForm = ({type, data = null}: DashboardDataFormProps) => {
                 />
                 
                 {/**Market Cap */}
-                <CustomField 
+                <CustomField
+                     
                     control={form.control}
                     name='marketCap'
                     formLabel='marketCap'
@@ -214,7 +219,8 @@ const DashboardDataForm = ({type, data = null}: DashboardDataFormProps) => {
                     )}
                 />
                 {/**Si Ath */}
-                <CustomField 
+                <CustomField
+                     
                     control={form.control}
                     name='siAth'
                     formLabel='siAth'
@@ -226,7 +232,8 @@ const DashboardDataForm = ({type, data = null}: DashboardDataFormProps) => {
                     )}
                 />
                 {/**Exchange */}
-                <CustomField 
+                <CustomField
+                     
                     control={form.control}
                     name='exchange'
                     formLabel='exchange'
@@ -251,7 +258,8 @@ const DashboardDataForm = ({type, data = null}: DashboardDataFormProps) => {
                     )}
                 />
                 {/**Sector */}
-                <CustomField 
+                <CustomField
+                     
                     control={form.control}
                     name='sector'
                     formLabel='sector'
@@ -276,7 +284,8 @@ const DashboardDataForm = ({type, data = null}: DashboardDataFormProps) => {
                     )}
                 />
                 {/**Precio entrada */}
-                <CustomField 
+                <CustomField
+                     
                     control={form.control}
                     name='precioEntrada'
                     formLabel='Precio entrada'
@@ -288,7 +297,8 @@ const DashboardDataForm = ({type, data = null}: DashboardDataFormProps) => {
                     )}
                 />
                 {/**Precio actual */}
-                <CustomField 
+                <CustomField
+                     
                     control={form.control}
                     name='precioActual'
                     formLabel='Precio actual'
