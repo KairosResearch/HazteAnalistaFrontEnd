@@ -11,8 +11,8 @@ import {
     DialogClose,
     DialogFooter
   } from "@/components/ui/dialog"
-import { EditionItemForm } from './EditionItemForm';
-import { AddItemForm } from './AddItemForm';
+//import { EditionItemForm } from './EditionItemForm';
+//import { AddItemForm } from './AddItemForm';
 import { Button } from '../ui/button';
 import DashboardDataForm from './DashboardDataForm';
 

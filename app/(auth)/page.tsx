@@ -37,9 +37,12 @@ const Login = async () => {
                         name="password" />
                 </div>
                 <div className="flex items-center justify-center">
-                    <Button className="bg-green-dark hover:bg-inherit text-white py-2 px-8 xl:py-6 md:px-9 rounded focus:outline-none focus:shadow-outline md:text-xl" type="submit">
-                        Inicio
-                    </Button>
+                    <Link href='/dashboard'>
+                        <Button className="bg-green-dark hover:bg-inherit text-white py-2 px-8 xl:py-6 md:px-9 rounded focus:outline-none focus:shadow-outline md:text-xl" type="submit">
+                            Inicio    
+                        </Button>
+                    </Link>
+                    
                 </div>
                 <div className="flex flex-col items-center justify-between mt-4 md:mt8 ">
                     <Link href="#" className="text-sm md:text-base text-grey-light hover:underline mb-4">

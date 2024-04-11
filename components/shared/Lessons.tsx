@@ -19,19 +19,19 @@ import {
     CardHeader,
   } from "@/components/ui/card"
 //Data
-//import {lessons} from '@/lib/data';
+import {lessons} from '@/lib/data';
 
-interface LessonProps {
-  lessons: [{
-    id: number;
-    img: string;
-    title: string;
-    date: string;
-  }]
-}
+// interface LessonProps {
+//   lessons: [{
+//     id: number;
+//     img: string;
+//     title: string;
+//     date: string;
+//   }]
+// }
 
 
-const Lessons = ({lessons}: LessonProps) => {
+const Lessons = () => {
   const { activeMenu,  } = useStateContext();
   return (
     <>

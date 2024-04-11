@@ -4,7 +4,7 @@ import InputSearcher from '@/components/shared/InputSearcher';
 import Dashboard from '@/components/shared/Dashboard';
 import DialogItem from '@/components/shared/DialogItem';
 import Collapser from '@/components/ui/Collapser';
-//import { useStateContext } from '@/contexts/ContextProvider';
+
 
 
 
@@ -12,11 +12,10 @@ import Collapser from '@/components/ui/Collapser';
 
 const HomePage  = async () => {
   
-  const response = await fetch('http://localhost:3000/api/lessons');
-  const {lessons} = await response.json();
+  //const response = await fetch('http://localhost:3000/api/lessons');
+  //const {lessons} = await response.json();
  
  
- //const { activeMenu } = useStateContext();
   return (
     <div className={`md:w-full px-4 2xl:w-full  `}
       
@@ -31,9 +30,9 @@ const HomePage  = async () => {
               </h1>
               <InputSearcher />
           </div>
-          <Lessons 
-            lessons={lessons}
-          />
+           <Lessons 
+            // lessons={lessons}
+          /> 
         </section>
 
         <section className="seguimiento mb-8">

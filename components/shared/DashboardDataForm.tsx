@@ -22,6 +22,7 @@ import { CustomField } from "./CustomField"
 import {tickets, exchange, sector, metodo, decision} from "@/lib/data"
 //Data for default values
 const defaultValues = {
+    name: "",
     ticket: "",
     fourE: "",
     Decision: "",
@@ -36,6 +37,7 @@ const defaultValues = {
 import { debounce } from "@/lib/utils"
 //Schema
 export const formSchema = z.object({
+    name: z.string({ required_error: "El campo 'Nombre' no puede estar vacío." }),
     ticket: z.string({ required_error: "El campo 'ticket' no puede estar vacío." }),
     fourE: z.string({ required_error: "El campo '4E' no puede estar vacío." }),
     Decision: z.string({ required_error: "El campo 'Decision' no puede estar vacío." }),
@@ -59,6 +61,7 @@ export const formSchema = z.object({
 interface DashboardDataFormProps {
     type: "create" | "update"; 
     data: {
+        name: string,
         ticket: string,
         fourE: string,
         decision: string,
@@ -99,38 +102,31 @@ const DashboardDataForm = ({type, data = null}: DashboardDataFormProps) => {
         _id: data._id,
       }
     */
-      console.log('Nuevo item:')
+      console.log('Nuevo item: ', {values})
   }
   
   return (
     <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} action="">
             <div className="space-y-6 md:grid grid-flow-row grid-cols-3 gap-6">
+                {/**Name */}
+                <CustomField 
+                    control={form.control}
+                    name='name'
+                    formLabel='Nombre'
+                    className='w-full sm:mt-6'
+                    render={({field}) => (
+                        <Input {...field}  />
+                    )}
+                />
                 {/**Ticket */}
                 <CustomField 
                     control={form.control}
                     name='ticket'
                     formLabel='Ticket'
-                    className='w-full mt-6'
+                    className='w-full'
                     render={({field}) => (
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    
-                          <SelectTrigger>
-                            <SelectValue placeholder="Selecciona el ticket" />
-                          </SelectTrigger>
-                        
-                        <SelectContent>
-                          {tickets.map((ticket) => (
-                            <>
-                              <SelectItem key={ticket.id} value={ticket.ticket}>
-                              + {ticket.ticket}
-                            </SelectItem>
-                            <SelectSeparator />
-                            </>
-                            
-                          ))}
-                        </SelectContent>
-                      </Select>
+                        <Input {...field} maxLength={5}/>
                     )}
                 />
                 {/**4E */}
@@ -212,7 +208,9 @@ const DashboardDataForm = ({type, data = null}: DashboardDataFormProps) => {
                     formLabel='marketCap'
                     className='w-full'
                     render={({field}) => (
-                          <Input {...field} type="number" />
+                          <Input {...field} type="number" 
+                          onChange={e => field.onChange(parseFloat(e.target.value))}  
+                        />
                     )}
                 />
                 {/**Si Ath */}
@@ -222,7 +220,9 @@ const DashboardDataForm = ({type, data = null}: DashboardDataFormProps) => {
                     formLabel='siAth'
                     className='w-full'
                     render={({field}) => (
-                        <Input {...field} type="number" step='0.01' min='0'/>
+                        <Input {...field} type="number" step='0.01' min='0' max='100' 
+                            onChange={e => field.onChange(parseFloat(e.target.value))}
+                        />
                     )}
                 />
                 {/**Exchange */}
@@ -282,7 +282,9 @@ const DashboardDataForm = ({type, data = null}: DashboardDataFormProps) => {
                     formLabel='Precio entrada'
                     className='w-full'
                     render={({field}) => (
-                        <Input {...field} type="number" />
+                        <Input {...field} type="number" 
+                        onChange={e => field.onChange(parseFloat(e.target.value))}
+                        />
                     )}
                 />
                 {/**Precio actual */}
@@ -292,7 +294,9 @@ const DashboardDataForm = ({type, data = null}: DashboardDataFormProps) => {
                     formLabel='Precio actual'
                     className='w-full'
                     render={({field}) => (
-                        <Input {...field} type="number" />
+                        <Input {...field} type="number" 
+                        onChange={e => field.onChange(parseFloat(e.target.value))}
+                        />
                     )}
                 />
                     
