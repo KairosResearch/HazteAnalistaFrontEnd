@@ -37,12 +37,19 @@ const Navbar = () => {
                     </li>
                 </ul>
             </nav>
+          
           <div className='flex gap-4 flex-center'>
             <Avatar>
               <AvatarImage src="" />
               <AvatarFallback>Us</AvatarFallback>
             </Avatar>
 
+            <div>
+              <Link href="/" className='underline'>
+                Logout
+              </Link>
+
+            </div>
             <div className="md:hidden">
             <Sheet>
                 <SheetTrigger>

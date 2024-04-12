@@ -28,6 +28,7 @@ const defaultValues = {
     email: "",
     passowrd: "",
     newPassword: "",
+    rememberMe: false
     
   };
 //Debounce
@@ -44,7 +45,8 @@ export const authFormSchema = z.object({
         .refine(password => /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(password), {
             message: "La contraseña debe contener al menos una letra mayúscula, una letra minúscula y un número.",
         }),
-    newPassword: z.string().optional()
+    newPassword: z.string().optional(),
+    rememberMe: z.boolean().optional(),
     //     .refine((newPassword: any, { password, includeNewPassword }: any) => includeNewPassword ? newPassword === password : true, {
     //         message: "Las contraseñas deben coincidir.",
     //         path: ['newPassword'],
@@ -156,6 +158,7 @@ const AuthForm = ({type}: AuthDataFormProps) => {
                             </FormItem>
                             )}
                          />
+                         
                 
                 {/**New Password */}
                 {

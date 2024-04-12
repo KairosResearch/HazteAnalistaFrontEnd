@@ -9,7 +9,7 @@ import {
     TableRow,
   } from "@/components/ui/table"
   
-//import { tableData } from '@/lib/data';
+import { tableData } from '@/lib/data';
 import { Badge } from '../ui/badge';
 import DialogItem from './DialogItem';
 import DialogAlert from './DialogAlert';
@@ -32,17 +32,17 @@ interface TableData {
 
 
 const Dashboard = () => {
-  const [tableData, setTableData] = useState<TableData[]>([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch('http://localhost:3000/api/table');
-      const {tableData} = await response.json();
-      setTableData(tableData);
-      console.log(tableData);
-    };
+  //const [tableData, setTableData] = useState<TableData[]>([]);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const response = await fetch('http://localhost:3000/api/table');
+  //     const {tableData} = await response.json();
+  //     setTableData(tableData);
+  //     console.log(tableData);
+  //   };
   
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
   
 
    

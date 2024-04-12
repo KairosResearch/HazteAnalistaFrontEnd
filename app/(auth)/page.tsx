@@ -1,6 +1,7 @@
 import React from 'react';
 
 import AuthForm from "@/components/shared/AuthForm"
+import Link from "next/link";
 
 const Login = () => {
     
@@ -12,6 +13,21 @@ const Login = () => {
             <p className="text-center text-white">Bienvenido de nuevo a Kairos Research</p>
             <p className="text-center text-white">Inicia sesión para continuar</p>
             <AuthForm type='login' />
+            <div className="text-center">
+              <p className='my-5'>
+                <Link href="/forgot-password">
+                  ¿Olvidaste tu contraseña?
+                </Link>
+              </p>
+              <p>
+                ¿No tienes cuenta?{" "}
+                <Link href="/sign-up" className='underline'>
+                  Registrate
+                </Link>
+              </p>
+              
+            </div>
+            
         </div>
     
   );
