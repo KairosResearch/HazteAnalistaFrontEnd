@@ -69,6 +69,7 @@ interface DashboardDataFormProps {
         precioEntrada: number,
         precioActual: number,
     } | null;
+    catalogos: [][];
 }
 interface BackendValues{
     nombre: string,
@@ -85,15 +86,17 @@ interface BackendValues{
 }
 //El coso de actions
 import { handleSubmitProyectForm } from "@/actions/postProyect"
+import { CatalogosType } from "@/index"
 //type of the data
-type DataType = {
-    value: number;
-    label: string;
-};
 
 
 //The form
-const DashboardDataForm = ({type, data = null}: DashboardDataFormProps) => {
+const DashboardDataForm = ({type, data = null, catalogos}: DashboardDataFormProps) => {
+    const data4t = catalogos[0] as CatalogosType[]; 
+    const decision = catalogos[1] as CatalogosType[];
+    const exchange = catalogos[2] as CatalogosType[];
+    const sector = catalogos[3] as CatalogosType[];
+
     const {userId} = useUserData();
     const {setUserTableData} = useUserTableData();
 
@@ -107,28 +110,7 @@ const DashboardDataForm = ({type, data = null}: DashboardDataFormProps) => {
         precioEntrada: 0,
         precioActual: 0
     });
-    //For the form options to select
-    const [data4t, setData4t] = useState<DataType[]>([]);
-    const [decision, setDecision] = useState<DataType[]>([]);
-    const [exchange, setExchange] = useState<DataType[]>([]);
-    const [sector, setSector] = useState<DataType[]>([]);
-    //Getting the data
-    useEffect(() => {
-        const fetchData = async () => {
-            const data4t = await get4t();
-            const decision = await getDecision();
-            const exchange = await getExchange();
-            const sector = await getSectores();
-            
-            
-            setData4t(data4t);
-            setDecision(decision);
-            setExchange(exchange);
-            setSector(sector);
-        } 
-        fetchData();
-    }, []);
-
+    
     const initialValues = data && type === 'update' ? {
         nombre: data?.nombre, 
         ticket: data?.ticket,

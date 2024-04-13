@@ -11,14 +11,16 @@ import {
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
-import { handleLogout } from '@/actions/logout'
+// import DialogAlert from './DialogAlert';
+import { handleLogout } from '@/actions/logout';
+
 
 
 
 const Navbar = () => {
   const handleLogoutSubmit = async () => {
     await handleLogout();
-  }
+}
 
   return (
     
@@ -52,11 +54,13 @@ const Navbar = () => {
             </Avatar>
 
             <div>
-              <Link href="/" 
-                onClick={handleLogoutSubmit}
-                className='underline'>
-                Logout
-              </Link>
+             <Link 
+              className='underline'
+              href='/'
+             >
+
+                Cerrar sesion
+             </Link>
 
             </div>
             <div className="md:hidden">

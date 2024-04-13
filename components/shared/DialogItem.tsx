@@ -19,6 +19,7 @@ import DashboardDataForm from './DashboardDataForm';
 
 interface DialogItemProps {
     mode: 'edit' | 'add';
+    catalogos: [][]
 }
 type DataType = {
     value: number;
@@ -100,11 +101,13 @@ const DialogItem = (props: DialogItemProps) => {
                     </DialogHeader>
                     {props.mode === 'edit' ? (
                         <DashboardDataForm
+                            catalogos={props.catalogos}
                             type='update'
                             data={null}
                         />
                     ) : (
                         <DashboardDataForm
+                            catalogos={props.catalogos}
                             type='create'
                             data={null}
                         />

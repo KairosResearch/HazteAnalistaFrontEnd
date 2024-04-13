@@ -5,6 +5,7 @@ import Dashboard from '@/components/shared/Dashboard';
 import DialogItem from '@/components/shared/DialogItem';
 import Collapser from '@/components/ui/Collapser';
 import { cookies } from 'next/headers';
+import { get4t, getDecision, getExchange, getSectores } from '@/services/backend/catalogos';
 //import { useUserData } from '@/hooks/useUserData';
 
 
@@ -14,9 +15,12 @@ import { cookies } from 'next/headers';
 const HomePage  = async () => {
   const cookiesStore = cookies();
   const accessToken = cookiesStore.get('accessToken')?.value as string;
-  //const {setAccessToken} = useUserData();
-
-  //setAccessToken(accessToken);
+  const [data4t, decision, exchange, sector] = await Promise.all([
+  get4t(),
+  getDecision(),
+  getExchange(),
+  getSectores(),
+]);
 
   
   //const response = await fetch('http://localhost:3000/api/lessons');
@@ -47,11 +51,15 @@ const HomePage  = async () => {
             <h1
               className='text-2xl font-bold my-4 2xl:my-8 md:my-3 2xl:text-4xl'
             >Dashboard de seguimiento:</h1>
-            <DialogItem mode='add' />
+            <DialogItem 
+              mode='add'
+              catalogos={[data4t, decision, exchange, sector]}
+            />
           </div>
           
             <Dashboard 
               accessToken={accessToken}
+              catalogos={[data4t, decision, exchange, sector]}
             />
           
         </section>

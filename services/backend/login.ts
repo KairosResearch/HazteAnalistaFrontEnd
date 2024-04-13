@@ -18,7 +18,8 @@ export const postLogin = async (values: any) => {
   }
 }
 
-export const logout = async (accessToken: string) => {
+//Isnt working
+export const logout = async (accessToken: string | undefined) => {
   try {
     const response = await fetch(`${AUTH_URL}logout`, {
       method: 'POST',
@@ -27,10 +28,9 @@ export const logout = async (accessToken: string) => {
         'Authorization': `Bearer ${accessToken}`
       }
     });
-    const data = await response.json();
-    
-    return data;
-    
+      const data = await response.json();
+      return data;
+
   } catch (err) {
     console.error(err)
   }

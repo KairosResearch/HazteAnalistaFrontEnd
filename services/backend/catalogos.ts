@@ -6,7 +6,8 @@ export const get4t = async () => {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
-            }
+            },
+            cache: 'force-cache'
         })
         const data = await response.json()
         const {calatalogo4t} = data;
@@ -22,7 +23,8 @@ export const getDecision = async () => {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
-            }
+            },
+            cache: 'force-cache'
         })
         const data = await response.json();
         const {decesiproyecto} = data;
@@ -38,7 +40,8 @@ export const getExchange = async () => {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
-            }
+            },
+            cache: 'force-cache'
         })
         const data = await response.json()
         const {exchages} = data;
@@ -55,7 +58,8 @@ export const getSectores = async () => {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
-            }
+            },
+            cache: 'force-cache'
         })
         const data = await response.json();
         const {sectores} = data;

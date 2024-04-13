@@ -35,7 +35,7 @@ interface TableData {
 
 
 
-const Dashboard = (accesToken: any) => {
+const Dashboard = (accesToken: any, catalogos: [][]) => {
   
   const {userId} = useUserData();
   const {userTableData } = useUserTableData();
@@ -92,7 +92,10 @@ const Dashboard = (accesToken: any) => {
           <TableCell className="font-medium border-2 border-green-dark relative">
             <p className='pb-3 '> 
               {data.proyectName}
-              <DialogItem mode="edit" />
+              <DialogItem 
+                mode="edit" 
+                catalogos={catalogos}
+              />
               <DialogAlert action="deleteProyect"/>
             </p>
           </TableCell>
@@ -166,7 +169,10 @@ const Dashboard = (accesToken: any) => {
             <TableCell className="font-medium border-2 border-green-dark relative">
               <p className='pb-3 '> 
                 {data.nombre}
-                <DialogItem mode="edit" />
+                <DialogItem 
+                  mode="edit" 
+                  catalogos={catalogos}
+                />
                 <DialogAlert action="deleteProyect"/>
               </p>
             </TableCell>
