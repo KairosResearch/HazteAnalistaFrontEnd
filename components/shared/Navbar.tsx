@@ -1,3 +1,4 @@
+'use client';
 import React from 'react'
 import Link from 'next/link'
 import {
@@ -10,9 +11,15 @@ import {
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
+import { handleLogout } from '@/actions/logout'
+
 
 
 const Navbar = () => {
+  const handleLogoutSubmit = async () => {
+    await handleLogout();
+  }
+
   return (
     
     <header className="navbar">
@@ -45,7 +52,9 @@ const Navbar = () => {
             </Avatar>
 
             <div>
-              <Link href="/" className='underline'>
+              <Link href="/" 
+                onClick={handleLogoutSubmit}
+                className='underline'>
                 Logout
               </Link>
 

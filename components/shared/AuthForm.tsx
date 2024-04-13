@@ -2,6 +2,8 @@
 import React, {useState} from "react"
 import { useRouter } from "next/navigation"
 
+//Server Actions
+import { handleLogin } from "@/actions/login"
 
 //Shadcn staff for forms
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -34,9 +36,11 @@ const defaultValues = {
 //Debounce
 import { debounce } from "@/lib/utils"
 //Redirect
-import { redirect } from "next/navigation"
-import { postLogin } from "@/services/backend/login"
-import { postRegister } from "@/services/backend/register"
+
+import { handleRegister } from "@/actions/register"
+
+import { useUserData } from "@/hooks/useUserData"
+
 export const authFormSchema = z.object({
     name: z.string({ required_error: "El campo 'Nombre' no puede estar vacío." }),
     email: z.string({ required_error: "El campo 'email' no puede estar vacío." }),
@@ -61,6 +65,8 @@ interface AuthDataFormProps {
 
 //The form
 const AuthForm = ({type}: AuthDataFormProps) => {
+    //User data
+    const {setUserId} = useUserData()
     //Router
     const router = useRouter()
     const [disabled, setDisabled] = useState(false)
@@ -77,23 +83,22 @@ const AuthForm = ({type}: AuthDataFormProps) => {
         if (type === 'login') {
             console.log('User loggeado: ', {values})
             try {
-                const response = await postLogin(values)
-                
-                console.log('Token: ', {response})
-                
-                router.push('/dashboard')
-                
+                const data = await handleLogin(values)
+                console.log('Data final al recibir el formulario:', data)
+                if (data){
+                    setUserId(data.id)
+                    router.push('/dashboard')
+                } else {
+                    return null
+                }
             } catch (err){
                 console.error(err)
             }
         } else {
             console.log('User registrado: ', {values})
             try {
-                const response = await postRegister(values)
-                const {access_token} = response;
-                console.log('Token: ', {access_token})
+                await handleRegister(values)
                 
-                redirect('/dashboard')
                 
             } catch (err){
                 console.error(err)

@@ -4,13 +4,20 @@ import InputSearcher from '@/components/shared/InputSearcher';
 import Dashboard from '@/components/shared/Dashboard';
 import DialogItem from '@/components/shared/DialogItem';
 import Collapser from '@/components/ui/Collapser';
-
+import { cookies } from 'next/headers';
+//import { useUserData } from '@/hooks/useUserData';
 
 
 
 
 
 const HomePage  = async () => {
+  const cookiesStore = cookies();
+  const accessToken = cookiesStore.get('accessToken')?.value as string;
+  //const {setAccessToken} = useUserData();
+
+  //setAccessToken(accessToken);
+
   
   //const response = await fetch('http://localhost:3000/api/lessons');
   //const {lessons} = await response.json();
@@ -43,7 +50,9 @@ const HomePage  = async () => {
             <DialogItem mode='add' />
           </div>
           
-            <Dashboard />
+            <Dashboard 
+              accessToken={accessToken}
+            />
           
         </section>
 

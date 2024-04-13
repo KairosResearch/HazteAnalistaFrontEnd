@@ -1,14 +1,13 @@
 "use client"
+import React, {useEffect, useState} from "react"
+import { get4t, getDecision, getExchange, getSectores } from "@/services/backend/catalogos"
+import { useUserData, useUserTableData } from "@/hooks/useUserData"
 //Shadcn staff for forms
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
+    Form
   } from "@/components/ui/form"
 
 //UI needed
@@ -17,19 +16,17 @@ import {Badge} from "@/components/ui/badge"
 import { Input } from "../ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
 import { CustomField } from "./CustomField"
-//import CustomField from "@/components/shared/CustomField"
-//Data
-import {exchange, sector, metodo, decision} from "@/lib/data"
+
 //Data for default values
 const defaultValues = {
-    name: "",
+    nombre: "",
     ticket: "",
-    fourE: "",
-    Decision: "",
+    id4e: "",
+    id_decision_proyecto: "",
     marketCap: 0,
     siAth: 0,
-    exchange: "",
-    sector: "",
+    idExchange: '',
+    idSector: '',
     precioEntrada: 0,
     precioActual: 0,
   };
@@ -37,10 +34,10 @@ const defaultValues = {
 import { debounce } from "@/lib/utils"
 //Schema
 export const formSchema = z.object({
-    name: z.string({ required_error: "El campo 'Nombre' no puede estar vacío." }),
+    nombre: z.string({ required_error: "El campo 'Nombre' no puede estar vacío." }),
     ticket: z.string({ required_error: "El campo 'ticket' no puede estar vacío." }),
-    fourE: z.string({ required_error: "El campo '4E' no puede estar vacío." }),
-    Decision: z.string({ required_error: "El campo 'Decision' no puede estar vacío." }),
+    id4e: z.string({ required_error: "El campo '4E' no puede estar vacío." }),
+    id_decision_proyecto: z.string({ required_error: "El campo 'Decision' no puede estar vacío." }),
     marketCap: z.number().nonnegative("El campo 'Market Cap' debe ser un número."),
     siAth: z
       .number()
@@ -51,8 +48,8 @@ export const formSchema = z.object({
         const decimalPart = value.toString().split(".")[1];
         return !decimalPart || decimalPart.length <= 2;
       }, "El campo 'Si Ath' debe tener hasta dos decimales."),
-    exchange: z.string({ required_error: "El campo 'exchange' no puede estar vacío." }),
-    sector: z.string({ required_error: "El campo 'sector' no puede estar vacío." }),
+    idExchange: z.string({ required_error: "El campo 'exchange' no puede estar vacío." }),
+    idSector: z.string({ required_error: "El campo 'sector' no puede estar vacío." }),
     precioEntrada: z.number().nonnegative("El campo 'precio' debe ser un número."),
     precioActual: z.number().nonnegative("El campo 'precio' debe ser un número."),
   });
@@ -61,29 +58,86 @@ export const formSchema = z.object({
 interface DashboardDataFormProps {
     type: "create" | "update"; 
     data: {
-        name: string,
+        nombre: string,
         ticket: string,
-        fourE: string,
-        decision: string,
+        id4e: string,
+        id_decision_proyecto: string,
         marketCap: number,
         siAth: number,
-        exchange: string,
-        sector: string,
+        idExchange: string,
+        idSector: string,
         precioEntrada: number,
         precioActual: number,
     } | null;
 }
+interface BackendValues{
+    nombre: string,
+    ticket: string,
+    id4e: number,
+    id_decision_proyecto: number,
+    marketCap: number,
+    siAth: number,
+    idExchange: number,
+    idSector: number,
+    precioEntrada: number,
+    precioActual: number,
+    idUsuario: number | null
+}
+//El coso de actions
+import { handleSubmitProyectForm } from "@/actions/postProyect"
+//type of the data
+type DataType = {
+    value: number;
+    label: string;
+};
+
 
 //The form
 const DashboardDataForm = ({type, data = null}: DashboardDataFormProps) => {
+    const {userId} = useUserData();
+    const {setUserTableData} = useUserTableData();
+
+    //Data generated after blur on name
+    const [dataAfterBlur, setDataAfterBlur] = useState({
+        ticket: '',
+        
+        marketCap: 0,
+        siAth: 0,
+        
+        precioEntrada: 0,
+        precioActual: 0
+    });
+    //For the form options to select
+    const [data4t, setData4t] = useState<DataType[]>([]);
+    const [decision, setDecision] = useState<DataType[]>([]);
+    const [exchange, setExchange] = useState<DataType[]>([]);
+    const [sector, setSector] = useState<DataType[]>([]);
+    //Getting the data
+    useEffect(() => {
+        const fetchData = async () => {
+            const data4t = await get4t();
+            const decision = await getDecision();
+            const exchange = await getExchange();
+            const sector = await getSectores();
+            
+            
+            setData4t(data4t);
+            setDecision(decision);
+            setExchange(exchange);
+            setSector(sector);
+        } 
+        fetchData();
+    }, []);
+
     const initialValues = data && type === 'update' ? {
+        nombre: data?.nombre, 
         ticket: data?.ticket,
-        fourE: data?.fourE,
-        decision: data?.decision,
+        id4e: data?.id4e,
+        id_decision_proyecto: data?.id_decision_proyecto,
         marketCap: data?.marketCap,
         siAth: data?.siAth,
-        exchange: data?.exchange,
-        sector: data?.sector,
+        idExchange: data?.idExchange,
+        idSector: data?.idSector,
         precioEntrada: data?.precioEntrada,
         precioActual: data?.precioActual,
     } : defaultValues;
@@ -94,17 +148,45 @@ const DashboardDataForm = ({type, data = null}: DashboardDataFormProps) => {
         defaultValues: initialValues
     })
       // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    /*
-    if(action === 'update') {
-      const newImageToUpload = {
-        ...data,
-        _id: data._id,
-      }
-    */
-      console.log('Nuevo item: ', {values})
-  }
-  
+    function onSubmit(values: z.infer<typeof formSchema>) {
+            async function dora (){
+                const backendValues: BackendValues = {
+                    nombre: values.nombre,
+                    ticket: values.ticket,
+                    id4e: Number(values.id4e),
+                    id_decision_proyecto: Number(values.id_decision_proyecto),
+                    marketCap: values.marketCap,
+                    siAth: values.siAth,
+                    idExchange: Number(values.idExchange),
+                    idSector: Number(values.idSector),
+                    precioEntrada: values.precioEntrada,
+                    precioActual: values.precioActual,
+                    idUsuario: userId
+                }
+                console.log(backendValues)
+                const newData = await handleSubmitProyectForm(backendValues, userId);
+                console.log('Nueva Data dentro del frontend', newData)
+                if(newData){
+                    setUserTableData(newData);
+                }
+            }
+            dora();
+    }
+    // const nameLostFocus = (e: any) => {
+    //     setDataAfterBlur(
+    //         {
+    //             ticket: 'oneTicket',
+               
+    //             marketCap: 251200,
+    //             siAth: 10,
+                
+    //             precioEntrada: 20000000,
+    //             precioActual: 50000000
+    //         }
+    //     )
+        
+
+    // }
   return (
     <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} action="">
@@ -113,7 +195,7 @@ const DashboardDataForm = ({type, data = null}: DashboardDataFormProps) => {
                 <CustomField
                     
                     control={form.control}
-                    name='name'
+                    name='nombre'
                     formLabel='Nombre'
                     className='w-full sm:mt-6'
                     render={({field}) => (
@@ -128,39 +210,39 @@ const DashboardDataForm = ({type, data = null}: DashboardDataFormProps) => {
                     formLabel='Ticket'
                     className='w-full'
                     render={({field}) => (
-                        <Input {...field} maxLength={5}/>
+                        <Input {...field}  maxLength={5}/>
                     )}
                 />
                 {/**4E */}
                 <CustomField
                      
                     control={form.control}
-                    name='fourE'
+                    name='id4e'
                     formLabel='4E'
                     className='w-full'
                     render={({field}) => (
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select onValueChange={field.onChange} defaultValue={field.value} >
                  
                     <SelectTrigger>
                       <SelectValue placeholder="Selecciona el 4E" />
                     </SelectTrigger>
                   
                   <SelectContent>
-                    { metodo.map((metodo) => (
-                      <SelectItem key={metodo.id} value={metodo.title}>
+                    { data4t.map((metodo) => (
+                      <SelectItem key={metodo.value} value={String(metodo.value)}>
                         <Badge
                           variant="fourE"
                           color={
-                            metodo.title === "Evaluar"
+                            metodo.label === "Evaluar"
                           ? "yellow"
-                          : metodo.title === "Encontrar"
+                          : metodo.label === "Encontrar"
                           ? "grey"
-                          : metodo.title === "Estudiar"
+                          : metodo.label === "Estudiar"
                           ? "blue"
                           : "green"
                           }
                         >
-                          {metodo.title}
+                          {metodo.label}
                         </Badge>
                       </SelectItem>
                     ))}
@@ -173,7 +255,7 @@ const DashboardDataForm = ({type, data = null}: DashboardDataFormProps) => {
                 <CustomField
                      
                     control={form.control}
-                    name='Decision'
+                    name='id_decision_proyecto'
                     formLabel='Decision'
                     className='w-full'
                     render={({field}) => (
@@ -185,17 +267,18 @@ const DashboardDataForm = ({type, data = null}: DashboardDataFormProps) => {
                  
                             <SelectContent>
                                 { decision.map((decision) => (
-                                <SelectItem key={decision.id} value={decision.title}>
+                                <SelectItem key={decision.value} value={String(decision.value)}>
+                                
                                     <Badge
                                     variant={
-                                        decision.title === "Watchlist"
+                                        decision.label === "Watchlist"
                                     ? "decisionWatchlist"
-                                    : decision.title === "Descartar"
+                                    : decision.label === "Descartar"
                                     ? "desicionLeave"
                                     : "desicionInvest"
                                     }
                                     >
-                                    {decision.title}
+                                    {decision.label}
                                     </Badge>
                                 </SelectItem>
                                 ))}
@@ -214,6 +297,7 @@ const DashboardDataForm = ({type, data = null}: DashboardDataFormProps) => {
                     className='w-full'
                     render={({field}) => (
                           <Input {...field} type="number" 
+                            
                           onChange={e => field.onChange(parseFloat(e.target.value))}  
                         />
                     )}
@@ -227,6 +311,7 @@ const DashboardDataForm = ({type, data = null}: DashboardDataFormProps) => {
                     className='w-full'
                     render={({field}) => (
                         <Input {...field} type="number" step='0.01' min='0' max='100' 
+                            
                             onChange={e => field.onChange(parseFloat(e.target.value))}
                         />
                     )}
@@ -235,8 +320,8 @@ const DashboardDataForm = ({type, data = null}: DashboardDataFormProps) => {
                 <CustomField
                      
                     control={form.control}
-                    name='exchange'
-                    formLabel='exchange'
+                    name='idExchange'
+                    formLabel='Exchange'
                     className='w-full'
                     render={({field}) => (
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
@@ -247,9 +332,9 @@ const DashboardDataForm = ({type, data = null}: DashboardDataFormProps) => {
                         
                         <SelectContent>
                             {exchange.map((exchange) => (
-                            <SelectItem key={exchange.id} value={exchange.title}>
+                            <SelectItem key={exchange.value} value={String(exchange.value)}>
                                 <Badge>
-                                {exchange.title}
+                                {exchange.label}
                                 </Badge>
                             </SelectItem>
                             ))}
@@ -261,11 +346,11 @@ const DashboardDataForm = ({type, data = null}: DashboardDataFormProps) => {
                 <CustomField
                      
                     control={form.control}
-                    name='sector'
+                    name='idSector'
                     formLabel='sector'
                     className='w-full'
                     render={({field}) => (
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select onValueChange={field.onChange}  defaultValue={field.value}>
                
                         <SelectTrigger>
                             <SelectValue placeholder="Selecciona el sector" />
@@ -273,9 +358,9 @@ const DashboardDataForm = ({type, data = null}: DashboardDataFormProps) => {
                         
                         <SelectContent>
                         {sector.map((sector) => (
-                            <SelectItem key={sector.id} value={sector.title}>
+                            <SelectItem key={sector.value} value={String(sector.value)}>
                             <Badge>
-                            {sector.title}
+                            {sector.label}
                             </Badge>
                             </SelectItem>
                         ))}
@@ -292,6 +377,7 @@ const DashboardDataForm = ({type, data = null}: DashboardDataFormProps) => {
                     className='w-full'
                     render={({field}) => (
                         <Input {...field} type="number" 
+                        
                         onChange={e => field.onChange(parseFloat(e.target.value))}
                         />
                     )}
@@ -305,6 +391,7 @@ const DashboardDataForm = ({type, data = null}: DashboardDataFormProps) => {
                     className='w-full'
                     render={({field}) => (
                         <Input {...field} type="number" 
+                        
                         onChange={e => field.onChange(parseFloat(e.target.value))}
                         />
                     )}

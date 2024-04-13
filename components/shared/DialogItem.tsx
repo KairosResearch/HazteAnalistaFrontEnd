@@ -1,5 +1,6 @@
 'use client';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { getDecision, get4t, getExchange, getSectores } from '@/services/backend/catalogos';
 
 import {
     Dialog,
@@ -19,7 +20,32 @@ import DashboardDataForm from './DashboardDataForm';
 interface DialogItemProps {
     mode: 'edit' | 'add';
 }
+type DataType = {
+    value: number;
+    label: string;
+};
+
 const DialogItem = (props: DialogItemProps) => {
+    // const [data4t, setData4t] = useState<DataType[]>([]);
+    // const [decision, setDecision] = useState<DataType[]>([]);
+    // const [exchange, setExchange] = useState<DataType[]>([]);
+    // const [sector, setSector] = useState<DataType[]>([]);
+    
+
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         const data4t = await get4t();
+    //         const decision = await getDecision();
+    //         const exchange = await getExchange();
+    //         const sector = await getSectores();
+    //         setData4t(data4t || []);
+    //         setDecision(decision || []);
+    //         setExchange(exchange || []);
+    //         setSector(sector || []);
+    //     } 
+    //     fetchData();
+    // }, []);
+    // const 
    
     return (
         
