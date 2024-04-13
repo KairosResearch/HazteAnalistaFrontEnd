@@ -1,4 +1,4 @@
-import { tableData, lessons } from "@/lib/data";
+import { tableDataDefault, lessons } from "@/lib/data";
 export async function GET() {
-    return Response.json({tableData, lessons});
+    return Response.json({tableDataDefault, lessons});
 }
