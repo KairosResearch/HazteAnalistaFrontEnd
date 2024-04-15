@@ -1,4 +1,3 @@
-'use client';
 import React from 'react'
 import Link from 'next/link'
 import {
@@ -8,6 +7,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import Image from 'next/image';
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
@@ -18,16 +18,21 @@ import { handleLogout } from '@/actions/logout';
 
 
 const Navbar = () => {
-  const handleLogoutSubmit = async () => {
-    await handleLogout();
-}
+ // const handleLogoutSubmit = async () => {
+   // await handleLogout();
+//}
 
   return (
     
     <header className="navbar">
           <div>
               <Link className=" text-xl font-bold md:text-2xl" href="#">
-                Kairos
+                <Image 
+                  src='/kairos-main.svg'
+                  alt='Kairos'
+                  width={50}
+                  height={50}
+                />
               </Link>
           </div>
           <nav className='hidden sm:block'>
@@ -48,19 +53,21 @@ const Navbar = () => {
             </nav>
           
           <div className='flex gap-4 flex-center'>
+            <Link 
+              className='underline'
+              href='/'
+            >
+              
+              Cerrar sesion
+             
+             </Link>
+
             <Avatar>
               <AvatarImage src="" />
               <AvatarFallback>Us</AvatarFallback>
             </Avatar>
 
             <div>
-             <Link 
-              className='underline'
-              href='/'
-             >
-
-                Cerrar sesion
-             </Link>
 
             </div>
             <div className="md:hidden">
@@ -90,21 +97,45 @@ const Navbar = () => {
                     <nav>
                         <ul className='header-nav_elements'>
                             <li className='header-nav_text'>
+                                  <Image 
+                                    src='/icons8-casa.svg'
+                                    alt='Kairos'
+                                    width={20}
+                                    height={20}
+                                  />
                                 <Link href="/about">
                                     Home
                                 </Link>
                             </li>
                             <li className='header-nav_text'>
+                                  <Image 
+                                    src='/lessons.svg'
+                                    alt='Kairos'
+                                    width={20}
+                                    height={20}
+                                  />
                                 <Link href="/services">
                                     Apredizaje
                                 </Link>
                             </li>
                             <li className='header-nav_text'>
+                                  <Image 
+                                    src='/tools-fill.svg'
+                                    alt='Kairos'
+                                    width={20}
+                                    height={20}
+                                  />
                                 <Link href="/contact">
                                     Herramientas
                                 </Link>
                             </li>
                             <li className='header-nav_text'>
+                                  <Image 
+                                    src='/data-on-chain.svg'
+                                    alt='Kairos'
+                                    width={20}
+                                    height={20}
+                                  />
                                 <Link href="/contact">
                                     Data On Chain
                                 </Link>

@@ -11,6 +11,9 @@ const Footer = () => {
                         <p>&copy;2023 Kairos Research. All rights reserved</p>
                         <p>Terminos de uso</p>
                         <p>Politica de privacidad</p>
+                        <Link href='https://icons8.com/icon/86527/home'>
+                            Iconos
+                        </Link>
                     </div>
                     <div className="grid grid-cols-2 w-full md:grid-cols-4 gap-4 ">
                         <div>

@@ -2,6 +2,7 @@
 import React, { useContext } from 'react'
 import Link from 'next/link'
 import {useStateContext} from '@/contexts/ContextProvider';
+import Image from 'next/image';
 
 const Sidebar = () => {
     const {activeMenu} = useStateContext();
@@ -13,20 +14,50 @@ const Sidebar = () => {
                 <nav className='sidebar-nav'>
                     <ul className='sidebar-nav_elements'>
                         <li className='sidebar-nav_element'>
-                            <Link href='#'>
-                                
+                            <Image
+                                    src='/icons8-casa.svg'
+                                    alt='Home'
+                                    height={20}
+                                    width={20}
+                                />
+                            <Link href='#'>                                
                                 <span>Home</span>
-                                
                             </Link>
                         </li>
                         <li className='sidebar-nav_element'>
-                            <Link href='#'>Aprendizaje</Link>
+                                <Image
+                                    src='/lessons.svg'
+                                    alt='lessons'
+                                    height={20}
+                                    width={20}
+                                />
+                            <Link href='#'>
+                                Aprendizaje
+                            </Link>
                         </li>
                         <li className='sidebar-nav_element'>
-                            <Link href='#'>Herramientas</Link>
+                                <Image
+                                    src='/tools-fill.svg'
+                                    alt='tools'
+                                    height={20}
+                                    width={20}
+                                />
+                            <Link href='#'>
+                             
+                                Herramientas
+                            </Link>
                         </li>
                         <li className='sidebar-nav_element'>
-                            <Link href='#'>Data On Chain</Link>
+                                <Image
+                                    src='/data-on-chain.svg'
+                                    alt='data-on-chain'
+                                    height={20}
+                                    width={20}
+                                />
+                            <Link href='#'>
+                                
+                                Data On Chain
+                            </Link>
                         </li>
                     </ul>
                 </nav>

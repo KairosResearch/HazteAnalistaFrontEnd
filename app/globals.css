@@ -96,10 +96,10 @@
   }
 
   .header-nav_elements {
-    @apply mt-8 flex w-full flex-col items-start gap-5;
+    @apply mt-8 flex w-full flex-col items-start gap-2;
   }
   .header-nav_text{
-    @apply p-4 font-semibold w-full h-full leading-5;
+    @apply p-4 font-semibold flex gap-7 w-full h-full leading-5 border-green-dark border-b;
   }
   
   /* Search Component */
@@ -125,7 +125,7 @@
   }
 
   .sidebar-nav_element {
-    @apply flex-center  mt-4 cursor-pointer rounded-full font-semibold p-2 leading-[140%] w-full whitespace-nowrap hover:bg-green-dark hover:shadow-inner;
+    @apply flex items-center gap-3 pl-7 mt-4 cursor-pointer rounded-full font-semibold p-2 leading-[140%] w-full whitespace-nowrap hover:bg-green-dark hover:shadow-inner;
   }
 
   .sidebar-link {

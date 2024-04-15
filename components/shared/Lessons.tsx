@@ -47,7 +47,7 @@ const Lessons = () => {
             </CarouselPrevious>
             <CarouselContent className={` flex items-stretch`}>
               {lessons.map((lesson) => (
-                <CarouselItem className={`${activeMenu ? 'md:w-[66px] md:basis-1/3 lg:w-[99px] 2xl:w-full': '2xl:basis-1/5 lg:basis-1/3 md:basis-1/3 md:max-lg:w-[80px]'} ` } key={lesson.id}>
+                <CarouselItem className={`${activeMenu ? 'md:w-[66px] md:basis-1/3  lg:w-[176px] 2xl:w-full': '2xl:basis-1/5 lg:basis-1/3 md:basis-1/3 md:max-lg:w-[80px]'} ` } key={lesson.id}>
                   
                     <Card className='h-full'>
                       <CardHeader className='max-h-[20vh]'>

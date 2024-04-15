@@ -6,7 +6,6 @@ import DialogItem from '@/components/shared/DialogItem';
 import Collapser from '@/components/ui/Collapser';
 import { cookies } from 'next/headers';
 import { get4t, getDecision, getExchange, getSectores } from '@/services/backend/catalogos';
-//import { useUserData } from '@/hooks/useUserData';
 
 
 
@@ -21,6 +20,7 @@ const HomePage  = async () => {
   getExchange(),
   getSectores(),
 ]);
+
 
   
   //const response = await fetch('http://localhost:3000/api/lessons');

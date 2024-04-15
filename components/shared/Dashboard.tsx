@@ -1,5 +1,6 @@
 'use client';
 import React, {useEffect, useState} from 'react'
+import { POP, LOW, MID, LARGE, BLUE } from '@/lib/constants';
 import {
     Table,
     TableBody,
@@ -18,6 +19,7 @@ import { useUserData, useUserTableData } from '@/hooks/useUserData';
 //import {useUserDar}  from '@/contexts/ContextProvider';
 import { getProyects } from '@/services/backend/proyects';
 import {  getSectores } from '@/services/backend/catalogos';
+import { rangeDesigner } from '@/lib/utils';
 
 
 interface TableData {
@@ -35,34 +37,49 @@ interface TableData {
 
 
 
-const Dashboard = (accesToken: any, catalogos: [][]) => {
+const Dashboard = React.memo((accesToken: any, catalogos: [][]) => {
   
   const {userId} = useUserData();
   const {userTableData } = useUserTableData();
+  
   const [sectores, setSectores] = useState<any[]>([]);
   const [tableData, setTableData] = useState<TableData[]>([]);
+
+
   useEffect(() => {
     const fetchData = async () => {
-      const {proyectos} = await getProyects(accesToken, userId);
+      const data = await getProyects(accesToken, userId);
+      if (data.error){
+        setTableData([]);
+        alert('Tenemos problemas internos con el servidor. Buscamos solucionarlo!')
+      }
       const sectores = await getSectores();
       setSectores(sectores);
-      setTableData(proyectos);
-      console.log(proyectos);
+      setTableData(data.proyectos);
     };
-  
     fetchData();
   }, []);
+
+
 
   useEffect(() => {
       // setTableData(userTableData);
       const  fetchData = async () => {
-        const {proyectos} = await getProyects(accesToken, userId);
-        setTableData(proyectos);
+        const data = await getProyects(accesToken, userId);
+        if(data.error){
+          setTableData([]);
+          alert('Tenemos problemas internos con el servidor. Buscamos solucionarlo!')
+        }
+        setTableData(data.proyectos);
       }
       fetchData();
   }, [userTableData]);
   
-
+  const range = (marketCap: number) => {
+   
+    const a  = rangeDesigner(marketCap);
+    return a;
+  }
    
 
   return (
@@ -70,7 +87,7 @@ const Dashboard = (accesToken: any, catalogos: [][]) => {
       <TableHeader className=''>
         <TableRow className='divide-x divide-y divide-grey-light bg-dark-grey'>
           <TableHead className="" colSpan={1}>Proyecto</TableHead>
-          <TableHead className=" md:text-center" colSpan={9}>Protocolos</TableHead>
+          <TableHead className=" md:text-center" colSpan={10}>Protocolos</TableHead>
         </TableRow>
         <TableRow className='divide-x-2 divide-y sticky top-[-1px] border-grey-light bg-dark-grey/95 z-50 divide-grey-light'>
           <TableHead className="" >Proyecto</TableHead>
@@ -78,7 +95,7 @@ const Dashboard = (accesToken: any, catalogos: [][]) => {
           <TableHead className="">Metodo 4E</TableHead>
           <TableHead className="">Decisión</TableHead>
           <TableHead className="">Market Cap</TableHead>
-          {/* <TableHead className="">Rango</TableHead> */}
+          <TableHead className="">Rango</TableHead>
           <TableHead className="">Si Ath</TableHead>
           <TableHead className="">Sector</TableHead>
           <TableHead className="">Exchange</TableHead>
@@ -90,7 +107,7 @@ const Dashboard = (accesToken: any, catalogos: [][]) => {
         {tableDataDefault.map((data) => (
           <TableRow className='divide-x-2 divide-y-2 divide-green-dark' key={data.proyectName}>
           <TableCell className="font-medium border-2 border-green-dark relative">
-            <p className='pb-3 '> 
+            <p className='pb-6'> 
               {data.proyectName}
               <DialogItem 
                 mode="edit" 
@@ -127,15 +144,15 @@ const Dashboard = (accesToken: any, catalogos: [][]) => {
 
           </TableCell>
           {/******Rango**** */}
-          {/* <TableCell>
+           <TableCell>
             <Badge 
               variant='range'
               color={
-              (data.rango === 'Blue Chips') ? 'blue' : (data.rango === 'Mid Caps') ? 'orange' : (data.rango === 'Large Caps') ? 'green' : 'brown'
+              (range(Number(data.cap)) === BLUE) ? 'blue' : (range(Number(data.cap)) === MID) ? 'orange' : (range(Number(data.cap)) === LARGE) ? 'green' : 'brown'
             }>
-            {data.rango}
+            {range(Number(data.cap))}
             </Badge>
-          </TableCell> */}
+          </TableCell> 
           {/******Si ATH**** */}
           <TableCell>
             {data.siAth}X
@@ -204,15 +221,15 @@ const Dashboard = (accesToken: any, catalogos: [][]) => {
 
             </TableCell>
             {/******Rango**** */}
-            {/* <TableCell>
-              <Badge 
-                variant='range'
-                color={
-                (data.rango === 'Blue Chips') ? 'blue' : (data.rango === 'Mid Caps') ? 'orange' : (data.rango === 'Large Caps') ? 'green' : 'brown'
-              }>
-              {data.rango}
-              </Badge>
-            </TableCell> */}
+           <TableCell>
+            <Badge 
+              variant='range'
+              color={
+              (range(data.marketCap) === BLUE) ? 'blue' : (range(data.marketCap) === MID) ? 'orange' : (range(data.marketCap) === LARGE) ? 'green' : 'brown'
+            }>
+            {range(data.marketCap)}
+            </Badge>
+          </TableCell> 
             {/******Si ATH**** */}
             <TableCell>
               {data.siAth}X
@@ -248,6 +265,6 @@ const Dashboard = (accesToken: any, catalogos: [][]) => {
       </TableBody>
     </Table>
   )
-}
+});
 
 export default Dashboard

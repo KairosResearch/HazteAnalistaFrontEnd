@@ -1,0 +1,5 @@
+export const POP = 'Shit Caps'
+export const LOW = 'Low Caps'
+export const MID = 'Mid Caps'
+export const LARGE = 'Large Caps'
+export const BLUE = 'Blue Chips'

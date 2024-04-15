@@ -11,8 +11,9 @@ export const getProyects = async (accessToken: string | undefined, userId: numbe
         })
         const data = await response.json()
         return data
-    } catch (err) {
-        console.error(err)
+    } catch (err: any) {
+        console.error(err.message)
+        return {error: err.message}
     }
 }
 
