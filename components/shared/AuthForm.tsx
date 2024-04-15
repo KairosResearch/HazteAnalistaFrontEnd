@@ -8,7 +8,7 @@ import { handleRegister } from "@/actions/register"
 
 //Shadcn staff for forms
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
+import { set, useForm } from "react-hook-form"
 import { z } from "zod"
 import {
     Form,
@@ -21,8 +21,8 @@ import {
 
 //UI needed
 import { Button } from "@/components/ui/button"
-//import {Badge} from "@/components/ui/badge"
 import { Input } from "../ui/input"
+import Loading from "./Loading"
 
 //Data
 //Data for default values
@@ -62,11 +62,14 @@ interface AuthDataFormProps {
 //The form
 const AuthForm = ({type}: AuthDataFormProps) => {
     const [error, setErrorForm] = useState('')
+    const [disabled, setDisabled] = useState(false);
+    const [loading, setLoading] = useState(false);
+
     //User data
     const {setUserId} = useUserData()
     //Router
     const router = useRouter()
-    const [disabled, setDisabled] = useState(false);
+    
     
     //const initialValues = defaultValues;
 
@@ -95,6 +98,7 @@ const AuthForm = ({type}: AuthDataFormProps) => {
     // 2. Define a submit handler.
     async function onSubmit(values: z.infer<typeof authFormSchema>) {
         setDisabled(true)
+        setLoading(true)
         //HandleSubmit para cuando usuario se logueará
         if (type === 'login') {
             const {rememberMe, newPassword, name, ...rest} = values;
@@ -152,7 +156,7 @@ const AuthForm = ({type}: AuthDataFormProps) => {
             }
             
         }
-        
+        setLoading(false)
         setDisabled(false)
         
     }
@@ -175,7 +179,7 @@ const AuthForm = ({type}: AuthDataFormProps) => {
                             <FormItem className="w-full mt-6" >
                                 <FormLabel> Name</FormLabel>
                                     <FormControl>
-                                        <Input {...field} type="text" />
+                                        <Input {...field} type="text" onFocus={() => setErrorForm('')}/>
                                     </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -249,9 +253,12 @@ const AuthForm = ({type}: AuthDataFormProps) => {
                 
                
             </div>
-
+            
+            {loading && <Loading />}
+            
             {/*botones*/}
             <div className="flex justify-center mt-8">
+                
                 <Button 
                     disabled={disabled}
                     type="submit" variant='secondary' 
