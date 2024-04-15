@@ -4,18 +4,17 @@ import { validateAccessToken } from "@/utils/auth/validateAccessToken"
 
 
 export const handleLogin = async (formData: any) => {
-
-
     try {
         const data = await createAccessToken(formData)
-        console.log('data', data)
-        if (data.message !== 'Unauthorized')  {
+        
+        if(data){
             const user = await validateAccessToken();
-            if(user){
+            if (user) {
                 return user;
             }
         }
-    } catch (err) {
-        console.error(err)
+    } catch (err: any) {
+        console.error(err.message)
+        return {error: err.message}
     }
 }

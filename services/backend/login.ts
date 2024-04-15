@@ -9,12 +9,19 @@ export const postLogin = async (values: any) => {
       },
       body: JSON.stringify(values)
     });
-    const data = await response.json();
+
+    {/** 
+      if(!response.ok) {
+      throw new Error('Invalid credentials');
+    }
+    */}
     
+
+    const data = await response.json();
     return data;
     
-  } catch (err) {
-    console.error(err)
+  } catch (err: any) {
+    console.error(err.message)
   }
 }
 

@@ -9,10 +9,17 @@ export const getUserData = async (accessToken: string) => {
                 'Authorization': `Bearer ${accessToken}`
             }
         })
-        const data = await response.json()
-        return data
-    } catch (err) {
-        console.error(err)
+        //Cualquier error en la respuesta del servidor manda null
+        if(response.ok){
+            const data = await response.json()
+            return data;
+        } else {
+            return null;
+        }
+        
+    } catch (err: any) {
+        console.error(err.message)
+        return {error: err.message}
     }
 }
 

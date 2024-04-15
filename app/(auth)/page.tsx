@@ -12,7 +12,12 @@ const Login = () => {
             <h2 className="text-3xl md:text-4xl xl:text-5xl font-bold mb-10 text-center">Login</h2>
             <p className="text-center text-white">Bienvenido de nuevo a Kairos Research</p>
             <p className="text-center text-white">Inicia sesión para continuar</p>
+
+            
+            {/**Formulario*/}
             <AuthForm type='login' />
+            
+            
             <div className="text-center">
               <p className='my-5'>
                 <Link href="/forgot-password">
