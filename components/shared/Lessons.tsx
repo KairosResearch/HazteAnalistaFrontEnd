@@ -48,23 +48,26 @@ const Lessons = () => {
             <CarouselContent className={` flex items-stretch`}>
               {lessons.map((lesson) => (
                 <CarouselItem className={`${activeMenu ? 'md:w-[66px] md:basis-1/3  lg:w-[176px] 2xl:w-full': '2xl:basis-1/5 lg:basis-1/3 md:basis-1/3 md:max-lg:w-[80px]'} ` } key={lesson.id}>
-                  
-                    <Card className='h-full'>
+                  <Link
+                    href={lesson.link}
+                    target='_blank'
+                  >
+                      <Card className='h-full'>
                       <CardHeader className='max-h-[20vh]'>
                         
                         <img style={{height:'20vh'}} src={lesson.img}  alt="" />
                       </CardHeader>
                       <CardContent>
-                        <Link href='#' className='text-sm line-clamp-1'>
-                          {lesson.title}
-                        </Link>
-                        <span className='opacity-75 text-xs'>
-                          {lesson.date}
-                        </span>
+                          <p className='text-sm line-clamp-1'>
+                            {lesson.title}
+                          </p>
+                          
+                          <span className='opacity-75 text-xs'>
+                            {lesson.date}
+                          </span>
                       </CardContent>
                     </Card>
-                  
-                  
+                  </Link>
                 </CarouselItem>
               ))}
             </CarouselContent>

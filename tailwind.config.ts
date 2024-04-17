@@ -21,6 +21,7 @@ const config = {
       backgroundImage: {
         'hero-pattern': "url('/bg-hero-login.jpg')",
         'footer-texture': "url('/img/footer-texture.png')",
+        'page-texture': "url('/rombos.png')",
       },
       scrollbar: {
         thin: '10px',

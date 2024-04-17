@@ -37,7 +37,7 @@ interface TableData {
 
 
 
-const Dashboard = React.memo((accesToken: any, catalogos: [][]) => {
+const Dashboard = (accesToken: any, catalogos: [][]) => {
   
   const {userId} = useUserData();
   const {userTableData } = useUserTableData();
@@ -267,6 +267,6 @@ const Dashboard = React.memo((accesToken: any, catalogos: [][]) => {
       </TableBody>
     </Table>
   )
-});
+};
 
-export default Dashboard
+export default React.memo(Dashboard);

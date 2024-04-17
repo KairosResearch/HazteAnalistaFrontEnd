@@ -15,7 +15,7 @@ const Layout = ({children}: {children: React.ReactNode}) => {
           <div className="root-container overflow-hidden md:flex">
               <Sidebar />
               
-              <div className='wrapper w-full relative overflow-auto overflow-y-hidden md:overflow-y-scroll'>
+              <div className='wrapper w-full relative overflow-auto overflow-y-hidden md:overflow-y-scroll bg-page-texture'>
                     {children} 
                     <Footer />  
               </div>
