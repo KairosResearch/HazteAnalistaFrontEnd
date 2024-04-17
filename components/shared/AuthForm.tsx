@@ -146,9 +146,15 @@ const AuthForm = ({type}: AuthDataFormProps) => {
             } else {
                 console.log('User registrado: ', {rest})
                 try {
-                    await handleRegister(rest)
-                    router.push('/completed')
-                    
+                    const data = await handleRegister(rest)
+                    console.log('Data final al recibir el formulario:', data)
+                    if(data === `Unexpected token '<', "<!DOCTYPE "... is not valid JSON`){
+                        setErrorForm('Este correo ya está en uso!')
+                    } else if(data === 'fetch failed'){
+                        setErrorForm('Servidor no responde!')
+                    } else {
+                        router.push('/completed')
+                    }
                 } catch (err){
                     console.error(err)
                 }

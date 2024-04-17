@@ -25,6 +25,26 @@ export const postLogin = async (values: any) => {
   }
 }
 
+export const postRegister = async (values: any) => {
+  try {
+    console.log(values)
+    const response = await fetch(`${AUTH_URL}signup`, {
+      method: 'POST',
+      headers: {
+      'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(values)
+    });
+
+    const data = await response.json();
+    return data;
+    
+  } catch (err: any) {
+    console.error(err.message)
+    return { error: err.message}
+  }
+}
+
 //Isnt working
 export const logout = async (accessToken: string | undefined) => {
   try {

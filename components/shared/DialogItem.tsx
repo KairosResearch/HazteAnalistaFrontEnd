@@ -104,18 +104,28 @@ const DialogItem = (props: DialogItemProps) => {
                             catalogos={props.catalogos}
                             type='update'
                             data={null}
-                        />
+                        >
+                            {/* <DialogFooter>
+                                <DialogClose className='underline'>
+                                    <p className="border p-4 bg-slate-300 text-dark-black rounded-full ">Guardar</p>
+                                </DialogClose>
+                            </DialogFooter> */}
+                        </DashboardDataForm>
                     ) : (
                         <DashboardDataForm
                             catalogos={props.catalogos}
                             type='create'
                             data={null}
-                        />
+                        >
+                            {/* <DialogFooter>
+                                <DialogClose>
+                                    <p className="">Volver al Dashboard 📚</p>
+                                </DialogClose>
+                            </DialogFooter> */}
+                        </DashboardDataForm>
                     )}
 
-                    <DialogFooter>
-                        <DialogClose className='underline'>Cancelar</DialogClose>
-                    </DialogFooter>
+                    
                 </DialogContent>
             </Dialog>
         

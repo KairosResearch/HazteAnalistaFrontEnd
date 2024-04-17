@@ -30,6 +30,6 @@ export const postProyect = async (accessToken: string, proyectData: any) => {
         const data = await response.json()
         return data
     } catch (err) {
-        console.error(err)
+        console.error('error en postProyect: ', err)
     }
 }

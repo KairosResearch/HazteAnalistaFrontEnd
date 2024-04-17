@@ -62,6 +62,7 @@ interface DashboardDataFormProps {
         precioActual: number,
     } | null;
     catalogos: [][];
+    
 }
 interface BackendValues{
     nombre: string,
@@ -90,6 +91,9 @@ const DashboardDataForm = ({type, data = null, catalogos}: DashboardDataFormProp
     const {userId} = useUserData();
     const {setUserTableData} = useUserTableData();
 
+    const [isDisabled, setIsDisabled] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
+
     //Data generated after blur on name
     
     
@@ -114,8 +118,8 @@ const DashboardDataForm = ({type, data = null, catalogos}: DashboardDataFormProp
 
     const {setValue, getValues} = useForm()
     const nameLostFocus = () => {
-        setValue('ticket', 'TICKET')
-        setValue('marketCap', 1000)
+        setValue('ticket', 'TIC')
+        setValue('marketCap', 19500000)
         setValue('siAth', 10)
         setValue('precioEntrada', 10000)
         setValue('precioActual', 20000)
@@ -126,33 +130,48 @@ const DashboardDataForm = ({type, data = null, catalogos}: DashboardDataFormProp
 
       // 2. Define a submit handler.
     function onSubmit(values: z.infer<typeof formSchema>) {
+        setIsDisabled(true);
             async function dora (){
+                const valuesGot = getValues();
                 const backendValues: BackendValues = {
                     nombre: values.nombre,
-                    ticket: values.ticket,
+                    ticket: valuesGot.ticket,
                     id4e: Number(values.id4e),
                     id_decision_proyecto: Number(values.id_decision_proyecto),
-                    marketCap: values.marketCap,
-                    siAth: values.siAth,
+                    marketCap: valuesGot.marketCap,
+                    siAth: valuesGot.siAth,
                     idExchange: Number(values.idExchange),
                     idSector: Number(values.idSector),
-                    precioEntrada: values.precioEntrada,
-                    precioActual: values.precioActual,
+                    precioEntrada: valuesGot.precioEntrada,
+                    precioActual: valuesGot.precioActual,
                     idUsuario: userId
                 }
                 console.log(backendValues)
-                //const newData = await handleSubmitProyectForm(backendValues, userId);
-                //console.log('Nueva Data dentro del frontend', newData)
-                //if(newData){
-                 //   setUserTableData(newData);
-                //}
+                const newData = await handleSubmitProyectForm(backendValues, userId);
+                console.log('Nueva Data dentro del frontend', newData)
+                if(newData){
+                   setUserTableData(newData);
+                   setSubmitted(true);
+                }
             }
             dora();
+            form.reset();
+            setIsDisabled(false);
     }
     
 return (
     <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} action="">
+                {submitted && (
+                        <>
+                            <div className="mx-auto w-4/5 mt-6 hidden md:block">
+                                <p className="bg-green-200 p-2 text-center text-green-700"
+                                >Proyecto enviado!</p>
+                            </div>
+                            
+                        </>
+                    )
+                }
             <div className="space-y-6 md:grid grid-flow-row grid-cols-3 gap-6">
                 {/**Name */}
                 <CustomField
@@ -180,7 +199,7 @@ return (
                         <Input 
                             {...field}
                             maxLength={5}
-                            value={field.value} 
+                            value={getValues('ticket')} 
                         />
                     )}
                 />
@@ -253,13 +272,13 @@ return (
                 <CustomField
                     control={form.control}
                     name='marketCap'
-                    formLabel='marketCap'
+                    formLabel='Market Cap'
                     className='w-full'
                     render={({field}) => (
                         <Input 
                             {...field} 
                             type="number"
-                            value={field.value}
+                            value={getValues('marketCap')}
                             onChange={e => field.onChange(parseFloat(e.target.value))} 
                         />
                     )}
@@ -268,16 +287,13 @@ return (
                 <CustomField
                     control={form.control}
                     name='siAth'
-                    formLabel='siAth'
+                    formLabel='Si Ath'
                     className='w-full'
                     render={({field}) => (
                         <Input
                             {...field} 
-                            type="number" 
-                            step='0.01' 
-                            min='0' 
-                            max='100' 
-                            value={field.value}
+                            type="number"  
+                            value={getValues('siAth')}
                             onChange={e => field.onChange(parseFloat(e.target.value))} />
                     )}
                 />
@@ -310,7 +326,7 @@ return (
                 <CustomField
                     control={form.control}
                     name='idSector'
-                    formLabel='sector'
+                    formLabel='Sector'
                     className='w-full'
                     render={({field}) => (
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
@@ -339,8 +355,8 @@ return (
                         <Input 
                             {...field}
                             type="number"
-                            value={field.value}
-                            onChange={e => field.onChange(parseFloat(e.target.value))} />
+                            value={getValues('precioEntrada')}
+                            onChange={e => setValue('precioEntrada',parseFloat(e.target.value))} />
                     )}
                 />
 
@@ -354,7 +370,7 @@ return (
                         <Input 
                             {...field} 
                             type="number" 
-                            value={field.value}
+                            value={getValues('precioActual')}
                             onChange={e => field.onChange(parseFloat(e.target.value))} 
                         />
                     )}
@@ -362,10 +378,24 @@ return (
 
             </div>
 
+
+                {submitted && (
+                        <>
+                            <div className="mx-auto w-4/5 mt-6 block md:hidden">
+                                <p className="bg-green-200 p-2 text-center text-green-700"
+                                >Proyecto enviado!</p>
+                            </div>
+                            
+                        </>
+                    )
+                }
+
             {/*Botones*/}
             
             <div className="flex justify-center mt-8">
-                <Button type="submit" variant='secondary' className="w-1/5 font-bold">
+                <Button type="submit" disabled={isDisabled} variant='secondary' 
+                    className={`w-4/5 font-bold 
+                        ${!isDisabled ? 'bg-slate-400': 'bg-[#2c2c2c]'}`}>
                     {
                         type === 'create' ? 'Añadir' : 'Actualizar'
                     }

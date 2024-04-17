@@ -74,6 +74,8 @@ const Dashboard = React.memo((accesToken: any, catalogos: [][]) => {
       }
       fetchData();
   }, [userTableData]);
+
+  
   
   const range = (marketCap: number) => {
    
@@ -107,7 +109,7 @@ const Dashboard = React.memo((accesToken: any, catalogos: [][]) => {
         {tableDataDefault.map((data) => (
           <TableRow className='divide-x-2 divide-y-2 divide-green-dark' key={data.proyectName}>
           <TableCell className="font-medium border-2 border-green-dark relative">
-            <p className='pb-6'> 
+            <p className='pb-6 pr-12'> 
               {data.proyectName}
               <DialogItem 
                 mode="edit" 

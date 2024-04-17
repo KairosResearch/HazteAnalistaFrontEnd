@@ -4,8 +4,11 @@ import { cookies } from "next/headers";
 
 export const handleSubmitProyectForm = async (formData: any, userId: number | null) => {
     try {
+        console.log(userId)
         const cookiesStore = cookies();
+        
         const accessToken = cookiesStore.get('accessToken')?.value as string;
+        console.log('accessToken en handleSubmitProyect', accessToken)
         const posted = await postProyect(accessToken, formData)
         console.log(posted)
         if (posted) {
