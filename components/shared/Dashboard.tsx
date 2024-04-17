@@ -142,7 +142,7 @@ const Dashboard = (accesToken: any, catalogos: [][]) => {
           </TableCell>
           {/******Market Cap**** */}
           <TableCell>
-            $ {data.cap}
+            $ {data.cap.toLocaleString()}
 
           </TableCell>
           {/******Rango**** */}
@@ -219,7 +219,7 @@ const Dashboard = (accesToken: any, catalogos: [][]) => {
             </TableCell>
             {/******Market Cap**** */}
             <TableCell>
-              $ {data.marketCap}
+              $ {data.marketCap.toLocaleString()}
 
             </TableCell>
             {/******Rango**** */}

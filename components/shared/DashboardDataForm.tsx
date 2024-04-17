@@ -1,5 +1,5 @@
 "use client"
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 import { useUserData, useUserTableData } from "@/hooks/useUserData"
 
 //Shadcn staff for forms
@@ -88,13 +88,14 @@ const DashboardDataForm = ({type, data = null, catalogos}: DashboardDataFormProp
     const exchange = catalogos[2] as CatalogosType[];
     const sector = catalogos[3] as CatalogosType[];
 
+    const [submitted, setSubmitted] = useState(false);
+    const [emptyForm, setEmptyForm] = useState(false);
+
     const {userId} = useUserData();
     const {setUserTableData} = useUserTableData();
 
-    const [isDisabled, setIsDisabled] = useState(false);
-    const [submitted, setSubmitted] = useState(false);
 
-    //Data generated after blur on name
+    
     
     
     const initialValues = data && type === 'update' ? {
@@ -116,13 +117,17 @@ const DashboardDataForm = ({type, data = null, catalogos}: DashboardDataFormProp
         defaultValues: initialValues
     })
 
+    
+
+    //Data generated after blur on name
     const {setValue, getValues} = useForm()
     const nameLostFocus = () => {
-        setValue('ticket', 'TIC')
-        setValue('marketCap', 19500000)
-        setValue('siAth', 10)
-        setValue('precioEntrada', 10000)
-        setValue('precioActual', 20000)
+
+        setValue('ticket', 'CTIA')
+        setValue('marketCap', 1844203650)
+        setValue('siAth', 20.57)
+        setValue('precioEntrada', 11)
+        setValue('precioActual', 10.36)
         console.log('Name lost focus')
     }
 
@@ -130,9 +135,11 @@ const DashboardDataForm = ({type, data = null, catalogos}: DashboardDataFormProp
 
       // 2. Define a submit handler.
     function onSubmit(values: z.infer<typeof formSchema>) {
-        setIsDisabled(true);
+        
             async function dora (){
+                setEmptyForm(false);
                 const valuesGot = getValues();
+                
                 const backendValues: BackendValues = {
                     nombre: values.nombre,
                     ticket: valuesGot.ticket,
@@ -147,21 +154,37 @@ const DashboardDataForm = ({type, data = null, catalogos}: DashboardDataFormProp
                     idUsuario: userId
                 }
                 console.log(backendValues)
-                const newData = await handleSubmitProyectForm(backendValues, userId);
-                console.log('Nueva Data dentro del frontend', newData)
-                if(newData){
-                   setUserTableData(newData);
-                   setSubmitted(true);
+                if (Object.values(backendValues).every(value => value)) {
+                    console.log(backendValues)
+                    const newData = await handleSubmitProyectForm(backendValues, userId);
+                    console.log('Nueva Data dentro del frontend', newData)
+                    if(newData){
+                       setUserTableData(newData);
+                       setSubmitted(true);
+                       
+                       form.reset();
+                       form.reset(defaultValues);
+                    }
+                } else {
+                   console.log('Datos null')
+                   setEmptyForm(true);
                 }
             }
             dora();
-            form.reset();
-            setIsDisabled(false);
+            
+            //setDisabled(false);
     }
     
 return (
     <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} action="">
+                {emptyForm && (
+                    <div className="mx-auto w-4/5 mt-6 hidden md:block">
+                        <p className="bg-red-200 p-2 text-center text-red-700"
+                        >Por favor llena todos los campos</p>
+                        </div>
+                    )
+                }
                 {submitted && (
                         <>
                             <div className="mx-auto w-4/5 mt-6 hidden md:block">
@@ -276,10 +299,14 @@ return (
                     className='w-full'
                     render={({field}) => (
                         <Input 
-                            {...field} 
-                            type="number"
-                            value={getValues('marketCap')}
-                            onChange={e => field.onChange(parseFloat(e.target.value))} 
+                        {...field} 
+                        type="text"
+                        value={getValues('marketCap') ? getValues('marketCap').toLocaleString() : ''}
+                        onChange={e => {
+                            // Elimina los separadores de miles antes de llamar a field.onChange
+                            const value = parseFloat(e.target.value.replace(/,/g, ''));
+                            field.onChange(isNaN(value) ? '' : value);
+                        }} 
                         />
                     )}
                 />
@@ -389,16 +416,26 @@ return (
                         </>
                     )
                 }
+                
+                {emptyForm && (
+                    <div className="mx-auto w-4/5 mt-6 block md:hidden">
+                        <p className="bg-red-200 p-2 text-center text-red-700"
+                        >Por favor llena todos los campos!</p>
+                        </div>
+                    )
+                }
 
             {/*Botones*/}
             
             <div className="flex justify-center mt-8">
-                <Button type="submit" disabled={isDisabled} variant='secondary' 
+                <Button type="submit" variant='secondary' 
                     className={`w-4/5 font-bold 
-                        ${!isDisabled ? 'bg-slate-400': 'bg-[#2c2c2c]'}`}>
+                        `}>
+                            
                     {
                         type === 'create' ? 'Añadir' : 'Actualizar'
                     }
+                    
                 </Button>
             </div>
         </form>
