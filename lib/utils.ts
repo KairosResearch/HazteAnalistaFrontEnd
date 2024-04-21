@@ -14,20 +14,18 @@ export const debounce = (func: (...args: any[]) => void, delay: number) => {
   };
 };
 
+
 export const rangeDesigner = (marketCap: number) => {
-  if(marketCap >= 500000 && marketCap <= 999999) {
+  if(marketCap <= 99999999) {
     return POP;
   }
-  if(marketCap >= 1000000 && marketCap <= 9999999) {
+  if(marketCap >= 100000000 && marketCap <= 999999999) {
     return LOW;
   }
-  if(marketCap >= 10000000 && marketCap <= 99999999) {
+  if(marketCap >= 1000000000 && marketCap <= 9999999999) {
     return MID;
   }
-  if(marketCap >= 100000000 && marketCap <= 999999999) {
+  if(marketCap >= 10000000000) {
     return LARGE;
-  }
-  if(marketCap >= 1000000000) {
-    return BLUE;
   }
 }

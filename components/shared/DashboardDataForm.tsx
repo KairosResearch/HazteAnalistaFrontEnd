@@ -123,9 +123,9 @@ const DashboardDataForm = ({type, data = null, catalogos}: DashboardDataFormProp
     const {setValue, getValues} = useForm()
     const nameLostFocus = () => {
 
-        setValue('ticket', 'CTIA')
+        setValue('ticket', 'TIA')
         setValue('marketCap', 1844203650)
-        setValue('siAth', 20.57)
+        setValue('siAth', 2.02)
         setValue('precioEntrada', 11)
         setValue('precioActual', 10.36)
         console.log('Name lost focus')
@@ -216,7 +216,7 @@ return (
                 <CustomField
                     control={form.control}
                     name='ticket'
-                    formLabel='Ticket'
+                    formLabel='Ticker'
                     className='w-full'
                     render={({field}) => (
                         <Input 

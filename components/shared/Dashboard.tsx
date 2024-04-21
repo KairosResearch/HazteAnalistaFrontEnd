@@ -93,7 +93,7 @@ const Dashboard = (accesToken: any, catalogos: [][]) => {
         </TableRow>
         <TableRow className='divide-x-2 divide-y sticky top-[-1px] border-grey-light bg-dark-grey/95 z-50 divide-grey-light'>
           <TableHead className="" >Proyecto</TableHead>
-          <TableHead className="">Ticket</TableHead>
+          <TableHead className="">Ticker</TableHead>
           <TableHead className="">Metodo 4E</TableHead>
           <TableHead className="">Decisión</TableHead>
           <TableHead className="">Market Cap</TableHead>
@@ -141,7 +141,7 @@ const Dashboard = (accesToken: any, catalogos: [][]) => {
             </Badge>
           </TableCell>
           {/******Market Cap**** */}
-          <TableCell>
+          <TableCell className="whitespace-nowrap" >
             $ {data.cap.toLocaleString()}
 
           </TableCell>
@@ -172,12 +172,12 @@ const Dashboard = (accesToken: any, catalogos: [][]) => {
             </Badge>
           </TableCell>
           {/****** precio entrada**** */}
-          <TableCell>
+          <TableCell className="whitespace-nowrap" >
             $ {data.precioEntrada}
 
           </TableCell>
           {/******precio salida**** */}
-          <TableCell>
+          <TableCell className="whitespace-nowrap">
             $ {data.precioSalida}
 
           </TableCell>
@@ -195,7 +195,7 @@ const Dashboard = (accesToken: any, catalogos: [][]) => {
                 <DialogAlert action="deleteProyect"/>
               </p>
             </TableCell>
-            <TableCell>
+            <TableCell className="whitespace-nowrap">
               ${data.ticket}
 
             </TableCell>
@@ -218,7 +218,7 @@ const Dashboard = (accesToken: any, catalogos: [][]) => {
               </Badge>
             </TableCell>
             {/******Market Cap**** */}
-            <TableCell>
+            <TableCell className="whitespace-nowrap">
               $ {data.marketCap.toLocaleString()}
 
             </TableCell>
@@ -253,12 +253,12 @@ const Dashboard = (accesToken: any, catalogos: [][]) => {
               </Badge>
             </TableCell>
             {/****** precio entrada**** */}
-            <TableCell>
+            <TableCell className="whitespace-nowrap">
               $ {data.precioEntrada}
 
             </TableCell>
             {/******precio salida**** */}
-            <TableCell>
+            <TableCell className="whitespace-nowrap">
               $ {data.precioActual}
 
             </TableCell>
