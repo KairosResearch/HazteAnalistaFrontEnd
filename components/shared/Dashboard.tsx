@@ -150,7 +150,7 @@ const Dashboard = (accesToken: any, catalogos: [][]) => {
             <Badge 
               variant='range'
               color={
-              (range(Number(data.cap)) === BLUE) ? 'blue' : (range(Number(data.cap)) === MID) ? 'orange' : (range(Number(data.cap)) === LARGE) ? 'green' : 'brown'
+              (range(Number(data.cap)) === MID) ? 'blue' : (range(Number(data.cap)) === LOW) ? 'orange' : (range(Number(data.cap)) === LARGE) ? 'green' : 'brown'
             }>
             {range(Number(data.cap))}
             </Badge>
@@ -227,7 +227,7 @@ const Dashboard = (accesToken: any, catalogos: [][]) => {
             <Badge 
               variant='range'
               color={
-              (range(data.marketCap) === BLUE) ? 'blue' : (range(data.marketCap) === MID) ? 'orange' : (range(data.marketCap) === LARGE) ? 'green' : 'brown'
+              (range(data.marketCap) === MID) ? 'blue' : (range(data.marketCap) === LOW) ? 'orange' : (range(data.marketCap) === LARGE) ? 'green' : 'brown'
             }>
             {range(data.marketCap)}
             </Badge>
