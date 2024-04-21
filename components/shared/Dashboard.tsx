@@ -98,7 +98,7 @@ const Dashboard = (accesToken: any, catalogos: [][]) => {
           <TableHead className="">Decisión</TableHead>
           <TableHead className="">Market Cap</TableHead>
           <TableHead className="">Rango</TableHead>
-          <TableHead className="">Si Ath</TableHead>
+          <TableHead className="">ATH</TableHead>
           <TableHead className="">Sector</TableHead>
           <TableHead className="">Exchange</TableHead>
           <TableHead className="">Precio Entrada</TableHead>
