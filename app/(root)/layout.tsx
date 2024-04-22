@@ -6,11 +6,19 @@ import{ ContextProvider} from '@/contexts/ContextProvider';
 import Footer from '@/components/shared/Footer';
 
 
-const Layout = ({children}: {children: React.ReactNode}) => {
+import { cookies } from 'next/headers';
+
+
+const Layout = async ({children}: {children: React.ReactNode}) => {
+  const cookiesStore = cookies();
+  const userString = cookiesStore.get('user')?.value;
+  const user = userString ? JSON.parse(userString) : null;
   return (
     <ContextProvider>
       <main className='root'>
-        <Navbar />
+        <Navbar 
+          user={user} 
+        />
         
           <div className="root-container overflow-hidden md:flex">
               <Sidebar />

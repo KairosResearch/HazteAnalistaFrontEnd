@@ -14,32 +14,25 @@ import { tableDataDefault } from '@/lib/data';
 import { Badge } from '../ui/badge';
 import DialogItem from './DialogItem';
 import DialogAlert from './DialogAlert';
-import { useUserData, useUserTableData } from '@/hooks/useUserData';
+import { useUserTableData } from '@/hooks/useUserData';
 
 //import {useUserDar}  from '@/contexts/ContextProvider';
 import { getProyects } from '@/services/backend/proyects';
 import {  getSectores } from '@/services/backend/catalogos';
-import { rangeDesigner } from '@/lib/utils';
-
-
-interface TableData {
-  nombre: string;
-  ticket: string;
-  id4e: number;
-  id_decision_proyecto: number;
-  marketCap: number;
-  siAth: number;
-  idSector: number;
-  idExchange: number;
-  precioEntrada: number;
-  precioActual: number;
-}
+import { rangeDesigner } from '@/utils';
 
 
 
-const Dashboard = (accesToken: any, catalogos: [][]) => {
+//Types
+import { TableData } from '@/index';
+import { DashboardProps } from '@/index';
+
+
+const Dashboard = (
+  {accessToken, catalogos, user}: DashboardProps
+) => {
   
-  const {userId} = useUserData();
+  // const {userId} = useUserData();
   const {userTableData } = useUserTableData();
   
   const [sectores, setSectores] = useState<any[]>([]);
@@ -48,7 +41,7 @@ const Dashboard = (accesToken: any, catalogos: [][]) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getProyects(accesToken, userId);
+      const data = await getProyects(accessToken, user.id);
       if (data.error){
         setTableData([]);
         alert('Tenemos problemas internos con el servidor. Buscamos solucionarlo!')
@@ -61,11 +54,9 @@ const Dashboard = (accesToken: any, catalogos: [][]) => {
   }, []);
 
 
-
   useEffect(() => {
-      // setTableData(userTableData);
       const  fetchData = async () => {
-        const data = await getProyects(accesToken, userId);
+        const data = await getProyects(accessToken, user.id);
         if(data.error){
           setTableData([]);
           alert('Tenemos problemas internos con el servidor. Buscamos solucionarlo!')
@@ -106,6 +97,8 @@ const Dashboard = (accesToken: any, catalogos: [][]) => {
         </TableRow>
       </TableHeader>
       <TableBody>
+
+      {/* First two data, by default */}
         {tableDataDefault.map((data) => (
           <TableRow className='divide-x-2 divide-y-2 divide-green-dark' key={data.proyectName}>
           <TableCell className="font-medium border-2 border-green-dark relative">
@@ -114,6 +107,7 @@ const Dashboard = (accesToken: any, catalogos: [][]) => {
               <DialogItem 
                 mode="edit" 
                 catalogos={catalogos}
+                user={user}
               />
               <DialogAlert action="deleteProyect"/>
             </p>
@@ -183,6 +177,8 @@ const Dashboard = (accesToken: any, catalogos: [][]) => {
           </TableCell>
         </TableRow>
         ))}
+
+      {/* Data directly manipulated by the user */}
         {tableData && tableData.map((data) => (
           <TableRow className='divide-x-2 divide-y-2 divide-green-dark' key={data.nombre}>
             <TableCell className="font-medium border-2 border-green-dark relative">
@@ -191,6 +187,7 @@ const Dashboard = (accesToken: any, catalogos: [][]) => {
                 <DialogItem 
                   mode="edit" 
                   catalogos={catalogos}
+                  user={user}
                 />
                 <DialogAlert action="deleteProyect"/>
               </p>

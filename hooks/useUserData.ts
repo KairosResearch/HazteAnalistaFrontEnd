@@ -1,17 +1,7 @@
-
 import { create } from 'zustand'
 
 
-type UserData = {
-    userId: number | null;
-    setUserId: (newId: number) => void;
-    accessToken: string | undefined;
-    setAccessToken: (newAccessToken: string | undefined) => void;
-};
-type UserTableData = {
-    userTableData: [];
-    setUserTableData: (newData: any) => void;
-}
+import {UserData, UserTableData} from '@/index'
 
 export const useUserData = create<UserData>((set) => ({
     userId: null,

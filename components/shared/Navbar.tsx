@@ -12,12 +12,11 @@ import Image from 'next/image';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 // import DialogAlert from './DialogAlert';
-import { handleLogout } from '@/actions/logout';
+// import { handleLogout } from '@/actions/logout';
 
+import { NavbarProps} from '@/index';
 
-
-
-const Navbar = () => {
+const Navbar = ({user}: NavbarProps) => {
  // const handleLogoutSubmit = async () => {
    // await handleLogout();
 //}
@@ -53,19 +52,26 @@ const Navbar = () => {
             </nav>
           
           <div className='flex gap-4 flex-center'>
-            <Link 
-              className='underline'
-              href='/'
-            >
+            <div className='flex flex-col justify-center items-center'>
+              {user.name}
+              <span>
+                <Link 
+                className='underline text-xs'
+                href='/'
+              >
+                
+                Cerrar sesion
               
-              Cerrar sesion
-             
-             </Link>
+              </Link>
+              </span>
+            </div>
+            
 
             <Avatar>
               <AvatarImage src="" />
-              <AvatarFallback>Us</AvatarFallback>
+              <AvatarFallback></AvatarFallback>
             </Avatar>
+            
 
             <div>
 

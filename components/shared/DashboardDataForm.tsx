@@ -1,6 +1,9 @@
 "use client"
-import React, {useEffect, useState} from "react"
+import React, {useState} from "react"
+//Hooks
 import { useUserData, useUserTableData } from "@/hooks/useUserData"
+//Types:
+import { CatalogosType, DashboardDataFormProps, BackendValues } from "@/index"
 
 //Shadcn staff for forms
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -15,19 +18,8 @@ import { Input } from "../ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
 import { CustomField } from "./CustomField"
 
-//Data for default values
-const defaultValues = {
-    nombre: "",
-    ticket: "",
-    id4e: "",
-    id_decision_proyecto: "",
-    marketCap: 0,
-    siAth: 0,
-    idExchange: '',
-    idSector: '',
-    precioEntrada: 0,
-    precioActual: 0,
-};
+//Values
+import {defaultValuesDashboardForm} from "@/utils/index"
 
 
 //Schema
@@ -46,43 +38,13 @@ export const formSchema = z.object({
     precioActual: z.number().nonnegative("El campo 'precio' debe ser un número."),
   });
 
-//Types:
-interface DashboardDataFormProps {
-    type: "create" | "update"; 
-    data: {
-        nombre: string,
-        ticket: string,
-        id4e: string,
-        id_decision_proyecto: string,
-        marketCap: number,
-        siAth: number,
-        idExchange: string,
-        idSector: string,
-        precioEntrada: number,
-        precioActual: number,
-    } | null;
-    catalogos: [][];
-    
-}
-interface BackendValues{
-    nombre: string,
-    ticket: string,
-    id4e: number,
-    id_decision_proyecto: number,
-    marketCap: number,
-    siAth: number,
-    idExchange: number,
-    idSector: number,
-    precioEntrada: number,
-    precioActual: number,
-    idUsuario: number | null
-}
+
+
 //El coso de actions
 import { handleSubmitProyectForm } from "@/actions/postProyect"
-import { CatalogosType } from "@/index"
 
 //The form
-const DashboardDataForm = ({type, data = null, catalogos}: DashboardDataFormProps) => {
+const DashboardDataForm = ({type, data = null, catalogos, user}: DashboardDataFormProps) => {
     const data4t = catalogos[0] as CatalogosType[]; 
     const decision = catalogos[1] as CatalogosType[];
     const exchange = catalogos[2] as CatalogosType[];
@@ -91,13 +53,10 @@ const DashboardDataForm = ({type, data = null, catalogos}: DashboardDataFormProp
     const [submitted, setSubmitted] = useState(false);
     const [emptyForm, setEmptyForm] = useState(false);
 
-    const {userId} = useUserData();
+    // const {userId} = useUserData();
     const {setUserTableData} = useUserTableData();
 
-
-    
-    
-    
+ 
     const initialValues = data && type === 'update' ? {
         nombre: data?.nombre, 
         ticket: data?.ticket,
@@ -109,7 +68,8 @@ const DashboardDataForm = ({type, data = null, catalogos}: DashboardDataFormProp
         idSector: data?.idSector,
         precioEntrada: data?.precioEntrada,
         precioActual: data?.precioActual,
-    } : defaultValues;
+    } : defaultValuesDashboardForm;
+
 
     //Defining the form
     const form = useForm<z.infer<typeof formSchema>>({
@@ -134,12 +94,14 @@ const DashboardDataForm = ({type, data = null, catalogos}: DashboardDataFormProp
 
 
       // 2. Define a submit handler.
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        
-            async function dora (){
+    async function onSubmit(values: z.infer<typeof formSchema>) {
                 setEmptyForm(false);
+
+                //These are the values created after the name lost focus
                 const valuesGot = getValues();
                 
+                //These are the values that will be sent to the backend
+                //Both the values that got from the form and the values that were generated after the name lost focus 
                 const backendValues: BackendValues = {
                     nombre: values.nombre,
                     ticket: valuesGot.ticket,
@@ -151,63 +113,59 @@ const DashboardDataForm = ({type, data = null, catalogos}: DashboardDataFormProp
                     idSector: Number(values.idSector),
                     precioEntrada: valuesGot.precioEntrada,
                     precioActual: valuesGot.precioActual,
-                    idUsuario: userId
+                    idUsuario: user.id
                 }
-                console.log(backendValues)
+                
                 if (Object.values(backendValues).every(value => value)) {
                     console.log(backendValues)
-                    const newData = await handleSubmitProyectForm(backendValues, userId);
+                    const newData = await handleSubmitProyectForm(backendValues, user.id);
                     console.log('Nueva Data dentro del frontend', newData)
                     if(newData){
                        setUserTableData(newData);
                        setSubmitted(true);
                        
                        form.reset();
-                       form.reset(defaultValues);
+                       form.reset(defaultValuesDashboardForm);
                     }
                 } else {
                    console.log('Datos null')
                    setEmptyForm(true);
                 }
-            }
-            dora();
             
-            //setDisabled(false);
     }
     
 return (
     <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} action="">
-                {emptyForm && (
+            {emptyForm && (
+                <div className="mx-auto w-4/5 mt-6 hidden md:block">
+                    <p className="bg-red-200 p-2 text-center text-red-700">
+                        Por favor llena todos los campos
+                    </p>
+                </div>
+            )}
+            {submitted && (
+                <>
                     <div className="mx-auto w-4/5 mt-6 hidden md:block">
-                        <p className="bg-red-200 p-2 text-center text-red-700"
-                        >Por favor llena todos los campos</p>
-                        </div>
-                    )
-                }
-                {submitted && (
-                        <>
-                            <div className="mx-auto w-4/5 mt-6 hidden md:block">
-                                <p className="bg-green-200 p-2 text-center text-green-700"
-                                >Proyecto enviado!</p>
-                            </div>
-                            
-                        </>
-                    )
-                }
+                        <p className="bg-green-200 p-2 text-center text-green-700">
+                            Proyecto enviado!
+                        </p>
+                    </div>
+                </>
+            )}
             <div className="space-y-6 md:grid grid-flow-row grid-cols-3 gap-6">
                 {/**Name */}
                 <CustomField
                     control={form.control}
-                    name='nombre'
-                    formLabel='Nombre'
-                    className='w-full sm:mt-6'
-                    render={({field}) => (
-                        <Input 
-                            {...field}  
+                    name="nombre"
+                    formLabel="Nombre"
+                    className="w-full sm:mt-6"
+                    render={({ field }) => (
+                        <Input
+                            {...field}
                             onBlur={() => {
                                 field.onBlur();
-                                nameLostFocus()
+                                nameLostFocus();
                             }}
                         />
                     )}
@@ -215,30 +173,33 @@ return (
                 {/**Ticket */}
                 <CustomField
                     control={form.control}
-                    name='ticket'
-                    formLabel='Ticker'
-                    className='w-full'
-                    render={({field}) => (
-                        <Input 
+                    name="ticket"
+                    formLabel="Ticker"
+                    className="w-full"
+                    render={({ field }) => (
+                        <Input
                             {...field}
                             maxLength={5}
-                            value={getValues('ticket')} 
+                            value={getValues("ticket")}
                         />
                     )}
                 />
                 {/**4E */}
                 <CustomField
                     control={form.control}
-                    name='id4e'
-                    formLabel='4E'
-                    className='w-full'
-                    render={({field}) => (
-                        <Select onValueChange={field.onChange} defaultValue={field.value} >
+                    name="id4e"
+                    formLabel="4E"
+                    className="w-full"
+                    render={({ field }) => (
+                        <Select
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                        >
                             <SelectTrigger>
                                 <SelectValue placeholder="Selecciona el 4E" />
                             </SelectTrigger>
                             <SelectContent>
-                                { data4t.map((metodo) => (
+                                {data4t.map((metodo) => (
                                     <SelectItem key={metodo.value} value={String(metodo.value)}>
                                         <Badge
                                             variant="fourE"
@@ -263,17 +224,23 @@ return (
                 {/**Decision */}
                 <CustomField
                     control={form.control}
-                    name='id_decision_proyecto'
-                    formLabel='Decision'
-                    className='w-full'
-                    render={({field}) => (
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    name="id_decision_proyecto"
+                    formLabel="Decision"
+                    className="w-full"
+                    render={({ field }) => (
+                        <Select
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                        >
                             <SelectTrigger>
                                 <SelectValue placeholder="Decision sobre el proyecto" />
                             </SelectTrigger>
                             <SelectContent>
-                                { decision.map((decision) => (
-                                    <SelectItem key={decision.value} value={String(decision.value)}>
+                                {decision.map((decision) => (
+                                    <SelectItem
+                                        key={decision.value}
+                                        value={String(decision.value)}
+                                    >
                                         <Badge
                                             variant={
                                                 decision.label === "Watchlist"
@@ -294,53 +261,58 @@ return (
                 {/**Market Cap */}
                 <CustomField
                     control={form.control}
-                    name='marketCap'
-                    formLabel='Market Cap'
-                    className='w-full'
-                    render={({field}) => (
-                        <Input 
-                        {...field} 
-                        type="text"
-                        value={getValues('marketCap') ? getValues('marketCap').toLocaleString() : ''}
-                        onChange={e => {
-                            // Elimina los separadores de miles antes de llamar a field.onChange
-                            const value = parseFloat(e.target.value.replace(/,/g, ''));
-                            field.onChange(isNaN(value) ? '' : value);
-                        }} 
+                    name="marketCap"
+                    formLabel="Market Cap"
+                    className="w-full"
+                    render={({ field }) => (
+                        <Input
+                            {...field}
+                            type="text"
+                            value={getValues("marketCap") ? getValues("marketCap").toLocaleString() : ""}
+                            onChange={(e) => {
+                                // Elimina los separadores de miles antes de llamar a field.onChange
+                                const value = parseFloat(e.target.value.replace(/,/g, ""));
+                                field.onChange(isNaN(value) ? "" : value);
+                            }}
                         />
                     )}
                 />
                 {/**Si Ath */}
                 <CustomField
                     control={form.control}
-                    name='siAth'
-                    formLabel='ATH'
-                    className='w-full'
-                    render={({field}) => (
+                    name="siAth"
+                    formLabel="ATH"
+                    className="w-full"
+                    render={({ field }) => (
                         <Input
-                            {...field} 
-                            type="number"  
-                            value={getValues('siAth')}
-                            onChange={e => field.onChange(parseFloat(e.target.value))} />
+                            {...field}
+                            type="number"
+                            value={getValues("siAth")}
+                            onChange={(e) => field.onChange(parseFloat(e.target.value))}
+                        />
                     )}
                 />
                 {/**Exchange */}
                 <CustomField
                     control={form.control}
-                    name='idExchange'
-                    formLabel='Exchange'
-                    className='w-full'
-                    render={({field}) => (
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    name="idExchange"
+                    formLabel="Exchange"
+                    className="w-full"
+                    render={({ field }) => (
+                        <Select
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                        >
                             <SelectTrigger>
                                 <SelectValue placeholder="Selecciona el exchange" />
                             </SelectTrigger>
                             <SelectContent>
                                 {exchange.map((exchange) => (
-                                    <SelectItem key={exchange.value} value={String(exchange.value)}>
-                                        <Badge>
-                                            {exchange.label}
-                                        </Badge>
+                                    <SelectItem
+                                        key={exchange.value}
+                                        value={String(exchange.value)}
+                                    >
+                                        <Badge>{exchange.label}</Badge>
                                     </SelectItem>
                                 ))}
                             </SelectContent>
@@ -352,20 +324,24 @@ return (
 
                 <CustomField
                     control={form.control}
-                    name='idSector'
-                    formLabel='Sector'
-                    className='w-full'
-                    render={({field}) => (
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    name="idSector"
+                    formLabel="Sector"
+                    className="w-full"
+                    render={({ field }) => (
+                        <Select
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                        >
                             <SelectTrigger>
                                 <SelectValue placeholder="Selecciona el sector" />
                             </SelectTrigger>
                             <SelectContent>
                                 {sector.map((sector) => (
-                                    <SelectItem key={sector.value} value={String(sector.value)}>
-                                        <Badge>
-                                            {sector.label}
-                                        </Badge>
+                                    <SelectItem
+                                        key={sector.value}
+                                        value={String(sector.value)}
+                                    >
+                                        <Badge>{sector.label}</Badge>
                                     </SelectItem>
                                 ))}
                             </SelectContent>
@@ -375,72 +351,68 @@ return (
                 {/**Precio entrada */}
                 <CustomField
                     control={form.control}
-                    name='precioEntrada'
-                    formLabel='Precio entrada'
-                    className='w-full'
-                    render={({field}) => (
-                        <Input 
+                    name="precioEntrada"
+                    formLabel="Precio entrada"
+                    className="w-full"
+                    render={({ field }) => (
+                        <Input
                             {...field}
                             type="number"
-                            value={getValues('precioEntrada')}
-                            onChange={e => setValue('precioEntrada',parseFloat(e.target.value))} />
-                    )}
-                />
-
-                {/**Precio actual */}
-                <CustomField     
-                    control={form.control}
-                    name='precioActual'
-                    formLabel='Precio actual'
-                    className='w-full'
-                    render={({field}) => (
-                        <Input 
-                            {...field} 
-                            type="number" 
-                            value={getValues('precioActual')}
-                            onChange={e => field.onChange(parseFloat(e.target.value))} 
+                            value={getValues("precioEntrada")}
+                            onChange={(e) => setValue("precioEntrada", parseFloat(e.target.value))}
                         />
                     )}
                 />
 
+                {/**Precio actual */}
+                <CustomField
+                    control={form.control}
+                    name="precioActual"
+                    formLabel="Precio actual"
+                    className="w-full"
+                    render={({ field }) => (
+                        <Input
+                            {...field}
+                            type="number"
+                            value={getValues("precioActual")}
+                            onChange={(e) => field.onChange(parseFloat(e.target.value))}
+                        />
+                    )}
+                />
             </div>
 
-
-                {submitted && (
-                        <>
-                            <div className="mx-auto w-4/5 mt-6 block md:hidden">
-                                <p className="bg-green-200 p-2 text-center text-green-700"
-                                >Proyecto enviado!</p>
-                            </div>
-                            
-                        </>
-                    )
-                }
-                
-                {emptyForm && (
+            {submitted && (
+                <>
                     <div className="mx-auto w-4/5 mt-6 block md:hidden">
-                        <p className="bg-red-200 p-2 text-center text-red-700"
-                        >Por favor llena todos los campos!</p>
-                        </div>
-                    )
-                }
+                        <p className="bg-green-200 p-2 text-center text-green-700">
+                            Proyecto enviado!
+                        </p>
+                    </div>
+                </>
+            )}
+
+            {emptyForm && (
+                <div className="mx-auto w-4/5 mt-6 block md:hidden">
+                    <p className="bg-red-200 p-2 text-center text-red-700">
+                        Por favor llena todos los campos!
+                    </p>
+                </div>
+            )}
 
             {/*Botones*/}
-            
+
             <div className="flex justify-center mt-8">
-                <Button type="submit" variant='secondary' 
-                    className={`w-4/5 font-bold 
-                        `}>
-                            
-                    {
-                        type === 'create' ? 'Añadir' : 'Actualizar'
-                    }
-                    
+                <Button
+                    type="submit"
+                    variant="secondary"
+                    className={`w-4/5 font-bold`}
+                >
+                    {type === "create" ? "Añadir" : "Actualizar"}
                 </Button>
             </div>
         </form>
     </Form>
-)
+);
 }
 
 

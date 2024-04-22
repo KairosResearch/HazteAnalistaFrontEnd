@@ -7,7 +7,7 @@ import {
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { FormControl } from "@/components/ui/form"
-import {cn} from '@/lib/utils'
+import {cn} from '@/utils'
 
 
 const PopoverForm: React.FC<{ field: any }> = ({ field }) => {
