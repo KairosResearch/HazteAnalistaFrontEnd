@@ -17,7 +17,6 @@ import DialogAlert from './DialogAlert';
 import { useUserTableData } from '@/hooks/useUserData';
 
 //import {useUserDar}  from '@/contexts/ContextProvider';
-import { getProyects } from '@/services/backend/proyects';
 import {  getSectores } from '@/services/backend/catalogos';
 import { rangeDesigner } from '@/utils';
 
@@ -39,6 +38,8 @@ const Dashboard = (
   const [sectores, setSectores] = useState<any[]>([]);
   const [tableData, setTableData] = useState<TableData[]>([]);
 
+  const [prevUserTableData, setPrevUserTableData] = useState<any[]>([])
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -58,15 +59,18 @@ const Dashboard = (
 
 
   useEffect(() => {
-      const  fetchData = async () => {
+    // if (JSON.stringify(prevUserTableData) !== JSON.stringify(userTableData)) {
+      const fetchData = async () => {
         const data = await handleGetProyects();
-        if(data.error){
+        if (data.error) {
           setTableData([]);
           alert('Tenemos problemas internos con el servidor. Buscamos solucionarlo!')
         }
         setTableData(data.proyectos);
       }
       fetchData();
+      setPrevUserTableData(userTableData);
+    // }
   }, [userTableData]);
 
   

@@ -50,6 +50,8 @@ const DashboardDataForm = ({type, data = null, catalogos}: DashboardDataFormProp
     const exchange = catalogos[2] as CatalogosType[];
     const sector = catalogos[3] as CatalogosType[];
 
+    const [count, setCount] = useState(1);
+
     const [submitted, setSubmitted] = useState(false);
     const [emptyForm, setEmptyForm] = useState(false);
 
@@ -119,7 +121,8 @@ const DashboardDataForm = ({type, data = null, catalogos}: DashboardDataFormProp
                 const newData = await handleSubmitProyectForm(backendValues);
                 console.log('Nueva Data dentro del frontend', newData)
                 if(newData){
-                   setUserTableData(newData);
+                    setCount(count + 1);
+                   setUserTableData(['Dato añadido' + count]);
                    setSubmitted(true);
                    
                    form.reset();
@@ -144,9 +147,9 @@ const DashboardDataForm = ({type, data = null, catalogos}: DashboardDataFormProp
             }
             const newData = await handleUpdateProyect({...backendValues, id_proyecto: data?.id_proyecto});
             if(newData){
-                const count = 0;
-                count + 1;
-                setUserTableData('Cambio de datos' + count);
+                
+                setCount(count + 1);
+                setUserTableData(['Cambio de datos' + count]);
                 setSubmitted(true);
                 form.reset();
                 form.reset(defaultValuesDashboardForm);

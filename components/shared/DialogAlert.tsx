@@ -23,24 +23,26 @@ import { handleDeleteProyect } from '@/actions/proyectActions';
 
 
 
+
 const DialogAlert = (props:DialogAlertProps) => {
     //to modify the global state 
     const {setUserTableData} = useUserTableData();
-
+    
+    const [count, setCount] = React.useState(0)
     const [isOpen, setIsOpen] = React.useState(false)
     const [error, setError] = React.useState('')
     const [loading, setLoading] = React.useState(false)
     
     const onDeleteProject = async () => {
-        const count = 0;
         console.log(props.id)
         const deleted = await handleDeleteProyect(props.id);
         console.log(deleted)
         if (deleted.error){
             setError(deleted.error)
         } else {
-            count + 1;
-            setUserTableData('Cambio' + count)
+            setCount(count + 1)
+            console.log(count)
+            setUserTableData(['Cambio' + count])
         }
     }
   return (
