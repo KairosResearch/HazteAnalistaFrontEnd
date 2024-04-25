@@ -14,6 +14,12 @@ export const debounce = (func: (...args: any[]) => void, delay: number) => {
   };
 };
 
+//Random number generator between 1.000.000 and 10.000.000.000
+export const randomMarketCap = () => {
+  return Math.floor(Math.random() * 10000000000) + 1000000;
+};
+
+
 
 export const rangeDesigner = (marketCap: number) => {
   if(marketCap <= 99999999) {//99.999.999

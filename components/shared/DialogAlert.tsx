@@ -1,6 +1,10 @@
 'use client';
 import React from 'react'
-import { handleLogout } from '@/actions/logout';
+//types:
+import { DialogAlertProps } from '@/index';
+
+//Hooks:
+import { useUserTableData } from '@/hooks/useUserData';
 
 import {
     AlertDialog,
@@ -14,13 +18,31 @@ import {
     AlertDialogTrigger,
   } from "@/components/ui/alert-dialog"
   import { Button } from "@/components/ui/button"
+import { handleDeleteProyect } from '@/actions/proyectActions';
 
-interface DialogAlertProps {
-    action: 'deleteProyect' | 'logout';
-}
+
+
 
 const DialogAlert = (props:DialogAlertProps) => {
+    //to modify the global state 
+    const {setUserTableData} = useUserTableData();
+
+    const [isOpen, setIsOpen] = React.useState(false)
+    const [error, setError] = React.useState('')
+    const [loading, setLoading] = React.useState(false)
     
+    const onDeleteProject = async () => {
+        const count = 0;
+        console.log(props.id)
+        const deleted = await handleDeleteProyect(props.id);
+        console.log(deleted)
+        if (deleted.error){
+            setError(deleted.error)
+        } else {
+            count + 1;
+            setUserTableData('Cambio' + count)
+        }
+    }
   return (
     <>
         {props.action === 'deleteProyect' ? (
@@ -39,7 +61,7 @@ const DialogAlert = (props:DialogAlertProps) => {
                 </AlertDialogHeader>
                 <AlertDialogFooter className='my-3'>
                 <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                <AlertDialogAction><Button variant='destructive' className='w-full'>Si, eliminar</Button></AlertDialogAction>
+                <AlertDialogAction><Button variant='destructive' onClick={onDeleteProject} className='w-full'>Si, eliminar</Button></AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>

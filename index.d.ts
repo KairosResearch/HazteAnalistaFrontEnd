@@ -12,29 +12,42 @@ interface UserProps {
     updated_at: string
 }{}
 
+interface TableData {
+    id_proyecto: number;
+    nombre: string;
+    ticket: string;
+    id4e: number;
+    id_decision_proyecto: number;
+    marketCap: number;
+    siAth: number;
+    idSector: number;
+    idExchange: number;
+    precioEntrada: number;
+    precioActual: number;
+  }
 
 export interface DashboardDataFormProps {
     type: "create" | "update"; 
     data: {
-        nombre: string,
-        ticket: string,
-        id4e: string,
-        id_decision_proyecto: string,
-        marketCap: number,
-        siAth: number,
-        idExchange: string,
-        idSector: string,
-        precioEntrada: number,
-        precioActual: number,
+        id_proyecto: number;
+        nombre: string;
+        ticket: string;
+        id4e:  string | undefined;
+        id_decision_proyecto:  string | undefined;
+        marketCap: number;
+        siAth: number;
+        idSector:  string | undefined;
+        idExchange:  string | undefined;
+        precioEntrada: number;
+        precioActual: number;
     } | null;
     catalogos: CatalogosType[][]; 
-    user: UserProps
 }
 
 export interface BackendValues{
     nombre: string,
     ticket: string,
-    id4e: number,
+    id4e: strign ,
     id_decision_proyecto: number,
     marketCap: number,
     siAth: number,
@@ -42,7 +55,6 @@ export interface BackendValues{
     idSector: number,
     precioEntrada: number,
     precioActual: number,
-    idUsuario: number | null
 }
 
 export type UserData = {
@@ -61,20 +73,6 @@ export interface AuthDataFormProps {
     type: "login" | "register"; 
 }
 
-interface TableData {
-    nombre: string;
-    ticket: string;
-    id4e: number;
-    id_decision_proyecto: number;
-    marketCap: number;
-    siAth: number;
-    idSector: number;
-    idExchange: number;
-    precioEntrada: number;
-    precioActual: number;
-  }
-
-
   
   interface NavbarProps {
     user: UserProps
@@ -84,6 +82,8 @@ interface TableData {
     mode: 'edit' | 'add';
     catalogos: CatalogosType[][]
     user: UserProps
+    id: number | null;
+    data: TableData | null;
 }
 
 
@@ -92,3 +92,8 @@ interface DashboardProps {
     catalogos: CatalogosType[][]; 
     user: UserProps
   }
+
+  interface DialogAlertProps {
+    action: 'deleteProyect' | 'logout';
+    id: number | null;
+}

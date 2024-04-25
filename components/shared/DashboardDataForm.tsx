@@ -19,7 +19,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { CustomField } from "./CustomField"
 
 //Values
-import {defaultValuesDashboardForm} from "@/utils/index"
+import {defaultValuesDashboardForm, randomMarketCap} from "@/utils/index"
 
 
 //Schema
@@ -41,10 +41,10 @@ export const formSchema = z.object({
 
 
 //El coso de actions
-import { handleSubmitProyectForm } from "@/actions/postProyect"
+import { handleSubmitProyectForm } from "@/actions/proyectActions"
 
 //The form
-const DashboardDataForm = ({type, data = null, catalogos, user}: DashboardDataFormProps) => {
+const DashboardDataForm = ({type, data = null, catalogos}: DashboardDataFormProps) => {
     const data4t = catalogos[0] as CatalogosType[]; 
     const decision = catalogos[1] as CatalogosType[];
     const exchange = catalogos[2] as CatalogosType[];
@@ -84,7 +84,7 @@ const DashboardDataForm = ({type, data = null, catalogos, user}: DashboardDataFo
     const nameLostFocus = () => {
 
         setValue('ticket', 'TIA')
-        setValue('marketCap', 1844203650)
+        setValue('marketCap', randomMarketCap())
         setValue('siAth', 2.02)
         setValue('precioEntrada', 11)
         setValue('precioActual', 10.36)
@@ -113,12 +113,11 @@ const DashboardDataForm = ({type, data = null, catalogos, user}: DashboardDataFo
                     idSector: Number(values.idSector),
                     precioEntrada: valuesGot.precioEntrada,
                     precioActual: valuesGot.precioActual,
-                    idUsuario: user.id
                 }
                 
                 if (Object.values(backendValues).every(value => value)) {
                     console.log(backendValues)
-                    const newData = await handleSubmitProyectForm(backendValues, user.id);
+                    const newData = await handleSubmitProyectForm(backendValues);
                     console.log('Nueva Data dentro del frontend', newData)
                     if(newData){
                        setUserTableData(newData);

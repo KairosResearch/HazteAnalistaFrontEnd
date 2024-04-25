@@ -61,8 +61,7 @@ const DialogItem = (props: DialogItemProps) => {
                     <DashboardDataForm
                         catalogos={props.catalogos}
                         type='update'
-                        data={null}
-                        user={props.user}
+                        data={props.data}
                     />
                     
                 ) : (
@@ -70,7 +69,6 @@ const DialogItem = (props: DialogItemProps) => {
                         catalogos={props.catalogos}
                         type='create'
                         data={null}
-                        user={props.user}
                     />
                 )}
             </DialogContent>

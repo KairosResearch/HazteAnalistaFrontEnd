@@ -26,6 +26,7 @@ import { rangeDesigner } from '@/utils';
 //Types
 import { TableData } from '@/index';
 import { DashboardProps } from '@/index';
+import { handleGetProyects } from '@/actions/proyectActions';
 
 
 const Dashboard = (
@@ -41,14 +42,16 @@ const Dashboard = (
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getProyects(accessToken, user.id);
+      const data = await handleGetProyects();
       if (data.error){
         setTableData([]);
         alert('Tenemos problemas internos con el servidor. Buscamos solucionarlo!')
       }
       const sectores = await getSectores();
       setSectores(sectores);
-      setTableData(data.proyectos);
+      console.log('data.proyectos', data)
+      
+      //setTableData(data);
     };
     fetchData();
   }, []);
@@ -56,7 +59,7 @@ const Dashboard = (
 
   useEffect(() => {
       const  fetchData = async () => {
-        const data = await getProyects(accessToken, user.id);
+        const data = await handleGetProyects();
         if(data.error){
           setTableData([]);
           alert('Tenemos problemas internos con el servidor. Buscamos solucionarlo!')
@@ -104,12 +107,15 @@ const Dashboard = (
           <TableCell className="font-medium border-2 border-green-dark relative">
             <p className='pb-6 pr-12'> 
               {data.proyectName}
-              <DialogItem 
+              {/* <DialogItem 
                 mode="edit" 
                 catalogos={catalogos}
                 user={user}
-              />
-              <DialogAlert action="deleteProyect"/>
+              /> */}
+              {/* <DialogAlert 
+                action="deleteProyect"
+                user={user}  
+              /> */}
             </p>
           </TableCell>
           <TableCell>
@@ -188,8 +194,19 @@ const Dashboard = (
                   mode="edit" 
                   catalogos={catalogos}
                   user={user}
+                  id={data.id_proyecto}
+                  data={{
+                    ...data, 
+                    data.id4e = data.id4e.toString(),
+                    data.id_decision_proyecto = data.id_decision_proyecto.toString(),
+                    data.idSector = data.idSector.toString(),
+                    data.idExchange = data.idExchange.toString()
+                  }}
                 />
-                <DialogAlert action="deleteProyect"/>
+                <DialogAlert
+                  action="deleteProyect"
+                  id={data.id_proyecto}
+                />
               </p>
             </TableCell>
             <TableCell className="whitespace-nowrap">

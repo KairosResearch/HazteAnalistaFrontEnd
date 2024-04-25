@@ -150,7 +150,7 @@ const Navbar = ({user}: NavbarProps) => {
                     </nav>
                 </SheetContent>
 
-              </Sheet>
+            </Sheet>
             </div>
               
                 
