@@ -1,9 +1,9 @@
 "use client"
 import React, {useState} from "react"
 //Hooks
-import { useUserData, useUserTableData } from "@/hooks/useUserData"
+import { useUserTableData } from "@/hooks/useUserData"
 //Types:
-import { CatalogosType, DashboardDataFormProps, BackendValues } from "@/index"
+import { BackendValues, CatalogosType, DashboardDataFormProps,  TableData } from "@/index"
 
 //Shadcn staff for forms
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -41,7 +41,7 @@ export const formSchema = z.object({
 
 
 //El coso de actions
-import { handleSubmitProyectForm } from "@/actions/proyectActions"
+import { handleSubmitProyectForm, handleUpdateProyect } from "@/actions/proyectActions"
 
 //The form
 const DashboardDataForm = ({type, data = null, catalogos}: DashboardDataFormProps) => {
@@ -82,54 +82,77 @@ const DashboardDataForm = ({type, data = null, catalogos}: DashboardDataFormProp
     //Data generated after blur on name
     const {setValue, getValues} = useForm()
     const nameLostFocus = () => {
-
         setValue('ticket', 'TIA')
         setValue('marketCap', randomMarketCap())
         setValue('siAth', 2.02)
         setValue('precioEntrada', 11)
         setValue('precioActual', 10.36)
-        console.log('Name lost focus')
     }
 
 
 
       // 2. Define a submit handler.
     async function onSubmit(values: z.infer<typeof formSchema>) {
-                setEmptyForm(false);
+        if(type === 'create'){
+            setEmptyForm(false);
 
-                //These are the values created after the name lost focus
-                const valuesGot = getValues();
-                
-                //These are the values that will be sent to the backend
-                //Both the values that got from the form and the values that were generated after the name lost focus 
-                const backendValues: BackendValues = {
-                    nombre: values.nombre,
-                    ticket: valuesGot.ticket,
-                    id4e: Number(values.id4e),
-                    id_decision_proyecto: Number(values.id_decision_proyecto),
-                    marketCap: valuesGot.marketCap,
-                    siAth: valuesGot.siAth,
-                    idExchange: Number(values.idExchange),
-                    idSector: Number(values.idSector),
-                    precioEntrada: valuesGot.precioEntrada,
-                    precioActual: valuesGot.precioActual,
+            //These are the values created after the name lost focus
+            const valuesGot = getValues();
+            
+            //These are the values that will be sent to the backend
+            //Both the values that got from the form and the values that were generated after the name lost focus 
+            const backendValues: BackendValues = {
+                nombre: values.nombre,
+                ticket: valuesGot.ticket,
+                id4e: Number(values.id4e),
+                id_decision_proyecto: Number(values.id_decision_proyecto),
+                marketCap: valuesGot.marketCap,
+                siAth: valuesGot.siAth,
+                idExchange: Number(values.idExchange),
+                idSector: Number(values.idSector),
+                precioEntrada: valuesGot.precioEntrada,
+                precioActual: valuesGot.precioActual,
+            }
+            
+            if (Object.values(backendValues).every(value => value)) {
+                console.log(backendValues)
+                const newData = await handleSubmitProyectForm(backendValues);
+                console.log('Nueva Data dentro del frontend', newData)
+                if(newData){
+                   setUserTableData(newData);
+                   setSubmitted(true);
+                   
+                   form.reset();
+                   form.reset(defaultValuesDashboardForm);
                 }
-                
-                if (Object.values(backendValues).every(value => value)) {
-                    console.log(backendValues)
-                    const newData = await handleSubmitProyectForm(backendValues);
-                    console.log('Nueva Data dentro del frontend', newData)
-                    if(newData){
-                       setUserTableData(newData);
-                       setSubmitted(true);
-                       
-                       form.reset();
-                       form.reset(defaultValuesDashboardForm);
-                    }
-                } else {
-                   console.log('Datos null')
-                   setEmptyForm(true);
-                }
+            } else {
+               console.log('Datos null')
+               setEmptyForm(true);
+            }
+        } else {
+            const backendValues: BackendValues = {
+                nombre: values.nombre,
+                ticket: values.ticket,
+                id4e: Number(values.id4e),
+                id_decision_proyecto: Number(values.id_decision_proyecto),
+                marketCap: values.marketCap,
+                siAth: values.siAth,
+                idExchange: Number(values.idExchange),
+                idSector: Number(values.idSector),
+                precioEntrada: values.precioEntrada,
+                precioActual: values.precioActual,
+            }
+            const newData = await handleUpdateProyect({...backendValues, id_proyecto: data?.id_proyecto});
+            if(newData){
+                const count = 0;
+                count + 1;
+                setUserTableData('Cambio de datos' + count);
+                setSubmitted(true);
+                form.reset();
+                form.reset(defaultValuesDashboardForm);
+            }
+        }
+
             
     }
     
@@ -162,10 +185,10 @@ return (
                     render={({ field }) => (
                         <Input
                             {...field}
-                            onBlur={() => {
+                            onBlur={type === 'create'  ? () => {
                                 field.onBlur();
                                 nameLostFocus();
-                            }}
+                            }: undefined}
                         />
                     )}
                 />
@@ -179,7 +202,8 @@ return (
                         <Input
                             {...field}
                             maxLength={5}
-                            value={getValues("ticket")}
+                            
+                            value={type === 'create' ? getValues("ticket") : field.value}
                         />
                     )}
                 />
@@ -267,7 +291,11 @@ return (
                         <Input
                             {...field}
                             type="text"
-                            value={getValues("marketCap") ? getValues("marketCap").toLocaleString() : ""}
+                            value={
+                                type === "create" 
+                                ? (getValues("marketCap") ? getValues("marketCap").toLocaleString() : "")
+                                : field.value.toLocaleString()
+                            }
                             onChange={(e) => {
                                 // Elimina los separadores de miles antes de llamar a field.onChange
                                 const value = parseFloat(e.target.value.replace(/,/g, ""));
@@ -286,7 +314,7 @@ return (
                         <Input
                             {...field}
                             type="number"
-                            value={getValues("siAth")}
+                            value={type === 'create' ? getValues("siAth") : field.value}
                             onChange={(e) => field.onChange(parseFloat(e.target.value))}
                         />
                     )}
@@ -357,8 +385,8 @@ return (
                         <Input
                             {...field}
                             type="number"
-                            value={getValues("precioEntrada")}
-                            onChange={(e) => setValue("precioEntrada", parseFloat(e.target.value))}
+                            value={type === 'create' ? getValues("precioEntrada") : field.value}
+                            onChange={(e) => field.onChange(parseFloat(e.target.value))}
                         />
                     )}
                 />
@@ -373,7 +401,7 @@ return (
                         <Input
                             {...field}
                             type="number"
-                            value={getValues("precioActual")}
+                            value={type === 'create' ? getValues("precioActual") : field.value}
                             onChange={(e) => field.onChange(parseFloat(e.target.value))}
                         />
                     )}

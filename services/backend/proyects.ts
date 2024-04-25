@@ -10,7 +10,6 @@ export const getProyects = async (accessToken: string | undefined, userId: numbe
             }
         })
         const data = await response.json()
-        console.log('data en getProyects', data)
         return data
     } catch (err: any) {
         console.error(err.message)
@@ -53,7 +52,7 @@ export const deleteProyect = async (accessToken: string, id: number) => {
 
 export const updateProyect = async (accessToken: string, proyectData: any) => {
     try{
-        const response = await fetch(`${AUTH_URL}updateProyectSegmto`, {
+        const response = await fetch(`${AUTH_URL}update_project`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

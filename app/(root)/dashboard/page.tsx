@@ -13,7 +13,6 @@ import { get4t, getDecision, getExchange, getSectores } from '@/services/backend
 
 const HomePage  = async () => {
   const cookiesStore = cookies();
-  const accessToken = cookiesStore.get('accessToken')?.value as string;
   const userString = cookiesStore.get('user')?.value;
   const userObject = userString ? JSON.parse(userString) : {id: 2};
   console.log(userObject)
@@ -57,14 +56,15 @@ const HomePage  = async () => {
             >Dashboard de seguimiento:</h1>
             <DialogItem 
               mode='add'
+              id={null}
               catalogos={[data4t, decision, exchange, sector]}
               user={userObject}
+              data={null}
             />
           </div>
           
             <Dashboard
               user={userObject}
-              accessToken={accessToken}
               catalogos={[data4t, decision, exchange, sector]}
             />
           

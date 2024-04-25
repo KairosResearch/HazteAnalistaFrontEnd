@@ -55,10 +55,11 @@ export const handleDeleteProyect = async (id_proyecto: number | null) => {
     }
 }
 
-export const handleUpdateProyect = async (formData: any, id_proyecto: number | null) => {
+export const handleUpdateProyect = async (formData: any) => {
     try {
         const {accessToken} = valuesFromCookies();
-        const updated = await updateProyect(accessToken, {...formData, id_proyecto});
+        console.log('formData', formData)
+        const updated = await updateProyect(accessToken, formData);
         // if (updated) {
         //     const newData = await getProyects(accessToken)
         //     return newData;

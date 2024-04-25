@@ -30,7 +30,7 @@ import { handleGetProyects } from '@/actions/proyectActions';
 
 
 const Dashboard = (
-  {accessToken, catalogos, user}: DashboardProps
+  { catalogos, user}: DashboardProps
 ) => {
   
   // const {userId} = useUserData();
@@ -197,10 +197,10 @@ const Dashboard = (
                   id={data.id_proyecto}
                   data={{
                     ...data, 
-                    data.id4e = data.id4e.toString(),
-                    data.id_decision_proyecto = data.id_decision_proyecto.toString(),
-                    data.idSector = data.idSector.toString(),
-                    data.idExchange = data.idExchange.toString()
+                    id4e: data.id4e.toString(),
+                    id_decision_proyecto: data.id_decision_proyecto.toString(),
+                    idSector: data.idSector.toString(),
+                    idExchange: data.idExchange.toString()
                   }}
                 />
                 <DialogAlert

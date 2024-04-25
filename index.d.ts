@@ -13,7 +13,7 @@ interface UserProps {
 }{}
 
 interface TableData {
-    id_proyecto: number;
+    id_proyecto: number ;
     nombre: string;
     ticket: string;
     id4e: number;
@@ -24,14 +24,17 @@ interface TableData {
     idExchange: number;
     precioEntrada: number;
     precioActual: number;
-  }
+}
 
-export interface DashboardDataFormProps {
-    type: "create" | "update"; 
-    data: {
-        id_proyecto: number;
-        nombre: string;
-        ticket: string;
+//Changes comparing to -> TableData
+//the id's from the catalogs are now strings
+//because they have to be strings in the form, 
+//however before sending the data to the backend
+//they have to be converted to numbers.
+interface DataToReceiveInForm {
+    id_proyecto: number;
+    nombre: string;
+       ticket: string;
         id4e:  string | undefined;
         id_decision_proyecto:  string | undefined;
         marketCap: number;
@@ -40,14 +43,17 @@ export interface DashboardDataFormProps {
         idExchange:  string | undefined;
         precioEntrada: number;
         precioActual: number;
-    } | null;
+}
+export interface DashboardDataFormProps {
+    type: "create" | "update"; 
+    data: DataToReceiveInForm| null;
     catalogos: CatalogosType[][]; 
 }
 
 export interface BackendValues{
     nombre: string,
     ticket: string,
-    id4e: strign ,
+    id4e: number ,
     id_decision_proyecto: number,
     marketCap: number,
     siAth: number,
@@ -83,12 +89,11 @@ export interface AuthDataFormProps {
     catalogos: CatalogosType[][]
     user: UserProps
     id: number | null;
-    data: TableData | null;
+    data: DataToReceiveInForm | null;
 }
 
 
 interface DashboardProps {
-    accessToken: string;
     catalogos: CatalogosType[][]; 
     user: UserProps
   }
