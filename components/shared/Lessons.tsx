@@ -80,20 +80,26 @@ const Lessons = () => {
         {/* Carousel de lecciones en mobile */}
         <div className='md:hidden px-1 pt-8 flex overflow-x-scroll gap-6'>
                 {lessons.map((lesson) => (
+                  <Link 
+                    href={lesson.link} 
+                    key={lesson.id}
+                    target='_blank'
+                  >
                     <Card className='min-w-64 ' key={lesson.id}>
                       <CardHeader className='max-h-[180px]'>
                       <img style={{height: '180px'}} src={lesson.img} alt="" /> 
                       </CardHeader>
                       <CardContent>
-                        <Link href='#' className='text-sm line-clamp-2'>
+                        <p className='text-sm line-clamp-2'>
                           {lesson.title}
-                        </Link>
+                        </p>
                         <span className='opacity-75 text-xs'>
                           {lesson.date}
                         </span>
                         
                       </CardContent>
                     </Card>
+                  </Link>
                 ))}
               
         </div>

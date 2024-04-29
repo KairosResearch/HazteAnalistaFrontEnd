@@ -1,6 +1,6 @@
 'use client';
 import React, {useEffect, useState} from 'react'
-import { POP, LOW, MID, LARGE, BLUE } from '@/lib/constants';
+import {  LOW, MID, LARGE, } from '@/lib/constants';
 import {
     Table,
     TableBody,
@@ -9,6 +9,7 @@ import {
     TableHeader,
     TableRow,
   } from "@/components/ui/table"
+
   
 import { tableDataDefault } from '@/lib/data';
 import { Badge } from '../ui/badge';
@@ -31,10 +32,9 @@ import { handleGetProyects } from '@/actions/proyectActions';
 const Dashboard = (
   { catalogos, user}: DashboardProps
 ) => {
-  
-  // const {userId} = useUserData();
+
   const {userTableData } = useUserTableData();
-  
+
   const [sectores, setSectores] = useState<any[]>([]);
   const [tableData, setTableData] = useState<TableData[]>([]);
 
@@ -106,7 +106,7 @@ const Dashboard = (
       <TableBody>
 
       {/* First two data, by default */}
-        {tableDataDefault.map((data) => (
+      {tableDataDefault.map((data) => (
           <TableRow className='divide-x-2 divide-y-2 divide-green-dark' key={data.proyectName}>
           <TableCell className="font-medium border-2 border-green-dark relative">
             <p className='pb-6 pr-12'> 
@@ -188,9 +188,11 @@ const Dashboard = (
         </TableRow>
         ))}
 
+       
       {/* Data directly manipulated by the user */}
         {tableData && tableData.map((data) => (
-          <TableRow className='divide-x-2 divide-y-2 divide-green-dark' key={data.nombre}>
+          <TableRow 
+            className='divide-x-2 divide-y-2 divide-green-dark hover:bg-primary cursor-pointer' key={data.id_proyecto}>
             <TableCell className="font-medium border-2 border-green-dark relative">
               <p className='pb-3 '> 
                 {data.nombre}
@@ -213,6 +215,7 @@ const Dashboard = (
                 />
               </p>
             </TableCell>
+
             <TableCell className="whitespace-nowrap">
               ${data.ticket}
 
@@ -280,7 +283,11 @@ const Dashboard = (
               $ {data.precioActual}
 
             </TableCell>
+          
+            
           </TableRow>
+
+
         ))}
       </TableBody>
     </Table>
