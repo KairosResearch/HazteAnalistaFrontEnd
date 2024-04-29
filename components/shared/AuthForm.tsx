@@ -235,7 +235,7 @@ return (
                     disabled={disabled}
                     type="submit" 
                     variant='secondary' 
-                    className={`w-1/5 font-bold 
+                    className={`w-4/5 font-bold 
                         ${!disabled ? 'bg-gray-400' : 'bg-[#2c2c2c]'}
                     `}
                 >

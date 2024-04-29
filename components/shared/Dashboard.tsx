@@ -9,8 +9,16 @@ import {
     TableHeader,
     TableRow,
   } from "@/components/ui/table"
+  import {
+    Dialog,
+    DialogClose,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+  } from "@/components/ui/dialog"
 
-  
 import { tableDataDefault } from '@/lib/data';
 import { Badge } from '../ui/badge';
 import DialogItem from './DialogItem';
@@ -27,7 +35,7 @@ import { rangeDesigner } from '@/utils';
 import { TableData } from '@/index';
 import { DashboardProps } from '@/index';
 import { handleGetProyects } from '@/actions/proyectActions';
-
+import { Button } from '../ui/button';
 
 const Dashboard = (
   { catalogos, user}: DashboardProps
@@ -39,6 +47,10 @@ const Dashboard = (
   const [tableData, setTableData] = useState<TableData[]>([]);
 
   const [prevUserTableData, setPrevUserTableData] = useState<any[]>([])
+  
+  //State for Dialog
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [selectedRow, setSelectedRow] = useState<any>(null);
 
 
   useEffect(() => {
@@ -107,7 +119,11 @@ const Dashboard = (
 
       {/* First two data, by default */}
       {tableDataDefault.map((data) => (
-          <TableRow className='divide-x-2 divide-y-2 divide-green-dark' key={data.proyectName}>
+          <TableRow className='divide-x-2 divide-y-2 divide-green-dark hover:bg-primary cursor-pointer' key={data.proyectName}
+          onClick={() => {
+            setSelectedRow(data);
+            setIsDialogOpen(true);
+          }}>
           <TableCell className="font-medium border-2 border-green-dark relative">
             <p className='pb-6 pr-12'> 
               {data.proyectName}
@@ -192,12 +208,16 @@ const Dashboard = (
       {/* Data directly manipulated by the user */}
         {tableData && tableData.map((data) => (
           <TableRow 
-            className='divide-x-2 divide-y-2 divide-green-dark hover:bg-primary cursor-pointer' key={data.id_proyecto}>
+            className='divide-x-2 divide-y-2 divide-green-dark hover:bg-primary cursor-pointer' key={data.id_proyecto}
+            onClick={() => {
+              setSelectedRow(data);
+              setIsDialogOpen(true);
+            }}>
             <TableCell className="font-medium border-2 border-green-dark relative">
               <p className='pb-3 '> 
                 {data.nombre}
                 <DialogItem 
-                  mode="edit" 
+                  mode="edit"
                   catalogos={catalogos}
                   user={user}
                   id={data.id_proyecto}
@@ -290,7 +310,41 @@ const Dashboard = (
 
         ))}
       </TableBody>
+      {isDialogOpen && (
+      <Dialog open={isDialogOpen} >
+        <DialogContent className='max-h-[50vh] md:max-h-full md:min-w-[80%] overflow-auto'>
+          
+          {selectedRow && (
+            <div className='flex flex-col gap-2'>
+              <div>
+                <h1 
+                  className='text-lg lg:text-2xl '
+                >Proyecto: {selectedRow.nombre}</h1>
+                <DialogDescription className='mt-3'>Detalles del proyecto</DialogDescription>
+
+              </div>
+              <div>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt sapiente necessitatibus reprehenderit voluptas assumenda, 
+                  voluptates sequi laudantium delectus vel earum perspiciatis accusamus. Aperiam corporis eum dolorum minima nostrum, nobis architecto.
+                </p>
+              </div>
+            </div>
+          )}
+          <DialogFooter>
+            <Button variant={'outline'} onClick={() => setIsDialogOpen(false)}>Cerrar</Button>
+          </DialogFooter>
+          <DialogClose
+            onClick={() => setIsDialogOpen(false)}
+          >
+
+          </DialogClose>
+        </DialogContent>
+        
+      </Dialog>
+    )}
     </Table>
+
   )
 };
 

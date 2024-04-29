@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
 
 import {
@@ -26,7 +27,7 @@ const DialogItem = (props: DialogItemProps) => {
                             Editar
                         </span>
                     </>
-                ) : props.mode === 'add' ?(
+                ) : (
                     <div
                         className='hover:bg-card-foreground hover:text-card text-card-foreground rounded-lg px-4 py-2 text-sm font-bold
                         border border-input bg-background'
@@ -37,10 +38,7 @@ const DialogItem = (props: DialogItemProps) => {
                             <span> +</span>
                         </p>
                     </div>
-                ) :
-                    <>
-                        <p>hola</p>
-                    </> 
+                ) 
             }
             </DialogTrigger>
 
