@@ -1,4 +1,7 @@
-import { tableDataDefault, lessons } from "@/lib/data";
+import { handleGetProyects } from "@/actions/proyectActions"; 
+
 export async function GET() {
-    return Response.json({tableDataDefault, lessons});
+    const data = await handleGetProyects();
+    return Response.json(data);
 }
+    

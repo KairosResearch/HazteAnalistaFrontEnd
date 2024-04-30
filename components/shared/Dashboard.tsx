@@ -34,7 +34,6 @@ import { rangeDesigner } from '@/utils';
 //Types
 import { TableData } from '@/index';
 import { DashboardProps } from '@/index';
-import { handleGetProyects } from '@/actions/proyectActions';
 import { Button } from '../ui/button';
 
 const Dashboard = (
@@ -46,7 +45,7 @@ const Dashboard = (
   const [sectores, setSectores] = useState<any[]>([]);
   const [tableData, setTableData] = useState<TableData[]>([]);
 
-  const [prevUserTableData, setPrevUserTableData] = useState<any[]>([])
+  
   
   //State for Dialog
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -55,16 +54,16 @@ const Dashboard = (
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await handleGetProyects();
-      if (data.error){
-        setTableData([]);
-        alert('Tenemos problemas internos con el servidor. Buscamos solucionarlo!')
-      }
+      // const data = await handleGetProyects();
+      const data = await fetch('http://localhost:3000/api')
+      // if (data.error){
+      //   setTableData([]);
+      //   alert('Tenemos problemas internos con el servidor. Buscamos solucionarlo!')
+      // }
       const sectores = await getSectores();
       setSectores(sectores);
       console.log('data.proyectos', data)
       
-      //setTableData(data);
     };
     fetchData();
   }, []);
@@ -73,15 +72,18 @@ const Dashboard = (
   useEffect(() => {
     // if (JSON.stringify(prevUserTableData) !== JSON.stringify(userTableData)) {
       const fetchData = async () => {
-        const data = await handleGetProyects();
-        if (data.error) {
-          setTableData([]);
-          alert('Tenemos problemas internos con el servidor. Buscamos solucionarlo!')
-        }
-        setTableData(data.proyectos);
+        // const data = await handleGetProyects();
+        // const proyectos: any = [];
+        const data = await fetch('http://localhost:3000/api')
+        const {proyectos} = await data.json();
+        // if (data.error) {
+        //   setTableData([]);
+        //   alert('Tenemos problemas internos con el servidor. Buscamos solucionarlo!')
+        // }
+        setTableData(proyectos);
       }
       fetchData();
-      setPrevUserTableData(userTableData);
+      // setPrevUserTableData(userTableData);
     // }
   }, [userTableData]);
 
