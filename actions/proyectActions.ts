@@ -19,7 +19,6 @@ export const handleGetProyects = async () => {
         if (data.error) {
             return {error: data.error}
         }
-        console.log('Hanlde get proyects')
         return data;
     } catch (err: any) {
         console.error(err.message)

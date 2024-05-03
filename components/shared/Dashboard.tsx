@@ -9,15 +9,7 @@ import {
     TableHeader,
     TableRow,
   } from "@/components/ui/table"
-  import {
-    Dialog,
-    DialogClose,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-  } from "@/components/ui/dialog"
+import DialogInfo from './DialogInfo';
 
 import { tableDataDefault } from '@/lib/data';
 import { Badge } from '../ui/badge';
@@ -216,23 +208,6 @@ const Dashboard = (
             <TableCell className="font-medium border-2 border-green-dark relative">
               <p className='pb-3 '> 
                 {data.nombre}
-                <DialogItem 
-                  mode="edit"
-                  catalogos={catalogos}
-                  user={user}
-                  id={data.id_proyecto}
-                  data={{
-                    ...data, 
-                    id4e: data.id4e.toString(),
-                    id_decision_proyecto: data.id_decision_proyecto.toString(),
-                    idSector: data.idSector.toString(),
-                    idExchange: data.idExchange.toString()
-                  }}
-                />
-                <DialogAlert
-                  action="deleteProyect"
-                  id={data.id_proyecto}
-                />
               </p>
             </TableCell>
 
@@ -310,39 +285,16 @@ const Dashboard = (
 
         ))}
       </TableBody>
+
+
       {isDialogOpen && (
-      <Dialog open={isDialogOpen} >
-        <DialogContent className='max-h-[50vh] md:max-h-full md:min-w-[80%] overflow-auto'>
-          
-          {selectedRow && (
-            <div className='flex flex-col gap-2'>
-              <div>
-                <h1 
-                  className='text-lg lg:text-2xl '
-                >Proyecto: {selectedRow.nombre}</h1>
-                <DialogDescription className='mt-3'>Detalles del proyecto</DialogDescription>
-
-              </div>
-              <div>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt sapiente necessitatibus reprehenderit voluptas assumenda, 
-                  voluptates sequi laudantium delectus vel earum perspiciatis accusamus. Aperiam corporis eum dolorum minima nostrum, nobis architecto.
-                </p>
-              </div>
-            </div>
-          )}
-          <DialogFooter>
-            <Button variant={'outline'} onClick={() => setIsDialogOpen(false)}>Cerrar</Button>
-          </DialogFooter>
-          <DialogClose
-            onClick={() => setIsDialogOpen(false)}
-          >
-
-          </DialogClose>
-        </DialogContent>
-        
-      </Dialog>
-    )}
+        <DialogInfo
+          isDialogOpen={isDialogOpen}
+          close={() => setIsDialogOpen(false)}
+          selectedRow={selectedRow}
+          catalogos={catalogos}
+        />
+      )}
     </Table>
 
   )

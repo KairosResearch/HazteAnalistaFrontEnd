@@ -23,7 +23,7 @@ const DialogItem = (props: DialogItemProps) => {
             <DialogTrigger>
                 {props.mode === 'edit' ? (
                     <>
-                        <span className='absolute underline left-1 bottom-1 cursor-pointer text-xs text-green-light'>
+                        <span className='cursor-pointer text-xs text-green-light'>
                             Editar
                         </span>
                     </>
@@ -64,6 +64,7 @@ const DialogItem = (props: DialogItemProps) => {
                         catalogos={props.catalogos}
                         type='update'
                         data={props.data}
+                        close={props.close}
                     />
                     
                 ) : (
@@ -71,6 +72,7 @@ const DialogItem = (props: DialogItemProps) => {
                         catalogos={props.catalogos}
                         type='create'
                         data={null}
+                        close={props.close}
                     />
                 )}
             </DialogContent>

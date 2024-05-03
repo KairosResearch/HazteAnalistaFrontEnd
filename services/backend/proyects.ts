@@ -9,7 +9,6 @@ export const getProyects = async (accessToken: string | undefined, userId: numbe
                 'Authorization': `Bearer ${accessToken}`
             }
         })
-        console.log('Getting proyects')
         const data = await response.json();
         return data
     } catch (err: any) {

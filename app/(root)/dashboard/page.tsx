@@ -1,3 +1,4 @@
+
 import React from 'react'
 import Lessons from '@/components/shared/Lessons';
 import InputSearcher from '@/components/shared/InputSearcher';
@@ -58,8 +59,8 @@ const HomePage  = async () => {
               mode='add'
               id={null}
               catalogos={[data4t, decision, exchange, sector]}
-              user={userObject}
               data={null}
+              close={null}
             />
           </div>
           

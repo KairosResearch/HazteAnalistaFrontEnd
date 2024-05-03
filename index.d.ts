@@ -48,6 +48,7 @@ export interface DashboardDataFormProps {
     type: "create" | "update"; 
     data: DataToReceiveInForm| null;
     catalogos: CatalogosType[][]; 
+    close: (() => void) | null;
 }
 
 export interface BackendValues{
@@ -87,9 +88,9 @@ export interface AuthDataFormProps {
   interface DialogItemProps {
     mode: 'edit' | 'add';
     catalogos: CatalogosType[][]
-    user: UserProps
     id: number | null;
     data: DataToReceiveInForm | null;
+    close: (() => void) | null;
 }
 
 
@@ -101,4 +102,12 @@ interface DashboardProps {
   interface DialogAlertProps {
     action: 'deleteProyect' | 'logout';
     id: number | null;
+    close: () => void;
+}
+
+interface DialogInfoProps {
+    isDialogOpen: boolean;
+    close: () => void;
+    selectedRow: DataToReceiveInForm;
+    catalogos: CatalogosType[][];
 }

@@ -44,7 +44,7 @@ export const formSchema = z.object({
 import { handleSubmitProyectForm, handleUpdateProyect } from "@/actions/proyectActions"
 
 //The form
-const DashboardDataForm = ({type, data = null, catalogos}: DashboardDataFormProps) => {
+const DashboardDataForm = ({type, data = null, catalogos, close}: DashboardDataFormProps) => {
     const data4t = catalogos[0] as CatalogosType[]; 
     const decision = catalogos[1] as CatalogosType[];
     const exchange = catalogos[2] as CatalogosType[];
@@ -122,11 +122,13 @@ const DashboardDataForm = ({type, data = null, catalogos}: DashboardDataFormProp
                 console.log('Nueva Data dentro del frontend', newData)
                 if(newData){
                     setCount(count + 1);
-                   setUserTableData(['Dato añadido' + count]);
-                   setSubmitted(true);
+                    setUserTableData(['Dato añadido' + count]);
+                    setSubmitted(true);
                    
                    form.reset();
                    form.reset(defaultValuesDashboardForm);
+                 
+                   close()
                 }
             } else {
                console.log('Datos null')
@@ -153,6 +155,9 @@ const DashboardDataForm = ({type, data = null, catalogos}: DashboardDataFormProp
                 setSubmitted(true);
                 form.reset();
                 form.reset(defaultValuesDashboardForm);
+                setTimeout(() => {
+                    close()
+                   }, 2000)
             }
         }
 

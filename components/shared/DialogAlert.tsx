@@ -43,6 +43,7 @@ const DialogAlert = (props:DialogAlertProps) => {
             setCount(count + 1)
             console.log(count)
             setUserTableData(['Cambio' + count])
+            props.close()
         }
     }
   return (
@@ -50,7 +51,7 @@ const DialogAlert = (props:DialogAlertProps) => {
         {props.action === 'deleteProyect' ? (
             <AlertDialog>
             <AlertDialogTrigger>
-                <span className='absolute  right-2 bottom-1 cursor-pointer text-xs text-red-500'>
+                <span className='cursor-pointer text-xs text-red-500'>
                     Eliminar
                 </span>
             </AlertDialogTrigger>
