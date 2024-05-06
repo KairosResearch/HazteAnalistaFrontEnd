@@ -2,6 +2,7 @@ import type { Metadata, NextPageContext } from "next";
 import { Inter } from "next/font/google";
 import Head from "next/head";
 import "./globals.css";
+import PrivyProviderWrapper from "@/providers/AuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +21,11 @@ export default function RootLayout({
   return (
 
     <html lang="en">
-        <body className={inter.className}>{children}</body>
+        <body className={inter.className}>
+          <PrivyProviderWrapper>
+            {children}
+          </PrivyProviderWrapper>
+        </body>
     </html>
     
 

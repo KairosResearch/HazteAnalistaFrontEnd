@@ -128,7 +128,9 @@ const DashboardDataForm = ({type, data = null, catalogos, close}: DashboardDataF
                    form.reset();
                    form.reset(defaultValuesDashboardForm);
                  
-                   close()
+                   if (close) {
+                       close();
+                   }
                 }
             } else {
                console.log('Datos null')
@@ -156,7 +158,9 @@ const DashboardDataForm = ({type, data = null, catalogos, close}: DashboardDataF
                 form.reset();
                 form.reset(defaultValuesDashboardForm);
                 setTimeout(() => {
-                    close()
+                    if (close) {
+                        close()
+                    }
                    }, 2000)
             }
         }

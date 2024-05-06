@@ -1,31 +1,45 @@
-
-import React from 'react'
+'use client';
+import React, {useEffect} from 'react'
 import Lessons from '@/components/shared/Lessons';
 import InputSearcher from '@/components/shared/InputSearcher';
 import Dashboard from '@/components/shared/Dashboard';
 import DialogItem from '@/components/shared/DialogItem';
 import Collapser from '@/components/ui/Collapser';
-import { cookies } from 'next/headers';
+// import { cookies } from 'next/headers';
 import { get4t, getDecision, getExchange, getSectores } from '@/services/backend/catalogos';
+import { usePrivy } from '@privy-io/react-auth';
+import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
 
 
 
 
 
-const HomePage  = async () => {
-  const cookiesStore = cookies();
-  const userString = cookiesStore.get('user')?.value;
-  const userObject = userString ? JSON.parse(userString) : {id: 2};
-  console.log(userObject)
+const HomePage  = () => {
+  const router = useRouter();
 
-  const [data4t, decision, exchange, sector] = await Promise.all([
-  get4t(),
-  getDecision(),
-  getExchange(),
-  getSectores(),
-]);
+  const {
+    ready,
+    authenticated,
+    user,
+    logout,
+  } = usePrivy();
+
+  useEffect(() => {
+    if (ready && !authenticated) {
+      router.push("/");
+    }
+  }, [ready, authenticated, router]);
 
 
+//   const [data4t, decision, exchange, sector] = await Promise.all([
+//   get4t(),
+//   getDecision(),
+//   getExchange(),
+//   getSectores(),
+// ]);
+
+  console.log(user)
   
   //const response = await fetch('http://localhost:3000/api/lessons');
   //const {lessons} = await response.json();
@@ -48,6 +62,9 @@ const HomePage  = async () => {
            <Lessons 
             // lessons={lessons}
           /> 
+          <Button
+            onClick={logout}
+          >Logout </Button>
         </section>
 
         <section className="seguimiento mb-8">
@@ -55,19 +72,19 @@ const HomePage  = async () => {
             <h1
               className='text-2xl font-bold my-4 2xl:my-8 md:my-3 2xl:text-4xl'
             >Dashboard de seguimiento:</h1>
-            <DialogItem 
+            {/* <DialogItem 
               mode='add'
               id={null}
               catalogos={[data4t, decision, exchange, sector]}
               data={null}
               close={null}
-            />
+            /> */}
           </div>
           
-            <Dashboard
+            {/* <Dashboard
               user={userObject}
               catalogos={[data4t, decision, exchange, sector]}
-            />
+            /> */}
           
         </section>
 
