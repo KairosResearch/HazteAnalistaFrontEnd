@@ -1,14 +1,23 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import AuthForm from "@/components/shared/AuthForm"
-import Link from "next/link";
+import { useRouter } from 'next/navigation';
 import { usePrivy } from '@privy-io/react-auth';
 import { Button } from '@/components/ui/button';
 
 const Login = () => {
-  const {login} = usePrivy();
-    
+  const router = useRouter();
+  const {login, user} = usePrivy();
+
+  useEffect(() => {
+    if (user) {
+      router.push("/dashboard");
+    }
+  
+  }, [user, router])
+
+  console.log(user)
   return (
 
         <div className="bg-[#2c2c2c] p-2 py-5 lg:p-10 rounded-lg shadow-md w-full">
@@ -22,7 +31,7 @@ const Login = () => {
 
             <Button
               onClick={login}
-              className='w-full mt-5'
+              className='w-full mt-5 mx-auto'
             >Login</Button>
             {/**Formulario*/}
             {/* <AuthForm type='login' /> */}

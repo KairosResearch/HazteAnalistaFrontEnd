@@ -22,7 +22,6 @@ const HomePage  = () => {
     ready,
     authenticated,
     user,
-    logout,
   } = usePrivy();
 
   useEffect(() => {
@@ -62,9 +61,7 @@ const HomePage  = () => {
            <Lessons 
             // lessons={lessons}
           /> 
-          <Button
-            onClick={logout}
-          >Logout </Button>
+
         </section>
 
         <section className="seguimiento mb-8">

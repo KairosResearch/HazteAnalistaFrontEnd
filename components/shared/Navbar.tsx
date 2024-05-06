@@ -1,3 +1,4 @@
+'use client';
 import React from 'react'
 import Link from 'next/link'
 import {
@@ -10,16 +11,20 @@ import {
 import Image from 'next/image';
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { usePrivy } from '@privy-io/react-auth';
 
 // import DialogAlert from './DialogAlert';
 // import { handleLogout } from '@/actions/logout';
 
-import { NavbarProps} from '@/index';
 
-const Navbar = ({user}: NavbarProps) => {
+const Navbar = () => {
  // const handleLogoutSubmit = async () => {
    // await handleLogout();
 //}
+
+  const {user, logout} = usePrivy();
+  //Añadir el de twitter y validar si es web 2 poner nombre completo, si es web 3 poner la direccion cortada
+  const name = user?.wallet?.address || user?.google?.name;
 
   return (
     
@@ -53,12 +58,9 @@ const Navbar = ({user}: NavbarProps) => {
           
           <div className='flex gap-4 flex-center'>
             <div className='flex flex-col justify-center items-center'>
-              {user.name}
+            {name?.length > 10 ? `${name?.substring(0, 5)}...${name?.substring(name?.length - 3)}` : name}
               <span>
-                <Link 
-                className='underline text-xs'
-                href='/'
-              >
+              <Link href="#" onClick={logout}>
                 
                 Cerrar sesion
               
