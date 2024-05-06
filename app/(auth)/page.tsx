@@ -1,13 +1,10 @@
-'use client';
 import React from 'react';
 
 import AuthForm from "@/components/shared/AuthForm"
 import Link from "next/link";
-import { usePrivy } from '@privy-io/react-auth';
-import { Button } from '@/components/ui/button';
 
 const Login = () => {
-  const {login} = usePrivy();
+  
     
   return (
 
@@ -20,12 +17,25 @@ const Login = () => {
 
             </div>
 
-            <Button
-              onClick={login}
-              className='w-full mt-5'
-            >Login</Button>
+            
             {/**Formulario*/}
-            {/* <AuthForm type='login' /> */}
+            <AuthForm type='login' />
+            
+            
+            <div className="text-center">
+              <p className='my-5'>
+                <Link href="/forgot-password">
+                  ¿Olvidaste tu contraseña?
+                </Link>
+              </p>
+              <p>
+                ¿No tienes cuenta?{" "}
+                <Link href="/sign-up" className='underline'>
+                  Registrate
+                </Link>
+              </p>
+              
+            </div>
             
         </div>
     
