@@ -1,4 +1,3 @@
-'use client';
 import React from 'react'
 import Sidebar from '@/components/shared/Sidebar';
 import Navbar from '@/components/shared/Navbar';

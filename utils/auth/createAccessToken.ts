@@ -1,27 +1,17 @@
-import { postLogin } from "@/services/backend/login"
 import { cookies } from "next/headers"
 
-export const createAccessToken = async (formData: any) => {
-    const cookiesStore = cookies()
-    const data = await postLogin(formData);
+const cookiesStore = cookies()
 
-    //Si el servidor no responde o está apagado
-    if(!data){
-        throw new Error('Servidor no responde!')
-    }
+export const createAccessToken = async (user: any) => {
+    
+    console.log(user);
+    const userSring = JSON.stringify(user);
+    
 
-    if(data.message === 'Unauthorized'){
-        throw new Error('Credenciales inválidas')
-    }
-
-    //Destructurar el objeto data para obtener el access_token y expires_at
-    const { access_token, expires_at } = data;
-
-    if (access_token) {
+    if (user != null) {
         try {
-            cookiesStore.set('accessToken', access_token, {
+            cookiesStore.set('userObj', userSring, {
                 path: '/',
-                expires: new Date(expires_at),
                 sameSite: 'strict',
             })
         } catch (err) {
@@ -29,6 +19,15 @@ export const createAccessToken = async (formData: any) => {
         }
         
     }
-    return data;
+    return true;
 
+}
+
+export const deleteCookie = async () => {
+    try {
+        cookiesStore.delete('userObj')
+        return true;
+    } catch (error) {
+        console.error(error)
+    }
 }

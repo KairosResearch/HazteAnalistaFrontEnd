@@ -2,6 +2,7 @@
 import React, {useState} from "react"
 //Hooks
 import { useUserTableData } from "@/hooks/useUserData"
+import { usePrivy } from "@privy-io/react-auth"
 //Types:
 import { BackendValues, CatalogosType, DashboardDataFormProps,  TableData } from "@/index"
 
@@ -49,6 +50,8 @@ const DashboardDataForm = ({type, data = null, catalogos, close}: DashboardDataF
     const decision = catalogos[1] as CatalogosType[];
     const exchange = catalogos[2] as CatalogosType[];
     const sector = catalogos[3] as CatalogosType[];
+
+    const {user} = usePrivy();
 
     const [count, setCount] = useState(1);
 

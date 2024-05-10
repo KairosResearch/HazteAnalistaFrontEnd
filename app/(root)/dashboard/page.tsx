@@ -1,45 +1,34 @@
-'use client';
-import React, {useEffect} from 'react'
+import React from 'react'
 import Lessons from '@/components/shared/Lessons';
 import InputSearcher from '@/components/shared/InputSearcher';
 import Dashboard from '@/components/shared/Dashboard';
 import DialogItem from '@/components/shared/DialogItem';
 import Collapser from '@/components/ui/Collapser';
-// import { cookies } from 'next/headers';
 import { get4t, getDecision, getExchange, getSectores } from '@/services/backend/catalogos';
-import { usePrivy } from '@privy-io/react-auth';
-import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+import { cookies } from 'next/headers';
 
 
 
 
 
-const HomePage  = () => {
-  const router = useRouter();
+const HomePage = async () => {
+  const cookiesStore = cookies();
+  const user = cookiesStore.get('userObj')?.value;
+  const userObject = user ?  JSON.parse(user) : null;
 
-  const {
-    ready,
-    authenticated,
-    user,
-  } = usePrivy();
-
-  useEffect(() => {
-    if (ready && !authenticated) {
-      router.push("/");
-    }
-  }, [ready, authenticated, router]);
+  console.log('Id del usuario: ' + userObject?.id)  
 
 
-//   const [data4t, decision, exchange, sector] = await Promise.all([
-//   get4t(),
-//   getDecision(),
-//   getExchange(),
-//   getSectores(),
-// ]);
 
-  console.log(user)
-  
+  const [data4t, decision, exchange, sector] = await Promise.all([
+  get4t(),
+  getDecision(),
+  getExchange(),
+  getSectores(),
+]);
+
+
   //const response = await fetch('http://localhost:3000/api/lessons');
   //const {lessons} = await response.json();
  

@@ -1,22 +1,29 @@
 'use server'
 import { createAccessToken } from "@/utils/auth/createAccessToken"
-import { setUserId } from "@/utils/auth/setUserId"
-import { validateAccessToken } from "@/utils/auth/validateAccessToken"
+import { deleteCookie } from "@/utils/auth/createAccessToken"
+import { redirect } from "next/navigation"
 
 
-export const handleLogin = async (formData: any) => {
+export const handleLogin = async (user: any) => {
     try {
-        const data = await createAccessToken(formData)
+        const data = await createAccessToken(user)
         
-        if(data){
-            const user = await validateAccessToken();
-            if (user) {
-                setUserId(user);
-                return user;
-            }
+        if(data === true){
+            redirect('/dashboard')
         }
     } catch (err: any) {
         console.error(err.message)
         return {error: err.message}
+    }
+}
+
+export const handleLogout = async () => {
+    try {
+        const success = await deleteCookie();
+        if(success === true){
+            return true;
+        }
+    } catch (error) {
+        console.error(error)
     }
 }

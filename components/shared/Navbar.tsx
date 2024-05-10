@@ -14,17 +14,26 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { usePrivy } from '@privy-io/react-auth';
 
 // import DialogAlert from './DialogAlert';
-// import { handleLogout } from '@/actions/logout';
-
+import { handleLogout } from '@/actions/login';
+import { useRouter } from 'next/navigation';
 
 const Navbar = () => {
- // const handleLogoutSubmit = async () => {
-   // await handleLogout();
-//}
-
   const {user, logout} = usePrivy();
+  const router = useRouter()
+  
+  const handleLogoutSubmit = async () => {
+      logout();
+      const success = await handleLogout();
+      if(success === true){
+        router.push('/')
+      }
+  }
+
+  
+
+
   //Añadir el de twitter y validar si es web 2 poner nombre completo, si es web 3 poner la direccion cortada
-  const name = user?.wallet?.address || user?.google?.name;
+  const name = user?.wallet?.address || user?.google?.name || user?.email?.address;
 
   return (
     
@@ -58,13 +67,9 @@ const Navbar = () => {
           
           <div className='flex gap-4 flex-center'>
             <div className='flex flex-col justify-center items-center'>
-            {name?.length > 10 ? `${name?.substring(0, 5)}...${name?.substring(name?.length - 3)}` : name}
-              <span>
-              <Link href="#" onClick={logout}>
-                
+              {name?.length ?? 0 > 10 ? `${name?.substring(0, 5)}...${name?.substring(name?.length - 3)}` : name}
+              <span onClick={handleLogoutSubmit}>
                 Cerrar sesion
-              
-              </Link>
               </span>
             </div>
             

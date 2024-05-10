@@ -111,3 +111,4 @@ interface DialogInfoProps {
     selectedRow: DataToReceiveInForm;
     catalogos: CatalogosType[][];
 }
+
