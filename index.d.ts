@@ -81,9 +81,9 @@ export interface AuthDataFormProps {
 }
 
   
-  interface NavbarProps {
-    user: UserProps
-  }
+//   interface NavbarProps {
+//     user: UserProps
+//   }
 
   interface DialogItemProps {
     mode: 'edit' | 'add';
@@ -111,3 +111,4 @@ interface DialogInfoProps {
     selectedRow: DataToReceiveInForm;
     catalogos: CatalogosType[][];
 }
+

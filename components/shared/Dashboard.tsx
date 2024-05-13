@@ -30,57 +30,55 @@ import { handleGetProyects } from '@/actions/proyectActions';
 import { Button } from '../ui/button';
 
 const Dashboard = (
-  { catalogos, user}: DashboardProps
+  { catalogos}: DashboardProps
 ) => {
 
-  const {userTableData } = useUserTableData();
+  //const {userTableData } = useUserTableData();
 
   const [sectores, setSectores] = useState<any[]>([]);
   const [tableData, setTableData] = useState<TableData[]>([]);
 
-  const [prevUserTableData, setPrevUserTableData] = useState<any[]>([])
   
   //State for Dialog
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedRow, setSelectedRow] = useState<any>(null);
 
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await handleGetProyects();
-      if (data.error){
-        setTableData([]);
-        alert('Tenemos problemas internos con el servidor. Buscamos solucionarlo!')
-      }
-      const sectores = await getSectores();
-      setSectores(sectores);
-      console.log('data.proyectos', data)
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const data = await handleGetProyects();
+  //     if (data.error){
+  //       setTableData([]);
+  //       alert('Tenemos problemas internos con el servidor. Buscamos solucionarlo!')
+  //     }
+  //     const sectores = await getSectores();
+  //     setSectores(sectores);
+  //     console.log('data.proyectos', data)
       
-      //setTableData(data);
-    };
-    fetchData();
-  }, []);
+  //     //setTableData(data);
+  //   };
+  //   fetchData();
+  // }, []);
 
 
-  useEffect(() => {
-    // if (JSON.stringify(prevUserTableData) !== JSON.stringify(userTableData)) {
-      const fetchData = async () => {
-        const data = await handleGetProyects();
-        if (data.error) {
-          setTableData([]);
-          alert('Tenemos problemas internos con el servidor. Buscamos solucionarlo!')
-        }
-        setTableData(data.proyectos);
-      }
-      fetchData();
-      setPrevUserTableData(userTableData);
-    // }
-  }, [userTableData]);
+  // useEffect(() => {
+  //   // if (JSON.stringify(prevUserTableData) !== JSON.stringify(userTableData)) {
+  //     const fetchData = async () => {
+  //       const data = await handleGetProyects();
+  //       if (data.error) {
+  //         setTableData([]);
+  //         alert('Tenemos problemas internos con el servidor. Buscamos solucionarlo!')
+  //       }
+  //       setTableData(data.proyectos);
+  //     }
+  //     fetchData();
+      
+  //   // }
+  // }, [userTableData]);
 
   
   
   const range = (marketCap: number) => {
-   
     const a  = rangeDesigner(marketCap);
     return a;
   }
@@ -198,7 +196,7 @@ const Dashboard = (
 
        
       {/* Data directly manipulated by the user */}
-        {tableData && tableData.map((data) => (
+        {/* {tableData && tableData.map((data) => (
           <TableRow 
             className='divide-x-2 divide-y-2 divide-green-dark hover:bg-primary cursor-pointer' key={data.id_proyecto}
             onClick={() => {
@@ -216,7 +214,7 @@ const Dashboard = (
 
             </TableCell>
             {/******Metodo 4E**** */}
-            <TableCell>
+            {/* <TableCell>
               <Badge
                 variant='fourE'
                 color={
@@ -224,9 +222,9 @@ const Dashboard = (
               }>
                 {data.id4e === 1 ? 'Encontrar' : data.id4e === 2 ? 'Estudiar' : data.id4e === 3 ? 'Ejecutar' : 'Evaluar'}
               </Badge>
-            </TableCell>
+            </TableCell> */}
             {/******Decision**** */}
-            <TableCell>
+            {/* <TableCell>
               <Badge
                 variant={(data.id_decision_proyecto === 2) ? 'decisionWatchlist' : (data.id_decision_proyecto === 1) ? 'desicionInvest' : 'desicionLeave'}
               >
@@ -234,12 +232,12 @@ const Dashboard = (
               </Badge>
             </TableCell>
             {/******Market Cap**** */}
-            <TableCell className="whitespace-nowrap">
+            {/* <TableCell className="whitespace-nowrap">
               $ {data.marketCap.toLocaleString()}
 
-            </TableCell>
+            </TableCell>  */}
             {/******Rango**** */}
-           <TableCell>
+           {/* <TableCell>
             <Badge 
               variant='range'
               color={
@@ -247,13 +245,13 @@ const Dashboard = (
             }>
             {range(data.marketCap)}
             </Badge>
-          </TableCell> 
+          </TableCell>  */}
             {/******Si ATH**** */}
-            <TableCell>
+            {/* <TableCell>
               {data.siAth}X
-              </TableCell>
+              </TableCell> */}
             {/******Sector**** */}
-            <TableCell>
+            {/* <TableCell>
               {
                 sectores.find(sector => sector.value === data.idSector) && (
                   <Badge>
@@ -261,29 +259,29 @@ const Dashboard = (
                   </Badge>
                 )
               }
-            </TableCell>
+            </TableCell> */}
             {/******Exchange**** */}
-            <TableCell>
+            {/* <TableCell>
               <Badge>
               {data.idExchange === 1 ? 'Binanses' : data.idExchange === 2 ? 'Coinbase' : 'Kraken'}
               </Badge>
-            </TableCell>
+            </TableCell> */}
             {/****** precio entrada**** */}
-            <TableCell className="whitespace-nowrap">
+            {/* <TableCell className="whitespace-nowrap">
               $ {data.precioEntrada}
 
-            </TableCell>
+            </TableCell> */}
             {/******precio salida**** */}
-            <TableCell className="whitespace-nowrap">
+            {/* <TableCell className="whitespace-nowrap">
               $ {data.precioActual}
 
             </TableCell>
           
             
-          </TableRow>
+          </TableRow> */}
 
 
-        ))}
+        {/* ))}  */}
       </TableBody>
 
 

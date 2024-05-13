@@ -1,3 +1,4 @@
+'use client';
 import React from 'react'
 import Link from 'next/link'
 import {
@@ -10,16 +11,29 @@ import {
 import Image from 'next/image';
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { usePrivy } from '@privy-io/react-auth';
 
 // import DialogAlert from './DialogAlert';
-// import { handleLogout } from '@/actions/logout';
+import { handleLogout } from '@/actions/login';
+import { useRouter } from 'next/navigation';
 
-import { NavbarProps} from '@/index';
+const Navbar = () => {
+  const {user, logout} = usePrivy();
+  const router = useRouter()
+  
+  const handleLogoutSubmit = async () => {
+      logout();
+      const success = await handleLogout();
+      if(success === true){
+        router.push('/')
+      }
+  }
 
-const Navbar = ({user}: NavbarProps) => {
- // const handleLogoutSubmit = async () => {
-   // await handleLogout();
-//}
+  
+
+
+  //Añadir el de twitter y validar si es web 2 poner nombre completo, si es web 3 poner la direccion cortada
+  const name = user?.wallet?.address || user?.google?.name || user?.email?.address;
 
   return (
     
@@ -53,16 +67,9 @@ const Navbar = ({user}: NavbarProps) => {
           
           <div className='flex gap-4 flex-center'>
             <div className='flex flex-col justify-center items-center'>
-              {user.name}
-              <span>
-                <Link 
-                className='underline text-xs'
-                href='/'
-              >
-                
+              {name?.length ?? 0 > 10 ? `${name?.substring(0, 5)}...${name?.substring(name?.length - 3)}` : name}
+              <span className="cursor-pointer" onClick={handleLogoutSubmit}>
                 Cerrar sesion
-              
-              </Link>
               </span>
             </div>
             

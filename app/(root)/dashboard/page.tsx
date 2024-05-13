@@ -1,22 +1,25 @@
-
 import React from 'react'
 import Lessons from '@/components/shared/Lessons';
 import InputSearcher from '@/components/shared/InputSearcher';
 import Dashboard from '@/components/shared/Dashboard';
 import DialogItem from '@/components/shared/DialogItem';
 import Collapser from '@/components/ui/Collapser';
-import { cookies } from 'next/headers';
 import { get4t, getDecision, getExchange, getSectores } from '@/services/backend/catalogos';
+import { Button } from '@/components/ui/button';
+import { cookies } from 'next/headers';
 
 
 
 
 
-const HomePage  = async () => {
+const HomePage = async () => {
   const cookiesStore = cookies();
-  const userString = cookiesStore.get('user')?.value;
-  const userObject = userString ? JSON.parse(userString) : {id: 2};
-  console.log(userObject)
+  const user = cookiesStore.get('userObj')?.value;
+  const userObject = user ?  JSON.parse(user) : null;
+
+  console.log('Id del usuario: ' + userObject?.id)  
+
+
 
   const [data4t, decision, exchange, sector] = await Promise.all([
   get4t(),
@@ -26,7 +29,6 @@ const HomePage  = async () => {
 ]);
 
 
-  
   //const response = await fetch('http://localhost:3000/api/lessons');
   //const {lessons} = await response.json();
  
