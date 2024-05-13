@@ -67,10 +67,10 @@ const HomePage = async () => {
             /> */}
           </div>
           
-            {/* <Dashboard
+            <Dashboard
               user={userObject}
               catalogos={[data4t, decision, exchange, sector]}
-            /> */}
+            />
           
         </section>
 

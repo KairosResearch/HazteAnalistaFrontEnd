@@ -68,7 +68,7 @@ const Navbar = () => {
           <div className='flex gap-4 flex-center'>
             <div className='flex flex-col justify-center items-center'>
               {name?.length ?? 0 > 10 ? `${name?.substring(0, 5)}...${name?.substring(name?.length - 3)}` : name}
-              <span onClick={handleLogoutSubmit}>
+              <span className="cursor-pointer" onClick={handleLogoutSubmit}>
                 Cerrar sesion
               </span>
             </div>
