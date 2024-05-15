@@ -1,4 +1,6 @@
 import type { Config } from "tailwindcss"
+let greenDark = "#319383";
+let greyLight = '#d9d9d9';
 
 const config = {
   darkMode: ["class"],
@@ -34,7 +36,7 @@ const config = {
         foreground: "hsl(var(--foreground))",
         green:{
           light: "#57FFDC",
-          dark: "#319383"
+          dark: greenDark
         },
         white: '#edf4fb',
         dark: {
@@ -42,11 +44,11 @@ const config = {
           grey: '#2b2b2b',
         },
         grey: {
-          light: '#d9d9d9',
+          light: greyLight,
         },
         primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+          DEFAULT: greenDark,
+          foreground: greyLight,
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",

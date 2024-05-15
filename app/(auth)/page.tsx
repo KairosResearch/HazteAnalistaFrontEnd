@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-import React from 'react';
-
-import AuthForm from "@/components/shared/AuthForm"
-import Link from "next/link";
-
-const Login = () => {
-  
-    
-=======
 'use client';
 import React, { useEffect } from 'react';
 
@@ -25,7 +15,6 @@ const Login = () => {
     handleLogin(user);
   }, [user])
 
->>>>>>> privy-integration
   return (
 
         <div className="bg-[#2c2c2c] p-2 py-5 lg:p-10 rounded-lg shadow-md w-full">
@@ -37,19 +26,15 @@ const Login = () => {
 
             </div>
 
-<<<<<<< HEAD
-            
-=======
             <Button
               onClick={login}
               className='w-full mt-5 mx-auto'
             >Login</Button>
->>>>>>> privy-integration
             {/**Formulario*/}
-            <AuthForm type='login' />
+            {/* <AuthForm type='login' /> */}
             
             
-            <div className="text-center">
+            {/* <div className="text-center">
               <p className='my-5'>
                 <Link href="/forgot-password">
                   ¿Olvidaste tu contraseña?
@@ -62,7 +47,7 @@ const Login = () => {
                 </Link>
               </p>
               
-            </div>
+            </div> */}
             
         </div>
     

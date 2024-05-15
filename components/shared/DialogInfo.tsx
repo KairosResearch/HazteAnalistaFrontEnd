@@ -1,15 +1,11 @@
 import React from 'react'
 import {
     Dialog,
-    DialogClose,
     DialogContent,
-    DialogDescription,
-    DialogFooter,
     DialogHeader,
     DialogTitle,
   } from "@/components/ui/dialog"
-
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { X } from 'lucide-react'
 
 
 import { Button } from "@/components/ui/button"
@@ -17,6 +13,9 @@ import DialogAlert  from '@/components/shared/DialogAlert';
 import DialogItem  from '@/components/shared/DialogItem';
 
 import { DialogInfoProps } from '@/index';
+import InfoTabs from './InfoTabs'
+
+
 const DialogInfo = ({
     isDialogOpen,
     close,
@@ -26,15 +25,17 @@ const DialogInfo = ({
   return (
     <div>
     <Dialog open={isDialogOpen} >
-        <DialogContent className='max-h-[50vh] md:max-h-full md:min-w-[80%] overflow-auto'>
+        <DialogContent className='px-3 xl:px-16 xl:py-5 max-h-[50vh] md:max-h-full md:min-w-[80%] overflow-auto'>
           
           {selectedRow && (
             <>
-              <DialogHeader className='flex justify-between flex-row'>
-                <DialogTitle>Proyecto: {selectedRow.nombre}</DialogTitle>
+              <DialogHeader className='flex justify-between flex-col md:flex-row'>
+                <DialogTitle
+                  className='text-left md:text-center text-xl md:text-2xl font-bold'
+                >Proyecto: Un proyecto{selectedRow.nombre}</DialogTitle>
 
                 <div className='flex gap-3'>
-                  <Button variant={'outline'}>
+                  
                     <DialogItem 
                           mode="edit"
                           catalogos={catalogos}
@@ -48,61 +49,34 @@ const DialogInfo = ({
                           }}
                           close={close}
                       />
-                  </Button>
-                  <Button>
+                  
+                  
                       <DialogAlert
                         action="deleteProyect"
                         id={selectedRow.id_proyecto}
                         close={close}
                       />
-                  </Button>
-                  <Button variant={'outline'} onClick={close}>Cerrar</Button>
-                </div>
                 
+                    
+                </div>
+                  <X 
+                    className='absolute top-2 right-2 cursor-pointer hover:text-red-500'
+                    onClick={close}>
+
+                  </X>
               </DialogHeader>
 
-              <Tabs defaultValue="description" >
-                <TabsList>
-                  <TabsTrigger value="description">Descripcion</TabsTrigger>
-                  <TabsTrigger value="links">Links</TabsTrigger>
-                  <TabsTrigger value="finance">Financiamiento</TabsTrigger>
-                  <TabsTrigger value="analyzis">Analisis</TabsTrigger>
-                  
-                </TabsList>
-                <TabsContent value="description">
-                  <p className='text-green-400'>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt sapiente necessitatibus reprehenderit voluptas assumenda, 
-                    voluptates sequi laudantium delectus vel earum perspiciatis accusamus. Aperiam corporis eum dolorum minima nostrum, nobis architecto.
-                  </p>
-                </TabsContent>
-                <TabsContent value="links">
-                  <p className='text-blue-400'>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt sapiente necessitatibus reprehenderit voluptas assumenda, 
-                    voluptates sequi laudantium delectus vel earum perspiciatis accusamus. Aperiam corporis eum dolorum minima nostrum, nobis architecto.
-                  </p>
-                </TabsContent>
-                <TabsContent value="finance">
-                  <p className='text-slate-400'>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt sapiente necessitatibus reprehenderit voluptas assumenda, 
-                    voluptates sequi laudantium delectus vel earum perspiciatis accusamus. Aperiam corporis eum dolorum minima nostrum, nobis architecto.
-                  </p>
-                </TabsContent>
-                <TabsContent value="analyzis">
-                  <p className='text-orange-400'>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt sapiente necessitatibus reprehenderit voluptas assumenda, 
-                    voluptates sequi laudantium delectus vel earum perspiciatis accusamus. Aperiam corporis eum dolorum minima nostrum, nobis architecto.
-                  </p>
-                </TabsContent>
-              </Tabs>
+              <InfoTabs />
+              
             </>
 
           )}
 
-          <DialogClose
+          {/* <DialogClose
             onClick={close}
           >
-
-          </DialogClose>
+              Cerrar
+          </DialogClose> */}
         </DialogContent>
         
       </Dialog>

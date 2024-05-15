@@ -109,7 +109,7 @@ const Dashboard = (
 
       {/* First two data, by default */}
       {tableDataDefault.map((data) => (
-          <TableRow className='divide-x-2 divide-y-2 divide-green-dark hover:bg-primary cursor-pointer' key={data.proyectName}
+          <TableRow className='divide-x-2 divide-y-2 divide-green-dark hover:bg-primary/10 cursor-pointer' key={data.proyectName}
           onClick={() => {
             setSelectedRow(data);
             setIsDialogOpen(true);
