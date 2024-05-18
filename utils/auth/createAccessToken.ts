@@ -4,8 +4,9 @@ const cookiesStore = cookies()
 
 export const createAccessToken = async (user: any) => {
     
-    console.log(user);
+    console.log('Usuario como objeto:  ' , {user});
     const userSring = JSON.stringify(user);
+    console.log('Usuario como string:  ' + userSring)
     
 
     if (user != null) {
@@ -14,13 +15,13 @@ export const createAccessToken = async (user: any) => {
                 path: '/',
                 sameSite: 'strict',
             })
+            return true;
         } catch (err) {
             throw new Error('No se pudo guardar la cookie');
         }
         
     }
-    return true;
-
+    return null;
 }
 
 export const deleteCookie = async () => {

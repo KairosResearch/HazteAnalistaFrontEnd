@@ -2,18 +2,29 @@
 import React, { useEffect } from 'react';
 
   //import AuthForm from "@/components/shared/AuthForm"
-  //import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { usePrivy } from '@privy-io/react-auth';
 import { Button } from '@/components/ui/button';
 import { handleLogin } from '@/actions/login';
 
 const Login = () => {
-  //const router = useRouter();
-  const {login, user} = usePrivy();
+  const router = useRouter();
+  const {login, user, authenticated } = usePrivy();
 
-  useEffect(() => {
-    handleLogin(user);
-  }, [user])
+  if(authenticated){
+    router.push('/dashboard')
+  }
+
+
+  // useEffect(() => {
+  //   handleLogin(user);
+  // }, [user])
+
+  const handleLoginSubmit = async () => {
+      login();
+      router.push('/dashboard')
+  }
+
 
   return (
 
@@ -27,7 +38,7 @@ const Login = () => {
             </div>
 
             <Button
-              onClick={login}
+              onClick={handleLoginSubmit}
               className='w-full mt-5 mx-auto'
             >Login</Button>
             {/**Formulario*/}

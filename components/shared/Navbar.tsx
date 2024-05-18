@@ -1,5 +1,5 @@
 'use client';
-import React from 'react'
+import React, { useEffect } from 'react'
 import Link from 'next/link'
 import {
   Sheet,
@@ -18,15 +18,28 @@ import { handleLogout } from '@/actions/login';
 import { useRouter } from 'next/navigation';
 
 const Navbar = () => {
-  const {user, logout} = usePrivy();
+  const {user, logout, authenticated} = usePrivy();
   const router = useRouter()
+
+  useEffect(() => {
+    if(!authenticated){
+      router.push('/')
+    }
+  }, [])
+  
+  useEffect(() => {
+    if(!authenticated){
+      router.push('/')
+    }
+  }, [authenticated])
+  
   
   const handleLogoutSubmit = async () => {
       logout();
-      const success = await handleLogout();
-      if(success === true){
+      // const success = await handleLogout();
+      // if(success === true){
         router.push('/')
-      }
+      // }
   }
 
   

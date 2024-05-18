@@ -10,6 +10,8 @@ export const handleLogin = async (user: any) => {
         
         if(data === true){
             redirect('/dashboard')
+        } else {
+            console.log('Error al guardar la cookie')
         }
     } catch (err: any) {
         console.error(err.message)

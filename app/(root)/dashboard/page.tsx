@@ -5,28 +5,25 @@ import Dashboard from '@/components/shared/Dashboard';
 import DialogItem from '@/components/shared/DialogItem';
 import Collapser from '@/components/ui/Collapser';
 import { get4t, getDecision, getExchange, getSectores } from '@/services/backend/catalogos';
-import { Button } from '@/components/ui/button';
-import { cookies } from 'next/headers';
+// import { cookies } from 'next/headers';
 
 
 
 
 
 const HomePage = async () => {
-  const cookiesStore = cookies();
-  const user = cookiesStore.get('userObj')?.value;
-  const userObject = user ?  JSON.parse(user) : null;
-
-  console.log('Id del usuario: ' + userObject?.id)  
+  // const cookiesStore = cookies();
+  // const user = cookiesStore.get('userObj')?.value;
+   
 
 
 
   const [data4t, decision, exchange, sector] = await Promise.all([
-  get4t(),
-  getDecision(),
-  getExchange(),
-  getSectores(),
-]);
+    get4t(),
+    getDecision(),
+    getExchange(),
+    getSectores(),
+  ]);
 
 
   //const response = await fetch('http://localhost:3000/api/lessons');
@@ -67,7 +64,6 @@ const HomePage = async () => {
           </div>
           
             <Dashboard
-              user={userObject}
               catalogos={[data4t, decision, exchange, sector]}
             />
           

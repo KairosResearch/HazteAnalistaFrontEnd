@@ -96,7 +96,7 @@ export interface AuthDataFormProps {
 
 interface DashboardProps {
     catalogos: CatalogosType[][]; 
-    user: UserProps
+    
   }
 
   interface DialogAlertProps {
