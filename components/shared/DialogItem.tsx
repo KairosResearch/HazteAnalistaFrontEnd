@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
-
+import { Button } from '@/components/ui/button'
 import {
     Dialog,
     DialogContent,
@@ -23,9 +23,15 @@ const DialogItem = (props: DialogItemProps) => {
             <DialogTrigger>
                 {props.mode === 'edit' ? (
                     <>
-                        <span className='cursor-pointer text-xs text-green-light'>
+                        <span className='text-xs md:hidden text-green-light'>
                             Editar
                         </span>
+                        <Button 
+                            variant={'outline'} 
+                            className='text-green-light hidden md:inline '
+                        >
+                            Editar
+                        </Button>
                     </>
                 ) : (
                     <div

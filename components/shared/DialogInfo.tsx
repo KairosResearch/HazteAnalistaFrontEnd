@@ -8,7 +8,7 @@ import {
 import { X } from 'lucide-react'
 
 
-import { Button } from "@/components/ui/button"
+
 import DialogAlert  from '@/components/shared/DialogAlert';
 import DialogItem  from '@/components/shared/DialogItem';
 
@@ -29,14 +29,14 @@ const DialogInfo = ({
           
           {selectedRow && (
             <>
-              <DialogHeader className='flex justify-between flex-col md:flex-row'>
+              <DialogHeader className='flex justify-between md:items-center flex-col md:flex-row md:mr-5'>
                 <DialogTitle
-                  className='text-left md:text-center text-xl md:text-2xl font-bold'
+                  className='text-left md:text-center text-xl md:text-2xl xl:text-4xl font-bold'
                 >Proyecto: Un proyecto{selectedRow.nombre}</DialogTitle>
 
                 <div className='flex gap-3'>
                   
-                    <DialogItem 
+                    <DialogItem   
                           mode="edit"
                           catalogos={catalogos}
                           id={selectedRow.id_proyecto}

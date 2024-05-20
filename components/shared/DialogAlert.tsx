@@ -51,9 +51,15 @@ const DialogAlert = (props:DialogAlertProps) => {
         {props.action === 'deleteProyect' ? (
             <AlertDialog>
             <AlertDialogTrigger>
-                <span className='cursor-pointer text-xs text-red-500'>
+                <span className='md:hidden text-xs text-red-500'>
                     Eliminar
                 </span>
+                <Button
+                    variant={'destructive'}
+                    className='hidden md:inline'
+                >
+                    Eliminar
+                </Button>
             </AlertDialogTrigger>
             <AlertDialogContent className='w-96'>
                 <AlertDialogHeader>
