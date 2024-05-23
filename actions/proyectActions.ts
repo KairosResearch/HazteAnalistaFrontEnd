@@ -25,9 +25,9 @@ export const handleGetProyects = async () => {
     }
 }
 
-export const handleSubmitProyectForm = async (formData: any) => {
+export const handleSubmitProyectForm = async (formData: any, accessToken: string, id: string) => {
     try {
-        const {accessToken, id} = valuesFromCookies();
+        // const {accessToken, id} = valuesFromCookies();
         const posted = await postProyect(accessToken, {...formData, idUsuario: id})
         console.log(posted)
         if (posted) {

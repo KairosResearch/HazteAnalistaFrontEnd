@@ -6,6 +6,9 @@ import { usePrivy } from "@privy-io/react-auth"
 //Types:
 import { BackendValues, CatalogosType, DashboardDataFormProps,  TableData } from "@/index"
 
+//El coso de actions
+import { handleSubmitProyectForm, handleUpdateProyect } from "@/actions/proyectActions"
+
 //Shadcn staff for forms
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -41,8 +44,7 @@ export const formSchema = z.object({
 
 
 
-//El coso de actions
-import { handleSubmitProyectForm, handleUpdateProyect } from "@/actions/proyectActions"
+
 
 //The form
 const DashboardDataForm = ({type, data = null, catalogos, close}: DashboardDataFormProps) => {
@@ -51,7 +53,13 @@ const DashboardDataForm = ({type, data = null, catalogos, close}: DashboardDataF
     const exchange = catalogos[2] as CatalogosType[];
     const sector = catalogos[3] as CatalogosType[];
 
-    const {user} = usePrivy();
+    const {user, getAccessToken} = usePrivy();
+
+
+    const getPrivyAccessToken = async () => {
+        const accessToken = await getAccessToken();
+        return accessToken;
+    }
 
     const [count, setCount] = useState(1);
 
@@ -85,14 +93,14 @@ const DashboardDataForm = ({type, data = null, catalogos, close}: DashboardDataF
     
 
     //Data generated after blur on name
-    const {setValue, getValues} = useForm()
-    const nameLostFocus = () => {
-        setValue('ticket', 'TIA')
-        setValue('marketCap', randomMarketCap())
-        setValue('siAth', 2.02)
-        setValue('precioEntrada', 11)
-        setValue('precioActual', 10.36)
-    }
+    // const {setValue, getValues} = useForm()
+    // const nameLostFocus = () => {
+    //     // setValue('ticket', 'TIA')
+    //     // setValue('marketCap', randomMarketCap())
+    //     // setValue('siAth', 2.02)
+    //     // setValue('precioEntrada', 11)
+    //     // setValue('precioActual', 10.36)
+    // }
 
 
 
@@ -102,39 +110,42 @@ const DashboardDataForm = ({type, data = null, catalogos, close}: DashboardDataF
             setEmptyForm(false);
 
             //These are the values created after the name lost focus
-            const valuesGot = getValues();
+            // const valuesGot = getValues();
             
             //These are the values that will be sent to the backend
             //Both the values that got from the form and the values that were generated after the name lost focus 
             const backendValues: BackendValues = {
                 nombre: values.nombre,
-                ticket: valuesGot.ticket,
+                ticket: values.ticket,
                 id4e: Number(values.id4e),
                 id_decision_proyecto: Number(values.id_decision_proyecto),
-                marketCap: valuesGot.marketCap,
-                siAth: valuesGot.siAth,
+                marketCap: values.marketCap,
+                siAth: values.siAth,
                 idExchange: Number(values.idExchange),
                 idSector: Number(values.idSector),
-                precioEntrada: valuesGot.precioEntrada,
-                precioActual: valuesGot.precioActual,
+                precioEntrada: values.precioEntrada,
+                precioActual: values.precioActual,
             }
             
             if (Object.values(backendValues).every(value => value)) {
-                console.log(backendValues)
-                const newData = await handleSubmitProyectForm(backendValues);
-                console.log('Nueva Data dentro del frontend', newData)
-                if(newData){
-                    setCount(count + 1);
-                    setUserTableData(['Dato añadido' + count]);
-                    setSubmitted(true);
+                console.log('Datos' , backendValues)
+                const token  = await getPrivyAccessToken();
+                console.log('access token de privy: ', token)
+                console.log('Id del usuario: ', user?.id)
+                // const newData = await handleSubmitProyectForm(backendValues, token, user?.id);
+                // console.log('Nueva Data dentro del frontend', newData)
+                // if(newData){
+                //     setCount(count + 1);
+                //     setUserTableData(['Dato añadido' + count]);
+                //     setSubmitted(true);
                    
-                   form.reset();
-                   form.reset(defaultValuesDashboardForm);
+                //    form.reset();
+                //    form.reset(defaultValuesDashboardForm);
                  
-                   if (close) {
-                       close();
-                   }
-                }
+                //    if (close) {
+                //        close();
+                //    }
+                // }
             } else {
                console.log('Datos null')
                setEmptyForm(true);
@@ -200,10 +211,10 @@ return (
                     render={({ field }) => (
                         <Input
                             {...field}
-                            onBlur={type === 'create'  ? () => {
-                                field.onBlur();
-                                nameLostFocus();
-                            }: undefined}
+                            // onBlur={type === 'create'  ? () => {
+                            //     field.onBlur();
+                            //     nameLostFocus();
+                            // }: undefined}
                         />
                     )}
                 />
@@ -218,7 +229,8 @@ return (
                             {...field}
                             maxLength={5}
                             
-                            value={type === 'create' ? getValues("ticket") : field.value}
+                            // value={type === 'create' ? getValues("ticket") : field.value}
+                            value={field.value}
                         />
                     )}
                 />
@@ -307,9 +319,7 @@ return (
                             {...field}
                             type="text"
                             value={
-                                type === "create" 
-                                ? (getValues("marketCap") ? getValues("marketCap").toLocaleString() : "")
-                                : field.value.toLocaleString()
+                                field.value.toLocaleString()
                             }
                             onChange={(e) => {
                                 // Elimina los separadores de miles antes de llamar a field.onChange
@@ -329,7 +339,7 @@ return (
                         <Input
                             {...field}
                             type="number"
-                            value={type === 'create' ? getValues("siAth") : field.value}
+                            value={field.value}
                             onChange={(e) => field.onChange(parseFloat(e.target.value))}
                         />
                     )}
@@ -400,7 +410,7 @@ return (
                         <Input
                             {...field}
                             type="number"
-                            value={type === 'create' ? getValues("precioEntrada") : field.value}
+                            value={field.value}
                             onChange={(e) => field.onChange(parseFloat(e.target.value))}
                         />
                     )}
@@ -416,7 +426,7 @@ return (
                         <Input
                             {...field}
                             type="number"
-                            value={type === 'create' ? getValues("precioActual") : field.value}
+                            value={field.value}
                             onChange={(e) => field.onChange(parseFloat(e.target.value))}
                         />
                     )}
