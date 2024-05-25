@@ -1,6 +1,7 @@
 "use client"
 import React, {useState} from "react"
 //Hooks
+import { prNames } from "@/lib/data"
 import { useUserTableData } from "@/hooks/useUserData"
 import { usePrivy } from "@privy-io/react-auth"
 //Types:
@@ -209,13 +210,22 @@ return (
                     formLabel="Nombre"
                     className="w-full sm:mt-6"
                     render={({ field }) => (
-                        <Input
-                            {...field}
-                            // onBlur={type === 'create'  ? () => {
-                            //     field.onBlur();
-                            //     nameLostFocus();
-                            // }: undefined}
-                        />
+                        <Select
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                        >
+                            <SelectTrigger>
+                                <SelectValue placeholder="Selecciona el nombre" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {prNames.map((proyect) => (
+                                    <SelectItem key={proyect.id} value={String(proyect.title)}>
+                                        {proyect.title}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+
                     )}
                 />
                 {/**Ticket */}

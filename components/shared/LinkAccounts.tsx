@@ -27,12 +27,12 @@ const LinkAccounts = () => {
                     <div className="space-y-2 ">
                         <div className='cursor-pointer pl-4 p-0 hover:bg-primary/30 rounded-md' onClick={linkWallet}>Dirección de wallet</div>
                    </div>
-                    <div className="space-y-2 ">
+                    {/* <div className="space-y-2 ">
                         <div className='cursor-pointer pl-4 p-0 hover:bg-primary/30 rounded-md' onClick={linkDiscord}>Cuenta de  Discord</div>
                    </div>
                     <div className="space-y-2 ">
                         <div className='cursor-pointer pl-4 p-0 hover:bg-primary/30 rounded-md' onClick={linkGithub}>Cuenta de Github</div>
-                   </div>
+                   </div> */}
                 </div>
     </div>
   )
