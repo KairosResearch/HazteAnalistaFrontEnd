@@ -1,8 +1,8 @@
 "use client"
-import React, {useState} from "react"
+import React, {useState, useEffect} from "react"
 //Hooks
-import { prNames } from "@/lib/data"
 import { useUserTableData } from "@/hooks/useUserData"
+import { useUserData} from "@/hooks/useUserData"
 import { usePrivy } from "@privy-io/react-auth"
 //Types:
 import { BackendValues, CatalogosType, DashboardDataFormProps,  TableData } from "@/index"
@@ -25,6 +25,7 @@ import { CustomField } from "./CustomField"
 
 //Values
 import {defaultValuesDashboardForm, randomMarketCap} from "@/utils/index"
+import { getProjectInfoById } from "@/services/backend/proyectsInfo"
 
 
 //Schema
@@ -47,41 +48,68 @@ export const formSchema = z.object({
 
 
 
-//The form
-const DashboardDataForm = ({type, data = null, catalogos, close}: DashboardDataFormProps) => {
+//The component with its functionalities
+const DashboardDataForm = ({type, data = null, catalogos, close, projectsList}: DashboardDataFormProps) => {
+    //Catalogos, separados porque vienen en un array
     const data4t = catalogos[0] as CatalogosType[]; 
     const decision = catalogos[1] as CatalogosType[];
     const exchange = catalogos[2] as CatalogosType[];
     const sector = catalogos[3] as CatalogosType[];
 
-    const {user, getAccessToken} = usePrivy();
-
-
-    const getPrivyAccessToken = async () => {
-        const accessToken = await getAccessToken();
-        return accessToken;
-    }
-
+    
+    //Propiedades de privy necesarias para pasar info al backend
+    // const {user, getAccessToken} = usePrivy();
+    // const getPrivyAccessToken = async () => {
+    //     const accessToken = await getAccessToken();
+    //     return accessToken;
+    // }
+    // console.log('Usuario', user?.id)
+    //Estados para el uso del formulario
     const [count, setCount] = useState(1);
-
     const [submitted, setSubmitted] = useState(false);
     const [emptyForm, setEmptyForm] = useState(false);
-
-    // const {userId} = useUserData();
+    const [symbol, setSymbol] = useState('');
     const {setUserTableData} = useUserTableData();
 
- 
+    //Estados para el manejo de la data
+    const [prInfo, setPrInfo] = useState({
+        marketCap: 0,
+        price: 0
+    });
+
+    
+
+    //Fetching project info just right after user selects the project
+    useEffect(() => {
+        console.log(symbol)
+        const foo = async () => {
+            setPrInfo({
+                marketCap: 0,
+                price: 0
+            })
+            
+            const newPrInfo = await getProjectInfoById(symbol);
+            const {marketCap, price} = newPrInfo;
+            setPrInfo({
+                marketCap,
+                price
+            });
+            console.log(prInfo)
+        }
+        foo();
+        
+    }, [symbol])
+
+    //Valores por default para los campos del formulario
     const initialValues = data && type === 'update' ? {
-        nombre: data?.nombre, 
-        ticket: data?.ticket,
+        nombre: data?.proyecto, 
+        ticket: data?.ticker,
         id4e: data?.id4e,
         id_decision_proyecto: data?.id_decision_proyecto,
-        marketCap: data?.marketCap,
         siAth: data?.siAth,
         idExchange: data?.idExchange,
         idSector: data?.idSector,
         precioEntrada: data?.precioEntrada,
-        precioActual: data?.precioActual,
     } : defaultValuesDashboardForm;
 
 
@@ -91,21 +119,7 @@ const DashboardDataForm = ({type, data = null, catalogos, close}: DashboardDataF
         defaultValues: initialValues
     })
 
-    
-
-    //Data generated after blur on name
-    // const {setValue, getValues} = useForm()
-    // const nameLostFocus = () => {
-    //     // setValue('ticket', 'TIA')
-    //     // setValue('marketCap', randomMarketCap())
-    //     // setValue('siAth', 2.02)
-    //     // setValue('precioEntrada', 11)
-    //     // setValue('precioActual', 10.36)
-    // }
-
-
-
-      // 2. Define a submit handler.
+    // 2. Define a submit handler.
     async function onSubmit(values: z.infer<typeof formSchema>) {
         if(type === 'create'){
             setEmptyForm(false);
@@ -116,8 +130,7 @@ const DashboardDataForm = ({type, data = null, catalogos, close}: DashboardDataF
             //These are the values that will be sent to the backend
             //Both the values that got from the form and the values that were generated after the name lost focus 
             const backendValues: BackendValues = {
-                nombre: values.nombre,
-                ticket: values.ticket,
+                idProyecto: Number(values.nombre),
                 id4e: Number(values.id4e),
                 id_decision_proyecto: Number(values.id_decision_proyecto),
                 marketCap: values.marketCap,
@@ -125,59 +138,61 @@ const DashboardDataForm = ({type, data = null, catalogos, close}: DashboardDataF
                 idExchange: Number(values.idExchange),
                 idSector: Number(values.idSector),
                 precioEntrada: values.precioEntrada,
-                precioActual: values.precioActual,
+                
             }
+            console.log('Backend values', backendValues);
             
             if (Object.values(backendValues).every(value => value)) {
                 console.log('Datos' , backendValues)
-                const token  = await getPrivyAccessToken();
-                console.log('access token de privy: ', token)
-                console.log('Id del usuario: ', user?.id)
-                // const newData = await handleSubmitProyectForm(backendValues, token, user?.id);
-                // console.log('Nueva Data dentro del frontend', newData)
-                // if(newData){
-                //     setCount(count + 1);
-                //     setUserTableData(['Dato añadido' + count]);
-                //     setSubmitted(true);
-                   
-                //    form.reset();
-                //    form.reset(defaultValuesDashboardForm);
-                 
-                //    if (close) {
-                //        close();
-                //    }
-                // }
-            } else {
-               console.log('Datos null')
-               setEmptyForm(true);
-            }
-        } else {
-            const backendValues: BackendValues = {
-                nombre: values.nombre,
-                ticket: values.ticket,
-                id4e: Number(values.id4e),
-                id_decision_proyecto: Number(values.id_decision_proyecto),
-                marketCap: values.marketCap,
-                siAth: values.siAth,
-                idExchange: Number(values.idExchange),
-                idSector: Number(values.idSector),
-                precioEntrada: values.precioEntrada,
-                precioActual: values.precioActual,
-            }
-            const newData = await handleUpdateProyect({...backendValues, id_proyecto: data?.id_proyecto});
-            if(newData){
                 
-                setCount(count + 1);
-                setUserTableData(['Cambio de datos' + count]);
-                setSubmitted(true);
-                form.reset();
-                form.reset(defaultValuesDashboardForm);
-                setTimeout(() => {
+                const newData = await handleSubmitProyectForm(backendValues);
+                console.log('Nueva Data dentro del frontend', newData)
+                if(newData){
+                    setCount(count + 1);
+                    setUserTableData(['Dato añadido' + count]);
+                    setSubmitted(true);
+                   
+                   form.reset();
+                   form.reset(defaultValuesDashboardForm);
+                 
+                   setTimeout(() => {
                     if (close) {
                         close()
                     }
                    }, 2000)
+                }
+            } else {
+               console.log('Datos null')
+               setEmptyForm(true);
             }
+        } 
+        if(type === 'update'){
+            const backendValuesUpdate = {
+                id4e: Number(values.id4e),
+                id_decision_proyecto: Number(values.id_decision_proyecto),
+                siAth: values.siAth,
+                idExchange: Number(values.idExchange),
+                idSector: Number(values.idSector),
+                precioEntrada: values.precioEntrada,
+                id_proyecto: data?.id_proyecto
+            }
+
+            console.log('Backend values', backendValuesUpdate)
+
+            // const newData = await handleUpdateProyect({...backendValuesUpdate, id_proyecto: data?.id_proyecto});
+            // if(newData){
+                
+            //     setCount(count + 1);
+            //     setUserTableData(['Cambio de datos' + count]);
+            //     setSubmitted(true);
+            //     form.reset();
+            //     form.reset(defaultValuesDashboardForm);
+            //     setTimeout(() => {
+            //         if (close) {
+            //             close()
+            //         }
+            //        }, 2000)
+            // }
         }
 
             
@@ -203,33 +218,55 @@ return (
                 </>
             )}
             <div className="space-y-6 md:grid grid-flow-row grid-cols-3 gap-6">
-                {/**Name */}
-                <CustomField
-                    control={form.control}
-                    name="nombre"
-                    formLabel="Nombre"
-                    className="w-full sm:mt-6"
-                    render={({ field }) => (
-                        <Select
-                            onValueChange={field.onChange}
-                            defaultValue={field.value}
-                        >
-                            <SelectTrigger>
-                                <SelectValue placeholder="Selecciona el nombre" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                {prNames.map((proyect) => (
-                                    <SelectItem key={proyect.id} value={String(proyect.title)}>
-                                        {proyect.title}
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
+                {
+                    type === "create" ? (
+                        <CustomField
+                            control={form.control}
+                            name="nombre"
+                            formLabel="Nombre"
+                            className="w-full sm:mt-6"
+                            render={({ field }) => (
+                                <Select
+                                    onValueChange={(value) => {
+                                        field.onChange(value)
+                                        if(value !== ''){
+                                                const foo = () => {
+                                                const b = Number(value);
+                                                const a =  projectsList?.find((pr) => pr.id === b)
+                                                const symbol = a?.symbol
+                                                return symbol as string;
+                                            }
+                                            setSymbol(foo())
+                                        }
+                                        
+                                    }}
+                                    defaultValue={field.value}
+                                >
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="Selecciona el nombre" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {
+                                            projectsList?.map((proyect) => (
+                                                <>
+                                                    <SelectItem key={proyect.id} value={String(proyect.id)} >
+                                                            {proyect.proyecto} 
+                                                    </SelectItem>
+                                                </>
+                                                
+                                               
+                                            ))
+                                        }
+                                    </SelectContent>
+                                </Select>
 
-                    )}
-                />
+                            )}
+                        />
+                    ) : null
+                }
+                
                 {/**Ticket */}
-                <CustomField
+                {/* <CustomField
                     control={form.control}
                     name="ticket"
                     formLabel="Ticker"
@@ -243,13 +280,13 @@ return (
                             value={field.value}
                         />
                     )}
-                />
+                /> */}
                 {/**4E */}
                 <CustomField
                     control={form.control}
                     name="id4e"
                     formLabel="4E"
-                    className="w-full"
+                    className="w-full sm:mt-6"
                     render={({ field }) => (
                         <Select
                             onValueChange={field.onChange}
@@ -319,7 +356,8 @@ return (
                     )}
                 />
                 {/**Market Cap */}
-                <CustomField
+                {type === 'create' ? (
+                    <CustomField
                     control={form.control}
                     name="marketCap"
                     formLabel="Market Cap"
@@ -329,7 +367,7 @@ return (
                             {...field}
                             type="text"
                             value={
-                                field.value.toLocaleString()
+                                field.value
                             }
                             onChange={(e) => {
                                 // Elimina los separadores de miles antes de llamar a field.onChange
@@ -337,13 +375,17 @@ return (
                                 field.onChange(isNaN(value) ? "" : value);
                             }}
                         />
-                    )}
-                />
+                        )}
+                    />
+                    ) : null
+                }
+                
+                
                 {/**Si Ath */}
                 <CustomField
                     control={form.control}
                     name="siAth"
-                    formLabel="ATH"
+                    formLabel="Si ATH"
                     className="w-full"
                     render={({ field }) => (
                         <Input
@@ -427,7 +469,7 @@ return (
                 />
 
                 {/**Precio actual */}
-                <CustomField
+                {/* <CustomField
                     control={form.control}
                     name="precioActual"
                     formLabel="Precio actual"
@@ -440,7 +482,7 @@ return (
                             onChange={(e) => field.onChange(parseFloat(e.target.value))}
                         />
                     )}
-                />
+                /> */}
             </div>
 
             {submitted && (

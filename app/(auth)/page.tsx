@@ -10,12 +10,23 @@ import { useLogin } from '@privy-io/react-auth';
 
 const Login = () => {
   const router = useRouter();
-  const {authenticated } = usePrivy();
+  const {authenticated} = usePrivy();
+  const {user} = usePrivy();
 
   const {login} = useLogin({
     onComplete: () => {
-  
-      router.push('/dashboard')
+      const id = user?.id;
+      const name = user?.wallet?.address || user?.google?.name || user?.email?.address;
+      console.log('Id del usuario en privy:  ' , id);
+      console.log('Nombre del usuario en privy:  ' , name);
+
+      async function foo(){
+        const data = await handleLogin(id, name);
+        if(data === true){
+          router.push('/dashboard')
+        } 
+      }
+      foo();
     },
     onError: (error) => {
       console.log(error)

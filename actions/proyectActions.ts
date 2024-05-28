@@ -4,18 +4,19 @@ import { cookies } from "next/headers";
 
 function valuesFromCookies() {
     const cookiesStore = cookies();
-    const accessToken = cookiesStore.get('accessToken')?.value as string;
-    const userString = cookiesStore.get('user')?.value;
-    const userObject = userString ? JSON.parse(userString) : {id: 2};
-    const {id} = userObject;
-    return {accessToken, id}
+    // const accessToken = cookiesStore.get('accessToken')?.value as string;
+    const userId = cookiesStore.get('userId')?.value;
+    // const userObject = userString ? JSON.parse(userString) : {id: 2};
+    // const {id} = userObject;
+    return {userId};
 }
 
 
 export const handleGetProyects = async () => {
     try {
-        const {accessToken, id} = valuesFromCookies();
-        const data = await getProyects(accessToken, id)
+        const {userId} = valuesFromCookies();
+        
+        const data = await getProyects(userId)
         if (data.error) {
             return {error: data.error}
         }
@@ -25,10 +26,10 @@ export const handleGetProyects = async () => {
     }
 }
 
-export const handleSubmitProyectForm = async (formData: any, accessToken: string, id: string) => {
+export const handleSubmitProyectForm = async (formData: any) => {
     try {
-        // const {accessToken, id} = valuesFromCookies();
-        const posted = await postProyect(accessToken, {...formData, idUsuario: id})
+        const {userId} = valuesFromCookies();
+        const posted = await postProyect( {...formData, idUsuario: userId})
         console.log(posted)
         if (posted) {
             const newData = await handleGetProyects();
@@ -42,10 +43,12 @@ export const handleSubmitProyectForm = async (formData: any, accessToken: string
 
 export const handleDeleteProyect = async (id_proyecto: number | null) => {
     try {
-        const {accessToken} = valuesFromCookies();
-        const deleted = await deleteProyect(accessToken, id_proyecto as number);
+        const dataToPass = {
+            id_proyecto: id_proyecto
+        }
+        const deleted = await deleteProyect(dataToPass);
         // if (deleted) {
-        //     const newData = await getProyects(accessToken, userId)
+        //     const newData = await getProyects(userId, userId)
         //     return newData;
         // }
         console.log(deleted)
@@ -57,9 +60,9 @@ export const handleDeleteProyect = async (id_proyecto: number | null) => {
 
 export const handleUpdateProyect = async (formData: any) => {
     try {
-        const {accessToken} = valuesFromCookies();
+        
         console.log('formData', formData)
-        const updated = await updateProyect(accessToken, formData);
+        const updated = await updateProyect(formData);
         // if (updated) {
         //     const newData = await getProyects(accessToken)
         //     return newData;

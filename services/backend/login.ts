@@ -28,7 +28,7 @@ export const postLogin = async (values: any) => {
 export const postRegister = async (values: any) => {
   try {
     console.log(values)
-    const response = await fetch(`${AUTH_URL}signup`, {
+    const response = await fetch(`${AUTH_URL}registro`, {
       method: 'POST',
       headers: {
       'Content-Type': 'application/json'

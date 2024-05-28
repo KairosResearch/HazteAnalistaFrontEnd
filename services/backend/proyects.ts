@@ -1,13 +1,13 @@
 import { AUTH_URL } from "./urls";
 
-export const getProyects = async (accessToken: string | undefined, userId: number | null) => {
+export const getProyects = async (id: any) => {
     try{
-        const response = await fetch(`${AUTH_URL}getProyectos?idUsuario=${userId}`, {
+        const response = await fetch(`${AUTH_URL}getProyectosSegUsuario/${id}`, {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${accessToken}`
-            }
+                'Content-Type': 'application/json', 
+            },
+
         })
         const data = await response.json();
         return data
@@ -18,13 +18,12 @@ export const getProyects = async (accessToken: string | undefined, userId: numbe
 }
 
 
-export const postProyect = async (accessToken: string, proyectData: any) => {
+export const postProyect = async ( proyectData: any) => {
     try{
         const response = await fetch(`${AUTH_URL}saveProyectSegmto`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${accessToken}`
             },
             body: JSON.stringify(proyectData)
         })
@@ -35,14 +34,14 @@ export const postProyect = async (accessToken: string, proyectData: any) => {
     }
 }
 
-export const deleteProyect = async (accessToken: string, id: number) => {
+export const deleteProyect = async ( idBody: any) => {
     try{
-        const response = await fetch(`${AUTH_URL}delteProject?id_proyecto=${id}`, {
+        const response = await fetch(`${AUTH_URL}delteProject`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${accessToken}`
-            }
+            }, 
+            body: JSON.stringify(idBody)
         })
         const data = await response.json()
         return data
@@ -51,13 +50,12 @@ export const deleteProyect = async (accessToken: string, id: number) => {
     }
 }
 
-export const updateProyect = async (accessToken: string, proyectData: any) => {
+export const updateProyect = async ( proyectData: any) => {
     try{
         const response = await fetch(`${AUTH_URL}update_project`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${accessToken}`
             },
             body: JSON.stringify(proyectData)
         })

@@ -1,20 +1,18 @@
+'use server';
 import { cookies } from "next/headers"
 
 const cookiesStore = cookies()
 
-export const createAccessToken = async (user: any) => {
-    
-    console.log('Usuario como objeto:  ' , {user});
-    const userSring = JSON.stringify(user);
-    console.log('Usuario como string:  ' + userSring)
-    
 
-    if (user != null) {
+
+export const createCookieUserId = async (id: any) => {
+    if (id != null) {
         try {
-            cookiesStore.set('userObj', userSring, {
+            cookiesStore.set('userId', id, {
                 path: '/',
                 sameSite: 'strict',
             })
+            console.log('Cookie creadaaaaaaaaaaaaaaaaaaaaaaaaaaa')
             return true;
         } catch (err) {
             throw new Error('No se pudo guardar la cookie');
@@ -24,9 +22,11 @@ export const createAccessToken = async (user: any) => {
     return null;
 }
 
-export const deleteCookie = async () => {
+
+
+export const deleteCookieUserId = async () => {
     try {
-        cookiesStore.delete('userObj')
+        cookiesStore.delete('userId')
         return true;
     } catch (error) {
         console.error(error)

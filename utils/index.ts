@@ -44,7 +44,7 @@ export const rangeDesigner = (marketCap: number) => {
 
 //Data for default values
 export const defaultValuesDashboardForm = {
-  nombre: "",
+  nombre: " ",
   ticket: "",
   id4e: "",
   id_decision_proyecto: "",

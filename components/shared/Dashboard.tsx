@@ -11,29 +11,36 @@ import {
   } from "@/components/ui/table"
 import DialogInfo from './DialogInfo';
 
-import { tableDataDefault } from '@/lib/data';
+
 import { Badge } from '../ui/badge';
 import DialogItem from './DialogItem';
 import DialogAlert from './DialogAlert';
-import { useUserTableData } from '@/hooks/useUserData';
 
 //import {useUserDar}  from '@/contexts/ContextProvider';
 import {  getSectores } from '@/services/backend/catalogos';
 import { rangeDesigner } from '@/utils';
 
+//Hook de useUserData
+import { useUserData } from '@/hooks/useUserData';
+import { useUserTableData } from '@/hooks/useUserData';
+import { tableDataDefault } from '@/lib/data';
 
 
-//Types
+
 import { TableData } from '@/index';
 import { DashboardProps } from '@/index';
 import { handleGetProyects } from '@/actions/proyectActions';
 import { Button } from '../ui/button';
+import { table } from 'console';
 
 const Dashboard = (
   { catalogos}: DashboardProps
 ) => {
 
-  //const {userTableData } = useUserTableData();
+  //Seteamos el userId como estado global usando el hook useUserData
+
+  const { userTableData } = useUserTableData();
+ 
 
   const [sectores, setSectores] = useState<any[]>([]);
   const [tableData, setTableData] = useState<TableData[]>([]);
@@ -44,37 +51,37 @@ const Dashboard = (
   const [selectedRow, setSelectedRow] = useState<any>(null);
 
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const data = await handleGetProyects();
-  //     if (data.error){
-  //       setTableData([]);
-  //       alert('Tenemos problemas internos con el servidor. Buscamos solucionarlo!')
-  //     }
-  //     const sectores = await getSectores();
-  //     setSectores(sectores);
-  //     console.log('data.proyectos', data)
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await handleGetProyects();
+      if (data.error){
+        setTableData([]);
+        alert('Tenemos problemas internos con el servidor. Buscamos solucionarlo!')
+      }
+      const sectores = await getSectores();
+      setSectores(sectores);
+      console.log('data.proyectos', data)
       
-  //     //setTableData(data);
-  //   };
-  //   fetchData();
-  // }, []);
+      setTableData(data.proyectos);
+    };
+    fetchData();
+  }, []);
 
 
-  // useEffect(() => {
-  //   // if (JSON.stringify(prevUserTableData) !== JSON.stringify(userTableData)) {
-  //     const fetchData = async () => {
-  //       const data = await handleGetProyects();
-  //       if (data.error) {
-  //         setTableData([]);
-  //         alert('Tenemos problemas internos con el servidor. Buscamos solucionarlo!')
-  //       }
-  //       setTableData(data.proyectos);
-  //     }
-  //     fetchData();
+  useEffect(() => {
+    // if (JSON.stringify(prevUserTableData) !== JSON.stringify(userTableData)) {
+      const fetchData = async () => {
+        const data = await handleGetProyects();
+        if (data.error) {
+          setTableData([]);
+          alert('Tenemos problemas internos con el servidor. Buscamos solucionarlo!')
+        }
+        setTableData(data.proyectos);
+      }
+      fetchData();
       
-  //   // }
-  // }, [userTableData]);
+    // }
+  }, [userTableData]);
 
   
   
@@ -96,125 +103,49 @@ const Dashboard = (
           <TableHead className="">Ticker</TableHead>
           <TableHead className="">Metodo 4E</TableHead>
           <TableHead className="">Decisión</TableHead>
-          <TableHead className="">Market Cap</TableHead>
+          {/* <TableHead className="">Market Cap</TableHead> */}
           <TableHead className="">Rango</TableHead>
           <TableHead className="">ATH</TableHead>
           <TableHead className="">Sector</TableHead>
           <TableHead className="">Exchange</TableHead>
           <TableHead className="">Precio Entrada</TableHead>
-          <TableHead className="">Precio Actual</TableHead>
+          {/* <TableHead className="">Precio Actual</TableHead> */}
         </TableRow>
       </TableHeader>
       <TableBody>
 
       {/* First two data, by default */}
-      {tableDataDefault.map((data) => (
-          <TableRow className='divide-x-2 divide-y-2 divide-green-dark hover:bg-primary/10 cursor-pointer' key={data.proyectName}
-          onClick={() => {
-            setSelectedRow(data);
-            setIsDialogOpen(true);
-          }}>
-          <TableCell className="font-medium border-2 border-green-dark relative">
-            <p className='pb-6 pr-12'> 
-              {data.proyectName}
-              {/* <DialogItem 
-                mode="edit" 
-                catalogos={catalogos}
-                user={user}
-              /> */}
-              {/* <DialogAlert 
-                action="deleteProyect"
-                user={user}  
-              /> */}
+      {tableData  && tableData.length === 0 && (
+        <TableRow className='divide-x-2 divide-y-2 divide-green-dark hover:bg-primary cursor-pointer'>
+          <TableCell className="font-medium border-2 border-green-dark relative" colSpan={11}>
+            <p className='pb-3 text-center'> 
+              No hay proyectos registrados
             </p>
           </TableCell>
-          <TableCell>
-            ${data.ticket}
-
-          </TableCell>
-          {/******Metodo 4E**** */}
-          <TableCell>
-            <Badge
-              variant='fourE'
-              color={
-              (data.theE === 'Evaluar') ? 'yellow' : (data.theE === 'Encontrar') ? 'grey' : (data.theE === 'Ejecutar') ? 'blue' : 'green'
-            }>
-              {data.theE}
-            </Badge>
-          </TableCell>
-          {/******Decision**** */}
-          <TableCell>
-            <Badge
-              variant={(data.decision === 'Watchlist') ? 'decisionWatchlist' : (data.decision === 'Invertir') ? 'desicionInvest' : 'desicionLeave'}
-            >
-            {data.decision}
-            </Badge>
-          </TableCell>
-          {/******Market Cap**** */}
-          <TableCell className="whitespace-nowrap" >
-            $ {data.cap.toLocaleString()}
-
-          </TableCell>
-          {/******Rango**** */}
-           <TableCell>
-            <Badge 
-              variant='range'
-              color={
-              (range(Number(data.cap)) === MID) ? 'blue' : (range(Number(data.cap)) === LOW) ? 'orange' : (range(Number(data.cap)) === LARGE) ? 'green' : 'brown'
-            }>
-            {range(Number(data.cap))}
-            </Badge>
-          </TableCell> 
-          {/******Si ATH**** */}
-          <TableCell>
-            {data.siAth}X
-            </TableCell>
-          {/******Sector**** */}
-          <TableCell>
-            <Badge>
-            {data.sector}
-            </Badge>
-          </TableCell>
-          {/******Exchange**** */}
-          <TableCell>
-            <Badge>
-            {data.exchange}
-            </Badge>
-          </TableCell>
-          {/****** precio entrada**** */}
-          <TableCell className="whitespace-nowrap" >
-            $ {data.precioEntrada}
-
-          </TableCell>
-          {/******precio salida**** */}
-          <TableCell className="whitespace-nowrap">
-            $ {data.precioSalida}
-
-          </TableCell>
         </TableRow>
-        ))}
+      )}
 
        
       {/* Data directly manipulated by the user */}
-        {/* {tableData && tableData.map((data) => (
+        {tableData && tableData.map((data) => (
           <TableRow 
-            className='divide-x-2 divide-y-2 divide-green-dark hover:bg-primary cursor-pointer' key={data.id_proyecto}
+            className='divide-x-2 divide-y-2 divide-green-dark hover:bg-primary/10 cursor-pointer' key={data.id_proyecto}
             onClick={() => {
               setSelectedRow(data);
               setIsDialogOpen(true);
             }}>
             <TableCell className="font-medium border-2 border-green-dark relative">
               <p className='pb-3 '> 
-                {data.nombre}
+                {data.proyecto}
               </p>
             </TableCell>
 
             <TableCell className="whitespace-nowrap">
-              ${data.ticket}
+              {data.ticker}
 
             </TableCell>
             {/******Metodo 4E**** */}
-            {/* <TableCell>
+            <TableCell>
               <Badge
                 variant='fourE'
                 color={
@@ -222,9 +153,9 @@ const Dashboard = (
               }>
                 {data.id4e === 1 ? 'Encontrar' : data.id4e === 2 ? 'Estudiar' : data.id4e === 3 ? 'Ejecutar' : 'Evaluar'}
               </Badge>
-            </TableCell> */}
+            </TableCell>
             {/******Decision**** */}
-            {/* <TableCell>
+            <TableCell> 
               <Badge
                 variant={(data.id_decision_proyecto === 2) ? 'decisionWatchlist' : (data.id_decision_proyecto === 1) ? 'desicionInvest' : 'desicionLeave'}
               >
@@ -237,7 +168,7 @@ const Dashboard = (
 
             </TableCell>  */}
             {/******Rango**** */}
-           {/* <TableCell>
+            <TableCell>
             <Badge 
               variant='range'
               color={
@@ -245,13 +176,13 @@ const Dashboard = (
             }>
             {range(data.marketCap)}
             </Badge>
-          </TableCell>  */}
+          </TableCell>  
             {/******Si ATH**** */}
-            {/* <TableCell>
+            <TableCell>
               {data.siAth}X
-              </TableCell> */}
+              </TableCell>
             {/******Sector**** */}
-            {/* <TableCell>
+            <TableCell>
               {
                 sectores.find(sector => sector.value === data.idSector) && (
                   <Badge>
@@ -259,29 +190,29 @@ const Dashboard = (
                   </Badge>
                 )
               }
-            </TableCell> */}
+            </TableCell>
             {/******Exchange**** */}
-            {/* <TableCell>
+            <TableCell>
               <Badge>
               {data.idExchange === 1 ? 'Binanses' : data.idExchange === 2 ? 'Coinbase' : 'Kraken'}
               </Badge>
-            </TableCell> */}
+            </TableCell>
             {/****** precio entrada**** */}
-            {/* <TableCell className="whitespace-nowrap">
+            <TableCell className="whitespace-nowrap">
               $ {data.precioEntrada}
 
-            </TableCell> */}
+            </TableCell>
             {/******precio salida**** */}
             {/* <TableCell className="whitespace-nowrap">
               $ {data.precioActual}
 
-            </TableCell>
+            </TableCell> */}
           
             
-          </TableRow> */}
+          </TableRow> 
 
 
-        {/* ))}  */}
+       ))} 
       </TableBody>
 
 

@@ -1,28 +1,30 @@
 import React from 'react'
 import Lessons from '@/components/shared/Lessons';
-import InputSearcher from '@/components/shared/InputSearcher';
+// import InputSearcher from '@/components/shared/InputSearcher';
 import Dashboard from '@/components/shared/Dashboard';
 import DialogItem from '@/components/shared/DialogItem';
 import Collapser from '@/components/ui/Collapser';
 import { get4t, getDecision, getExchange, getSectores } from '@/services/backend/catalogos';
-// import { cookies } from 'next/headers';
+import { getProjectsList } from '@/services/backend/proyectsInfo';
+import { cookies } from 'next/headers';
 
 
 
 
 
 const HomePage = async () => {
-  // const cookiesStore = cookies();
-  // const user = cookiesStore.get('userObj')?.value;
+  const cookiesStore = cookies();
+  const userId = cookiesStore.get('userId')?.value;
    
 
 
 
-  const [data4t, decision, exchange, sector] = await Promise.all([
+  const [data4t, decision, exchange, sector, projectsList] = await Promise.all([
     get4t(),
     getDecision(),
     getExchange(),
     getSectores(),
+    getProjectsList()
   ]);
 
 
@@ -31,7 +33,7 @@ const HomePage = async () => {
  
  
   return (
-    <div className={`md:w-full px-4 2xl:w-full  `}
+    <div className={`md:w-full px-4 2xl:w-full `}
       
     >
       <Collapser />
@@ -42,7 +44,7 @@ const HomePage = async () => {
               <h1 className='text-2xl 2xl:text-4xl font-bold hidden md:block'>
                 Lecciones:
               </h1>
-              <InputSearcher />
+              {/* <InputSearcher /> */}
           </div>
            <Lessons 
             // lessons={lessons}
@@ -54,9 +56,9 @@ const HomePage = async () => {
             <h1
               className='text-2xl font-bold my-4 2xl:my-8 md:my-3 2xl:text-4xl'
             >Dashboard de seguimiento:</h1>
-            <DialogItem 
+            <DialogItem
+              projectsList={projectsList.proyectos}
               mode='add'
-              id={null}
               catalogos={[data4t, decision, exchange, sector]}
               data={null}
               close={null}
@@ -64,6 +66,7 @@ const HomePage = async () => {
           </div>
           
             <Dashboard
+              
               catalogos={[data4t, decision, exchange, sector]}
             />
           

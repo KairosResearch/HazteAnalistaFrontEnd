@@ -71,6 +71,7 @@ const DialogItem = (props: DialogItemProps) => {
                         type='update'
                         data={props.data}
                         close={props.close}
+                        projectsList={null}
                     />
                     
                 ) : (
@@ -79,6 +80,7 @@ const DialogItem = (props: DialogItemProps) => {
                         type='create'
                         data={null}
                         close={props.close}
+                        projectsList={props.projectsList}
                     />
                 )}
             </DialogContent>

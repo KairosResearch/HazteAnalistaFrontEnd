@@ -34,7 +34,7 @@ const DialogAlert = (props:DialogAlertProps) => {
     const [loading, setLoading] = React.useState(false)
     
     const onDeleteProject = async () => {
-        console.log(props.id)
+
         const deleted = await handleDeleteProyect(props.id);
         console.log(deleted)
         if (deleted.error){
@@ -52,18 +52,19 @@ const DialogAlert = (props:DialogAlertProps) => {
             <AlertDialog>
             <AlertDialogTrigger>
                 <span className='md:hidden text-xs text-red-500'>
-                    Eliminar
+                    Eliminar 
                 </span>
                 <Button
                     variant={'destructive'}
                     className='hidden md:inline'
                 >
-                    Eliminar
+                    Eliminar 
                 </Button>
             </AlertDialogTrigger>
             <AlertDialogContent className='w-96'>
                 <AlertDialogHeader>
-                <AlertDialogTitle>Seguro que quieres eliminar el proyecto</AlertDialogTitle>
+                <AlertDialogTitle>Seguro que quieres eliminar el proyecto {props.name}?
+                </AlertDialogTitle>
                 <AlertDialogDescription>
                     Elminiarás este proyecto de tu Dashboard de seguimiento
                 </AlertDialogDescription>

@@ -1,3 +1,4 @@
+
 export type CatalogosType = {
     value: number;
     label: string;
@@ -14,8 +15,8 @@ interface UserProps {
 
 interface TableData {
     id_proyecto: number ;
-    nombre: string;
-    ticket: string;
+    proyecto: string;
+    ticker: string;
     id4e: number;
     id_decision_proyecto: number;
     marketCap: number;
@@ -46,14 +47,29 @@ interface DataToReceiveInForm {
 }
 export interface DashboardDataFormProps {
     type: "create" | "update"; 
-    data: DataToReceiveInForm| null;
+    data: {
+        id_proyecto: number;
+        proyecto: string;
+        ticker: string;
+        id4e: string;
+        id_decision_proyecto: string;
+        siAth: number;
+        idSector: atring;
+        idExchange: string;
+        precioEntrada: number;
+    } | null;
     catalogos: CatalogosType[][]; 
     close: (() => void) | null;
+    projectsList: {
+        id: number;
+        proyecto: string;
+        ticker: string;
+        symbol: string;
+    }[] | null;
 }
 
 export interface BackendValues{
-    nombre: string,
-    ticket: string,
+    idProyecto: number,
     id4e: number ,
     id_decision_proyecto: number,
     marketCap: number,
@@ -61,7 +77,7 @@ export interface BackendValues{
     idExchange: number,
     idSector: number,
     precioEntrada: number,
-    precioActual: number,
+    
 }
 
 export type UserData = {
@@ -88,14 +104,30 @@ export interface AuthDataFormProps {
   interface DialogItemProps {
     mode: 'edit' | 'add';
     catalogos: CatalogosType[][]
-    id: number | null;
-    data: DataToReceiveInForm | null;
+    data: {
+        id_proyecto: number;
+        proyecto: string;
+        ticker: string;
+        id4e: string;
+        id_decision_proyecto: string;
+        siAth: number;
+        idSector: string;
+        idExchange: string;
+        precioEntrada: number;
+    } | null;
     close: (() => void) | null;
+    projectsList: {
+        id: number;
+        proyecto: string;
+        ticker: string;
+        symbol: string;
+    }[] | null;
 }
 
 
 interface DashboardProps {
-    catalogos: CatalogosType[][]; 
+    catalogos: CatalogosType[][];
+    
     
   }
 
@@ -103,12 +135,23 @@ interface DashboardProps {
     action: 'deleteProyect' | 'logout';
     id: number | null;
     close: () => void;
+    name: string;
 }
 
 interface DialogInfoProps {
     isDialogOpen: boolean;
     close: () => void;
-    selectedRow: DataToReceiveInForm;
+    selectedRow: {
+            id_proyecto: number;
+            proyecto: string;
+            ticker: string;
+            id4e: number;
+            id_decision_proyecto: number;
+            siAth: number;
+            idSector: number;
+            idExchange: number;
+            precioEntrada: number;
+        } | null;
     catalogos: CatalogosType[][];
 }
 

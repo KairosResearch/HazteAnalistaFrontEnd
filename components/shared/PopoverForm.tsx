@@ -15,6 +15,7 @@ import { useRouter } from 'next/navigation';
 
 import SearcherResults from './SearcherResults';
 import LinkAccounts from './LinkAccounts';
+import { deleteCookieUserId } from '@/utils/auth/cookies'
 
 
 interface PopoverFormProps {
@@ -29,7 +30,14 @@ const PopoverForm = ({usage}: PopoverFormProps) => {
 
     const {logout} = useLogout({
         onSuccess: () => {
-          router.push('/')
+            async function foo(){
+                const success = await  deleteCookieUserId();
+                if(success === true){
+                    router.push('/')
+                }
+              
+            }
+            +foo();
         },
       });
 

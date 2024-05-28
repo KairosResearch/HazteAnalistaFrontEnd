@@ -23,7 +23,7 @@ const DialogInfo = ({
     catalogos,
 }: DialogInfoProps) => {
   return (
-    <div>
+
     <Dialog open={isDialogOpen} >
         <DialogContent className='px-3 xl:px-16 xl:py-5 max-h-[50vh] md:max-h-full md:min-w-[80%] overflow-auto'>
           
@@ -32,14 +32,15 @@ const DialogInfo = ({
               <DialogHeader className='flex justify-between md:items-center flex-col md:flex-row md:mr-5'>
                 <DialogTitle
                   className='text-left md:text-center text-xl md:text-2xl xl:text-4xl font-bold'
-                >Proyecto: Un proyecto{selectedRow.nombre}</DialogTitle>
+                >Proyecto: {selectedRow.proyecto}</DialogTitle>
+
 
                 <div className='flex gap-3'>
                   
-                    <DialogItem   
+                    <DialogItem
+                          projectsList={null}
                           mode="edit"
                           catalogos={catalogos}
-                          id={selectedRow.id_proyecto}
                           data={{
                             ...selectedRow, 
                             id4e: selectedRow.id4e?.toString(),
@@ -54,6 +55,7 @@ const DialogInfo = ({
                       <DialogAlert
                         action="deleteProyect"
                         id={selectedRow.id_proyecto}
+                        name={selectedRow.proyecto}
                         close={close}
                       />
                 
@@ -80,7 +82,7 @@ const DialogInfo = ({
         </DialogContent>
         
       </Dialog>
-    </div>
+    
   )
 }
 

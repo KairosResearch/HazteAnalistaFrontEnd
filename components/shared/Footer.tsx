@@ -6,8 +6,8 @@ const Footer = () => {
         <footer className={` bg-black text-white md:px-8 md:py-4 p-2 `}>
             <div className="container mx-auto text-sm">
                 <div className="flex flex-col md:flex-row justify-between  ">
-                    <div className="mb-4 md:mb-0">
-                        <h2 className="font-bold text-lg">Kairos Research</h2>
+                    <div className="mb-4 md:mb-0 w-[70%]">
+                        <h2 className="font-bold text-lg mb-1">Kairos Research</h2>
                         <p>&copy;2023 Kairos Research. All rights reserved</p>
                         <p>Terminos de uso</p>
                         <p>Politica de privacidad</p>
@@ -17,8 +17,8 @@ const Footer = () => {
                     </div>
                     <div className="grid grid-cols-2 w-full md:grid-cols-4 gap-4 ">
                         <div>
-                            <h3 className="font-bold">Análisis</h3>
-                            <ul>
+                            <h3 className=" mb-1 font-bold">Análisis</h3>
+                            <ul className="text-xs">
                                 <li>
                                     <Link href='#'>
                                         Todos los analisis
@@ -42,8 +42,8 @@ const Footer = () => {
                             </ul>
                         </div>
                         <div>
-                            <h3 className="font-bold">Servicios</h3>
-                            <ul>
+                            <h3 className=" mb-1 font-bold">Servicios</h3>
+                            <ul className="text-xs">
                                 <li>
                                     <Link href='#'>
                                         Asesoría Web3
@@ -58,8 +58,8 @@ const Footer = () => {
                             </ul>
                         </div>
                         <div>
-                            <h3 className="font-bold">Nosotros</h3>
-                            <ul>
+                            <h3 className=" mb-1 font-bold">Nosotros</h3>
+                            <ul className="text-xs">
                                 <li>
                                     <Link href='#'>
                                         Alianzas
@@ -78,8 +78,8 @@ const Footer = () => {
                             </ul>
                         </div>
                         <div>
-                            <h3 className="font-bold">Contacto</h3>
-                            <ul>
+                            <h3 className=" mb-1 font-bold">Contacto</h3>
+                            <ul className="text-xs">
                                 <li>
                                     <Link href='#'>
                                         X
