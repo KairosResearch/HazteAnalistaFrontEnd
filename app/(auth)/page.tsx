@@ -16,7 +16,13 @@ const Login = () => {
   const {login} = useLogin({
     onComplete: () => {
       const id = user?.id;
-      const name = user?.wallet?.address || user?.google?.name || user?.email?.address;
+      const name = user?.wallet?.address 
+      || user?.google?.name 
+      || user?.email?.address 
+      || user?.twitter?.name
+      || user?.github?.name
+      || user?.linkedin?.name
+      || user?.discord?.username;
       console.log('Id del usuario en privy:  ' , id);
       console.log('Nombre del usuario en privy:  ' , name);
 

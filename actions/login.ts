@@ -3,7 +3,7 @@ import { createCookieUserId } from "@/utils/auth/cookies";
 import { loginUserBackend } from "@/utils/auth/userBackend"
 
 
-export const handleLogin = async (id: string |undefined , name: string | undefined) => {
+export const handleLogin = async (id: string |undefined , name: string | undefined | null) => {
     try {
         const data = await loginUserBackend(id, name);
 

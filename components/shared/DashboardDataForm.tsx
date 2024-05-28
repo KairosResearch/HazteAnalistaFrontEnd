@@ -30,18 +30,18 @@ import { getProjectInfoById } from "@/services/backend/proyectsInfo"
 
 //Schema
 export const formSchema = z.object({
-    nombre: z.string({ required_error: "El campo 'Nombre' no puede estar vacío." }),
-    ticket: z.string({ required_error: "El campo 'ticket' no puede estar vacío." }),
+    nombre: z.string({ required_error: "El campo 'Nombre' no puede estar vacío." }).optional(),
+    ticket: z.string({ required_error: "El campo 'ticket' no puede estar vacío." }).optional(),
     id4e: z.string({ required_error: "El campo '4E' no puede estar vacío." }),
     id_decision_proyecto: z.string({ required_error: "El campo 'Decision' no puede estar vacío." }),
-    marketCap: z.number().nonnegative("El campo 'Market Cap' debe ser un número."),
+    marketCap: z.number().nonnegative("El campo 'Market Cap' debe ser un número.").optional(),
     siAth: z
       .number()
       .nonnegative("El campo 'Si Ath' debe ser un número."),
     idExchange: z.string({ required_error: "El campo 'exchange' no puede estar vacío." }),
     idSector: z.string({ required_error: "El campo 'sector' no puede estar vacío." }),
     precioEntrada: z.number().nonnegative("El campo 'precio' debe ser un número."),
-    precioActual: z.number().nonnegative("El campo 'precio' debe ser un número."),
+    precioActual: z.number().nonnegative("El campo 'precio' debe ser un número.").optional(),
   });
 
 
@@ -80,25 +80,25 @@ const DashboardDataForm = ({type, data = null, catalogos, close, projectsList}: 
     
 
     //Fetching project info just right after user selects the project
-    useEffect(() => {
-        console.log(symbol)
-        const foo = async () => {
-            setPrInfo({
-                marketCap: 0,
-                price: 0
-            })
+    // useEffect(() => {
+    //     console.log(symbol)
+    //     const foo = async () => {
+    //         setPrInfo({
+    //             marketCap: 0,
+    //             price: 0
+    //         })
             
-            const newPrInfo = await getProjectInfoById(symbol);
-            const {marketCap, price} = newPrInfo;
-            setPrInfo({
-                marketCap,
-                price
-            });
-            console.log(prInfo)
-        }
-        foo();
+    //         const newPrInfo = await getProjectInfoById(symbol);
+    //         const {marketCap, price} = newPrInfo;
+    //         setPrInfo({
+    //             marketCap,
+    //             price
+    //         });
+    //         console.log(prInfo)
+    //     }
+    //     foo();
         
-    }, [symbol])
+    // }, [symbol])
 
     //Valores por default para los campos del formulario
     const initialValues = data && type === 'update' ? {
@@ -133,12 +133,11 @@ const DashboardDataForm = ({type, data = null, catalogos, close, projectsList}: 
                 idProyecto: Number(values.nombre),
                 id4e: Number(values.id4e),
                 id_decision_proyecto: Number(values.id_decision_proyecto),
-                marketCap: values.marketCap,
+                marketCap: values?.marketCap ?? 0,
                 siAth: values.siAth,
                 idExchange: Number(values.idExchange),
                 idSector: Number(values.idSector),
                 precioEntrada: values.precioEntrada,
-                
             }
             console.log('Backend values', backendValues);
             
@@ -174,25 +173,26 @@ const DashboardDataForm = ({type, data = null, catalogos, close, projectsList}: 
                 idExchange: Number(values.idExchange),
                 idSector: Number(values.idSector),
                 precioEntrada: values.precioEntrada,
-                id_proyecto: data?.id_proyecto
+                id: data?.id_proyecto
             }
 
             console.log('Backend values', backendValuesUpdate)
 
-            // const newData = await handleUpdateProyect({...backendValuesUpdate, id_proyecto: data?.id_proyecto});
-            // if(newData){
+            const newData = await handleUpdateProyect(backendValuesUpdate);
+            
+            if(newData){
                 
-            //     setCount(count + 1);
-            //     setUserTableData(['Cambio de datos' + count]);
-            //     setSubmitted(true);
-            //     form.reset();
-            //     form.reset(defaultValuesDashboardForm);
-            //     setTimeout(() => {
-            //         if (close) {
-            //             close()
-            //         }
-            //        }, 2000)
-            // }
+                setCount(count + 1);
+                setUserTableData(['Cambio de datos' + count]);
+                setSubmitted(true);
+                form.reset();
+                form.reset(defaultValuesDashboardForm);
+                setTimeout(() => {
+                    if (close) {
+                        close()
+                    }
+                   }, 2000)
+            }
         }
 
             

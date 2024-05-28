@@ -3,7 +3,7 @@
 import { postLogin, postRegister } from "@/services/backend/login";
 
 
-export const loginUserBackend = async (id: string | undefined, name: string | undefined) => {
+export const loginUserBackend = async (id: string | undefined, name: string | undefined | null) => {
     try {
 
         const userToBack = {

@@ -26,7 +26,13 @@ interface PopoverFormProps {
 const PopoverForm = ({usage}: PopoverFormProps) => {
     const router = useRouter();
     const {user} = usePrivy();
-    const name = user?.wallet?.address || user?.google?.name || user?.email?.address;
+    const wallet = user?.wallet?.address ||  user?.email?.address;
+    const name = user?.google?.name 
+    || user?.email?.address 
+    || user?.twitter?.name
+    || user?.github?.name
+    || user?.linkedin?.name
+    || user?.discord?.username;
 
     const {logout} = useLogout({
         onSuccess: () => {
@@ -37,7 +43,7 @@ const PopoverForm = ({usage}: PopoverFormProps) => {
                 }
               
             }
-            +foo();
+            foo();
         },
       });
 
@@ -59,10 +65,16 @@ const PopoverForm = ({usage}: PopoverFormProps) => {
                                 <div className="flex flex-col justify-center gap-3">
                                     <div className='flex gap-1'>
                                         <h2>Hola,  </h2>
-                                        <h2>{name?.length ?? 0 > 10 ? `${name?.substring(0, 5)}...${name?.substring(name?.length - 3)}` : name}</h2>
+                                        {wallet &&  (
+                                            <h2>{ wallet?.length ?? 0 > 10 ? `${wallet?.substring(0, 5)}...${wallet?.substring(wallet?.length - 3)}` : wallet}</h2>
+                                        )}
+                                        <h2>{name}</h2>
                                     </div>
 
-                                        <LinkAccounts />
+                                        {/* <LinkAccounts /> */}
+                                        <p>
+                                            Bienvenido a tu plataforma de mundo crypto!
+                                        </p>
                                         <div className='flex justify-center mt-1 '>
                                             <Button variant={'destructive'} 
                                                 size={'sm'} 

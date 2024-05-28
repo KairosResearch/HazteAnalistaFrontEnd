@@ -116,10 +116,10 @@ const Dashboard = (
 
       {/* First two data, by default */}
       {tableData  && tableData.length === 0 && (
-        <TableRow className='divide-x-2 divide-y-2 divide-green-dark hover:bg-primary cursor-pointer'>
-          <TableCell className="font-medium border-2 border-green-dark relative" colSpan={11}>
+        <TableRow className=''>
+          <TableCell className="font-medium border-2 " colSpan={11}>
             <p className='pb-3 text-center'> 
-              No hay proyectos registrados
+              No hay proyectos registrados! Registra tu primer proyecto!
             </p>
           </TableCell>
         </TableRow>
