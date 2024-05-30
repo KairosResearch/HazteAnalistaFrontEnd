@@ -12,7 +12,7 @@ export const createCookieUserId = async (id: any) => {
                 path: '/',
                 sameSite: 'strict',
             })
-            console.log('Cookie creadaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+            console.log('Cookie creada')
             return true;
         } catch (err) {
             throw new Error('No se pudo guardar la cookie');

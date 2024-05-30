@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {
     Popover,
     PopoverContent,
@@ -26,26 +26,33 @@ interface PopoverFormProps {
 const PopoverForm = ({usage}: PopoverFormProps) => {
     const router = useRouter();
     const {user} = usePrivy();
+    const [logoutSuccess, setLogoutSuccess] = React.useState(false);
     const wallet = user?.wallet?.address ||  user?.email?.address;
     const name = user?.google?.name 
     || user?.email?.address 
     || user?.twitter?.name
-    || user?.github?.name
+    || user?.github?.username
     || user?.linkedin?.name
     || user?.discord?.username;
 
-    const {logout} = useLogout({
-        onSuccess: () => {
-            async function foo(){
-                const success = await  deleteCookieUserId();
-                if(success === true){
+    useEffect(() => {
+        if (logoutSuccess) {
+            const deleteCookie = async () =>  {
+                const success = await deleteCookieUserId();
+                if (success === true) {
                     router.push('/')
                 }
-              
             }
-            foo();
+            deleteCookie();
+        }
+    }, [logoutSuccess, router]);
+
+    const {logout} = useLogout({
+        onSuccess: () => {
+            setLogoutSuccess(true);
         },
       });
+
 
 
     
@@ -65,10 +72,12 @@ const PopoverForm = ({usage}: PopoverFormProps) => {
                                 <div className="flex flex-col justify-center gap-3">
                                     <div className='flex gap-1'>
                                         <h2>Hola,  </h2>
-                                        {wallet &&  (
+                                        {wallet ?  (
                                             <h2>{ wallet?.length ?? 0 > 10 ? `${wallet?.substring(0, 5)}...${wallet?.substring(wallet?.length - 3)}` : wallet}</h2>
-                                        )}
-                                        <h2>{name}</h2>
+                                        ):
+                                            <h2>{name}</h2>
+                                        }
+                                        
                                     </div>
 
                                         {/* <LinkAccounts /> */}

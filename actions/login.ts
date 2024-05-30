@@ -6,9 +6,6 @@ import { loginUserBackend } from "@/utils/auth/userBackend"
 export const handleLogin = async (id: string |undefined , name: string | undefined | null) => {
     try {
         const data = await loginUserBackend(id, name);
-
-
-
         if(data){
             const cookie = await createCookieUserId(data);
             if(cookie === true){
@@ -21,7 +18,7 @@ export const handleLogin = async (id: string |undefined , name: string | undefin
         }
     } catch (err: any) {
         console.error(err.message)
-        return {error: err.message}
+        return {equivocacion: err.message}
     }
 }
 

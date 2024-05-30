@@ -10,40 +10,43 @@ import { useLogin } from '@privy-io/react-auth';
 
 const Login = () => {
   const router = useRouter();
-  const {authenticated} = usePrivy();
-  const {user} = usePrivy();
-
+  const {authenticated, user, logout} = usePrivy();
   const {login} = useLogin({
-    onComplete: () => {
-      const id = user?.id;
-      const name = user?.wallet?.address 
-      || user?.google?.name 
-      || user?.email?.address 
-      || user?.twitter?.name
-      || user?.github?.name
-      || user?.linkedin?.name
-      || user?.discord?.username;
-      console.log('Id del usuario en privy:  ' , id);
-      console.log('Nombre del usuario en privy:  ' , name);
-
-      async function foo(){
-        const data = await handleLogin(id, name);
-        if(data === true){
-          router.push('/dashboard')
-        } 
-      }
-      foo();
-    },
     onError: (error) => {
       console.log(error)
     }
   });
 
+  useEffect(() => {
+    if (user) {
+      const id = user?.id;
+      const name = user?.wallet?.address 
+        || user?.google?.name 
+        || user?.email?.address 
+        || user?.twitter?.name
+        || user?.github?.name
+        || user?.linkedin?.name
+        || user?.discord?.username;
+      console.log('Id del usuario en privy:  ' , id);
+      console.log('Nombre del usuario en privy:  ' , name);
 
+      const foo = async () => {
+        const data = await handleLogin(id, name);
+        console.log('Data del login:  ' , data)
+        if(data === false){
+          console.log('Error al logear al usuario')
+          logout();
+        }
+      }
+      foo();
+    }
+  }, [user, logout]);
 
-  if(authenticated){
-    router.push('/dashboard')
-  }
+  useEffect(() => {
+    if(authenticated){
+      router.push('/dashboard')
+    }
+  }, [authenticated, router]);
 
 
   // useEffect(() => {

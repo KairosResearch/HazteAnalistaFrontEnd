@@ -6,18 +6,12 @@ import DialogItem from '@/components/shared/DialogItem';
 import Collapser from '@/components/ui/Collapser';
 import { get4t, getDecision, getExchange, getSectores } from '@/services/backend/catalogos';
 import { getProjectsList } from '@/services/backend/proyectsInfo';
-import { cookies } from 'next/headers';
-
 
 
 
 
 const HomePage = async () => {
-  const cookiesStore = cookies();
-  const userId = cookiesStore.get('userId')?.value;
    
-
-
 
   const [data4t, decision, exchange, sector, projectsList] = await Promise.all([
     get4t(),
