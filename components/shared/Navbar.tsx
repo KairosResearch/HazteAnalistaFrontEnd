@@ -58,7 +58,7 @@ const Navbar = () => {
                 />
               </Link>
           </div>
-          <nav className='hidden sm:block'>
+          {/* <nav className='hidden sm:block'>
                 <ul className="flex space-evenly">
                     <li className='mr-9'>
                         <a href="#">Home</a>
@@ -74,7 +74,7 @@ const Navbar = () => {
                     </li>
                 </ul>
             </nav>
-          
+           */}
           <div className='flex gap-4 flex-center'>
             
 
@@ -117,7 +117,7 @@ const Navbar = () => {
                                       width={20}
                                       height={20}
                                     />
-                                  <Link href="/about">
+                                  <Link href="#">
                                       Home
                                   </Link>
                               </li>
@@ -128,7 +128,7 @@ const Navbar = () => {
                                       width={20}
                                       height={20}
                                     />
-                                  <Link href="/services">
+                                  <Link href="/lessons">
                                       Apredizaje
                                   </Link>
                               </li>
@@ -139,7 +139,7 @@ const Navbar = () => {
                                       width={20}
                                       height={20}
                                     />
-                                  <Link href="/contact">
+                                  <Link href="/tools">
                                       Herramientas
                                   </Link>
                               </li>
@@ -150,7 +150,7 @@ const Navbar = () => {
                                       width={20}
                                       height={20}
                                     />
-                                  <Link href="/contact">
+                                  <Link href="/data-on-chain">
                                       Data On Chain
                                   </Link>
                               </li>

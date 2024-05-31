@@ -31,7 +31,7 @@ const Sidebar = () => {
                                     height={20}
                                     width={20}
                                 />
-                            <Link href='#'>
+                            <Link href='/lessons'>
                                 Aprendizaje
                             </Link>
                         </li>
@@ -42,7 +42,7 @@ const Sidebar = () => {
                                     height={20}
                                     width={20}
                                 />
-                            <Link href='#'>
+                            <Link href='/tools'>
                              
                                 Herramientas
                             </Link>
@@ -54,7 +54,7 @@ const Sidebar = () => {
                                     height={20}
                                     width={20}
                                 />
-                            <Link href='#'>
+                            <Link href='/data-on-chain'>
                                 
                                 Data On Chain
                             </Link>
