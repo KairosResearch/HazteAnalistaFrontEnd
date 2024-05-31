@@ -20,7 +20,7 @@ const Footer = () => {
                             <h3 className=" mb-1 font-bold">Análisis</h3>
                             <ul className="text-xs">
                                 <li>
-                                    <Link href='https://www.kairosresearch.xyz/insights'>
+                                    <Link target='_blank' href='https://www.kairosresearch.xyz/insights'>
                                         Todos los analisis
                                     </Link>
                                 </li>
@@ -30,12 +30,12 @@ const Footer = () => {
                             <h3 className=" mb-1 font-bold">Legales</h3>
                             <ul className="text-xs">
                                 <li>
-                                    <Link href='https://www.kairosresearch.xyz/terminos-condiciones'>
+                                    <Link target='_blank' href='https://www.kairosresearch.xyz/terminos-condiciones'>
                                        Terminos de uso
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href='https://www.kairosresearch.xyz/politica-de-privacidad'>
+                                    <Link target='_blank' href='https://www.kairosresearch.xyz/politica-de-privacidad'>
                                         Politica de privacidad
                                     </Link>
                                 </li>
@@ -46,12 +46,12 @@ const Footer = () => {
                             <h3 className=" mb-1 font-bold">Servicios</h3>
                             <ul className="text-xs">
                                 <li>
-                                    <Link href='https://www.kairosresearch.xyz/tokenengineering'>
+                                    <Link target='_blank' href='https://www.kairosresearch.xyz/tokenengineering'>
                                         Token Enginnering
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href='https://www.kairosresearch.xyz/web3consulting'>
+                                    <Link target='_blank' href='https://www.kairosresearch.xyz/web3consulting'>
                                         Asesoria Web3
                                     </Link>
                                 </li>
@@ -61,17 +61,17 @@ const Footer = () => {
                             <h3 className=" mb-1 font-bold">Contacto</h3>
                             <ul className="text-xs">
                                 <li>
-                                    <Link href='https://x.com/Research_Kairos'>
+                                    <Link target='_blank' href='https://x.com/Research_Kairos'>
                                         X | Twitter
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href='https://www.linkedin.com/company/research-kairos/posts/?feedView=all'>
+                                    <Link target='_blank' href='https://www.linkedin.com/company/research-kairos/posts/?feedView=all'>
                                         LinkedIn
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href='https://t.me/Kairos_Research'>
+                                    <Link target='_blank' href='https://t.me/Kairos_Research'>
                                         Telegram
                                     </Link>
                                 </li>

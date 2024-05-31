@@ -117,7 +117,7 @@ const Navbar = () => {
                                       width={20}
                                       height={20}
                                     />
-                                  <Link href="#">
+                                  <Link href="/dashboard">
                                       Home
                                   </Link>
                               </li>

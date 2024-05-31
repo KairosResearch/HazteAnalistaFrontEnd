@@ -20,7 +20,7 @@ const Sidebar = () => {
                                     height={20}
                                     width={20}
                                 />
-                            <Link href='#'>                                
+                            <Link href='/dashboard'>                                
                                 <span>Home</span>
                             </Link>
                         </li>
