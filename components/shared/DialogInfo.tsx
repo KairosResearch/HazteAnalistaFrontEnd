@@ -52,13 +52,13 @@ const DialogInfo = ({
                       />
                   
                   
-                      {/* <DialogAlert
+                      <DialogAlert
                         action="deleteProyect"
                         id={selectedRow.id_proyecto}
                         name={selectedRow.proyecto}
                         close={close}
                       />
-                 */}
+                
                     
                 </div>
                   <X 
