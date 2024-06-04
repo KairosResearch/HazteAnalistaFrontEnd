@@ -25,6 +25,7 @@ export const createCookieUserId = async (id: any) => {
 
 
 export const deleteCookieUserId = async () => {
+    console.log('Holaaaa')
     try {
         cookiesStore.delete('userId')
         return true;

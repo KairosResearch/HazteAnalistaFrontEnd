@@ -60,7 +60,7 @@ const HomePage = async () => {
           </div>
           
             <Dashboard
-              
+              projectsList={projectsList.proyectos}
               catalogos={[data4t, decision, exchange, sector]}
             />
           

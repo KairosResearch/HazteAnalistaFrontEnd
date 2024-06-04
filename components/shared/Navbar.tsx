@@ -20,22 +20,8 @@ import { useRouter } from 'next/navigation';
 import { Button } from '../ui/button';
 
 const Navbar = () => {
-  const {authenticated} = usePrivy();
-  const router = useRouter()
 
 
-  useEffect(() => {
-    if(!authenticated){
-      router.push('/')
-    }
-  }, [authenticated])
-
-  
-  
-  
-
-
-  
 
 
   //Añadir el de twitter y validar si es web 2 poner nombre completo, si es web 3 poner la direccion cortada

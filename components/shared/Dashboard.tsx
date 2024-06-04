@@ -34,7 +34,7 @@ import { Button } from '../ui/button';
 import { table } from 'console';
 
 const Dashboard = (
-  { catalogos}: DashboardProps
+  { catalogos, projectsList}: DashboardProps
 ) => {
 
   //Seteamos el userId como estado global usando el hook useUserData
@@ -104,7 +104,7 @@ const Dashboard = (
           <TableHead className="">Metodo 4E</TableHead>
           <TableHead className="">Decisión</TableHead>
           {/* <TableHead className="">Market Cap</TableHead> */}
-          <TableHead className="">Rango</TableHead>
+          {/* <TableHead className="">Rango</TableHead> */}
           <TableHead className="">ATH</TableHead>
           <TableHead className="">Sector</TableHead>
           <TableHead className="">Exchange</TableHead>
@@ -135,7 +135,7 @@ const Dashboard = (
               setIsDialogOpen(true);
             }}>
             <TableCell className="font-medium border-2 border-green-dark relative">
-              <p className='pb-3 '> 
+              <p className=''> 
                 {data.proyecto}
               </p>
             </TableCell>
@@ -168,15 +168,15 @@ const Dashboard = (
 
             </TableCell>  */}
             {/******Rango**** */}
-            <TableCell>
-            <Badge 
-              variant='range'
-              color={
-              (range(data.marketCap) === MID) ? 'blue' : (range(data.marketCap) === LOW) ? 'orange' : (range(data.marketCap) === LARGE) ? 'green' : 'brown'
-            }>
-            {range(data.marketCap)}
-            </Badge>
-          </TableCell>  
+            {/* <TableCell>
+              <Badge 
+                variant='range'
+                color={
+                (range(data.marketCap) === MID) ? 'blue' : (range(data.marketCap) === LOW) ? 'orange' : (range(data.marketCap) === LARGE) ? 'green' : 'brown'
+              }>
+              {range(data.marketCap)}
+              </Badge>
+          </TableCell>   */}
             {/******Si ATH**** */}
             <TableCell>
               {data.siAth}X
@@ -218,6 +218,7 @@ const Dashboard = (
 
       {isDialogOpen && (
         <DialogInfo
+          projectsList={projectsList}
           isDialogOpen={isDialogOpen}
           close={() => setIsDialogOpen(false)}
           selectedRow={selectedRow}

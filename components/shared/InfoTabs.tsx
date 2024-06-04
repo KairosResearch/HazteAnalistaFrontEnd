@@ -41,10 +41,10 @@ const InfoTabs = ({info}: InfoTabsProps) => {
                 <TabsContent className="min-h-[250px]" value="links">
                 <h2 className='text-xl md:text-2xl font-bold mb-3'>Links</h2>
 
-                <div className='flex items-center justify-center'>
-                  <ul className='grid gap-3 grid-cols-4'>
+                
+                  <ul className='flex justify-between items-center'>
 
-                    {info.twitter &&
+                    {(info.twitter && info.twitter != 'N/A') &&
                       
                       (  <Link 
                         target='_blank'
@@ -53,15 +53,15 @@ const InfoTabs = ({info}: InfoTabsProps) => {
                             <Image
                                     src='/twitter-x-fill.svg'
                                     alt='Home'
-                                    height={20}
-                                    width={20}
+                                    height={100}
+                                    width={100}
                                 />  
                           </li>                            
                         </Link>
                       )
                     }
                     {
-                      info.discord  && (  
+                      (info.discord && info.discord != 'N/A')  && (  
                       <Link 
                         target='_blank'
                         href={info.discord}>
@@ -69,14 +69,14 @@ const InfoTabs = ({info}: InfoTabsProps) => {
                         <Image
                                 src='/discord-fill.svg'
                                 alt='Home'
-                                height={20}
-                                width={20}
+                                height={100}
+                                width={100}
                             />  
                       </li>                            
                     </Link>
                   )}
                   {
-                      info.github  && (  
+                      (info.github && info.github != 'N/A')  && (  
                       <Link 
                         target='_blank'
                         href={info.github}>
@@ -84,14 +84,14 @@ const InfoTabs = ({info}: InfoTabsProps) => {
                         <Image
                                 src='/github-fill.svg'
                                 alt='Home'
-                                height={20}
-                                width={20}
+                                height={100}
+                                width={100}
                             />  
                       </li>                            
                     </Link>
                   )}
                   </ul>
-                </div>
+
 
                   
                   
@@ -100,53 +100,25 @@ const InfoTabs = ({info}: InfoTabsProps) => {
                   <h2 className='text-xl md:text-2xl font-bold mb-3'>Financiamiento</h2>
 
                   <section  className='mb-7'>
-                    <h2>Ultima ronda</h2>
-                    {/* <Accordion type="single" collapsible className='px-12'>
-                      <AccordionItem value="item-1">
-                        <AccordionTrigger>
-                          <div className='flex justify-between items-center text-sm w-full'>
-                            <div className='flex gap-4 items-center'>
-                              <span
-                                className='font-bold'
-                              >Serie A
-                              </span> 
-                              <span
-                                className='text-xs text-grey-500'
-                              >14/05/2022</span>
-                            </div>
-                            
-                             <span
-                              className='text-xs text-grey-500'
-                             >101.1M usd</span>
-                          </div>
-                        </AccordionTrigger>
-                        <AccordionContent>
-                          Yes. It adheres to the WAI-ARIA design pattern.
-                        </AccordionContent>
-                      </AccordionItem>
-                      <AccordionItem value="item-2">
-                        <AccordionTrigger>
-                          <div className='flex justify-between items-center text-sm w-full'>
-                            <div className='flex gap-4 items-center'>
-                              <span
-                                className='font-bold'
-                              >Serie A
-                              </span> 
-                              <span
-                                className='text-xs text-grey-500'
-                              >14/05/2022</span>
-                            </div>
-                            
-                             <span
-                              className='text-xs text-grey-500'
-                             >101.1M usd</span>
-                          </div>
-                        </AccordionTrigger>
-                        <AccordionContent>
-                          Yes. It adheres to the WAI-ARIA design pattern.
-                        </AccordionContent>
-                      </AccordionItem>
-                    </Accordion> */}
+                    {
+                      info.financiamiento && (
+                        <p>
+                          {info.financiamiento}
+                        </p>
+                      )
+                    }
+                    {
+                      (info.ultima_ronda && info.ultima_ronda != 'N/A') && (
+                        <>
+                          <h2>Ultima ronda</h2>
+                          <p>
+                            {info.ultima_ronda}
+                          </p>
+                        </>
+                        
+                      )
+                    }
+                    
                   </section>
 
                   <section>

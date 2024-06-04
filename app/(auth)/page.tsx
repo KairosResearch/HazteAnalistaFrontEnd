@@ -9,42 +9,39 @@ import { handleLogin } from '@/actions/login';
 import { useLogin } from '@privy-io/react-auth';
 
 const Login = () => {
-  const router = useRouter();
-  const {authenticated, user, logout} = usePrivy();
+  
   const {login} = useLogin({
     onError: (error) => {
       console.log(error)
     }
   });
 
-  useEffect(() => {
-    if (user) {
-      const id = user?.id;
-      const name = user?.wallet?.address 
-        || user?.google?.name 
-        || user?.email?.address 
-        || user?.twitter?.name
-        || user?.github?.name
-        || user?.linkedin?.name
-        || user?.discord?.username;
+  // useEffect(() => {
+  //   if (user) {
+  //     const id = user?.id;
+  //     const name = user?.wallet?.address 
+  //       || user?.google?.name 
+  //       || user?.email?.address 
+  //       || user?.twitter?.name
+  //       || user?.github?.name
+  //       || user?.linkedin?.name
+  //       || user?.discord?.username;
 
-      const foo = async () => {
-        const data = await handleLogin(id, name);
-        console.log('Data del login:  ' , data)
-        if(data === false){
-          console.log('Error al logear al usuario')
-          logout();
-        }
-      }
-      foo();
-    }
-  }, [user, logout]);
-
-  useEffect(() => {
-    if(authenticated){
-      router.push('/dashboard')
-    }
-  }, [authenticated, router]);
+  //     const foo = async () => {
+  //       console.log
+  //       const data = await handleLogin(id, name);
+  //       console.log('Data del login:  ' , data)
+  //       if(data === false){
+  //         console.log('Error al logear al usuario')
+  //         logout();
+  //       }
+  //       else{
+  //         router.push('/dashboard')
+  //       }
+  //     }
+  //     foo();
+  //   }
+  // }, [user, logout]);
 
 
   // useEffect(() => {

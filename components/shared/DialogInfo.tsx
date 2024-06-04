@@ -15,6 +15,7 @@ import DialogItem  from '@/components/shared/DialogItem';
 import { DialogInfoProps, InfoTabsProps, ProyectsInfo } from '@/index';
 import InfoTabs from './InfoTabs'
 import { getProyectById } from '@/services/backend/proyectsInfo';
+import Link from 'next/link';
 
 
 const DialogInfo = ({
@@ -22,20 +23,17 @@ const DialogInfo = ({
     close,
     selectedRow,
     catalogos,
+    projectsList
 }: DialogInfoProps) => {
 
 
-  //Pendiente...
-
-  // Logica para buscar id de proyecto, no la primary key.
-  //Tiene que ser el id del select...
-  
+  const id = projectsList?.find((item) => item.proyecto === selectedRow?.proyecto ?? 0) ;
 
 
   const [info, setInfo] = useState<ProyectsInfo | null >(null);
   useEffect(() => {
     const getInfo = async () => {
-      const info: ProyectsInfo = await getProyectById(selectedRow?.id_proyecto ?? 0); 
+      const info: ProyectsInfo = await getProyectById(id?.id ?? 0); 
       console.log('info', info)
 
       setInfo(info);
@@ -59,8 +57,16 @@ const DialogInfo = ({
                 >
                   Proyecto: {selectedRow.proyecto} | {info?.ticker}
                 </DialogTitle>
-                <p className="underline">{info?.website}</p>
-
+                {
+                 ( info?.website && info?.website != 'N/A' ) && (
+                    <Link
+                      href={info?.website}
+                      target='_blank'
+                    >
+                      <p className="underline">Docs del proyecto</p>
+                    </Link>
+                  )
+                }
 
                 <div className='flex gap-3'>
                   

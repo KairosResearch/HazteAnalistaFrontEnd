@@ -29,9 +29,12 @@ export const postRegister = async (values: any) => {
       },
       body: JSON.stringify(values)
     });
-
-    const data = await response.json();
-    return data;
+    if(response.ok){
+      const data = await response.json();
+      return data;
+    }else {
+      return response.status;
+    }
     
   } catch (err: any) {
     console.error(err.message)

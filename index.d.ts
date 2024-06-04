@@ -127,8 +127,12 @@ export interface AuthDataFormProps {
 
 interface DashboardProps {
     catalogos: CatalogosType[][];
-    
-    
+    projectsList: {
+        id: number;
+        proyecto: string;
+        ticker: string;
+        symbol: string;
+    }[] | null; 
   }
 
   interface DialogAlertProps {
@@ -153,6 +157,12 @@ interface DialogInfoProps {
             precioEntrada: number;
         } | null;
     catalogos: CatalogosType[][];
+    projectsList: {
+        id: number;
+        proyecto: string;
+        ticker: string;
+        symbol: string;
+    }[] | null; 
 }
 interface ProyectsInfo {
         id: number;
