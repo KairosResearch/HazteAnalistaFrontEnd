@@ -9,13 +9,19 @@ import { handleLogin } from '@/actions/login';
 import { useLogin } from '@privy-io/react-auth';
 
 const Login = () => {
-  
+  const { authenticated} = usePrivy();
+  const router = useRouter();
+
   const {login} = useLogin({
     onError: (error) => {
       console.log(error)
     }
   });
-
+  useEffect(() => {
+    if(authenticated){
+      router.push('/dashboard')
+    }
+  }, [login])
   // useEffect(() => {
   //   if (user) {
   //     const id = user?.id;
