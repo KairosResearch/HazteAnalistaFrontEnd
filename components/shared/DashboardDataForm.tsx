@@ -25,8 +25,7 @@ import { CustomField } from "./CustomField"
 
 //Values
 import {defaultValuesDashboardForm, randomMarketCap} from "@/utils/index"
-import { getProjectInfoById } from "@/services/backend/proyectsInfo"
-
+import {getProyectNumbers} from "@/services/backend/proyectsInfo"
 
 //Schema
 export const formSchema = z.object({

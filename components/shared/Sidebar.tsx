@@ -13,52 +13,59 @@ const Sidebar = () => {
             <aside className='sidebar '>
                 <nav className='sidebar-nav'>
                     <ul className='sidebar-nav_elements'>
-                        <li className='sidebar-nav_element'>
+                        <Link 
+                            className='sidebar-nav_element'
+                            href='/dashboard'
+                        >
+                            
                             <Image
                                     src='/icons8-casa.svg'
                                     alt='Home'
                                     height={20}
                                     width={20}
                                 />
-                            <Link href='/dashboard'>                                
-                                <span>Home</span>
-                            </Link>
-                        </li>
-                        <li className='sidebar-nav_element'>
+                            Dashboard
+                        </Link>
+                        
+                        <Link 
+                         href='/lessons'
+                        className='sidebar-nav_element'>
                                 <Image
                                     src='/lessons.svg'
                                     alt='lessons'
                                     height={20}
                                     width={20}
                                 />
-                            <Link href='/lessons'>
-                                Aprendizaje
-                            </Link>
-                        </li>
-                        <li className='sidebar-nav_element'>
+                            Lecciones
+                        </Link>
+                        
+                        <Link 
+                        className='sidebar-nav_element'
+                        href='/tools'>
                                 <Image
                                     src='/tools-fill.svg'
                                     alt='tools'
                                     height={20}
                                     width={20}
                                 />
-                            <Link href='/tools'>
+
                              
                                 Herramientas
                             </Link>
-                        </li>
-                        <li className='sidebar-nav_element'>
+                        
+                        <Link 
+                            className='sidebar-nav_element'
+                            href="/data-on-chain"
+                        >
                                 <Image
                                     src='/data-on-chain.svg'
                                     alt='data-on-chain'
                                     height={20}
                                     width={20}
                                 />
-                            <Link href='/data-on-chain'>
-                                
-                                Data On Chain
+                            Data on Chain
                             </Link>
-                        </li>
+                        
                     </ul>
                 </nav>
             </aside>

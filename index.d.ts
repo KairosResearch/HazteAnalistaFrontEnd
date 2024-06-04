@@ -154,4 +154,25 @@ interface DialogInfoProps {
         } | null;
     catalogos: CatalogosType[][];
 }
+interface ProyectsInfo {
+        id: number;
+        proyecto: string;
+        ticker: string;
+        descripcion: string;
+        website: string;
+        link_analisis_kairos: string | null;
+        documentacion: string;
+        twitter: string | null;
+        github: string | null;  
+        discord: string | null;
+        ultima_ronda: string;
+        financiamiento: number;
+        inversionista1: string;
+        inversionista2: string | null;
+        inversionista3: string | null;
+        status: number;
+}
 
+interface InfoTabsProps {
+    info: ProyectsInfo
+}

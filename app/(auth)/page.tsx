@@ -27,8 +27,6 @@ const Login = () => {
         || user?.github?.name
         || user?.linkedin?.name
         || user?.discord?.username;
-      console.log('Id del usuario en privy:  ' , id);
-      console.log('Nombre del usuario en privy:  ' , name);
 
       const foo = async () => {
         const data = await handleLogin(id, name);

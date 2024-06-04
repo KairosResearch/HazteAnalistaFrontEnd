@@ -23,12 +23,7 @@ const Navbar = () => {
   const {authenticated} = usePrivy();
   const router = useRouter()
 
-  useEffect(() => {
-    if(!authenticated){
-      router.push('/')
-    }
-  }, [])
-  
+
   useEffect(() => {
     if(!authenticated){
       router.push('/')
@@ -110,50 +105,56 @@ const Navbar = () => {
                       </SheetHeader>
                       <nav>
                           <ul className='header-nav_elements'>
-                              <li className='header-nav_text'>
+                              <Link className='header-nav_text'
+                                href='/dashboard'
+                              >
                                     <Image 
                                       src='/icons8-casa.svg'
                                       alt='Kairos'
                                       width={20}
                                       height={20}
                                     />
-                                  <Link href="/dashboard">
                                       Home
                                   </Link>
-                              </li>
-                              <li className='header-nav_text'>
+                              
+                              <Link className='header-nav_text'
+                                href='/lessons'
+                              >
                                     <Image 
                                       src='/lessons.svg'
                                       alt='Kairos'
                                       width={20}
                                       height={20}
                                     />
-                                  <Link href="/lessons">
+                                  
                                       Apredizaje
                                   </Link>
-                              </li>
-                              <li className='header-nav_text'>
+                              
+                              <Link className='header-nav_text'
+                                href='/tools'
+                              >
                                     <Image 
                                       src='/tools-fill.svg'
                                       alt='Kairos'
                                       width={20}
                                       height={20}
                                     />
-                                  <Link href="/tools">
-                                      Herramientas
+                                    Herramientas
                                   </Link>
-                              </li>
-                              <li className='header-nav_text'>
+                              
+                              <Link className='header-nav_text'
+                                href="/data-on-chain"
+                              >
                                     <Image 
                                       src='/data-on-chain.svg'
                                       alt='Kairos'
                                       width={20}
                                       height={20}
                                     />
-                                  <Link href="/data-on-chain">
+
                                       Data On Chain
                                   </Link>
-                              </li>
+                              
                           </ul>
                       </nav>
                   </SheetContent>

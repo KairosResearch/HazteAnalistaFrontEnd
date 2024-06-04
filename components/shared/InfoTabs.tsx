@@ -10,9 +10,10 @@ import {
 import {Badge} from '@/components/ui/badge'
 import Link from 'next/link'
 import Image from 'next/image'
+import { InfoTabsProps } from '@/index'
 
 
-const InfoTabs = () => {
+const InfoTabs = ({info}: InfoTabsProps) => {
   return (
     <Tabs defaultValue="description" >
                 <TabsList className='pl-0 md:pl-1'>
@@ -33,32 +34,66 @@ const InfoTabs = () => {
                      bg-primary-foreground/80 text-dark-grey
                      w-[96%] mx-auto '>
                     <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt sapiente necessitatibus reprehenderit voluptas assumenda, 
-                      voluptates sequi laudantium delectus vel earum perspiciatis accusamus. Aperiam corporis eum dolorum minima nostrum, nobis architecto.
-                    </p>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt sapiente necessitatibus reprehenderit voluptas assumenda, 
-                      voluptates sequi laudantium delectus vel earum perspiciatis accusamus. Aperiam corporis eum dolorum minima nostrum, nobis architecto.
+                     {info.descripcion}
                     </p>
                   </div>
                 </TabsContent>
                 <TabsContent className="min-h-[250px]" value="links">
                 <h2 className='text-xl md:text-2xl font-bold mb-3'>Links</h2>
 
+                <div className='flex items-center justify-center'>
                   <ul className='grid gap-3 grid-cols-4'>
+
+                    {info.twitter &&
+                      
+                      (  <Link 
+                        target='_blank'
+                        href={info.twitter}>
+                          <li>
+                            <Image
+                                    src='/twitter-x-fill.svg'
+                                    alt='Home'
+                                    height={20}
+                                    width={20}
+                                />  
+                          </li>                            
+                        </Link>
+                      )
+                    }
+                    {
+                      info.discord  && (  
+                      <Link 
+                        target='_blank'
+                        href={info.discord}>
                       <li>
-                        Icono 1
-                      </li>
+                        <Image
+                                src='/discord-fill.svg'
+                                alt='Home'
+                                height={20}
+                                width={20}
+                            />  
+                      </li>                            
+                    </Link>
+                  )}
+                  {
+                      info.github  && (  
+                      <Link 
+                        target='_blank'
+                        href={info.github}>
                       <li>
-                        Icono 2
-                      </li>
-                      <li>
-                        Icono 3
-                      </li>
-                      <li>
-                        Icono 1
-                      </li>
-                    </ul>
+                        <Image
+                                src='/github-fill.svg'
+                                alt='Home'
+                                height={20}
+                                width={20}
+                            />  
+                      </li>                            
+                    </Link>
+                  )}
+                  </ul>
+                </div>
+
+                  
                   
                 </TabsContent>
                 <TabsContent className="min-h-[250px]" value="finance">
@@ -66,7 +101,7 @@ const InfoTabs = () => {
 
                   <section  className='mb-7'>
                     <h2>Ultima ronda</h2>
-                    <Accordion type="single" collapsible className='px-12'>
+                    {/* <Accordion type="single" collapsible className='px-12'>
                       <AccordionItem value="item-1">
                         <AccordionTrigger>
                           <div className='flex justify-between items-center text-sm w-full'>
@@ -111,7 +146,7 @@ const InfoTabs = () => {
                           Yes. It adheres to the WAI-ARIA design pattern.
                         </AccordionContent>
                       </AccordionItem>
-                    </Accordion>
+                    </Accordion> */}
                   </section>
 
                   <section>
@@ -120,13 +155,13 @@ const InfoTabs = () => {
                     </h2>
                     <ul className='grid gap-7 grid-cols-3 lg:grid-cols-4'>
                       <li>
-                       <Badge className='px-3'>Jump Crypto</Badge> 
+                       <Badge className='px-3'>{info.inversionista1}</Badge> 
                       </li>
                       <li>
-                       <Badge className='px-3'>ParaFi Capital </Badge> 
+                       <Badge className='px-3'>{info.inversionista2}</Badge> 
                       </li>
                       <li>
-                       <Badge className='px-3'>Tiger Global</Badge> 
+                       <Badge className='px-3'>{info.inversionista3}</Badge> 
                       </li>
                     </ul>
                   </section>
@@ -134,20 +169,17 @@ const InfoTabs = () => {
                 <TabsContent className="min-h-[250px]" value="analyzis">
                   <div>
                     <h2 className='text-xl md:text-2xl font-bold mb-3'>Analizis</h2>
-
-                    <Link
-                      href="https://www.kairosresearch.xyz/insights/alt-layer"
-                      target="_blank"
-                      className='underline w-full mx-auto'
-                    >Visita nuestro analizis</Link>
-                  </div>
-                  <Image 
-                    src={'/lesson3.webp'}
-                    width={300}
-                    height={200}
-                    alt='Analisis'
-                    className='w-4/5 mx-auto'
-                  />
+                    {
+                      info.link_analisis_kairos ?
+                      <Link
+                        href={info.link_analisis_kairos}
+                        target="_blank"
+                        className='underline w-full mx-auto'
+                      >Visita nuestro analizis</Link>
+                      :
+                      <p>Estamos trabajando en este analizis!</p>
+                    }
+                    </div>
 
                   
                 </TabsContent>

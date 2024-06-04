@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import {
     Dialog,
     DialogContent,
@@ -12,8 +12,9 @@ import { X } from 'lucide-react'
 import DialogAlert  from '@/components/shared/DialogAlert';
 import DialogItem  from '@/components/shared/DialogItem';
 
-import { DialogInfoProps } from '@/index';
+import { DialogInfoProps, InfoTabsProps, ProyectsInfo } from '@/index';
 import InfoTabs from './InfoTabs'
+import { getProyectById } from '@/services/backend/proyectsInfo';
 
 
 const DialogInfo = ({
@@ -22,6 +23,29 @@ const DialogInfo = ({
     selectedRow,
     catalogos,
 }: DialogInfoProps) => {
+
+
+  //Pendiente...
+
+  // Logica para buscar id de proyecto, no la primary key.
+  //Tiene que ser el id del select...
+  
+
+
+  const [info, setInfo] = useState<ProyectsInfo | null >(null);
+  useEffect(() => {
+    const getInfo = async () => {
+      const info: ProyectsInfo = await getProyectById(selectedRow?.id_proyecto ?? 0); 
+      console.log('info', info)
+
+      setInfo(info);
+    }
+    getInfo();
+  }, []);
+
+
+
+
   return (
 
     <Dialog open={isDialogOpen} >
@@ -32,7 +56,10 @@ const DialogInfo = ({
               <DialogHeader className='flex justify-between md:items-center flex-col md:flex-row md:mr-5'>
                 <DialogTitle
                   className='text-left md:text-center text-xl md:text-2xl xl:text-4xl font-bold'
-                >Proyecto: {selectedRow.proyecto}</DialogTitle>
+                >
+                  Proyecto: {selectedRow.proyecto} | {info?.ticker}
+                </DialogTitle>
+                <p className="underline">{info?.website}</p>
 
 
                 <div className='flex gap-3'>
@@ -67,8 +94,16 @@ const DialogInfo = ({
 
                   </X>
               </DialogHeader>
+            
 
-              <InfoTabs />
+            {
+              (info != null) && (
+                <InfoTabs 
+                  info={info}
+                />
+              )
+            }
+             
               
             </>
 

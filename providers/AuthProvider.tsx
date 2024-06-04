@@ -12,7 +12,6 @@ function PrivyProviderWrapper({
   return (
     <PrivyProvider
       appId={process.env.NEXT_PUBLIC_PRIVY_APP_ID || ""}
-      onSuccess={() => router.push("/dashboard")}
     >
       {children}
     </PrivyProvider>
