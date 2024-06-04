@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import React from 'react'
 import Link from 'next/link'
 import { usePrivy } from '@privy-io/react-auth';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 
 const  CompletedRegistration = () => {

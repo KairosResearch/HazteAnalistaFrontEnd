@@ -97,16 +97,20 @@ const InfoTabs = ({info}: InfoTabsProps) => {
                   
                 </TabsContent>
                 <TabsContent className="min-h-[250px]" value="finance">
-                  <h2 className='text-xl md:text-2xl font-bold mb-3'>Financiamiento</h2>
-
-                  <section  className='mb-7'>
+                  <h2 className='text-xl md:text-2xl font-bold mb-3'>
+                    Financiamiento  
                     {
                       info.financiamiento && (
-                        <p>
-                          {info.financiamiento}
-                        </p>
+                        <span>
+                          | ${info.financiamiento}
+                        </span>
                       )
                     }
+
+                  </h2>
+
+                  <section  className='mb-7'>
+                    
                     {
                       (info.ultima_ronda && info.ultima_ronda != 'N/A') && (
                         <>
