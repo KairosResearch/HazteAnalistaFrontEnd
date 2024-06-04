@@ -42,7 +42,7 @@ const InfoTabs = ({info}: InfoTabsProps) => {
                 <h2 className='text-xl md:text-2xl font-bold mb-3'>Links</h2>
 
                 
-                  <ul className='flex justify-between items-center'>
+                  <ul className='flex gap-4 items-center'>
 
                     {(info.twitter && info.twitter != 'N/A') &&
                       
@@ -98,11 +98,16 @@ const InfoTabs = ({info}: InfoTabsProps) => {
                 </TabsContent>
                 <TabsContent className="min-h-[250px]" value="finance">
                   <h2 className='text-xl md:text-2xl font-bold mb-3'>
-                    Financiamiento  
+                    Financiamiento {" "}  
                     {
-                      info.financiamiento && (
+
+                      (info.financiamiento && info.financiamiento != 0) ? (
                         <span>
-                          | ${info.financiamiento}
+                          | $ {info.financiamiento}
+                        </span>
+                      ) : (
+                        <span>
+                          | N/A
                         </span>
                       )
                     }
@@ -116,7 +121,7 @@ const InfoTabs = ({info}: InfoTabsProps) => {
                         <>
                           <h2>Ultima ronda</h2>
                           <p>
-                            {info.ultima_ronda}
+                            {" "} -{" "} {info.ultima_ronda}
                           </p>
                         </>
                         
