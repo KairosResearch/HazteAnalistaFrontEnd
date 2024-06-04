@@ -35,7 +35,7 @@ function PrivyProviderWrapper({
                 if(data === true){
                   router.push('/dashboard')
                 } else {
-                  alert('Error: ' + data)
+                  router.push('/completed')
                 }
   
               } 
@@ -51,7 +51,6 @@ function PrivyProviderWrapper({
             } catch (error) {
                 alert('Error al logear al usuario')
             }
-            //If user is a new user (to register in db):
           }
           foo();
         }
