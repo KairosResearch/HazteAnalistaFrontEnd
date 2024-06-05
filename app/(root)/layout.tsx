@@ -1,11 +1,10 @@
 import React from 'react'
 import Sidebar from '@/components/shared/Sidebar';
 import Navbar from '@/components/shared/Navbar';
-import{ ContextProvider} from '@/contexts/ContextProvider';
 //import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import Footer from '@/components/shared/Footer';
 //import { usePrivy } from '@privy-io/react-auth';
-
+import Collapser from '@/components/ui/Collapser';
 // import { cookies } from 'next/headers';
 
 
@@ -15,9 +14,9 @@ const Layout = ({children}: {children: React.ReactNode}) => {
   // const userString = cookiesStore.get('user')?.value;
   // const user = userString ? JSON.parse(userString) : null;
   return (
-    <ContextProvider>
       <main className='root'>
         <Navbar />
+        <Collapser />
         
           <div className="root-container overflow-hidden md:flex">
               <Sidebar />
@@ -28,8 +27,7 @@ const Layout = ({children}: {children: React.ReactNode}) => {
               </div>
               
           </div>
-      </main>
-    </ContextProvider> 
+      </main> 
   )
 }
 

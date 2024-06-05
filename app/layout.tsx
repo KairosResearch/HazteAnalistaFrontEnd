@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import Head from "next/head";
 import "./globals.css";
 import PrivyProviderWrapper from "@/providers/AuthProvider";
+import{ ContextProvider} from '@/contexts/ContextProvider';
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,9 +24,12 @@ export default function RootLayout({
 
     <html lang="en">
         <body className={inter.className}>
-          <PrivyProviderWrapper>
-            {children}
-          </PrivyProviderWrapper>
+          <ContextProvider>
+            <PrivyProviderWrapper>
+              {children}
+            </PrivyProviderWrapper>
+          </ContextProvider>
+          
           
         </body>
     </html>

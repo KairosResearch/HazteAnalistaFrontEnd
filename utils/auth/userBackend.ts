@@ -13,9 +13,13 @@ export const loginUserBackend = async (privyId: string | undefined, name: string
         console.log('Usuario a guardar en backend:  ' , userToBack)
 
         const data = await postLogin(userToBack);
-
-        console.log('Usuario logeado, su id es: ', data.id_usuario)
-        return data.id_usuario;
+        
+        if(typeof data === 'number'){
+            return data.toLocaleString();
+        } else {
+            console.log('Id que viene del post data, en utils: ', data.id_usuario)
+            return data.id_usuario;
+        }
         
 
         
@@ -34,7 +38,6 @@ export const registerUserBackend = async (privyId: string | undefined, name: str
         console.log('Usuario a guardar en backend:  ' , userToBack)
 
         const data = await postRegister(userToBack);
-        console.log('Data del registro en backend:  ' , data)
         
 
         if(typeof data === 'number'){
@@ -42,6 +45,7 @@ export const registerUserBackend = async (privyId: string | undefined, name: str
         } else {
             const {user} = data;
             const {id} = user;
+            console.log('Id que viene del post data, en utils: ', id)
             return id;
         }
        

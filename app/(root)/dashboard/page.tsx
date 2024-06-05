@@ -30,7 +30,7 @@ const HomePage = async () => {
     <div className={`md:w-full px-4 2xl:w-full `}
       
     >
-      <Collapser />
+      
       <div className="2xl:px-24 pl-1 ">
         {/* Seccion de lecciones*/}
         <section className='2xl:py-4 py-2 xl:pt-8' id='lecciones-main-page'>

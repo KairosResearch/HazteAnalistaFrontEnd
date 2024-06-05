@@ -6,8 +6,7 @@ import {UserData, UserTableData} from '@/index'
 export const useUserData = create<UserData>((set) => ({
     userId: null,
     setUserId: (newId: number) => set({ userId: newId }),
-    accessToken: undefined,
-    setAccessToken: (newAccessToken: string | undefined) => set({ accessToken: newAccessToken }),
+   
 }));
 
 export const useUserTableData = create<UserTableData>((set) => ({

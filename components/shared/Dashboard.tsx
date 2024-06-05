@@ -31,7 +31,7 @@ import { TableData } from '@/index';
 import { DashboardProps } from '@/index';
 import { handleGetProyects } from '@/actions/proyectActions';
 import { Button } from '../ui/button';
-import { table } from 'console';
+
 
 const Dashboard = (
   { catalogos, projectsList}: DashboardProps
@@ -40,6 +40,7 @@ const Dashboard = (
   //Seteamos el userId como estado global usando el hook useUserData
 
   const { userTableData } = useUserTableData();
+  const {userId} = useUserData();
  
 
   const [sectores, setSectores] = useState<any[]>([]);
@@ -53,7 +54,7 @@ const Dashboard = (
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await handleGetProyects();
+      const data = await handleGetProyects(userId?? 0);
       if (data.error){
         setTableData([]);
         alert('Tenemos problemas internos con el servidor. Buscamos solucionarlo!')
@@ -71,7 +72,8 @@ const Dashboard = (
   useEffect(() => {
     // if (JSON.stringify(prevUserTableData) !== JSON.stringify(userTableData)) {
       const fetchData = async () => {
-        const data = await handleGetProyects();
+        console.log('userid', userId)
+        const data = await handleGetProyects(userId?? 0);
         if (data.error) {
           setTableData([]);
           alert('Tenemos problemas internos con el servidor. Buscamos solucionarlo!')

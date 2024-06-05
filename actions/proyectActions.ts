@@ -12,10 +12,10 @@ function valuesFromCookies() {
 }
 
 
-export const handleGetProyects = async () => {
+export const handleGetProyects = async (userId: number) => {
     try {
-        const {userId} = valuesFromCookies();
-        
+        // const {userId} = valuesFromCookies();
+        console.log('userId', userId)
         const data = await getProyects(userId)
         if (data.error) {
             return {error: data.error}
@@ -26,13 +26,13 @@ export const handleGetProyects = async () => {
     }
 }
 
-export const handleSubmitProyectForm = async (formData: any) => {
+export const handleSubmitProyectForm = async (formData: any, idUsuario: number) => {
     try {
-        const {userId} = valuesFromCookies();
-        const posted = await postProyect( {...formData, idUsuario: userId})
+        // const {userId} = valuesFromCookies();
+        const posted = await postProyect( {...formData, idUsuario})
         console.log(posted)
         if (posted) {
-            const newData = await handleGetProyects();
+            const newData = await handleGetProyects(idUsuario);
             console.log('Nueva Data dentro del backend', newData)
             return newData;
         }

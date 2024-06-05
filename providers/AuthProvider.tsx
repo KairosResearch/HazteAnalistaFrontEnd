@@ -4,6 +4,8 @@ import { PrivyProvider } from "@privy-io/react-auth";
 import { useRouter } from "next/navigation";
 import { handleLogin } from '@/actions/login';
 import { handleRegister } from "@/actions/register";
+import { useUserData} from "@/hooks/useUserData"
+
 
 function PrivyProviderWrapper({
   children,
@@ -11,6 +13,7 @@ function PrivyProviderWrapper({
   children: React.ReactNode;
 }) {
   const router = useRouter();
+  const {setUserId} = useUserData();
   return (
     <PrivyProvider
       appId={process.env.NEXT_PUBLIC_PRIVY_APP_ID || ""}
@@ -32,20 +35,23 @@ function PrivyProviderWrapper({
             try {
               if(isNewUser){
                 const data = await handleRegister(id, name);
-                if(data === true){
-                  router.push('/dashboard')
-                } else {
+                if(data === false){
                   router.push('/completed')
+                } else {
+                  setUserId(data)
+                  router.push('/dashboard')
                 }
   
               } 
               //If user is not a new user:
               else {
                 const data = await handleLogin(id, name);
-                if(data){
-                  router.push('/dashboard')
+                if(data === false){
+                  router.push('/completed')
                 } else {
-                  console.log('error al loguear usuario')
+                  setUserId(data)
+                  console.log('Id del usuario en el login: ', data)
+                  router.push('/dashboard')
                 }
               }   
             } catch (error) {

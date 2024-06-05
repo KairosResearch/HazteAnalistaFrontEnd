@@ -83,8 +83,6 @@ export interface BackendValues{
 export type UserData = {
     userId: number | null;
     setUserId: (newId: number) => void;
-    accessToken: string | undefined;
-    setAccessToken: (newAccessToken: string | undefined) => void;
 };
 export type UserTableData = {
     userTableData: [];

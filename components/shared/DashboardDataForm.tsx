@@ -69,12 +69,15 @@ const DashboardDataForm = ({type, data = null, catalogos, close, projectsList}: 
     const [emptyForm, setEmptyForm] = useState(false);
     const [symbol, setSymbol] = useState('');
     const {setUserTableData} = useUserTableData();
+    const {userId} = useUserData();
 
     //Estados para el manejo de la data
     const [prInfo, setPrInfo] = useState({
         marketCap: 0,
         price: 0
     });
+
+    console.log('User id: ', userId)
 
     
 
@@ -141,10 +144,7 @@ const DashboardDataForm = ({type, data = null, catalogos, close, projectsList}: 
             console.log('Backend values', backendValues);
             
             if (Object.values(backendValues).every(value => value)) {
-                console.log('Datos' , backendValues)
-                
-                const newData = await handleSubmitProyectForm(backendValues);
-                console.log('Nueva Data dentro del frontend', newData)
+                const newData = await handleSubmitProyectForm(backendValues, userId ?? 0);
                 if(newData){
                     setCount(count + 1);
                     setUserTableData(['Dato añadido' + count]);
