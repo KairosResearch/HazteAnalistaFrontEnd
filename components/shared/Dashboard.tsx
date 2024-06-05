@@ -55,15 +55,14 @@ const Dashboard = (
   useEffect(() => {
     const fetchData = async () => {
       const data = await handleGetProyects(userId?? 0);
-      if (data.error){
-        setTableData([]);
-        alert('Tenemos problemas internos con el servidor. Buscamos solucionarlo!')
-      }
       const sectores = await getSectores();
       setSectores(sectores);
       console.log('data.proyectos', data)
-      
-      setTableData(data.proyectos);
+      if (typeof data === 'string') {
+        setTableData([]);
+      } else {
+        setTableData(data || []);
+      }
     };
     fetchData();
   }, []);
@@ -74,11 +73,11 @@ const Dashboard = (
       const fetchData = async () => {
         console.log('userid', userId)
         const data = await handleGetProyects(userId?? 0);
-        if (data.error) {
+        if (typeof data === 'string') {
           setTableData([]);
-          alert('Tenemos problemas internos con el servidor. Buscamos solucionarlo!')
+        } else {
+          setTableData(data || []);
         }
-        setTableData(data.proyectos);
       }
       fetchData();
       
@@ -105,8 +104,8 @@ const Dashboard = (
           <TableHead className="">Ticker</TableHead>
           <TableHead className="">Metodo 4E</TableHead>
           <TableHead className="">Decisión</TableHead>
-          {/* <TableHead className="">Market Cap</TableHead> */}
-          {/* <TableHead className="">Rango</TableHead> */}
+          <TableHead className="">Market Cap</TableHead>
+          <TableHead className="">Rango</TableHead> 
           <TableHead className="">ATH</TableHead>
           <TableHead className="">Sector</TableHead>
           <TableHead className="">Exchange</TableHead>
@@ -165,20 +164,20 @@ const Dashboard = (
               </Badge>
             </TableCell>
             {/******Market Cap**** */}
-            {/* <TableCell className="whitespace-nowrap">
-              $ {data.marketCap.toLocaleString()}
+            <TableCell className="whitespace-nowrap">
+              $ {data.market_cap.toLocaleString()}
 
-            </TableCell>  */}
+            </TableCell> 
             {/******Rango**** */}
-            {/* <TableCell>
+            <TableCell>
               <Badge 
                 variant='range'
                 color={
-                (range(data.marketCap) === MID) ? 'blue' : (range(data.marketCap) === LOW) ? 'orange' : (range(data.marketCap) === LARGE) ? 'green' : 'brown'
+                (range(data.market_cap) === MID) ? 'blue' : (range(data.market_cap) === LOW) ? 'orange' : (range(data.market_cap) === LARGE) ? 'green' : 'brown'
               }>
-              {range(data.marketCap)}
+              {range(data.market_cap)}
               </Badge>
-          </TableCell>   */}
+          </TableCell>  
             {/******Si ATH**** */}
             <TableCell>
               {data.siAth}X
@@ -201,7 +200,7 @@ const Dashboard = (
             </TableCell>
             {/****** precio entrada**** */}
             <TableCell className="whitespace-nowrap">
-              $ {data.precioEntrada}
+              $ {data.precioEntrada.toLocaleString()}
 
             </TableCell>
             {/******precio salida**** */}

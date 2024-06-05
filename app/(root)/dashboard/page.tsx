@@ -3,9 +3,9 @@ import Lessons from '@/components/shared/Lessons';
 // import InputSearcher from '@/components/shared/InputSearcher';
 import Dashboard from '@/components/shared/Dashboard';
 import DialogItem from '@/components/shared/DialogItem';
-import Collapser from '@/components/ui/Collapser';
 import { get4t, getDecision, getExchange, getSectores } from '@/services/backend/catalogos';
 import { getProjectsList } from '@/services/backend/proyectsInfo';
+import ReloadProjects from '@/components/shared/ReloadProjects';
 
 
 
@@ -46,18 +46,35 @@ const HomePage = async () => {
         </section>
 
         <section className="seguimiento mb-8">
-          <div className='flex items-center justify-between'>
+          <div className='flex items-center justify-between mt-4 2xl:my-8 md:my-3'>
             <h1
-              className='text-2xl font-bold my-4 2xl:my-8 md:my-3 2xl:text-4xl'
+              className='text-2xl font-bold  2xl:text-4xl'
             >Dashboard de seguimiento:</h1>
-            <DialogItem
-              projectsList={projectsList.proyectos}
-              mode='add'
-              catalogos={[data4t, decision, exchange, sector]}
-              data={null}
-              close={null}
-            />
+
+
+            <div className='flex gap-4 items-center justify-center'>
+              <div className='hidden md:block'>
+                  <ReloadProjects />
+                </div>
+
+                <DialogItem
+                  projectsList={projectsList.proyectos}
+                  mode='add'
+                  catalogos={[data4t, decision, exchange, sector]}
+                  data={null}
+                  close={null}
+                />
+            </div>
+            
+             
+            
+
+            
           </div>
+          <div className='md:hidden'>
+            <ReloadProjects />
+          </div>
+          
           
             <Dashboard
               projectsList={projectsList.proyectos}

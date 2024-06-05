@@ -3,6 +3,7 @@
 import { BASE_URL } from "./urls";
 export const getProyectNumbers = async (symbol: string) => {
     try{
+        console.log('symbol', symbol)
         const parameters = {
             symbol: symbol,
             convert: 'USD'
@@ -16,7 +17,7 @@ export const getProyectNumbers = async (symbol: string) => {
                 'Content-Type': 'application/json',
                 'X-CMC_PRO_API_KEY': 'a3d40011-8f49-4c61-8707-62b34bee12ea'
             },
-            cache: 'force-cache'
+            cache: 'no-cache'
         })
         const resData = await response.json();
         const {data: {[symbol]: {quote: {USD: {price}}}}} = await resData;

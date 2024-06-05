@@ -19,7 +19,7 @@ interface TableData {
     ticker: string;
     id4e: number;
     id_decision_proyecto: number;
-    marketCap: number;
+    market_cap: number;
     siAth: number;
     idSector: number;
     idExchange: number;

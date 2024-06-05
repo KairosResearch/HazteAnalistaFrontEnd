@@ -1,6 +1,8 @@
 'use server'
 import { postProyect, getProyects, deleteProyect, updateProyect } from "@/services/backend/proyects";
+import { getProyectNumbers } from "@/services/coinmarketcap/info";
 import { cookies } from "next/headers";
+import { TableData } from "@/index";
 
 function valuesFromCookies() {
     const cookiesStore = cookies();
@@ -16,10 +18,24 @@ export const handleGetProyects = async (userId: number) => {
     try {
         // const {userId} = valuesFromCookies();
         console.log('userId', userId)
-        const data = await getProyects(userId)
-        if (data.error) {
-            return {error: data.error}
+        const response = await getProyects(userId)
+        
+        if (response.error) {
+            return response.error as string;
         }
+
+        const data: TableData[] = await Promise.all(response.proyectos.map(async (proyecto: any) => {
+            const {ticker} = proyecto;
+            const cleanTicker = ticker.replace('$', '');
+
+            const b = await getProyectNumbers(cleanTicker);
+            return {
+                ...proyecto,
+                market_cap: b.market_cap,
+                price: b.price
+            }
+        }))
+        console.log('data', data)
         return data;
     } catch (err: any) {
         console.error(err.message)
@@ -32,9 +48,9 @@ export const handleSubmitProyectForm = async (formData: any, idUsuario: number) 
         const posted = await postProyect( {...formData, idUsuario})
         console.log(posted)
         if (posted) {
-            const newData = await handleGetProyects(idUsuario);
-            console.log('Nueva Data dentro del backend', newData)
-            return newData;
+            // const newData = await handleGetProyects(idUsuario);
+            // console.log('Nueva Data dentro del backend', newData)
+            return true;
         }
     } catch (err) {
         console.error(err)
