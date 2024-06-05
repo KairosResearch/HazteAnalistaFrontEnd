@@ -25,7 +25,7 @@ import { CustomField } from "./CustomField"
 
 //Values
 import {defaultValuesDashboardForm, randomMarketCap} from "@/utils/index"
-import {getProyectNumbers} from "@/services/backend/proyectsInfo"
+import {getProyectNumbers} from "@/services/coinmarketcap/info"
 
 //Schema
 export const formSchema = z.object({
@@ -39,7 +39,7 @@ export const formSchema = z.object({
       .nonnegative("El campo 'Si Ath' debe ser un número."),
     idExchange: z.string({ required_error: "El campo 'exchange' no puede estar vacío." }),
     idSector: z.string({ required_error: "El campo 'sector' no puede estar vacío." }),
-    precioEntrada: z.number().nonnegative("El campo 'precio' debe ser un número."),
+    precioEntrada: z.number().nonnegative("El campo 'precio' debe ser un número.").optional(),
     precioActual: z.number().nonnegative("El campo 'precio' debe ser un número.").optional(),
   });
 
@@ -56,13 +56,7 @@ const DashboardDataForm = ({type, data = null, catalogos, close, projectsList}: 
     const sector = catalogos[3] as CatalogosType[];
 
     
-    //Propiedades de privy necesarias para pasar info al backend
-    // const {user, getAccessToken} = usePrivy();
-    // const getPrivyAccessToken = async () => {
-    //     const accessToken = await getAccessToken();
-    //     return accessToken;
-    // }
-    // console.log('Usuario', user?.id)
+    
     //Estados para el uso del formulario
     const [count, setCount] = useState(1);
     const [submitted, setSubmitted] = useState(false);
@@ -73,7 +67,7 @@ const DashboardDataForm = ({type, data = null, catalogos, close, projectsList}: 
 
     //Estados para el manejo de la data
     const [prInfo, setPrInfo] = useState({
-        marketCap: 0,
+        market_cap: 0,
         price: 0
     });
 
@@ -82,25 +76,27 @@ const DashboardDataForm = ({type, data = null, catalogos, close, projectsList}: 
     
 
     //Fetching project info just right after user selects the project
-    // useEffect(() => {
-    //     console.log(symbol)
-    //     const foo = async () => {
-    //         setPrInfo({
-    //             marketCap: 0,
-    //             price: 0
-    //         })
+    useEffect(() => {
+        console.log(symbol)
+        const foo = async () => {
+            setPrInfo({
+                market_cap: 0,
+                price: 0
+            })
             
-    //         const newPrInfo = await getProjectInfoById(symbol);
-    //         const {marketCap, price} = newPrInfo;
-    //         setPrInfo({
-    //             marketCap,
-    //             price
-    //         });
-    //         console.log(prInfo)
-    //     }
-    //     foo();
+            const newPrInfo = await getProyectNumbers(symbol);
+            console.log(newPrInfo)
+            
+            const {price, market_cap} = newPrInfo;
+            setPrInfo({
+                market_cap,
+                price
+            });
+            console.log(prInfo)
+        }
+        foo();
         
-    // }, [symbol])
+    }, [symbol])
 
     //Valores por default para los campos del formulario
     const initialValues = data && type === 'update' ? {
@@ -135,11 +131,11 @@ const DashboardDataForm = ({type, data = null, catalogos, close, projectsList}: 
                 idProyecto: Number(values.nombre),
                 id4e: Number(values.id4e),
                 id_decision_proyecto: Number(values.id_decision_proyecto),
-                marketCap: values?.marketCap ?? 0,
+                marketCap: prInfo.market_cap,
                 siAth: values.siAth,
                 idExchange: Number(values.idExchange),
                 idSector: Number(values.idSector),
-                precioEntrada: values.precioEntrada,
+                precioEntrada: prInfo.price,
             }
             console.log('Backend values', backendValues);
             
@@ -265,7 +261,7 @@ return (
                 }
                 
                 {/**Ticket */}
-                {/* <CustomField
+                <CustomField
                     control={form.control}
                     name="ticket"
                     formLabel="Ticker"
@@ -276,10 +272,11 @@ return (
                             maxLength={5}
                             
                             // value={type === 'create' ? getValues("ticket") : field.value}
-                            value={field.value}
+                            value={symbol}
+                            disabled
                         />
                     )}
-                /> */}
+                />
                 {/**4E */}
                 <CustomField
                     control={form.control}
@@ -366,13 +363,14 @@ return (
                             {...field}
                             type="text"
                             value={
-                                field.value
+                                prInfo.market_cap
                             }
-                            onChange={(e) => {
-                                // Elimina los separadores de miles antes de llamar a field.onChange
-                                const value = parseFloat(e.target.value.replace(/,/g, ""));
-                                field.onChange(isNaN(value) ? "" : value);
-                            }}
+                            // onChange={(e) => {
+                            //     // Elimina los separadores de miles antes de llamar a field.onChange
+                            //     const value = parseFloat(e.target.value.replace(/,/g, ""));
+                            //     field.onChange(isNaN(value) ? "" : value);
+                            // }}
+                            disabled
                         />
                         )}
                     />
@@ -461,8 +459,9 @@ return (
                         <Input
                             {...field}
                             type="number"
-                            value={field.value}
-                            onChange={(e) => field.onChange(parseFloat(e.target.value))}
+                            value={prInfo.price}
+                            // onChange={(e) => field.onChange(parseFloat(e.target.value))}
+                            disabled
                         />
                     )}
                 />

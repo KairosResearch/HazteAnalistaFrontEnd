@@ -23,10 +23,15 @@ const Navbar = () => {
 
 const {logout} = usePrivy();
 
-window.addEventListener('beforeunload', (e) => {
-  e.preventDefault();
-  logout();
-})
+
+//Logout on beforeunload
+if (typeof window !== 'undefined'){
+  window.addEventListener('beforeunload', (e) => {
+    e.preventDefault();
+    logout();
+  })
+}
+
 
 
   //Añadir el de twitter y validar si es web 2 poner nombre completo, si es web 3 poner la direccion cortada
