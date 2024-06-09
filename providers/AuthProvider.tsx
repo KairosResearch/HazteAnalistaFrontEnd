@@ -39,6 +39,9 @@ function PrivyProviderWrapper({
                   router.push('/completed')
                 } else {
                   setUserId(data)
+                  if (typeof window !== 'undefined'&& data !== null) { 
+                    window.localStorage.setItem('guzma', data.toString());
+                  }
                   router.push('/dashboard')
                 }
   
@@ -50,6 +53,9 @@ function PrivyProviderWrapper({
                   router.push('/completed')
                 } else {
                   setUserId(data)
+                  if (typeof window !== 'undefined'&& data !== null) { 
+                    window.localStorage.setItem('guzma', data.toString());
+                  }
                   console.log('Id del usuario en el login: ', data)
                   router.push('/dashboard')
                 }

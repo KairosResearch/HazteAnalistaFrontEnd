@@ -140,25 +140,28 @@ const DashboardDataForm = ({type, data = null, catalogos, close, projectsList}: 
             console.log('Backend values', backendValues);
             
             if (Object.values(backendValues).every(value => value)) {
-                const newData = await handleSubmitProyectForm(backendValues, userId ?? 0);
-                if(newData){
-                    setCount(count + 1);
-                    setUserTableData(['Dato añadido' + count]);
-                    setSubmitted(true);
-                   
-                   form.reset();
-                   form.reset(defaultValuesDashboardForm);
-                 
-                   setTimeout(() => {
-                    if (close) {
-                        close()
+                if(typeof window !== 'undefined' && window.localStorage.getItem('guzma') !== null) {
+                    const guzma = Number(window.localStorage.getItem('guzma'));
+                    const newData = await handleSubmitProyectForm(backendValues, guzma ?? 0);
+                        if(newData){
+                            setCount(count + 1);
+                            setUserTableData(['Dato añadido' + count]);
+                            setSubmitted(true);
+                        
+                        form.reset();
+                        form.reset(defaultValuesDashboardForm);
+                        
+                            setTimeout(() => {
+                                if (close) {
+                                    close()
+                                }
+                            }, 2000)
+                            }
+                        } else {
+                        console.log('Datos null')
+                        setEmptyForm(true);
                     }
-                   }, 2000)
                 }
-            } else {
-               console.log('Datos null')
-               setEmptyForm(true);
-            }
         } 
         if(type === 'update'){
             const backendValuesUpdate = {

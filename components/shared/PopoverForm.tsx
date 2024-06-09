@@ -15,7 +15,6 @@ import { useRouter } from "next/navigation";
 
 import SearcherResults from "./SearcherResults";
 import LinkAccounts from "./LinkAccounts";
-import { deleteCookieUserId } from "@/utils/auth/cookies";
 
 interface PopoverFormProps {
   usage: "searcher" | "userinfo";
@@ -35,11 +34,8 @@ const PopoverForm = ({ usage }: PopoverFormProps) => {
   || user?.discord?.username;
 
     const onLogout = async () => {    
-        const a = await deleteCookieUserId();
-        if(a){
             await logout();
             router.push("/");
-        } 
     }
 
 

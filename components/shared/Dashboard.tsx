@@ -54,15 +54,24 @@ const Dashboard = (
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await handleGetProyects(userId?? 0);
-      const sectores = await getSectores();
-      setSectores(sectores);
-      console.log('data.proyectos', data)
-      if (typeof data === 'string') {
-        setTableData([]);
-      } else {
-        setTableData(data || []);
+      if(typeof window !== undefined && window.localStorage.getItem('guzma') !== null){
+        
+        const guzma = Number(window.localStorage.getItem('guzma')); 
+
+      const data = await handleGetProyects(guzma ?? 0);
+
+        const sectores = await getSectores();
+        setSectores(sectores);
+        console.log('data.proyectos', data)
+        if (typeof data === 'string') {
+          setTableData([]);
+        } else {
+          setTableData(data || []);
+        }
       }
+
+
+     
     };
     fetchData();
   }, []);
@@ -71,13 +80,18 @@ const Dashboard = (
   useEffect(() => {
     // if (JSON.stringify(prevUserTableData) !== JSON.stringify(userTableData)) {
       const fetchData = async () => {
-        console.log('userid', userId)
-        const data = await handleGetProyects(userId?? 0);
-        if (typeof data === 'string') {
-          setTableData([]);
-        } else {
-          setTableData(data || []);
+        if(typeof window !== undefined && window.localStorage.getItem('guzma') !== null){
+          const guzma = Number(window.localStorage.getItem('guzma'));
+          console.log('userid', userId)
+          const data = await handleGetProyects(guzma ?? 0);
+          if (typeof data === 'string') {
+            setTableData([]);
+          } else {
+            setTableData(data || []);
+          }
+          
         }
+        
       }
       fetchData();
       
