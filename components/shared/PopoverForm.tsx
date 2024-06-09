@@ -36,6 +36,7 @@ const PopoverForm = ({ usage }: PopoverFormProps) => {
     const onLogout = async () => {    
             await logout();
             router.push("/");
+            localStorage.removeItem('guzma');
     }
 
 

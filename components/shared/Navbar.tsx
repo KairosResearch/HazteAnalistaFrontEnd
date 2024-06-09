@@ -25,12 +25,12 @@ const {logout} = usePrivy();
 
 
 //Logout on beforeunload
-if (typeof window !== 'undefined'){
-  window.addEventListener('beforeunload', (e) => {
-    e.preventDefault();
-    logout();
-  })
-}
+// if (typeof window !== 'undefined'){
+//   window.addEventListener('beforeunload', (e) => {
+//     e.preventDefault();
+//     logout();
+//   })
+// }
 
 
 

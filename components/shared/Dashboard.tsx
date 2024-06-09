@@ -57,6 +57,7 @@ const Dashboard = (
       if(typeof window !== undefined && window.localStorage.getItem('guzma') !== null){
         
         const guzma = Number(window.localStorage.getItem('guzma')); 
+        console.log('guzma', guzma)
 
       const data = await handleGetProyects(guzma ?? 0);
 
@@ -82,6 +83,7 @@ const Dashboard = (
       const fetchData = async () => {
         if(typeof window !== undefined && window.localStorage.getItem('guzma') !== null){
           const guzma = Number(window.localStorage.getItem('guzma'));
+          console.log('guzma', guzma)
           console.log('userid', userId)
           const data = await handleGetProyects(guzma ?? 0);
           if (typeof data === 'string') {
