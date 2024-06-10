@@ -34,9 +34,27 @@ export const CustomField = ({
       name={name}
       render={({ field }) => (
         <FormItem className={className}>
-          {formLabel && <FormLabel>{formLabel}</FormLabel>}
-          <FormControl>{render({ field })}</FormControl>
-          <FormMessage />
+          {formLabel && 
+          
+            <FormLabel>
+              {(formLabel === 'Sector' || formLabel === 'Exchange') ? `${formLabel} (opcional)` : formLabel }
+            </FormLabel>
+          
+          }
+
+           
+          
+          <FormControl>{render({ field })}</FormControl>  
+          <FormMessage>
+            {
+              (name === 'idSector' || name === 'idExchange')? (
+              <p className="text-sm text-gray-500 mt-2">
+                Puedes agregar esta información más adelante desde la sección de edición del proyecto.
+              </p>
+              ) : null
+            }
+
+          </FormMessage>
         </FormItem>
       )}
     />

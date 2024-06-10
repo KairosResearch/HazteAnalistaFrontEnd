@@ -149,16 +149,16 @@ const InfoTabs = ({info}: InfoTabsProps) => {
                 </TabsContent>
                 <TabsContent className="min-h-[250px]" value="analyzis">
                   <div>
-                    <h2 className='text-xl md:text-2xl font-bold mb-3'>Analizis</h2>
+                    <h2 className='text-xl md:text-2xl font-bold mb-3'>Análisis</h2>
                     {
                       info.link_analisis_kairos ?
                       <Link
                         href={info.link_analisis_kairos}
                         target="_blank"
                         className='underline w-full mx-auto'
-                      >Visita nuestro analizis</Link>
+                      >Visita nuestro Análisis</Link>
                       :
-                      <p>Estamos trabajando en este analizis!</p>
+                      <p>Estamos trabajando en este análisis!</p>
                     }
                     </div>
 

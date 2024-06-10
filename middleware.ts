@@ -6,7 +6,7 @@ const UNAUTHENTICATED_PAGES = [];
 
 export const config = {
   // necessary to ensure that you are redirected to the refresh page
-  matcher: ['/', '/dashboard', '/completed'],
+  matcher: ['/', '/dashboard', '/refresh', '/data-on-chain'],
 };
 
 export async function middleware(req: NextRequest) {
@@ -19,7 +19,7 @@ export async function middleware(req: NextRequest) {
 
   // Bypass middleware when the /refresh page is fetched, otherwise
   // we will enter an infinite loop
-  if (req.url.includes('/completed')) return NextResponse.next();
+  if (req.url.includes('/refresh')) return NextResponse.next();
 
   // If the user has `privy-token`, they are definitely authenticated
   const definitelyAuthenticated = Boolean(cookieAuthToken);
@@ -30,7 +30,18 @@ export async function middleware(req: NextRequest) {
   if (!definitelyAuthenticated && maybeAuthenticated) {
     // If user is not authenticated, but is maybe authenticated
     // redirect them to the `/refresh` page to trigger client-side refresh flow
-    return NextResponse.redirect(new URL('/completed', req.url));
+    console.log('redirecting ', req.url)
+    
+
+    const url = new URL('/', req.url);
+    console.log('url ', url)
+    
+    const pathname = url.href
+    console.log('pathname ', pathname)
+    const c = req.url.replace(pathname, '')
+    console.log('Base ' , c)
+
+    return NextResponse.redirect(new URL(`/refresh?page=${c}`, pathname));
   }
 
 
@@ -44,7 +55,7 @@ export async function middleware(req: NextRequest) {
     }
   }
   
-  if(req.nextUrl.pathname.startsWith('/')){
+  if(req.nextUrl.pathname === '/'){
     if(definitelyAuthenticated){
       // Only redirect if the user is not already on the '/dashboard' route
       if (!req.nextUrl.pathname.startsWith('/dashboard')) {
