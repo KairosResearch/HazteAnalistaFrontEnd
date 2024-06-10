@@ -178,7 +178,9 @@ const Dashboard = (
             </TableCell>
             {/******Market Cap**** */}
             <TableCell className="whitespace-nowrap">
-              $ {data.market_cap}
+              $ {
+                data.market_cap ? data.market_cap.toLocaleString() : 'No disponible. Recarga la tabla' 
+              }
 
             </TableCell> 
             {/******Rango**** */}

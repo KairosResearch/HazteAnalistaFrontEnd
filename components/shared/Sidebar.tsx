@@ -19,7 +19,7 @@ const Sidebar = () => {
                         >
                             
                             <Image
-                                    src='/icons8-casa.svg'
+                                    src='/home-4-line.svg'
                                     alt='Home'
                                     height={20}
                                     width={20}
@@ -27,7 +27,7 @@ const Sidebar = () => {
                             Dashboard
                         </Link>
                         
-                        <Link 
+                        {/* <Link 
                          href='/lessons'
                         className='sidebar-nav_element'>
                                 <Image
@@ -51,7 +51,7 @@ const Sidebar = () => {
 
                              
                                 Herramientas
-                            </Link>
+                        </Link>
                         
                         <Link 
                             className='sidebar-nav_element'
@@ -64,7 +64,7 @@ const Sidebar = () => {
                                     width={20}
                                 />
                             Data on Chain
-                            </Link>
+                        </Link> */}
                         
                     </ul>
                 </nav>

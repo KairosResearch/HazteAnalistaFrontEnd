@@ -105,7 +105,7 @@ const Navbar = () => {
                                 href='/dashboard'
                               >
                                     <Image 
-                                      src='/icons8-casa.svg'
+                                      src='/home-4-line.svg'
                                       alt='Kairos'
                                       width={20}
                                       height={20}
@@ -113,7 +113,7 @@ const Navbar = () => {
                                       Home
                                   </Link>
                               
-                              <Link className='header-nav_text'
+                              {/* <Link className='header-nav_text'
                                 href='/lessons'
                               >
                                     <Image 
@@ -124,7 +124,7 @@ const Navbar = () => {
                                     />
                                   
                                       Apredizaje
-                                  </Link>
+                              </Link>
                               
                               <Link className='header-nav_text'
                                 href='/tools'
@@ -136,7 +136,7 @@ const Navbar = () => {
                                       height={20}
                                     />
                                     Herramientas
-                                  </Link>
+                              </Link>
                               
                               <Link className='header-nav_text'
                                 href="/data-on-chain"
@@ -149,7 +149,7 @@ const Navbar = () => {
                                     />
 
                                       Data On Chain
-                                  </Link>
+                              </Link> */}
                               
                           </ul>
                       </nav>
