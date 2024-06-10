@@ -33,10 +33,11 @@ const PopoverForm = ({ usage }: PopoverFormProps) => {
   || user?.linkedin?.name
   || user?.discord?.username;
 
-    const onLogout = async () => {    
+    const onLogout = async () => {
+            localStorage.removeItem('guzma'); 
             await logout();
             router.push("/");
-            localStorage.removeItem('guzma');
+            
     }
 
 

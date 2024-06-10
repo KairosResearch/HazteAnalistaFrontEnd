@@ -21,7 +21,7 @@ import {  getSectores } from '@/services/backend/catalogos';
 import { rangeDesigner } from '@/utils';
 
 //Hook de useUserData
-import { useUserData } from '@/hooks/useUserData';
+// import { useUserData } from '@/hooks/useUserData';
 import { useUserTableData } from '@/hooks/useUserData';
 import { tableDataDefault } from '@/lib/data';
 
@@ -40,7 +40,7 @@ const Dashboard = (
   //Seteamos el userId como estado global usando el hook useUserData
 
   const { userTableData } = useUserTableData();
-  const {userId} = useUserData();
+  // const {userId} = useUserData();
  
 
   const [sectores, setSectores] = useState<any[]>([]);
@@ -84,7 +84,7 @@ const Dashboard = (
         if(typeof window !== undefined && window.localStorage.getItem('guzma') !== null){
           const guzma = Number(window.localStorage.getItem('guzma'));
           console.log('guzma', guzma)
-          console.log('userid', userId)
+          // console.log('userid', userId)
           const data = await handleGetProyects(guzma ?? 0);
           if (typeof data === 'string') {
             setTableData([]);
@@ -111,10 +111,7 @@ const Dashboard = (
   return (
     <Table className="border border-grey-light ">
       <TableHeader className=''>
-        <TableRow className='divide-x divide-y divide-grey-light bg-dark-grey'>
-          <TableHead className="" colSpan={1}>Proyecto</TableHead>
-          <TableHead className=" md:text-center" colSpan={10}>Protocolos</TableHead>
-        </TableRow>
+
         <TableRow className='divide-x-2 divide-y sticky top-[-1px] border-grey-light bg-dark-grey/95 z-50 divide-grey-light'>
           <TableHead className="" >Proyecto</TableHead>
           <TableHead className="">Ticker</TableHead>
@@ -181,7 +178,7 @@ const Dashboard = (
             </TableCell>
             {/******Market Cap**** */}
             <TableCell className="whitespace-nowrap">
-              $ {data.market_cap.toLocaleString()}
+              $ {data.market_cap}
 
             </TableCell> 
             {/******Rango**** */}

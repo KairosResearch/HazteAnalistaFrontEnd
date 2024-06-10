@@ -2,8 +2,8 @@
 import React, {useState, useEffect} from "react"
 //Hooks
 import { useUserTableData } from "@/hooks/useUserData"
-import { useUserData} from "@/hooks/useUserData"
-import { usePrivy } from "@privy-io/react-auth"
+// import { useUserData} from "@/hooks/useUserData"
+// import { usePrivy } from "@privy-io/react-auth"
 //Types:
 import { BackendValues, CatalogosType, DashboardDataFormProps,  TableData } from "@/index"
 
@@ -63,7 +63,7 @@ const DashboardDataForm = ({type, data = null, catalogos, close, projectsList}: 
     const [emptyForm, setEmptyForm] = useState(false);
     const [symbol, setSymbol] = useState('');
     const {setUserTableData} = useUserTableData();
-    const {userId} = useUserData();
+    // const {userId} = useUserData();
 
     //Estados para el manejo de la data
     const [prInfo, setPrInfo] = useState({
@@ -71,7 +71,7 @@ const DashboardDataForm = ({type, data = null, catalogos, close, projectsList}: 
         price: 0
     });
 
-    console.log('User id: ', userId)
+    // console.log('User id: ', userId)
 
     
 

@@ -4,7 +4,7 @@ import { PrivyProvider } from "@privy-io/react-auth";
 import { useRouter } from "next/navigation";
 import { handleLogin } from '@/actions/login';
 import { handleRegister } from "@/actions/register";
-import { useUserData} from "@/hooks/useUserData"
+// import { useUserData} from "@/hooks/useUserData"
 
 
 function PrivyProviderWrapper({
@@ -13,7 +13,7 @@ function PrivyProviderWrapper({
   children: React.ReactNode;
 }) {
   const router = useRouter();
-  const {setUserId} = useUserData();
+  // const {setUserId} = useUserData();
   return (
     <PrivyProvider
       appId={process.env.NEXT_PUBLIC_PRIVY_APP_ID || ""}
@@ -38,7 +38,6 @@ function PrivyProviderWrapper({
                 if(data === false){
                   router.push('/completed')
                 } else {
-                  setUserId(data)
                   if (typeof window !== 'undefined'&& data !== null) { 
                     window.localStorage.setItem('guzma', data.toString());
                   }
@@ -52,7 +51,6 @@ function PrivyProviderWrapper({
                 if(data === false){
                   router.push('/completed')
                 } else {
-                  setUserId(data)
                   if (typeof window !== 'undefined'&& data !== null) { 
                     window.localStorage.setItem('guzma', data.toString());
                   }

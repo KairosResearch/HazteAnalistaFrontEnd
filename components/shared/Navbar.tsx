@@ -21,7 +21,7 @@ import { Button } from '../ui/button';
 
 const Navbar = () => {
 
-const {logout} = usePrivy();
+
 
 
 //Logout on beforeunload
