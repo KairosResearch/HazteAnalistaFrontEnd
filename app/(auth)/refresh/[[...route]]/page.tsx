@@ -31,7 +31,8 @@ const Refresh = ({searchParams}: Props) => {
         if(token === null){
             router.push('/');
         } else if(typeof token === 'string') {
-            router.push(`/${searchParams?.page}`);
+            const redirectTo = searchParams?.page ? `/${searchParams?.page}` : '/dashboard';
+            router.push(redirectTo);
         }
     }
 
