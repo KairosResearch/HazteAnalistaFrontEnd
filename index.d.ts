@@ -24,7 +24,7 @@ interface TableData {
     idSector: number;
     idExchange: number;
     precioEntrada: number;
-    precioActual: number;
+    price: number;
 }
 
 //Changes comparing to -> TableData
@@ -77,6 +77,7 @@ export interface BackendValues{
     idExchange: number,
     idSector: number,
     precioEntrada: number,
+    precioActual: number
     
 }
 
@@ -100,6 +101,7 @@ export interface AuthDataFormProps {
 //   }
 
   interface DialogItemProps {
+    // isDialogOpen: boolean;
     mode: 'edit' | 'add';
     catalogos: CatalogosType[][]
     data: {

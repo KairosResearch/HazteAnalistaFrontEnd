@@ -40,6 +40,7 @@ import { CustomField } from "./CustomField";
 //Values
 import { defaultValuesDashboardForm, randomMarketCap } from "@/utils/index";
 import { getProyectNumbers } from "@/services/coinmarketcap/info";
+import { FileCheck } from "lucide-react";
 
 //Schema
 export const formSchema = z.object({
@@ -93,6 +94,7 @@ const DashboardDataForm = ({
   const [submitted, setSubmitted] = useState(false);
   const [emptyForm, setEmptyForm] = useState(false);
   const [symbol, setSymbol] = useState("");
+  const [editablePrecio, setEditablePrecio] = useState(0);
   const { setUserTableData } = useUserTableData();
   // const {userId} = useUserData();
 
@@ -114,14 +116,18 @@ const DashboardDataForm = ({
       });
 
       const newPrInfo = await getProyectNumbers(symbol);
-      console.log(newPrInfo);
+      const opa = newPrInfo?.data?.[symbol]?.quote?.USD;
+      console.log(opa);
+      const market_cap = opa?.market_cap;
+      const price = opa?.price;
 
-      const { price, market_cap } = newPrInfo;
       setPrInfo({
         market_cap,
         price,
       });
-      console.log(prInfo);
+
+      setEditablePrecio(price);
+      
     };
     foo();
   }, [symbol]);
@@ -139,7 +145,10 @@ const DashboardDataForm = ({
           idSector: data?.idSector,
           precioEntrada: data?.precioEntrada,
         }
-      : defaultValuesDashboardForm;
+      : {
+        ...defaultValuesDashboardForm,
+        precioEntrada: editablePrecio,
+      };
 
   //Defining the form
   const form = useForm<z.infer<typeof formSchema>>({
@@ -152,20 +161,16 @@ const DashboardDataForm = ({
     if (type === "create") {
       setEmptyForm(false);
 
-      //These are the values created after the name lost focus
-      // const valuesGot = getValues();
-
-      //These are the values that will be sent to the backend
-      //Both the values that got from the form and the values that were generated after the name lost focus
       const backendValues: BackendValues = {
         idProyecto: Number(values.nombre),
         id4e: 1,
         id_decision_proyecto: Number(values.id_decision_proyecto),
         marketCap: prInfo.market_cap,
         siAth: values.siAth,
-        idExchange: 1,
-        idSector: 1,
-        precioEntrada: prInfo.price,
+        idExchange: Number(values.idExchange),
+        idSector: Number(values.idSector),
+        precioActual: prInfo.price,
+        precioEntrada: editablePrecio,
       };
       console.log("Backend values", backendValues);
 
@@ -186,12 +191,6 @@ const DashboardDataForm = ({
 
             form.reset();
             form.reset(defaultValuesDashboardForm);
-
-            setTimeout(() => {
-              if (close) {
-                close();
-              }
-            }, 2000);
           }
         } else {
           console.log("Datos null");
@@ -220,11 +219,7 @@ const DashboardDataForm = ({
         setSubmitted(true);
         form.reset();
         form.reset(defaultValuesDashboardForm);
-        setTimeout(() => {
-          if (close) {
-            close();
-          }
-        }, 2000);
+
       }
     }
   }
@@ -251,6 +246,8 @@ const DashboardDataForm = ({
         <div className="space-y-6 md:grid grid-flow-row grid-cols-3 gap-6">
           {type === "create" ? (
             <CustomField
+              type={type}
+
               control={form.control}
               name="nombre"
               formLabel="Nombre"
@@ -291,6 +288,7 @@ const DashboardDataForm = ({
           {/**Ticket */}
           {type === "create" ? (
             <CustomField
+              type={type}
               control={form.control}
               name="ticket"
               formLabel="Ticker"
@@ -346,10 +344,11 @@ const DashboardDataForm = ({
                 /> */}
           {/**Decision */}
           <CustomField
+            type={type}
             control={form.control}
             name="id_decision_proyecto"
             formLabel="Decision"
-            className="w-full"
+            className={ type === 'update' ? "w-full sm:mt-6" : "w-full"}
             render={({ field }) => (
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <SelectTrigger>
@@ -381,6 +380,7 @@ const DashboardDataForm = ({
           {/**Market Cap */}
           {type === "create" ? (
             <CustomField
+              type={type}
               control={form.control}
               name="marketCap"
               formLabel="Market Cap"
@@ -389,7 +389,10 @@ const DashboardDataForm = ({
                 <Input
                   {...field}
                   type="text"
-                  value={prInfo.market_cap}
+                  value={`$ ${
+                    prInfo.market_cap != undefined ?
+                    prInfo.market_cap.toLocaleString() : 0
+                  } USD`}
                   // onChange={(e) => {
                   //     // Elimina los separadores de miles antes de llamar a field.onChange
                   //     const value = parseFloat(e.target.value.replace(/,/g, ""));
@@ -403,6 +406,7 @@ const DashboardDataForm = ({
 
           {/**Si Ath */}
           <CustomField
+            type={type}
             control={form.control}
             name="siAth"
             formLabel="Si ATH"
@@ -418,6 +422,7 @@ const DashboardDataForm = ({
           />
           {/**Exchange */}
           <CustomField
+            type={type}
             control={form.control}
             name="idExchange"
             formLabel="Exchange"
@@ -425,7 +430,7 @@ const DashboardDataForm = ({
             render={({ field }) => (
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Selecciona el exchange" />
+                  <SelectValue  />
                 </SelectTrigger>
                 <SelectContent>
                   {exchange.map((exchange) => (
@@ -444,6 +449,7 @@ const DashboardDataForm = ({
           {/**Sector */}
 
           <CustomField
+            type={type}
             control={form.control}
             name="idSector"
             formLabel="Sector"
@@ -451,7 +457,7 @@ const DashboardDataForm = ({
             render={({ field }) => (
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Selecciona el sector" />
+                  <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
                   {sector.map((sector) => (
@@ -463,38 +469,101 @@ const DashboardDataForm = ({
               </Select>
             )}
           />
-          {/**Precio entrada */}
-          <CustomField
-            control={form.control}
-            name="precioEntrada"
-            formLabel="Precio entrada"
-            className="w-full"
-            render={({ field }) => (
-              <Input
-                {...field}
-                type="number"
-                value={prInfo.price}
-                // onChange={(e) => field.onChange(parseFloat(e.target.value))}
-                disabled
-              />
-            )}
-          />
-
           {/**Precio actual */}
-          {/* <CustomField
-                    control={form.control}
-                    name="precioActual"
-                    formLabel="Precio actual"
-                    className="w-full"
-                    render={({ field }) => (
+          {
+            type === 'create' ? (
+              <CustomField
+              type={type}
+                      control={form.control}
+                      name="precioActual"
+                      formLabel="Precio actual"
+                      className="w-full"
+                      render={({ field }) => (
                         <Input
-                            {...field}
-                            type="number"
-                            value={field.value}
-                            onChange={(e) => field.onChange(parseFloat(e.target.value))}
+                          {...field}
+                          type="text"
+                          value={`$ ${
+                            prInfo.price != undefined ?
+                            prInfo.price.toLocaleString() : 0
+                          } USD`}
+                          // onChange={(e) => field.onChange(parseFloat(e.target.value))}
+                          disabled
                         />
-                    )}
-                /> */}
+                      )}
+                  />
+            ) : null
+          }
+
+
+          {/**Precio entrada */}
+          {
+            type === 'create' ? (
+              <CustomField
+              type={type}
+                      control={form.control}
+                      name="precioEntrada"
+                      formLabel="Precio entrada"
+                      className="w-full"
+                      render={({ field }) => (
+                        <>
+                          <div className="flex items-center gap-1 justify-stretch">
+                          <span>$</span>
+                            <Input
+                              {...field}
+                              type="number"
+                              value={
+                                editablePrecio != undefined ?
+                                editablePrecio : 0 
+                              }
+                              onChange={(e) => {
+                                setEditablePrecio(Number(e.target.value))
+                                field.value === Number(e.target.value)}}
+                          />
+                          <span>USD</span>
+                          
+                        </div>
+                        <p className="text-sm text-gray-500 mt-2">
+                          Precio: $ {editablePrecio?.toLocaleString()} USD
+                        </p>
+                        </>
+                        
+                          
+                      )}
+                  />
+            ) : (
+              <CustomField
+              type={type}
+                      control={form.control}
+                      name="precioEntrada"
+                      formLabel="Precio entrada"
+                      className="w-full"
+                      render={({ field }) => (
+                        <>
+                          <div className="flex items-center gap-1 justify-stretch">
+                          <span>$</span>
+                            <Input
+                              {...field}
+                              type="number"
+                              value={field.value}
+                              onChange={(e) => {
+                                field.onChange(Number(e.target.value))}}
+                          />
+                          <span>USD</span>
+                          
+                        </div>
+                        <p className="text-sm text-gray-500 mt-2">
+                          Precio: $ {field.value.toLocaleString()} USD
+                        </p>
+                        </>
+                        
+                          
+                      )}
+                  />
+            )
+          }
+          
+                
+          
         </div>
 
         {submitted && (

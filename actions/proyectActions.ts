@@ -4,14 +4,14 @@ import { getProyectNumbers } from "@/services/coinmarketcap/info";
 import { cookies } from "next/headers";
 import { TableData } from "@/index";
 
-function valuesFromCookies() {
-    const cookiesStore = cookies();
-    // const accessToken = cookiesStore.get('accessToken')?.value as string;
-    const userId = cookiesStore.get('userId')?.value;
-    // const userObject = userString ? JSON.parse(userString) : {id: 2};
-    // const {id} = userObject;
-    return {userId};
-}
+// function valuesFromCookies() {
+//     const cookiesStore = cookies();
+//     // const accessToken = cookiesStore.get('accessToken')?.value as string;
+//     const userId = cookiesStore.get('userId')?.value;
+//     // const userObject = userString ? JSON.parse(userString) : {id: 2};
+//     // const {id} = userObject;
+//     return {userId};
+// }
 
 
 export const handleGetProyects = async (userId: number) => {
@@ -29,13 +29,16 @@ export const handleGetProyects = async (userId: number) => {
             const cleanTicker = ticker.replace('$', '');
 
             const b = await getProyectNumbers(cleanTicker);
+            const  c = b?.data?.[cleanTicker]?.quote?.USD;
+
+            console.log('Price', c?.price);
+            console.log('Market', c?.market_cap);
             return {
                 ...proyecto,
-                market_cap: b.market_cap,
-                price: b.price
+                market_cap: c?.market_cap || 0,
+                price: c?.price || 0
             }
         }))
-        console.log('data', data)
         return data;
     } catch (err: any) {
         console.error(err.message)

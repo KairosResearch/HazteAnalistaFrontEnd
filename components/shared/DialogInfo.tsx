@@ -81,7 +81,7 @@ const DialogInfo = ({
                             idSector: selectedRow.idSector?.toString(),
                             idExchange: selectedRow.idExchange?.toString()
                           }}
-                          close={close}
+                          close={null}
                       />
                   
                   

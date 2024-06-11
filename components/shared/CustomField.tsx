@@ -19,6 +19,7 @@ type CustomFieldProps = {
   name: keyof z.infer<typeof formSchema>;
   formLabel?: string;
   className?: string;
+  type: 'create' | 'update' | null;
 };
 
 export const CustomField = ({
@@ -27,6 +28,7 @@ export const CustomField = ({
   name,
   formLabel,
   className,
+  type
 }: CustomFieldProps) => {
   return (
     <FormField
@@ -37,24 +39,25 @@ export const CustomField = ({
           {formLabel && 
           
             <FormLabel>
-              {(formLabel === 'Sector' || formLabel === 'Exchange') ? `${formLabel} (opcional)` : formLabel }
+              {(formLabel === 'Sector' || formLabel === 'Exchange') && type === 'create' ? `${formLabel} (opcional)` : formLabel }
             </FormLabel>
           
           }
-
+          
            
           
           <FormControl>{render({ field })}</FormControl>  
-          <FormMessage>
-            {
-              (name === 'idSector' || name === 'idExchange')? (
-              <p className="text-sm text-gray-500 mt-2">
-                Puedes agregar esta información más adelante desde la sección de edición del proyecto.
-              </p>
-              ) : null
-            }
+          
+            <FormMessage>
+              {
+                (name === 'idSector' || name === 'idExchange') && (type === "create") ? (
+                <p className="text-sm text-gray-500 mt-2">
+                  ¿No estás seguro? Puedes modificar esta información más adelante desde la sección de edición del proyecto.
+                </p>
+                ) : null
+              }
 
-          </FormMessage>
+            </FormMessage>
         </FormItem>
       )}
     />

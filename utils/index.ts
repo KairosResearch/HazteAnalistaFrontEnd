@@ -50,8 +50,8 @@ export const defaultValuesDashboardForm = {
   id_decision_proyecto: "",
   marketCap: 0,
   siAth: 0,
-  idExchange: '',
-  idSector: '',
+  idExchange: '1',
+  idSector: '1',
   precioEntrada: 0,
   precioActual: 0,
 };

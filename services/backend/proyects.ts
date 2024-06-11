@@ -2,12 +2,13 @@ import { AUTH_URL } from "./urls";
 
 export const getProyects = async (id: any) => {
     try{
+        console.log('Llegando a getProyects')
         const response = await fetch(`${AUTH_URL}getProyectosSegUsuario/${id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json', 
             },
-            cache: 'no-cache'
+           
 
         })
         const data = await response.json();

@@ -1,27 +1,11 @@
-'use client';
-import React, { useEffect } from 'react';
+import React from 'react';
+import PrivyBox from '@/components/shared/PrivyBox';
 
-  //import AuthForm from "@/components/shared/AuthForm"
-import { useRouter } from 'next/navigation';
-import { usePrivy } from '@privy-io/react-auth';
-import { Button } from '@/components/ui/button';
-import { handleLogin } from '@/actions/login';
-import { useLogin } from '@privy-io/react-auth';
 
 const Login = () => {
-  const { authenticated} = usePrivy();
-  const router = useRouter();
 
-  const {login} = useLogin({
-    onError: (error) => {
-      console.log(error)
-    }
-  });
-  useEffect(() => {
-    if(authenticated){
-      router.push('/dashboard')
-    }
-  }, [login])
+
+
   // useEffect(() => {
   //   if (user) {
   //     const id = user?.id;
@@ -64,17 +48,16 @@ const Login = () => {
 
         <div className="bg-[#2c2c2c] p-2 py-5 lg:p-10 rounded-lg shadow-md w-full">
             
-            <h2 className="text-3xl md:text-4xl xl:text-5xl font-bold mb-10 text-center">Login</h2>
+            <h2 className="text-3xl md:text-4xl xl:text-5xl font-bold mb-10 text-center">Iniciar Sesión</h2>
             <div className=''> 
               <p className="text-center text-white">Bienvenido de nuevo a Kairos Research</p>
               <p className="text-center text-white">Inicia sesión para continuar</p>
 
             </div>
 
-            <Button
-              onClick={login}
-              className='w-full mt-5 mx-auto'
-            >Login</Button>
+            <PrivyBox />
+
+            
             {/**Formulario*/}
             {/* <AuthForm type='login' /> */}
             

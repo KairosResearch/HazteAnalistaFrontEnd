@@ -43,7 +43,7 @@ const Dashboard = (
   // const {userId} = useUserData();
  
 
-  const [sectores, setSectores] = useState<any[]>([]);
+  // const [sectores, setSectores] = useState<any[]>([]);
   const [tableData, setTableData] = useState<TableData[]>([]);
 
   
@@ -52,30 +52,7 @@ const Dashboard = (
   const [selectedRow, setSelectedRow] = useState<any>(null);
 
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if(typeof window !== undefined && window.localStorage.getItem('guzma') !== null){
-        
-        const guzma = Number(window.localStorage.getItem('guzma')); 
-        console.log('guzma', guzma)
-
-      const data = await handleGetProyects(guzma ?? 0);
-
-        const sectores = await getSectores();
-        setSectores(sectores);
-        console.log('data.proyectos', data)
-        if (typeof data === 'string') {
-          setTableData([]);
-        } else {
-          setTableData(data || []);
-        }
-      }
-
-
-     
-    };
-    fetchData();
-  }, []);
+  
 
 
   useEffect(() => {
@@ -100,6 +77,8 @@ const Dashboard = (
     // }
   }, [userTableData]);
 
+  const sectores = catalogos[3];
+
   
   
   const range = (marketCap: number) => {
@@ -115,15 +94,15 @@ const Dashboard = (
         <TableRow className='divide-x-2 divide-y sticky top-[-1px] border-grey-light bg-dark-grey/95 z-50 divide-grey-light'>
           <TableHead className="" >Proyecto</TableHead>
           <TableHead className="">Ticker</TableHead>
-          <TableHead className="">Metodo 4E</TableHead>
+          {/* <TableHead className="">Metodo 4E</TableHead> */}
           <TableHead className="">Decisión</TableHead>
           <TableHead className="">Market Cap</TableHead>
           <TableHead className="">Rango</TableHead> 
           <TableHead className="">ATH</TableHead>
           <TableHead className="">Sector</TableHead>
           <TableHead className="">Exchange</TableHead>
+          <TableHead className="">Precio Actual</TableHead>
           <TableHead className="">Precio Entrada</TableHead>
-          {/* <TableHead className="">Precio Actual</TableHead> */}
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -159,7 +138,7 @@ const Dashboard = (
 
             </TableCell>
             {/******Metodo 4E**** */}
-            <TableCell>
+            {/* <TableCell>
               <Badge
                 variant='fourE'
                 color={
@@ -167,7 +146,7 @@ const Dashboard = (
               }>
                 {data.id4e === 1 ? 'Encontrar' : data.id4e === 2 ? 'Estudiar' : data.id4e === 3 ? 'Ejecutar' : 'Evaluar'}
               </Badge>
-            </TableCell>
+            </TableCell> */}
             {/******Decision**** */}
             <TableCell> 
               <Badge
@@ -179,7 +158,7 @@ const Dashboard = (
             {/******Market Cap**** */}
             <TableCell className="whitespace-nowrap">
               $ {
-                data.market_cap ? data.market_cap.toLocaleString() : 'No disponible. Recarga la tabla' 
+                data.market_cap.toLocaleString()  
               }
 
             </TableCell> 
@@ -202,7 +181,7 @@ const Dashboard = (
               {
                 sectores.find(sector => sector.value === data.idSector) && (
                   <Badge>
-                    {sectores.find(sector => sector.value === data.idSector).label}
+                    {sectores.find(sector => sector.value === data.idSector)?.label}
                   </Badge>
                 )
               }
@@ -213,16 +192,16 @@ const Dashboard = (
               {data.idExchange === 1 ? 'Binanses' : data.idExchange === 2 ? 'Coinbase' : 'Kraken'}
               </Badge>
             </TableCell>
-            {/****** precio entrada**** */}
+            {/****** precio actual**** */}
+            <TableCell className="whitespace-nowrap">
+              $ {data.price.toLocaleString()}
+
+            </TableCell>
+            {/******precio entrada**** */}
             <TableCell className="whitespace-nowrap">
               $ {data.precioEntrada.toLocaleString()}
 
             </TableCell>
-            {/******precio salida**** */}
-            {/* <TableCell className="whitespace-nowrap">
-              $ {data.precioActual}
-
-            </TableCell> */}
           
             
           </TableRow> 
