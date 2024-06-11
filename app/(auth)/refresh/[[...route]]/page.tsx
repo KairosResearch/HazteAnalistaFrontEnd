@@ -12,6 +12,8 @@ interface Props {
 }
 
 const Refresh = ({searchParams}: Props) => {
+
+
     const router = useRouter();
     const {getAccessToken} =  usePrivy();
 
@@ -49,4 +51,6 @@ const Refresh = ({searchParams}: Props) => {
   )
 }
 
+
 export default Refresh;
+

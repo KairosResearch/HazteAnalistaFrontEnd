@@ -40,7 +40,6 @@ import { CustomField } from "./CustomField";
 //Values
 import { defaultValuesDashboardForm, randomMarketCap } from "@/utils/index";
 import { getProyectNumbers } from "@/services/coinmarketcap/info";
-import { FileCheck } from "lucide-react";
 
 //Schema
 export const formSchema = z.object({
@@ -219,7 +218,6 @@ const DashboardDataForm = ({
         setSubmitted(true);
         form.reset();
         form.reset(defaultValuesDashboardForm);
-
       }
     }
   }
