@@ -2,8 +2,7 @@
 import React, { useState, useEffect } from "react";
 //Hooks
 import { useUserTableData } from "@/hooks/useUserData";
-// import { useUserData} from "@/hooks/useUserData"
-// import { usePrivy } from "@privy-io/react-auth"
+
 //Types:
 import {
   BackendValues,
@@ -19,9 +18,7 @@ import {
 } from "@/actions/proyectActions";
 
 //Shadcn staff for forms
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { Form } from "@/components/ui/form";
 
 //UI needed
@@ -38,72 +35,40 @@ import {
 import { CustomField } from "./CustomField";
 
 //Values
-import { defaultValuesDashboardForm, randomMarketCap } from "@/utils/index";
+import { defaultValuesDashboardForm } from "@/utils/index";
 import { getProyectNumbers } from "@/services/coinmarketcap/info";
 
-//Schema
-export const formSchema = z.object({
-  nombre: z
-    .string({ required_error: "El campo 'Nombre' no puede estar vacío." })
-    .optional(),
-  ticket: z
-    .string({ required_error: "El campo 'ticket' no puede estar vacío." })
-    .optional(),
-  id4e: z.string({ required_error: "El campo '4E' no puede estar vacío." }),
-  id_decision_proyecto: z.string({
-    required_error: "El campo 'Decision' no puede estar vacío.",
-  }),
-  marketCap: z
-    .number()
-    .nonnegative("El campo 'Market Cap' debe ser un número.")
-    .optional(),
-  siAth: z.number().nonnegative("El campo 'Si Ath' debe ser un número."),
-  idExchange: z
-    .string({ required_error: "El campo 'exchange' no puede estar vacío." })
-    .optional(),
-  idSector: z
-    .string({ required_error: "El campo 'sector' no puede estar vacío." })
-    .optional(),
-  precioEntrada: z
-    .number()
-    .nonnegative("El campo 'precio' debe ser un número.")
-    .optional(),
-  precioActual: z
-    .number()
-    .nonnegative("El campo 'precio' debe ser un número.")
-    .optional(),
-});
 
 //The component with its functionalities
 const DashboardDataForm = ({
   type,
   data = null,
   catalogos,
-  close,
   projectsList,
 }: DashboardDataFormProps) => {
-  //Catalogos, separados porque vienen en un array
+  //Catalogos, separated as they come as an array
   const data4t = catalogos[0] as CatalogosType[];
   const decision = catalogos[1] as CatalogosType[];
   const exchange = catalogos[2] as CatalogosType[];
   const sector = catalogos[3] as CatalogosType[];
 
-  //Estados para el uso del formulario
+  //States for the right use of the form
   const [count, setCount] = useState(1);
   const [submitted, setSubmitted] = useState(false);
   const [emptyForm, setEmptyForm] = useState(false);
   const [symbol, setSymbol] = useState("");
   const [editablePrecio, setEditablePrecio] = useState(0);
   const { setUserTableData } = useUserTableData();
-  // const {userId} = useUserData();
 
-  //Estados para el manejo de la data
+  //States for setting errors using the hook
+  const {formState: { errors }, setError, clearErrors} = useForm();
+
+  //Estados para el manejo de la data de coinmarketcap
   const [prInfo, setPrInfo] = useState({
     market_cap: 0,
     price: 0,
   });
 
-  // console.log('User id: ', userId)
 
   //Fetching project info just right after user selects the project
   useEffect(() => {
@@ -131,7 +96,7 @@ const DashboardDataForm = ({
     foo();
   }, [symbol]);
 
-  //Valores por default para los campos del formulario
+  //Default values for the form
   const initialValues =
     data && type === "update"
       ? {
@@ -150,35 +115,44 @@ const DashboardDataForm = ({
       };
 
   //Defining the form
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm({
     defaultValues: initialValues,
   });
 
-  // 2. Define a submit handler.
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+
+  /*******submit handler********/
+  async function onSubmit(values: any) {
+
+    //Form is in create mode
+
     if (type === "create") {
+
+      //By default this error is false
       setEmptyForm(false);
 
+      //Values/types we need to send to avoid backend errors
       const backendValues: BackendValues = {
         idProyecto: Number(values.nombre),
         id4e: 1,
         id_decision_proyecto: Number(values.id_decision_proyecto),
-        marketCap: prInfo.market_cap,
+        marketCap: prInfo.market_cap?? 0,
         siAth: values.siAth,
         idExchange: Number(values.idExchange),
         idSector: Number(values.idSector),
-        precioActual: prInfo.price,
-        precioEntrada: editablePrecio,
+        precioActual: prInfo.price ?? 0,
+        precioEntrada: editablePrecio ?? 0,
       };
       console.log("Backend values", backendValues);
 
-      if (Object.values(backendValues).every((value) => value)) {
+      //Checking if all the values are filled
+      if ((backendValues.id_decision_proyecto !== 0) && (backendValues.idProyecto !== 0)) {
+        //Checking if the user is logged in and bring the guzma value
         if (
           typeof window !== "undefined" &&
           window.localStorage.getItem("guzma") !== null
         ) {
           const guzma = Number(window.localStorage.getItem("guzma"));
+          console.log("Guzma", guzma);
           const newData = await handleSubmitProyectForm(
             backendValues,
             guzma ?? 0,
@@ -188,15 +162,28 @@ const DashboardDataForm = ({
             setUserTableData(["Dato añadido" + count]);
             setSubmitted(true);
 
-            form.reset();
             form.reset(defaultValuesDashboardForm);
           }
         } else {
-          console.log("Datos null");
-          setEmptyForm(true);
+          console.log("No guzma");
+        }
+      } else {
+        setEmptyForm(true);
+        if(backendValues.idProyecto === 0){
+          setError('nombre', {
+            type: "manual",
+            message: `Nombre es obligatorio`
+          });
+        }
+        if(backendValues.id_decision_proyecto === 0){
+          setError('id_decision_proyecto', {
+            type: "manual",
+            message: `Decision es obligatorio`
+          });
         }
       }
     }
+    //Form is in update mode
     if (type === "update") {
       const backendValuesUpdate = {
         id4e: Number(values.id4e),
@@ -216,7 +203,6 @@ const DashboardDataForm = ({
         setCount(count + 1);
         setUserTableData(["Cambio de datos" + count]);
         setSubmitted(true);
-        form.reset();
         form.reset(defaultValuesDashboardForm);
       }
     }
@@ -225,7 +211,7 @@ const DashboardDataForm = ({
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} action="">
-        {emptyForm && (
+        {(errors.nombre || errors.id_decision_proyecto) && (
           <div className="mx-auto w-4/5 mt-6 hidden md:block">
             <p className="bg-red-200 p-2 text-center text-red-700">
               Por favor llena todos los campos
@@ -245,40 +231,44 @@ const DashboardDataForm = ({
           {type === "create" ? (
             <CustomField
               type={type}
-
-              control={form.control}
               name="nombre"
               formLabel="Nombre"
               className="w-full sm:mt-6"
               render={({ field }) => (
-                <Select
-                  onValueChange={(value) => {
-                    field.onChange(value);
-                    if (value !== "") {
-                      const foo = () => {
-                        const b = Number(value);
-                        const a = projectsList?.find((pr) => pr.id === b);
-                        const symbol = a?.symbol;
-                        return symbol as string;
-                      };
-                      setSymbol(foo());
-                    }
-                  }}
-                  defaultValue={field.value}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Selecciona el nombre" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {projectsList?.map((proyect) => (
-                      <>
-                        <SelectItem key={proyect.id} value={String(proyect.id)}>
-                          {proyect.proyecto}
-                        </SelectItem>
-                      </>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <>
+                  <Select
+                    onValueChange={(value) => {
+                      field.onChange(value);
+                      clearErrors('nombre');
+                      if (value !== "") {
+                        const foo = () => {
+                          const b = Number(value);
+                          const a = projectsList?.find((pr) => pr.id === b);
+                          const symbol = a?.symbol;
+                          return symbol as string;
+                        };
+                        setSymbol(foo());
+                      }
+                    }}
+                    defaultValue={field.value}
+                  >
+                    <SelectTrigger
+                      className={errors.nombre ? 'border-red-500 text-red-500' : ''}
+                    >
+                      <SelectValue placeholder="Selecciona el nombre" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {projectsList?.map((proyect) => (
+                        <>
+                          <SelectItem key={proyect.id} value={String(proyect.id)}>
+                            {proyect.proyecto}
+                          </SelectItem>
+                        </>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  {errors.nombre && <p className="text-red-500 text-sm mt-2">Nombre es obligatorio</p>}
+                </>
               )}
             />
           ) : null}
@@ -287,7 +277,6 @@ const DashboardDataForm = ({
           {type === "create" ? (
             <CustomField
               type={type}
-              control={form.control}
               name="ticket"
               formLabel="Ticker"
               className="w-full"
@@ -295,7 +284,6 @@ const DashboardDataForm = ({
                 <Input
                   {...field}
                   maxLength={5}
-                  // value={type === 'create' ? getValues("ticket") : field.value}
                   value={symbol}
                   disabled
                 />
@@ -303,83 +291,95 @@ const DashboardDataForm = ({
             />
           ) : null}
 
-          {/**4E */}
-          {/* <CustomField
-                    control={form.control}
-                    name="id4e"
-                    formLabel="4E"
-                    className="w-full sm:mt-6"
-                    render={({ field }) => (
-                        <Select
-                            onValueChange={field.onChange}
-                            defaultValue={field.value}
-                        >
-                            <SelectTrigger>
-                                <SelectValue placeholder="Selecciona el 4E" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                {data4t.map((metodo) => (
-                                    <SelectItem key={metodo.value} value={String(metodo.value)}>
-                                        <Badge
-                                            variant="fourE"
-                                            color={
-                                                metodo.label === "Evaluar"
-                                                    ? "yellow"
-                                                    : metodo.label === "Encontrar"
-                                                    ? "grey"
-                                                    : metodo.label === "Estudiar"
-                                                    ? "blue"
-                                                    : "green"
-                                            }
-                                        >
-                                            {metodo.label}
-                                        </Badge>
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
-                    )}
-                /> */}
-          {/**Decision */}
+            {/* /**4E */}
+            {/* <CustomField
+            
+            name="id4e"
+            formLabel="4E"
+            className="w-full sm:mt-6"
+            render={({ field }) => (
+              <Select
+              onValueChange={field.onChange}
+              defaultValue={field.value}
+              >
+              <SelectTrigger>
+                <SelectValue placeholder="Selecciona el 4E" />
+              </SelectTrigger>
+              <SelectContent>
+                {data4t.map((metodo) => (
+                <SelectItem
+                  key={metodo.value}
+                  value={String(metodo.value)}
+                >
+                  <Badge
+                  variant="fourE"
+                  color={
+                    metodo.label === "Evaluar"
+                    ? "yellow"
+                    : metodo.label === "Encontrar"
+                    ? "grey"
+                    : metodo.label === "Estudiar"
+                    ? "blue"
+                    : "green"
+                  }
+                  >
+                  {metodo.label}
+                  </Badge>
+                </SelectItem>
+                ))}
+              </SelectContent>
+              </Select>
+            )}
+            />  */}
+            {/**Decision */}
           <CustomField
-            type={type}
-            control={form.control}
+            type={type}    
             name="id_decision_proyecto"
             formLabel="Decision"
             className={ type === 'update' ? "w-full sm:mt-6" : "w-full"}
             render={({ field }) => (
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Decision sobre el proyecto" />
-                </SelectTrigger>
-                <SelectContent>
-                  {decision.map((decision) => (
-                    <SelectItem
-                      key={decision.value}
-                      value={String(decision.value)}
-                    >
-                      <Badge
-                        variant={
-                          decision.label === "Watchlist"
-                            ? "decisionWatchlist"
-                            : decision.label === "Descartar"
-                              ? "desicionLeave"
-                              : "desicionInvest"
-                        }
+              <>
+                <Select 
+                  onValueChange={(value) => {
+                    field.onChange(value);
+                    clearErrors('id_decision_proyecto');
+                  }}
+                  defaultValue={field.value}>
+                  <SelectTrigger
+                    className={errors.id_decision_proyecto ? 'border-red-500 text-red-500' : ''}
+                  >
+                    <SelectValue placeholder="Decision sobre el proyecto" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {decision.map((decision) => (
+                      <SelectItem
+                        key={decision.value}
+                        value={String(decision.value)}
                       >
-                        {decision.label}
-                      </Badge>
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+                        <Badge
+                          variant={
+                            decision.label === "Watchlist"
+                              ? "decisionWatchlist"
+                              : decision.label === "Descartar"
+                                ? "desicionLeave"
+                                : "desicionInvest"
+                          }
+                        >
+                          {decision.label}
+                        </Badge>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {errors.id_decision_proyecto && <p className="text-red-500 text-sm mt-2">Decision es obligatorio</p>}
+              </>
             )}
           />
           {/**Market Cap */}
           {type === "create" ? (
             <CustomField
               type={type}
-              control={form.control}
+              
               name="marketCap"
               formLabel="Market Cap"
               className="w-full"
@@ -391,11 +391,6 @@ const DashboardDataForm = ({
                     prInfo.market_cap != undefined ?
                     prInfo.market_cap.toLocaleString() : 0
                   } USD`}
-                  // onChange={(e) => {
-                  //     // Elimina los separadores de miles antes de llamar a field.onChange
-                  //     const value = parseFloat(e.target.value.replace(/,/g, ""));
-                  //     field.onChange(isNaN(value) ? "" : value);
-                  // }}
                   disabled
                 />
               )}
@@ -405,7 +400,6 @@ const DashboardDataForm = ({
           {/**Si Ath */}
           <CustomField
             type={type}
-            control={form.control}
             name="siAth"
             formLabel="Si ATH"
             className="w-full"
@@ -421,7 +415,6 @@ const DashboardDataForm = ({
           {/**Exchange */}
           <CustomField
             type={type}
-            control={form.control}
             name="idExchange"
             formLabel="Exchange"
             className="w-full"
@@ -448,7 +441,6 @@ const DashboardDataForm = ({
 
           <CustomField
             type={type}
-            control={form.control}
             name="idSector"
             formLabel="Sector"
             className="w-full"
@@ -472,7 +464,7 @@ const DashboardDataForm = ({
             type === 'create' ? (
               <CustomField
               type={type}
-                      control={form.control}
+                      
                       name="precioActual"
                       formLabel="Precio actual"
                       className="w-full"
@@ -498,7 +490,7 @@ const DashboardDataForm = ({
             type === 'create' ? (
               <CustomField
               type={type}
-                      control={form.control}
+                      
                       name="precioEntrada"
                       formLabel="Precio entrada"
                       className="w-full"
@@ -530,8 +522,7 @@ const DashboardDataForm = ({
                   />
             ) : (
               <CustomField
-              type={type}
-                      control={form.control}
+                  type={type}           
                       name="precioEntrada"
                       formLabel="Precio entrada"
                       className="w-full"
@@ -574,7 +565,7 @@ const DashboardDataForm = ({
           </>
         )}
 
-        {emptyForm && (
+        {errors && (
           <div className="mx-auto w-4/5 mt-6 block md:hidden">
             <p className="bg-red-200 p-2 text-center text-red-700">
               Por favor llena todos los campos!

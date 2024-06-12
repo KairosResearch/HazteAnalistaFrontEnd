@@ -7,7 +7,8 @@ export const getProjectsList = async () => {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
-            }
+            },
+            cache: 'force-cache'
         })
         const data = await response.json();
         return data
@@ -25,7 +26,8 @@ export const getProyectById = async (id: number) => {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
-            }
+            },
+            cache: 'force-cache'
         })
         const data = await response.json();
         const dataArray = await data.proyectosInfo;

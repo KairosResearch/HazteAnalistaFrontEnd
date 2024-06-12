@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Ref } from "react";
 import { Control } from "react-hook-form";
  import { z } from "zod";
 
@@ -10,29 +10,29 @@ import {
   FormLabel,
 } from "../ui/form";
 
-import { formSchema } from "./DashboardDataForm";
+// import { formSchema } from "./DashboardDataForm";
 
 
 type CustomFieldProps = {
-  control: Control<z.infer<typeof formSchema>> | undefined;
+
   render: (props: { field: any }) => React.ReactNode;
-  name: keyof z.infer<typeof formSchema>;
+  name: string;
   formLabel?: string;
   className?: string;
   type: 'create' | 'update' | null;
 };
 
 export const CustomField = ({
-  control,
+  
   render,
   name,
   formLabel,
   className,
-  type
+  type,
+
 }: CustomFieldProps) => {
   return (
     <FormField
-      control={control}
       name={name}
       render={({ field }) => (
         <FormItem className={className}>
