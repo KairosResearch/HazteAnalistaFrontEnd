@@ -11,9 +11,9 @@ import {
 } from "@/components/ui/table";
 import DialogInfo from "./DialogInfo";
 
+
 import { Badge } from "../ui/badge";
-import DialogItem from "./DialogItem";
-import DialogAlert from "./DialogAlert";
+import { tableHeaders } from "@/utils";
 
 //import {useUserDar}  from '@/contexts/ContextProvider';
 import { getSectores } from "@/services/backend/catalogos";
@@ -76,73 +76,20 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
     <Table className="border border-grey-light ">
       <TableHeader className="">
         <TableRow className="divide-x-2 divide-y sticky top-[-1px] border-grey-light bg-dark-grey/95 z-50 divide-grey-light">
-          <TableHead className="">Proyecto</TableHead>
-          <TableHead className="">
-            <div className="flex gap-2 items-center justify-center">
-              <Image width={20} height={20} src="/ticker.png" alt="ticker"></Image>
-              <p>Ticker</p>
-            </div>
-          </TableHead>
-          {/* <TableHead className="flex gap-2">
-          Metodo 4E</TableHead> */}
-          <TableHead className="">
-            <div className="flex gap-2 items-center justify-center">
-              <Image width={20} height={20} src="/Decision.png" alt="decision"></Image>
-              <p>Decisión</p>
-            </div>
-            
-          </TableHead>
-          <TableHead className="">
-            <div className="flex gap-2 items-center justify-center">
-            <Image width={20} height={20} src="/Sector.png" alt="sector"></Image>
-           <p>Sector</p>
-            </div>
-
-          </TableHead>
-          <TableHead className="">
-            <div className="flex gap-2 items-center justify-center">
-            <Image width={20} height={20} src="/Exchange.png" alt="exchange"></Image>
-            <p>Exchange</p>
-            </div>
-            
-          </TableHead>
-          <TableHead className="">
-            <div className="flex gap-2 items-center justify-center">
-            <Image width={20} height={20} src="/Precio.png" alt="precio-entrada"></Image>
-            <p>Precio Entrada</p>
-            </div>
-            
-          </TableHead>
-          <TableHead className="">
-            <div className="flex gap-2 items-center justify-center">
-            <Image width={20} height={20} src="/Precio.png" alt="precio-actual"></Image>
-            <p>Precio Actual</p>
-            </div>
-            
-          </TableHead>
-          <TableHead className="">
-            {/* <Image width={20} height={20}
-              src='/'
-            >
-            </Image> */}
-            Si ATH
-          </TableHead>
-          <TableHead className="">
-            {/* <Image
-              src='/'
-            >
-            </Image> */}
-            Market Cap
-          </TableHead>
-          <TableHead className="">
-            {/* <Image
-              src='/'
-            >
-            </Image> */}
-            Rango
-          </TableHead>
-        </TableRow>
+          {
+            tableHeaders.map((header) => (
+              <TableHead key={header.key} className="">
+                <div className="flex gap-2 items-center justify-center">
+                  <Image width={20} height={20} src={header.icon} alt={header.name} />
+                  <p>{header.name}</p>
+                </div>
+              </TableHead>
+            ))
+          }
+          </TableRow>
       </TableHeader>
+      
+      
       <TableBody>
         {/* If no data  */}
         {tableData && tableData.length === 0 && !loading && (

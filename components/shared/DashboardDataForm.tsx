@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 //Hooks
 import { useUserTableData } from "@/hooks/useUserData";
 
+
 //Types:
 import {
   BackendValues,
@@ -34,9 +35,13 @@ import {
 } from "../ui/select";
 import { CustomField } from "./CustomField";
 
+
 //Values
 import { defaultValuesDashboardForm } from "@/utils/index";
 import { getProyectNumbers } from "@/services/coinmarketcap/info";
+
+//Utils
+import { siAthCalculator } from "@/utils/index";
 
 
 //The component with its functionalities
@@ -55,7 +60,6 @@ const DashboardDataForm = ({
   //States for the right use of the form
   const [count, setCount] = useState(1);
   const [submitted, setSubmitted] = useState(false);
-  const [emptyForm, setEmptyForm] = useState(false);
   const [symbol, setSymbol] = useState("");
   const [editablePrecio, setEditablePrecio] = useState(0);
   const { setUserTableData } = useUserTableData();
@@ -67,7 +71,9 @@ const DashboardDataForm = ({
   const [prInfo, setPrInfo] = useState({
     market_cap: 0,
     price: 0,
+    siAth: 0
   });
+  console.log(prInfo.siAth  )
 
 
   //Fetching project info just right after user selects the project
@@ -77,6 +83,7 @@ const DashboardDataForm = ({
       setPrInfo({
         market_cap: 0,
         price: 0,
+        siAth: 0
       });
 
       const newPrInfo = await getProyectNumbers(symbol);
@@ -85,9 +92,17 @@ const DashboardDataForm = ({
       const market_cap = opa?.market_cap;
       const price = opa?.price;
 
+      //Esto debería ir en un hook del estado de editablePrecio para 
+      //modificar el precio del siAth siempre que se modifique el precio de entrada
+      let siAth = 0;
+      if(price){
+        siAth = siAthCalculator(price, 2390);
+      }
+
       setPrInfo({
         market_cap,
         price,
+        siAth
       });
 
       setEditablePrecio(price);
@@ -128,7 +143,6 @@ const DashboardDataForm = ({
     if (type === "create") {
 
       //By default this error is false
-      setEmptyForm(false);
 
       //Values/types we need to send to avoid backend errors
       const backendValues: BackendValues = {
@@ -168,7 +182,6 @@ const DashboardDataForm = ({
           console.log("No guzma");
         }
       } else {
-        setEmptyForm(true);
         if(backendValues.idProyecto === 0){
           setError('nombre', {
             type: "manual",
@@ -268,13 +281,14 @@ const DashboardDataForm = ({
                     </SelectContent>
                   </Select>
                   {errors.nombre && <p className="text-red-500 text-sm mt-2">Nombre es obligatorio</p>}
+                  {symbol && <p className="text-sm text-gray-500 mt-2">Ticker: {symbol}</p>}
                 </>
               )}
             />
           ) : null}
 
           {/**Ticket */}
-          {type === "create" ? (
+          {/* {type === "create" ? (
             <CustomField
               type={type}
               name="ticket"
@@ -289,7 +303,7 @@ const DashboardDataForm = ({
                 />
               )}
             />
-          ) : null}
+          ) : null} */}
 
             {/* /**4E */}
             {/* <CustomField
@@ -331,12 +345,13 @@ const DashboardDataForm = ({
               </Select>
             )}
             />  */}
+
             {/**Decision */}
           <CustomField
             type={type}    
             name="id_decision_proyecto"
             formLabel="Decision"
-            className={ type === 'update' ? "w-full sm:mt-6" : "w-full"}
+            className={ type === 'update' ? "w-full sm:mt-6" : "w-full mt-0"}
             render={({ field }) => (
               <>
                 <Select 
@@ -375,6 +390,9 @@ const DashboardDataForm = ({
               </>
             )}
           />
+          <div>
+
+          </div>
           {/**Market Cap */}
           {type === "create" ? (
             <CustomField
@@ -406,57 +424,13 @@ const DashboardDataForm = ({
             render={({ field }) => (
               <Input
                 {...field}
-                type="number"
-                value={field.value}
-                onChange={(e) => field.onChange(parseFloat(e.target.value))}
+                type="text"
+                value={`${
+                  (prInfo.siAth === undefined) ?
+                    0 : prInfo.siAth.toLocaleString() 
+                } X`}
+                disabled
               />
-            )}
-          />
-          {/**Exchange */}
-          <CustomField
-            type={type}
-            name="idExchange"
-            formLabel="Exchange"
-            className="w-full"
-            render={({ field }) => (
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <SelectTrigger>
-                  <SelectValue  />
-                </SelectTrigger>
-                <SelectContent>
-                  {exchange.map((exchange) => (
-                    <SelectItem
-                      key={exchange.value}
-                      value={String(exchange.value)}
-                    >
-                      <Badge>{exchange.label}</Badge>
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            )}
-          />
-
-          {/**Sector */}
-
-          <CustomField
-            type={type}
-            name="idSector"
-            formLabel="Sector"
-            className="w-full"
-            render={({ field }) => (
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {sector.map((sector) => (
-                    <SelectItem key={sector.value} value={String(sector.value)}>
-                      <Badge>{sector.label}</Badge>
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
             )}
           />
           {/**Precio actual */}
@@ -483,7 +457,6 @@ const DashboardDataForm = ({
                   />
             ) : null
           }
-
 
           {/**Precio entrada */}
           {
@@ -550,6 +523,58 @@ const DashboardDataForm = ({
                   />
             )
           }
+
+          {/**Exchange */}
+          <CustomField
+            type={type}
+            name="idExchange"
+            formLabel="Exchange"
+            className="w-full"
+            render={({ field }) => (
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <SelectTrigger>
+                  <SelectValue  />
+                </SelectTrigger>
+                <SelectContent>
+                  {exchange.map((exchange) => (
+                    <SelectItem
+                      key={exchange.value}
+                      value={String(exchange.value)}
+                    >
+                      <Badge>{exchange.label}</Badge>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
+          />
+
+          {/**Sector */}
+
+          <CustomField
+            type={type}
+            name="idSector"
+            formLabel="Sector"
+            className="w-full"
+            render={({ field }) => (
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {sector.map((sector) => (
+                    <SelectItem key={sector.value} value={String(sector.value)}>
+                      <Badge>{sector.label}</Badge>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
+          />
+          
+
+
+          
           
                 
           
@@ -565,7 +590,7 @@ const DashboardDataForm = ({
           </>
         )}
 
-        {errors && (
+        {(errors.nombre || errors.id_decision_proyecto) && (
           <div className="mx-auto w-4/5 mt-6 block md:hidden">
             <p className="bg-red-200 p-2 text-center text-red-700">
               Por favor llena todos los campos!

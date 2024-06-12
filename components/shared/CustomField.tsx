@@ -1,6 +1,6 @@
 import React, { Ref } from "react";
-import { Control } from "react-hook-form";
- import { z } from "zod";
+
+import { iconsForm } from "@/utils/index";
 
 import {
   FormField,
@@ -9,6 +9,7 @@ import {
   FormMessage,
   FormLabel,
 } from "../ui/form";
+import Image from "next/image";
 
 // import { formSchema } from "./DashboardDataForm";
 
@@ -31,6 +32,8 @@ export const CustomField = ({
   type,
 
 }: CustomFieldProps) => {
+
+  const a = iconsForm.find((icon) => icon.name === name);
   return (
     <FormField
       name={name}
@@ -39,7 +42,26 @@ export const CustomField = ({
           {formLabel && 
           
             <FormLabel>
-              {(formLabel === 'Sector' || formLabel === 'Exchange') && type === 'create' ? `${formLabel} (opcional)` : formLabel }
+              <div className="flex gap-2 items-center ">
+
+                {
+                  a &&
+                  <Image
+                    src={a?.icon }
+                    alt={a?.alt}
+                    width={15}
+                    height={15}
+                  />
+                }
+                  
+
+                
+
+                <p>
+                {(formLabel === 'Sector' || formLabel === 'Exchange') && type === 'create' ? `${formLabel} (opcional)` : formLabel }
+                </p>
+              </div>
+              
             </FormLabel>
           
           }
@@ -52,7 +74,7 @@ export const CustomField = ({
               {
                 (name === 'idSector' || name === 'idExchange') && (type === "create") ? (
                 <p className="text-sm text-gray-500 mt-2">
-                  ¿No estás seguro? Puedes modificar esta información más adelante desde la sección de edición del proyecto.
+                  **Puedes editar esta información más tarde
                 </p>
                 ) : null
               }

@@ -1,12 +1,7 @@
 import React from 'react'
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion"
+
 import {Badge} from '@/components/ui/badge'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -42,7 +37,39 @@ const InfoTabs = ({info}: InfoTabsProps) => {
                 <h2 className='text-xl md:text-2xl font-bold mb-3'>Links</h2>
 
                 
-                  <ul className='flex gap-4 items-center'>
+                  <ul className='flex gap-4 md:gap-5 items-center'>
+                    {(info.website && info.website != 'N/A') &&
+                      <Link 
+                        target='_blank'
+                        href={info.website}>
+                        <li>
+                          <Image
+                                  src='/Web.png'
+                                  alt='Home'
+                                  height={75}
+                                  width={75}
+                              />  
+                        </li>                            
+                      </Link>
+
+                    }
+                    {/* Documentacion */}
+                      {
+                        (info.documentacion && info.documentacion != 'N/A') &&
+                        <Link 
+                          target='_blank'
+                          href={info.documentacion}>
+                          <li>
+                            <Image
+                                    src='/Documento.png'
+                                    alt='Home'
+                                    height={75}
+                                    width={75}
+                                />  
+                          </li>                            
+                        </Link>
+
+                      }
 
                     {(info.twitter && info.twitter != 'N/A') &&
                       
@@ -51,10 +78,10 @@ const InfoTabs = ({info}: InfoTabsProps) => {
                         href={info.twitter}>
                           <li>
                             <Image
-                                    src='/twitter-x-fill.svg'
+                                    src='/Twitter.png'
                                     alt='Home'
-                                    height={100}
-                                    width={100}
+                                    height={75}
+                                    width={75}
                                 />  
                           </li>                            
                         </Link>
@@ -67,10 +94,10 @@ const InfoTabs = ({info}: InfoTabsProps) => {
                         href={info.discord}>
                       <li>
                         <Image
-                                src='/discord-fill.svg'
+                                src='/Discord.png'
                                 alt='Home'
-                                height={100}
-                                width={100}
+                                height={75}
+                                width={75}
                             />  
                       </li>                            
                     </Link>
@@ -82,10 +109,10 @@ const InfoTabs = ({info}: InfoTabsProps) => {
                         href={info.github}>
                       <li>
                         <Image
-                                src='/github-fill.svg'
+                                src='/Github.png'
                                 alt='Home'
-                                height={100}
-                                width={100}
+                                height={75}
+                                width={75}
                             />  
                       </li>                            
                     </Link>

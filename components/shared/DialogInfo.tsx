@@ -57,16 +57,7 @@ const DialogInfo = ({
                 >
                   Proyecto: {selectedRow.proyecto} | {info?.ticker}
                 </DialogTitle>
-                {
-                 ( info?.website && info?.website != 'N/A' ) && (
-                    <Link
-                      href={info?.website}
-                      target='_blank'
-                    >
-                      <p className="underline">Docs del proyecto</p>
-                    </Link>
-                  )
-                }
+                
 
                 <div className='flex gap-3'>
                   
@@ -115,11 +106,6 @@ const DialogInfo = ({
 
           )}
 
-          {/* <DialogClose
-            onClick={close}
-          >
-              Cerrar
-          </DialogClose> */}
         </DialogContent>
         
       </Dialog>

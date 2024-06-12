@@ -15,8 +15,8 @@ export const debounce = (func: (...args: any[]) => void, delay: number) => {
 };
 
 //Random number generator between 1.000.000 and 10.000.000.000
-export const randomMarketCap = () => {
-  return Math.floor(Math.random() * 10000000000) + 1000000;
+export const siAthCalculator = (precioEntrada: number, precioAth: number) => {
+  return Math.floor(precioAth/precioEntrada) - 1;
 };
 
 
@@ -56,15 +56,35 @@ export const defaultValuesDashboardForm = {
   precioActual: 0,
 };
 
-//Data for the form:
-export const defaultValuesAuthForm = {
-  name: "",
-  email: "",
-  password: "",
-  newPassword: "",
-  rememberMe: false
-};
 
+
+//Icons for the form:
+export const iconsForm = [
+  {name: 'nombre', alt: 'nombre', icon: '/Proyecto.png'},
+  {name: 'ticket', alt: 'ticker', icon: '/Ticker.png'},
+  {name: 'id4e', alt: '4e', icon: '/4E.png'},
+  {name: 'id_decision_proyecto', alt: 'decision', icon: '/Decision.png'},
+  {name: 'marketCap', alt: 'market cap', icon: '/cap.png'},
+  {name: 'siAth', alt: 'si ath', icon: '/ATH.png'},
+  {name: 'idExchange', alt: 'exchange', icon: '/Exchange.png'},
+  {name: 'idSector', alt: 'sector', icon: '/Sector.png'},
+  {name: 'precioEntrada', alt: 'precio entrada', icon: '/Precio.png'},
+  {name: 'precioActual', alt: 'precio actual', icon: '/Precio.png'},
+]
+
+export const tableHeaders = [
+  {name: 'Proyecto', icon:'/Proyecto.png', key: 'proyecto'},
+  {name: 'Ticker', icon:'/Ticker.png', key: 'ticket'},
+  // {name: '4E', icon:'', key: 'id4e'},
+  {name: 'Decision', icon:'/Decision.png', key: 'id_decision_proyecto'},
+  {name: 'Sector', icon:'/Sector.png', key: 'sector'},
+  {name: 'Exchange', icon:'/Exchange.png', key: 'idExchange'},
+  {name: 'Precio Entrada', icon:'/Precio.png', key: 'precioEntrada'},
+  {name: 'Precio Actual', icon:'/Precio.png', key: 'precioActual'},
+  {name: 'Si ATH', icon:'/ATH.png', key: 'siAth'},
+  {name: 'Market Cap', icon:'/cap.png', key: 'marketCap'},
+  {name: 'Rango', icon: '/Rango.png', key: 'rango'},
+]
 
 
 export const errorHandlerAuthForm =  (errMessage: string) => {
