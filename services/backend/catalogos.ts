@@ -41,7 +41,6 @@ export const getExchange = async () => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            cache: 'force-cache'
         })
         const data = await response.json()
         const {exchages} = data;
