@@ -73,7 +73,7 @@ const DashboardDataForm = ({
     price: 0,
     siAth: 0
   });
-  console.log(prInfo.siAth  )
+
 
 
   //Fetching project info just right after user selects the project
@@ -150,7 +150,7 @@ const DashboardDataForm = ({
         id4e: 1,
         id_decision_proyecto: Number(values.id_decision_proyecto),
         marketCap: prInfo.market_cap?? 0,
-        siAth: values.siAth,
+        siAth: prInfo.siAth ?? 0,
         idExchange: Number(values.idExchange),
         idSector: Number(values.idSector),
         precioActual: prInfo.price ?? 0,
@@ -171,13 +171,19 @@ const DashboardDataForm = ({
             backendValues,
             guzma ?? 0,
           );
-          if (newData) {
+          if(newData === 'praldreadyexists'){
+            setError('nombre', {
+              type: "manual",
+              message: `Ya guardaste este proyecto`
+            });
+          } else {
             setCount(count + 1);
             setUserTableData(["Dato añadido" + count]);
             setSubmitted(true);
 
             form.reset(defaultValuesDashboardForm);
           }
+
         } else {
           console.log("No guzma");
         }
@@ -224,13 +230,22 @@ const DashboardDataForm = ({
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} action="">
-        {(errors.nombre || errors.id_decision_proyecto) && (
-          <div className="mx-auto w-4/5 mt-6 hidden md:block">
+
+        <div className="mx-auto w-4/5 mt-6 hidden md:block">
+          {(errors.nombre?.message === 'Ya guardaste este proyecto') ? (
             <p className="bg-red-200 p-2 text-center text-red-700">
-              Por favor llena todos los campos
-            </p>
-          </div>
-        )}
+              Ya guardaste este proyecto. Elige otro!
+          </p>
+          ) : (errors.nombre || errors.id_decision_proyecto) ? (
+            
+              <p className="bg-red-200 p-2 text-center text-red-700">
+                Por favor llena todos los campos
+              </p>
+          ): null
+          }
+
+        </div>
+        
         {submitted && (
           <>
             <div className="mx-auto w-4/5 mt-6 hidden md:block">
@@ -240,7 +255,9 @@ const DashboardDataForm = ({
             </div>
           </>
         )}
-        <div className="space-y-6 md:grid grid-flow-row grid-cols-3 gap-6">
+        <div className={`space-y-6 md:grid grid-flow-row 
+          ${type === 'create' ? 'grid-cols-3' : 'grid-cols-2'} 
+          gap-6`}>
           {type === "create" ? (
             <CustomField
               type={type}
@@ -280,7 +297,9 @@ const DashboardDataForm = ({
                       ))}
                     </SelectContent>
                   </Select>
-                  {errors.nombre && <p className="text-red-500 text-sm mt-2">Nombre es obligatorio</p>}
+                  <p className="text-red-500 text-sm mt-2">
+                    {errors.nombre && <>{errors.nombre.message || ''}</>}
+                  </p>
                   {symbol && <p className="text-sm text-gray-500 mt-2">Ticker: {symbol}</p>}
                 </>
               )}
@@ -390,9 +409,15 @@ const DashboardDataForm = ({
               </>
             )}
           />
-          <div>
+          
+          {
+            type === 'create' && (
+              <div>
+              </div>
+            )
+          }
 
-          </div>
+
           {/**Market Cap */}
           {type === "create" ? (
             <CustomField
@@ -416,23 +441,30 @@ const DashboardDataForm = ({
           ) : null}
 
           {/**Si Ath */}
-          <CustomField
-            type={type}
-            name="siAth"
-            formLabel="Si ATH"
-            className="w-full"
-            render={({ field }) => (
-              <Input
-                {...field}
-                type="text"
-                value={`${
-                  (prInfo.siAth === undefined) ?
-                    0 : prInfo.siAth.toLocaleString() 
-                } X`}
-                disabled
+
+          {
+            type === 'create' ? (
+              <CustomField
+                type={type}
+                name="siAth"
+                formLabel="Si ATH"
+                className="w-full"
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    type="text"
+                    value={`${
+                      (prInfo.siAth != undefined) ?
+                        prInfo.siAth.toLocaleString(): 0 
+                    } X`}
+                    disabled
+                  />
+                )}
               />
-            )}
-          />
+            ): null
+          }
+          
+          
           {/**Precio actual */}
           {
             type === 'create' ? (
@@ -590,13 +622,20 @@ const DashboardDataForm = ({
           </>
         )}
 
-        {(errors.nombre || errors.id_decision_proyecto) && (
-          <div className="mx-auto w-4/5 mt-6 block md:hidden">
+        <div className="mx-auto w-4/5 mt-6 block md:hidden">
+        {(errors.nombre?.message === 'Ya guardaste este proyecto') ? (
             <p className="bg-red-200 p-2 text-center text-red-700">
-              Por favor llena todos los campos!
-            </p>
+              Ya guardaste este proyecto. Elige otro!
+          </p>
+          ) : (errors.nombre || errors.id_decision_proyecto) ? (
+            
+              <p className="bg-red-200 p-2 text-center text-red-700">
+                Por favor llena todos los campos
+              </p>
+          ): null
+          }
           </div>
-        )}
+        
 
         {/*Botones*/}
 

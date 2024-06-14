@@ -47,15 +47,28 @@ const DialogItem = (props: DialogItemProps) => {
 
       <DialogContent className="max-h-[50vh] md:max-h-full md:min-w-[80%] overflow-auto">
         <DialogHeader >
+
+            {
+              props.mode === "edit" && (
+                <DialogTitle className="text-xl md:text-3xl">
+                  <span>{props.data?.proyecto} {" "}</span>
+                  <span className="text-sm text-gray-500">
+                     - {props.data?.ticker}
+                  </span>
+                </DialogTitle>
+              )
+
+            }
+              
             <div className="md:hidden">
             <DialogTitle className="text-xl">
-            {props.mode === "edit" ? (
-              <span>Editar Proyecto</span>
-            ) : (
-              <span>Agregar Proyecto</span>
-            )}
+              {props.mode === "add" && (
+                <span>Agregar Proyecto</span>
+              )}
           </DialogTitle>
           <DialogDescription>Configura tu proyecto</DialogDescription>
+            
+
             </div>
 
               <DialogClose className='absolute top-2 right-2 cursor-pointer hover:text-red-500'>

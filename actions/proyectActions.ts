@@ -1,7 +1,7 @@
 'use server'
 import { postProyect, getProyects, deleteProyect, updateProyect } from "@/services/backend/proyects";
 import { getProyectNumbers } from "@/services/coinmarketcap/info";
-import { cookies } from "next/headers";
+// import { cookies } from "next/headers";
 import { TableData } from "@/index";
 
 // function valuesFromCookies() {
@@ -17,7 +17,6 @@ import { TableData } from "@/index";
 export const handleGetProyects = async (userId: number) => {
     try {
         // const {userId} = valuesFromCookies();
-        console.log('userId', userId)
         const response = await getProyects(userId)
         
         if (response.error) {
@@ -31,8 +30,6 @@ export const handleGetProyects = async (userId: number) => {
             const b = await getProyectNumbers(cleanTicker);
             const  c = b?.data?.[cleanTicker]?.quote?.USD;
 
-            console.log('Price', c?.price);
-            console.log('Market', c?.market_cap);
             return {
                 ...proyecto,
                 market_cap: c?.market_cap || 0,
@@ -49,10 +46,10 @@ export const handleSubmitProyectForm = async (formData: any, idUsuario: number) 
     try {
         // const {userId} = valuesFromCookies();
         const posted = await postProyect( {...formData, idUsuario})
-        console.log(posted)
-        if (posted) {
-            // const newData = await handleGetProyects(idUsuario);
-            // console.log('Nueva Data dentro del backend', newData)
+        console.log("Que manda: ", posted)
+        if (posted === 401) {
+            return 'praldreadyexists';            
+        }   else {
             return true;
         }
     } catch (err) {
@@ -70,7 +67,6 @@ export const handleDeleteProyect = async (id_proyecto: number | null) => {
         //     const newData = await getProyects(userId, userId)
         //     return newData;
         // }
-        console.log(deleted)
         return deleted;
     } catch (err) {
         console.error(err)
@@ -80,13 +76,11 @@ export const handleDeleteProyect = async (id_proyecto: number | null) => {
 export const handleUpdateProyect = async (formData: any) => {
     try {
         
-        console.log('formData', formData)
         const updated = await updateProyect(formData);
         // if (updated) {
         //     const newData = await getProyects(accessToken)
         //     return newData;
         // }
-        console.log(updated)
         return updated;
     } catch (err) {
         console.error(err)

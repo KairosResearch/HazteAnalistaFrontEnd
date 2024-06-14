@@ -29,8 +29,12 @@ export const postProyect = async ( proyectData: any) => {
             },
             body: JSON.stringify(proyectData)
         })
-        const data = await response.json()
-        return data
+        if(!response.ok){
+            return response.status
+        } else{
+            const data = await response.json()
+            return data
+        }
     } catch (err) {
         console.error('error en postProyect: ', err)
     }

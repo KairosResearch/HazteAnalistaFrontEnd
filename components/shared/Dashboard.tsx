@@ -163,7 +163,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
               <TableCell>
                 <Badge>
                   {data.idExchange === 1
-                    ? "Binanses"
+                    ? "Binance"
                     : data.idExchange === 2
                       ? "Coinbase"
                       : "Kraken"}

@@ -10,14 +10,13 @@ export const loginUserBackend = async (privyId: string | undefined, name: string
             id_user_privy: privyId,
             wallet: name
         }
-        console.log('Usuario a guardar en backend:  ' , userToBack)
 
         const data = await postLogin(userToBack);
         
         if(typeof data === 'number'){
             return data.toLocaleString();
         } else {
-            console.log('Id que viene del post data, en utils: ', data.id_usuario)
+            
             return data.id_usuario;
         }
         
