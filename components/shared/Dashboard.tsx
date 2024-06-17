@@ -15,9 +15,9 @@ import DialogInfo from "./DialogInfo";
 import { Badge } from "../ui/badge";
 import { tableHeaders } from "@/utils";
 
-//import {useUserDar}  from '@/contexts/ContextProvider';
-import { getSectores } from "@/services/backend/catalogos";
+//Calculous
 import { rangeDesigner } from "@/utils";
+import { rendimientoCalculator } from "@/utils";
 
 //Hook de useUserData
 // import { useUserData } from '@/hooks/useUserData';
@@ -27,7 +27,6 @@ import { tableDataDefault } from "@/lib/data";
 import { TableData } from "@/index";
 import { DashboardProps } from "@/index";
 import { handleGetProyects } from "@/actions/proyectActions";
-import { Button } from "../ui/button";
 import Loading from "./Loading";
 import Image from "next/image";
 
@@ -181,7 +180,11 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
               </TableCell>
 
               {/******Si ATH**** */}
-              <TableCell>{data.siAth}X</TableCell>
+              <TableCell>
+                {
+                  rendimientoCalculator(data.precioEntrada, data.price).toFixed(2)
+                } %
+              </TableCell>
 
               {/******Market Cap**** */}
               <TableCell className="whitespace-nowrap">

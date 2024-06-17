@@ -36,6 +36,11 @@ export const rangeDesigner = (marketCap: number) => {
   }
 }
 
+//---- Funcion que calcula el Rendimiento actual ----//
+export const rendimientoCalculator = (precioEntrada: number, precioActual: number) => {
+  return ((precioActual/precioEntrada) - 1) * 100;
+}; 
+
 
 
 //-----Default values---//
@@ -81,7 +86,7 @@ export const tableHeaders = [
   {name: 'Exchange', icon:'/Exchange.png', key: 'idExchange'},
   {name: 'Precio Entrada', icon:'/Precio.png', key: 'precioEntrada'},
   {name: 'Precio Actual', icon:'/Precio.png', key: 'precioActual'},
-  {name: 'Si ATH', icon:'/ATH.png', key: 'siAth'},
+  {name: 'Rendimiento Actual', icon:'/ATH.png', key: 'siAth'},
   {name: 'Market Cap', icon:'/cap.png', key: 'marketCap'},
   {name: 'Rango', icon: '/Rango.png', key: 'rango'},
 ]

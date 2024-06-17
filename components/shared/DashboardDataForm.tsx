@@ -37,7 +37,7 @@ import { CustomField } from "./CustomField";
 
 
 //Values
-import { defaultValuesDashboardForm } from "@/utils/index";
+import { debounce, defaultValuesDashboardForm, rendimientoCalculator } from "@/utils/index";
 import { getProyectNumbers } from "@/services/coinmarketcap/info";
 
 //Utils
@@ -71,7 +71,7 @@ const DashboardDataForm = ({
   const [prInfo, setPrInfo] = useState({
     market_cap: 0,
     price: 0,
-    siAth: 0
+    
   });
 
 
@@ -83,7 +83,6 @@ const DashboardDataForm = ({
       setPrInfo({
         market_cap: 0,
         price: 0,
-        siAth: 0
       });
 
       const newPrInfo = await getProyectNumbers(symbol);
@@ -92,17 +91,10 @@ const DashboardDataForm = ({
       const market_cap = opa?.market_cap;
       const price = opa?.price;
 
-      //Esto debería ir en un hook del estado de editablePrecio para 
-      //modificar el precio del siAth siempre que se modifique el precio de entrada
-      let siAth = 0;
-      if(price){
-        siAth = siAthCalculator(price, 2390);
-      }
 
       setPrInfo({
         market_cap,
         price,
-        siAth
       });
 
       setEditablePrecio(price);
@@ -110,6 +102,17 @@ const DashboardDataForm = ({
     };
     foo();
   }, [symbol]);
+
+  //Difning the 'rendimiento' when editablePrice changes
+  useEffect(() => {
+    
+    debounce(()=> {
+      const rendimiento = rendimientoCalculator(editablePrecio, prInfo.price);
+      form.setValue('siAth', rendimiento);
+    }, 1000)();
+    
+  }, [editablePrecio]);
+
 
   //Default values for the form
   const initialValues =
@@ -149,8 +152,8 @@ const DashboardDataForm = ({
         idProyecto: Number(values.nombre),
         id4e: 1,
         id_decision_proyecto: Number(values.id_decision_proyecto),
+        siAth: 0,
         marketCap: prInfo.market_cap?? 0,
-        siAth: prInfo.siAth ?? 0,
         idExchange: Number(values.idExchange),
         idSector: Number(values.idSector),
         precioActual: prInfo.price ?? 0,
@@ -207,8 +210,8 @@ const DashboardDataForm = ({
       const backendValuesUpdate = {
         id4e: Number(values.id4e),
         id_decision_proyecto: Number(values.id_decision_proyecto),
-        siAth: values.siAth,
         idExchange: Number(values.idExchange),
+        siAth: 0,
         idSector: Number(values.idSector),
         precioEntrada: values.precioEntrada,
         id: data?.id_proyecto,
@@ -324,46 +327,6 @@ const DashboardDataForm = ({
             />
           ) : null} */}
 
-            {/* /**4E */}
-            {/* <CustomField
-            
-            name="id4e"
-            formLabel="4E"
-            className="w-full sm:mt-6"
-            render={({ field }) => (
-              <Select
-              onValueChange={field.onChange}
-              defaultValue={field.value}
-              >
-              <SelectTrigger>
-                <SelectValue placeholder="Selecciona el 4E" />
-              </SelectTrigger>
-              <SelectContent>
-                {data4t.map((metodo) => (
-                <SelectItem
-                  key={metodo.value}
-                  value={String(metodo.value)}
-                >
-                  <Badge
-                  variant="fourE"
-                  color={
-                    metodo.label === "Evaluar"
-                    ? "yellow"
-                    : metodo.label === "Encontrar"
-                    ? "grey"
-                    : metodo.label === "Estudiar"
-                    ? "blue"
-                    : "green"
-                  }
-                  >
-                  {metodo.label}
-                  </Badge>
-                </SelectItem>
-                ))}
-              </SelectContent>
-              </Select>
-            )}
-            />  */}
 
             {/**Decision */}
           <CustomField
@@ -447,22 +410,24 @@ const DashboardDataForm = ({
               <CustomField
                 type={type}
                 name="siAth"
-                formLabel="Si ATH"
+                formLabel="Rendimiento Actual"
                 className="w-full"
                 render={({ field }) => (
                   <Input
                     {...field}
                     type="text"
                     value={`${
-                      (prInfo.siAth != undefined) ?
-                        prInfo.siAth.toLocaleString(): 0 
-                    } X`}
+                      (form.getValues('siAth') != undefined) ?
+                        form.getValues('siAth').toLocaleString(): 0 
+                    } %`}
                     disabled
                   />
                 )}
               />
             ): null
           }
+          
+
           
           
           {/**Precio actual */}
