@@ -15,7 +15,7 @@ import DialogItem  from '@/components/shared/DialogItem';
 import { DialogInfoProps, InfoTabsProps, ProyectsInfo } from '@/index';
 import InfoTabs from './InfoTabs'
 import { getProyectById } from '@/services/backend/proyectsInfo';
-import Link from 'next/link';
+import EditProjectButton from './EditProjectButton';
 
 
 const DialogInfo = ({
@@ -60,6 +60,8 @@ const DialogInfo = ({
                 
 
                 <div className='flex gap-3'>
+
+                    <EditProjectButton />
                   
                     <DialogItem
                           projectsList={null}

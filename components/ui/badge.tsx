@@ -2,6 +2,7 @@ import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/utils"
+import { BINANCE, COINBASE, KRAKEN } from "@/lib/constants"
 
 const colorMap = {
   red: 'bg-red-500',
@@ -22,12 +23,12 @@ const badgeVariants = cva(
       variant: {
         fourE:
           "rounded-full border border-transparent bg-primary text-primary-foreground ",
-        typeProyect:
-          "border-transparent rounded bg-typeProyect/50",
-        typeNarrative: 
-        'border-transparent rounded bg-typeNarrative/50',
-        typeReflection:
-          "border-transparent rounded bg-typeReflection/50",
+        // typeProyect:
+        //   "border-transparent rounded bg-typeProyect/50",
+        // typeNarrative: 
+        // 'border-transparent rounded bg-typeNarrative/50',
+        // typeReflection:
+        //   "border-transparent rounded bg-typeReflection/50",
         decisionWatchlist: 
           "border-transparent rounded bg-decisionWatchlist/50",
         desicionLeave:
@@ -36,6 +37,9 @@ const badgeVariants = cva(
           "border-transparent rounded bg-desicionInvest/50",
         range: "text-foreground",
         sectorAndExchange: "bg-primary rounded  text-primary-foreground",
+        binance: `bg-binance text-[#1E1F24]`,
+        coinbase: `bg-coinbase`,
+        kraken: `bg-kraken`,
       },
     },
     defaultVariants: {

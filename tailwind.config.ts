@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss"
+import { BINANCE, COINBASE, KRAKEN} from "./lib/constants";
 let greenDark = "#319383";
 let greyLight = '#d9d9d9';
 
@@ -83,6 +84,15 @@ const config = {
         },
         desicionInvest: {
           DEFAULT: '#10b981', // green-500
+        },
+        binance: {
+          DEFAULT: BINANCE,
+        },
+        coinbase: {
+          DEFAULT: COINBASE,
+        },
+        kraken: {
+          DEFAULT: KRAKEN,
         },
       },
       borderRadius: {

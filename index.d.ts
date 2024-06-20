@@ -4,6 +4,14 @@ export type CatalogosType = {
     label: string;
 };
 
+
+interface DialogHookProps {
+    isOpen: boolean;
+    setIsOpen: (newState: boolean) => void;
+    mode: 'add' |'edit' | 'none';
+    setMode: (newMode: 'add' |'edit' | 'none') => void;
+}
+
 interface UserProps {
     id: number
     email: string,
@@ -186,3 +194,4 @@ interface ProyectsInfo {
 interface InfoTabsProps {
     info: ProyectsInfo
 }
+

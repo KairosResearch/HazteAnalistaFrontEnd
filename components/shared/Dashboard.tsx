@@ -160,7 +160,15 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
 
               {/******Exchange**** */}
               <TableCell>
-                <Badge>
+                <Badge
+                  variant={
+                    data.idExchange === 1
+                      ? "binance"
+                      : data.idExchange === 2
+                        ? "coinbase"
+                        : "kraken"
+                  }
+                >
                   {data.idExchange === 1
                     ? "Binance"
                     : data.idExchange === 2

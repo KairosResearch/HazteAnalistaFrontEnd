@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 //Hooks
 import { useUserTableData } from "@/hooks/useUserData";
+import { useDialogItem } from "@/hooks/useDialogs";
 
 
 //Types:
@@ -34,14 +35,12 @@ import {
   SelectValue,
 } from "../ui/select";
 import { CustomField } from "./CustomField";
+import { DialogClose } from "../ui/dialog";
 
 
-//Values
+//Values and utils
 import { debounce, defaultValuesDashboardForm, rendimientoCalculator } from "@/utils/index";
 import { getProyectNumbers } from "@/services/coinmarketcap/info";
-
-//Utils
-import { siAthCalculator } from "@/utils/index";
 
 
 //The component with its functionalities
@@ -63,6 +62,7 @@ const DashboardDataForm = ({
   const [symbol, setSymbol] = useState("");
   const [editablePrecio, setEditablePrecio] = useState(0);
   const { setUserTableData } = useUserTableData();
+  const { setIsOpen } = useDialogItem();
 
   //States for setting errors using the hook
   const {formState: { errors }, setError, clearErrors} = useForm();
@@ -185,6 +185,9 @@ const DashboardDataForm = ({
             setSubmitted(true);
 
             form.reset(defaultValuesDashboardForm);
+            setTimeout(() => {
+              setIsOpen(false);
+            }, 1000);
           }
 
         } else {
@@ -612,6 +615,7 @@ const DashboardDataForm = ({
           >
             {type === "create" ? "Añadir" : "Actualizar"}
           </Button>
+          
         </div>
       </form>
     </Form>

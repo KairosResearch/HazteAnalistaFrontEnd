@@ -9,6 +9,7 @@ import {
   getExchange,
   getSectores,
 } from "@/services/backend/catalogos";
+import AddProjectButton from "@/components/shared/AddProjectButton";
 import { getProjectsList } from "@/services/backend/proyectsInfo";
 import ReloadProjects from "@/components/shared/ReloadProjects";
 
@@ -50,6 +51,8 @@ const HomePage = async () => {
               {/* <div className="hidden md:block">
                 <ReloadProjects />
               </div> */}
+
+                <AddProjectButton />
 
               <DialogItem
                 projectsList={projectsList.proyectos}
