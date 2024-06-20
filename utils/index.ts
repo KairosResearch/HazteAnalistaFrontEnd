@@ -49,7 +49,7 @@ export const rendimientoCalculator = (precioEntrada: number, precioActual: numbe
 
 //Data for default values
 export const defaultValuesDashboardForm = {
-  nombre: " ",
+  nombre: "",
   ticket: "",
   id4e: "",
   id_decision_proyecto: "",
@@ -69,13 +69,17 @@ export const iconsForm = [
   {name: 'ticket', alt: 'ticker', icon: '/Ticker.png'},
   {name: 'id4e', alt: '4e', icon: '/4E.png'},
   {name: 'id_decision_proyecto', alt: 'decision', icon: '/Decision.png'},
-  {name: 'marketCap', alt: 'market cap', icon: '/cap.png'},
-  {name: 'siAth', alt: 'si ath', icon: '/ATH.png'},
   {name: 'idExchange', alt: 'exchange', icon: '/Exchange.png'},
   {name: 'idSector', alt: 'sector', icon: '/Sector.png'},
   {name: 'precioEntrada', alt: 'precio entrada', icon: '/Precio.png'},
+]
+export const iconsFormLeftSide = [
+  {name: 'marketCap', alt: 'market cap', icon: '/cap.png'},
+  {name: 'siAth', alt: 'si ath', icon: '/ATH.png'},
   {name: 'precioActual', alt: 'precio actual', icon: '/Precio.png'},
 ]
+
+
 
 export const tableHeaders = [
   {name: 'Proyecto', icon:'/Proyecto.png', key: 'proyecto'},

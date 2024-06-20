@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 //Hooks
 import { useUserTableData } from "@/hooks/useUserData";
 import { useDialogItem } from "@/hooks/useDialogs";
+import Image from "next/image";
 
 
 //Types:
@@ -21,7 +22,7 @@ import {
 
 //Shadcn staff for forms
 import { useForm } from "react-hook-form";
-import { Form } from "@/components/ui/form";
+import { Form, FormLabel } from "@/components/ui/form";
 
 //UI needed
 import { Button } from "@/components/ui/button";
@@ -35,7 +36,7 @@ import {
   SelectValue,
 } from "../ui/select";
 import { CustomField } from "./CustomField";
-import { DialogClose } from "../ui/dialog";
+import FormNumbers from './FormNumbers';
 
 
 //Values and utils
@@ -261,205 +262,107 @@ const DashboardDataForm = ({
             </div>
           </>
         )}
-        <div className={`space-y-6 md:grid grid-flow-row 
-          ${type === 'create' ? 'grid-cols-3' : 'grid-cols-2'} 
-          gap-6`}>
-          {type === "create" ? (
-            <CustomField
-              type={type}
-              name="nombre"
-              formLabel="Nombre"
-              className="w-full sm:mt-6"
-              render={({ field }) => (
-                <>
-                  <Select
-                    onValueChange={(value) => {
-                      field.onChange(value);
-                      clearErrors('nombre');
-                      if (value !== "") {
-                        const foo = () => {
-                          const b = Number(value);
-                          const a = projectsList?.find((pr) => pr.id === b);
-                          const symbol = a?.symbol;
-                          return symbol as string;
-                        };
-                        setSymbol(foo());
-                      }
-                    }}
-                    defaultValue={field.value}
-                  >
-                    <SelectTrigger
-                      className={errors.nombre ? 'border-red-500 text-red-500' : ''}
-                    >
-                      <SelectValue placeholder="Selecciona el nombre" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {projectsList?.map((proyect) => (
-                        <>
-                          <SelectItem key={proyect.id} value={String(proyect.id)}>
-                            {proyect.proyecto}
-                          </SelectItem>
-                        </>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <p className="text-red-500 text-sm mt-2">
-                    {errors.nombre && <>{errors.nombre.message || ''}</>}
-                  </p>
-                  {symbol && <p className="text-sm text-gray-500 mt-2">Ticker: {symbol}</p>}
-                </>
-              )}
-            />
-          ) : null}
 
-          {/**Ticket */}
-          {/* {type === "create" ? (
-            <CustomField
-              type={type}
-              name="ticket"
-              formLabel="Ticker"
-              className="w-full"
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  maxLength={5}
-                  value={symbol}
-                  disabled
-                />
-              )}
-            />
-          ) : null} */}
+        <div className={`space-y-6 md:flex md:divide-x` }>
 
+        {type === "create" ? (
 
-            {/**Decision */}
-          <CustomField
-            type={type}    
-            name="id_decision_proyecto"
-            formLabel="Decision"
-            className={ type === 'update' ? "w-full sm:mt-6" : "w-full mt-0"}
-            render={({ field }) => (
-              <>
-                <Select 
-                  onValueChange={(value) => {
-                    field.onChange(value);
-                    clearErrors('id_decision_proyecto');
-                  }}
-                  defaultValue={field.value}>
-                  <SelectTrigger
-                    className={errors.id_decision_proyecto ? 'border-red-500 text-red-500' : ''}
-                  >
-                    <SelectValue placeholder="Decision sobre el proyecto" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {decision.map((decision) => (
-                      <SelectItem
-                        key={decision.value}
-                        value={String(decision.value)}
-                      >
-                        <Badge
-                          variant={
-                            decision.label === "Watchlist"
-                              ? "decisionWatchlist"
-                              : decision.label === "Descartar"
-                                ? "desicionLeave"
-                                : "desicionInvest"
+          <div className="md:w-2/5 md:px-5 ">
+
+                <CustomField
+                  type={type}
+                  name="nombre"
+                  formLabel="Nombre"
+                  className="w-full sm:mt-6"
+                  render={({ field }) => (
+                    <>
+                      <Select
+                        onValueChange={(value) => {
+                          field.onChange(value);
+                          clearErrors('nombre');
+                          if (value !== "") {
+                            const foo = () => {
+                              const b = Number(value);
+                              const a = projectsList?.find((pr) => pr.id === b);
+                              const symbol = a?.symbol;
+                              return symbol as string;
+                            };
+                            setSymbol(foo());
                           }
+                        }}
+                        defaultValue={field.value}
+                      >
+                        <SelectTrigger
+                          className={errors.nombre ? 'border-red-500 text-red-500' : ''}
                         >
-                          {decision.label}
-                        </Badge>
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                {errors.id_decision_proyecto && <p className="text-red-500 text-sm mt-2">Decision es obligatorio</p>}
-              </>
-            )}
-          />
-          
-          {
-            type === 'create' && (
-              <div>
-              </div>
-            )
-          }
+                          <SelectValue placeholder="Selecciona el nombre" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {projectsList?.map((proyect) => (
+                            <>
+                              <SelectItem className="hover:text-black" key={proyect.id} value={String(proyect.id)}>
+                                {proyect.proyecto}
+                              </SelectItem>
+                            </>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <p className="text-red-500 text-sm mt-2">
+                        {errors.nombre && <>{errors.nombre.message || ''}</>}
+                      </p>
+                      {symbol && <p className="text-sm text-gray-500 mt-2">Ticker: $ {symbol}</p>}
+                    </>
+                  )}
+                />
+            
 
 
-          {/**Market Cap */}
-          {type === "create" ? (
-            <CustomField
-              type={type}
-              
-              name="marketCap"
-              formLabel="Market Cap"
-              className="w-full"
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  type="text"
-                  value={`$ ${
+              <div className="flex flex-col gap-4 mt-6 justify-center pl-2">
+                
+                {/**Market Cap */}
+                <FormNumbers 
+                  values={`$ ${
                     prInfo.market_cap != undefined ?
                     prInfo.market_cap.toLocaleString() : 0
                   } USD`}
-                  disabled
+                  title="Market Cap"
+                  image='marketCap'
                 />
-              )}
-            />
-          ) : null}
 
-          {/**Si Ath */}
+                {/**Si Ath */}
 
-          {
-            type === 'create' ? (
-              <CustomField
-                type={type}
-                name="siAth"
-                formLabel="Rendimiento Actual"
-                className="w-full"
-                render={({ field }) => (
-                  <Input
-                    {...field}
-                    type="text"
-                    value={`${
-                      (form.getValues('siAth') != undefined) ?
-                        form.getValues('siAth').toLocaleString(): 0 
-                    } %`}
-                    disabled
+                <FormNumbers 
+                  values={`${
+                    (form.getValues('siAth') != undefined) ?
+                      form.getValues('siAth').toLocaleString(): 0 
+                  } %`}
+                  title="Rendimiento"
+                  image='siAth'
+                />
+
+                  {/**Precio Actual */}
+                  <FormNumbers 
+                    values={`$ ${
+                      prInfo.price != undefined ?
+                      prInfo.price.toLocaleString() : 0
+                    } USD`}
+                    title="Precio Actual"
+                    image='precioActual'
                   />
-                )}
-              />
-            ): null
-          }
           
+          
+          
+              </div>
+            
 
-          
-          
-          {/**Precio actual */}
-          {
-            type === 'create' ? (
-              <CustomField
-              type={type}
-                      
-                      name="precioActual"
-                      formLabel="Precio actual"
-                      className="w-full"
-                      render={({ field }) => (
-                        <Input
-                          {...field}
-                          type="text"
-                          value={`$ ${
-                            prInfo.price != undefined ?
-                            prInfo.price.toLocaleString() : 0
-                          } USD`}
-                          // onChange={(e) => field.onChange(parseFloat(e.target.value))}
-                          disabled
-                        />
-                      )}
-                  />
-            ) : null
-          }
+          </div>
+          ): null}
 
-          {/**Precio entrada */}
-          {
+          <div className={`grid ${type === 'create' ? 'md:w-3/5 md:px-5  gap-7 md:gap-4' : 'w-full grid-cols-2'}`}>
+
+              
+           {/**Precio entrada */}
+           {
             type === 'create' ? (
               <CustomField
               type={type}
@@ -524,7 +427,52 @@ const DashboardDataForm = ({
             )
           }
 
-          {/**Exchange */}
+
+               {/**Decision */}
+                <CustomField
+                  type={type}    
+                  name="id_decision_proyecto"
+                  formLabel="Decision"
+                  className={` ${type === 'update' ? "w-full sm:mt-6" : "w-full mt-0 mb-2 md:mb-0"}`}
+                  render={({ field }) => (
+                    <>
+                      <Select 
+                        onValueChange={(value) => {
+                          field.onChange(value);
+                          clearErrors('id_decision_proyecto');
+                        }}
+                        defaultValue={field.value}>
+                        <SelectTrigger
+                          className={errors.id_decision_proyecto ? 'border-red-500 text-red-500' : ''}
+                        >
+                          <SelectValue placeholder="Decision sobre el proyecto" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {decision.map((decision) => (
+                            <SelectItem
+                              key={decision.value}
+                              value={String(decision.value)}
+                            >
+                              <Badge
+                                variant={
+                                  decision.label === "Watchlist"
+                                    ? "decisionWatchlist"
+                                    : decision.label === "Descartar"
+                                      ? "desicionLeave"
+                                      : "desicionInvest"
+                                }
+                              >
+                                {decision.label}
+                              </Badge>
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      {errors.id_decision_proyecto && <p className="text-red-500 text-sm mt-2">Decision es obligatorio</p>}
+                    </>
+                  )}
+                />
+                 {/**Exchange */}
           <CustomField
             type={type}
             name="idExchange"
@@ -541,7 +489,11 @@ const DashboardDataForm = ({
                       key={exchange.value}
                       value={String(exchange.value)}
                     >
-                      <Badge>{exchange.label}</Badge>
+                      <Badge
+                        variant={
+                          exchange.value === 1 ? "binance" : exchange.value === 2 ? "coinbase" : "kraken"
+                        }
+                      >{exchange.label}</Badge>
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -571,12 +523,8 @@ const DashboardDataForm = ({
               </Select>
             )}
           />
-          
 
-
-          
-          
-                
+          </div>
           
         </div>
 
