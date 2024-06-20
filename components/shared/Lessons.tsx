@@ -41,13 +41,14 @@ const Lessons = () => {
             opts={{
               loop: true,
             }}
+            // className={`w-full ${!activeMenu ? 'md:max-2xl:w-[90%]': ''} `}
           >
             <CarouselPrevious>
               
             </CarouselPrevious>
             <CarouselContent className={` flex items-stretch`}>
               {lessons.map((lesson) => (
-                <CarouselItem className={`${activeMenu ? 'md:w-[66px] md:basis-1/3  lg:w-[176px] 2xl:w-full': '2xl:basis-1/5 lg:basis-1/3 md:basis-1/3 md:max-lg:w-[80px]'} ` } key={lesson.id}>
+                <CarouselItem className={`md:basis-1/3 ${activeMenu ? 'md:w-[66px] md:basis-1/3  lg:w-[176px] 2xl:w-full': 'pl-6 2xl:basis-1/5 lg:max-xl:basis-1/4 md:max-lg:w-[80px]'} ` } key={lesson.id}>
                   <Link
                     href={lesson.link}
                     target='_blank'
