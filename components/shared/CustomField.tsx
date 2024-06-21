@@ -42,7 +42,7 @@ export const CustomField = ({
           {formLabel && 
           
             <FormLabel>
-              <div className="flex gap-2 items-center ">
+              <div className="flex gap-2 items-center mb-6 md:mb-0">
 
                 {
                   a &&

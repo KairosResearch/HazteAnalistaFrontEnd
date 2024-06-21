@@ -24,7 +24,7 @@ const DialogItem = (props: DialogItemProps) => {
   return (
     <Dialog open={isOpen}>
 
-      <DialogContent className="max-h-[50vh] md:max-h-full md:min-w-[80%] overflow-auto">
+      <DialogContent className="max-h-[69vh] md:max-h-full md:min-w-[80%] overflow-auto">
         <DialogHeader >
 
             {

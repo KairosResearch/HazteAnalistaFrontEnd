@@ -62,6 +62,7 @@ const DashboardDataForm = ({
   const [submitted, setSubmitted] = useState(false);
   const [symbol, setSymbol] = useState("");
   const [editablePrecio, setEditablePrecio] = useState(0);
+  const [rendimiento, setRendimiento] = useState(0)
   const { setUserTableData } = useUserTableData();
   const { setIsOpen } = useDialogItem();
 
@@ -106,11 +107,19 @@ const DashboardDataForm = ({
 
   //Difning the 'rendimiento' when editablePrice changes
   useEffect(() => {
-    
-    debounce(()=> {
+
+
+    const debouncedFunction = debounce(()=> {
       const rendimiento = rendimientoCalculator(editablePrecio, prInfo.price);
-      form.setValue('siAth', rendimiento);
-    }, 1000)();
+      setRendimiento(rendimiento)
+    }, 1000)
+
+    if(editablePrecio){
+      debouncedFunction()
+    }
+
+    return () => debouncedFunction.cancel()
+
     
   }, [editablePrecio]);
 
@@ -153,7 +162,6 @@ const DashboardDataForm = ({
         idProyecto: Number(values.nombre),
         id4e: 1,
         id_decision_proyecto: Number(values.id_decision_proyecto),
-        siAth: 0,
         marketCap: prInfo.market_cap?? 0,
         idExchange: Number(values.idExchange),
         idSector: Number(values.idSector),
@@ -333,8 +341,7 @@ const DashboardDataForm = ({
 
                 <FormNumbers 
                   values={`${
-                    (form.getValues('siAth') != undefined) ?
-                      form.getValues('siAth').toLocaleString(): 0 
+                    rendimiento
                   } %`}
                   title="Rendimiento"
                   image='siAth'
@@ -433,7 +440,7 @@ const DashboardDataForm = ({
                   type={type}    
                   name="id_decision_proyecto"
                   formLabel="Decision"
-                  className={` ${type === 'update' ? "w-full sm:mt-6" : "w-full mt-0 mb-2 md:mb-0"}`}
+                  className={` w-[90%] md:w-full ${type === 'update' ? "sm:mt-6" : "mt-0 mb-2 md:mb-0"}`}
                   render={({ field }) => (
                     <>
                       <Select 
@@ -441,9 +448,12 @@ const DashboardDataForm = ({
                           field.onChange(value);
                           clearErrors('id_decision_proyecto');
                         }}
-                        defaultValue={field.value}>
+                        defaultValue={field.value}
+                        
+                        >
                         <SelectTrigger
-                          className={errors.id_decision_proyecto ? 'border-red-500 text-red-500' : ''}
+
+                          className={`${errors.id_decision_proyecto ? 'border-red-500 text-red-500' : ''}`}
                         >
                           <SelectValue placeholder="Decision sobre el proyecto" />
                         </SelectTrigger>
@@ -477,7 +487,7 @@ const DashboardDataForm = ({
             type={type}
             name="idExchange"
             formLabel="Exchange"
-            className="w-full"
+            className=" w-[90%] md:w-full"
             render={({ field }) => (
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <SelectTrigger>
@@ -507,7 +517,7 @@ const DashboardDataForm = ({
             type={type}
             name="idSector"
             formLabel="Sector"
-            className="w-full"
+            className=" w-[90%] md:w-full"
             render={({ field }) => (
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <SelectTrigger>

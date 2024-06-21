@@ -79,7 +79,6 @@ export interface DashboardDataFormProps {
 export interface BackendValues{
     idProyecto: number,
     id4e: number ,
-    siAth: number,
     id_decision_proyecto: number,
     marketCap: number,
     idExchange: number,

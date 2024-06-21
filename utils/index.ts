@@ -7,11 +7,23 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const debounce = (func: (...args: any[]) => void, delay: number) => {
-  let timeoutId: NodeJS.Timeout | null;
-  return (...args: any[]) => {
+  let timeoutId: NodeJS.Timeout | null = null;
+
+  // La función debounced
+  const debouncedFunction = (...args: any[]) => {
     if (timeoutId) clearTimeout(timeoutId);
     timeoutId = setTimeout(() => func.apply(null, args), delay);
   };
+
+  // Función para cancelar el debounce
+  debouncedFunction.cancel = () => {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+      timeoutId = null;
+    }
+  };
+
+  return debouncedFunction;
 };
 
 //Random number generator between 1.000.000 and 10.000.000.000

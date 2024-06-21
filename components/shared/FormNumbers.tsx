@@ -17,7 +17,7 @@ const FormNumbers = ({values, title, image}: FormNumbersProps) => {
   return (
     <div className="flex flex-col">
 
-        <FormLabel className='flex items-center'>
+        <FormLabel className='flex items-center text-sm'>
         <Image
             className="inline-block pr-1"
             src={a.icon}
