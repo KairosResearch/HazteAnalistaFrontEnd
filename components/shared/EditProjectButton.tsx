@@ -7,7 +7,12 @@ const EditProjectButton = () => {
     const {setIsOpen, isOpen, setMode} = useDialogItem();
   return (
     <>
-            <span className="text-xs md:hidden text-green-light">Editar</span>
+            <span 
+              onClick={() => {
+                setMode("edit");
+                setIsOpen(!isOpen);
+              }}
+              className="text-xs md:hidden text-green-light">Editar</span>
             <Button
               variant={"outline"}
               className="text-green-light hidden md:inline "

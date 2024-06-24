@@ -59,7 +59,7 @@ const DialogInfo = ({
                 </DialogTitle>
                 
 
-                <div className='flex gap-3'>
+                <div className='flex gap-3 items-center'>
 
                     <EditProjectButton />
                   
