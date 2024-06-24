@@ -69,7 +69,7 @@ export const defaultValuesDashboardForm = {
   siAth: 0,
   idExchange: '1',
   idSector: '1',
-  precioEntrada: 0,
+  precioEntrada: '',
   precioActual: 0,
 };
 

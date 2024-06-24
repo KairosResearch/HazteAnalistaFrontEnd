@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import { useDialogItem } from "@/hooks/useDialogs";
 
-import DashboardDataForm from "./DashboardDataForm";
+import DashboardDataForm from "./form/DashboardDataForm";
 
 import { DialogItemProps } from "@/index";
 import { X } from "lucide-react";

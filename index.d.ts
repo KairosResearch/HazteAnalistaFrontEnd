@@ -4,6 +4,10 @@ export type CatalogosType = {
     label: string;
 };
 
+interface TabsHookProps {
+    isReadyNextTab: boolean;
+    setIsReadyNextTab: (newState: boolean) => void;
+}
 
 interface DialogHookProps {
     isOpen: boolean;
