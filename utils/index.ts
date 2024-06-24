@@ -95,7 +95,7 @@ export const iconsFormLeftSide = [
 
 export const tableHeaders = [
   {name: 'Proyecto', icon:'/Proyecto.png', key: 'proyecto'},
-  {name: 'Ticker', icon:'/Ticker.png', key: 'ticket'},
+  {name: 'Token', icon:'/Ticker.png', key: 'ticket'},
   // {name: '4E', icon:'', key: 'id4e'},
   {name: 'Decision', icon:'/Decision.png', key: 'id_decision_proyecto'},
   {name: 'Sector', icon:'/Sector.png', key: 'sector'},

@@ -12,7 +12,7 @@ const EditProjectButton = () => {
                 setMode("edit");
                 setIsOpen(!isOpen);
               }}
-              className="text-xs md:hidden text-green-light">Editar</span>
+              className="text-xs md:hidden mt-1 text-green-light">Editar</span>
             <Button
               variant={"outline"}
               className="text-green-light hidden md:inline "

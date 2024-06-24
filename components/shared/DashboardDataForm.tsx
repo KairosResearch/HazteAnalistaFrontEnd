@@ -312,7 +312,7 @@ const DashboardDataForm = ({
                     </p>
                     {symbol && (
                       <p className="text-sm text-gray-500 mt-2">
-                        Ticker: $ {symbol}
+                        Token: $ {symbol}
                       </p>
                     )}
                   </>
@@ -354,7 +354,7 @@ const DashboardDataForm = ({
           ) : null}
 
           <div
-            className={`grid ${type === "create" ? "md:w-3/5 md:px-5  gap-7 md:gap-4" : "w-full grid-cols-2"}`}
+            className={`grid ${type === "create" ? "md:w-3/5 md:px-5  gap-7 md:gap-4" : "w-full gap-4 md:gap-0 md:grid-cols-2"}`}
           >
             {/**Precio entrada */}
             {type === "create" ? (
@@ -417,7 +417,7 @@ const DashboardDataForm = ({
               type={type}
               name="id_decision_proyecto"
               formLabel="Decision"
-              className={` w-[90%] md:w-full ${type === "update" ? "sm:mt-6" : "mt-0 mb-2 md:mb-0"}`}
+              className={` w-[90%] md:w-full ${type === "update" ? "sm:mt-6 " : "mt-0 mb-2 md:mb-0"}`}
               render={({ field }) => (
                 <>
                   <Select
@@ -431,7 +431,7 @@ const DashboardDataForm = ({
                       className={`${errors.id_decision_proyecto ? "border-red-500 text-red-500" : ""}`}
                     >
                       <SelectValue placeholder="Decision sobre el proyecto" />
-                    </SelectTrigger>
+                    </SelectTrigger>  
                     <SelectContent>
                       {decision.map((decision) => (
                         <SelectItem
