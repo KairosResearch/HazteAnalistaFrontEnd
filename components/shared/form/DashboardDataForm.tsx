@@ -350,7 +350,7 @@ const DashboardDataForm = ({
               
           ) : null}
 
-          <div  className={`grid ${type === "create" ? "md:w-3/5 md:px-5  gap-7 md:gap-4" : "w-full gap-4 md:gap-0 md:grid-cols-2"}`}>
+          <div  className={`grid ${type === "create" ? "md:w-3/5 md:px-5 hidden md:grid gap-7 md:gap-4" : "w-full gap-4 md:gap-0 md:grid-cols-2"}`}>
             <RightSideForm 
               type={type}
               editablePrecio={editablePrecio}

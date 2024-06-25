@@ -12,6 +12,7 @@ import {
 import AddProjectButton from "@/components/shared/AddProjectButton";
 import { getProjectsList } from "@/services/backend/proyectsInfo";
 import ReloadProjects from "@/components/shared/ReloadProjects";
+import DialogInstructions from "@/components/shared/DialogInstructions";
 
 const HomePage = async () => {
   const [data4t, decision, exchange, sector, projectsList] = await Promise.all([
@@ -41,7 +42,7 @@ const HomePage = async () => {
           />
         </section>
 
-        <section className="seguimiento mb-8">
+        <section id="mochila" className="seguimiento mb-8">
           <div className="flex items-center justify-between mt-4 2xl:my-8 md:my-3">
             <h1 className="text-2xl font-bold  2xl:text-4xl">
               Dashboard de seguimiento:
@@ -51,6 +52,7 @@ const HomePage = async () => {
               {/* <div className="hidden md:block">
                 <ReloadProjects />
               </div> */}
+              <DialogInstructions />
 
                 <AddProjectButton />
 
