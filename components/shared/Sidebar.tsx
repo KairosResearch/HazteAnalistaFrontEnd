@@ -27,7 +27,7 @@ const Sidebar = () => {
                             Dashboard
                         </Link>
                         
-                        {/* <Link 
+                        <Link 
                          href='/lessons'
                         className='sidebar-nav_element'>
                                 <Image
@@ -36,9 +36,9 @@ const Sidebar = () => {
                                     height={20}
                                     width={20}
                                 />
-                            Lecciones
+                            Metodología 4 E
                         </Link>
-                        
+                        {/* 
                         <Link 
                         className='sidebar-nav_element'
                         href='/tools'>

@@ -27,57 +27,57 @@ const HomePage = async () => {
   //const {lessons} = await response.json();
 
   return (
-    <div className={`md:w-full px-4 2xl:w-full `}>
+    <div>
       <DialogInstructions />
-      <div className="2xl:px-24 pl-1 my-8">
-      <section className="seguimiento mb-8">
-          <div className="flex items-center justify-between mt-4 2xl:my-8 md:my-3">
-            <h1 className="text-2xl font-bold  2xl:text-4xl">
-              Proyectos que me interesan:
-            </h1>
+      
+        <section className="seguimiento mb-8">
+            <div className="flex items-center justify-between mt-4 2xl:my-8 md:my-3">
+              <h1 className="text-2xl font-bold  2xl:text-4xl">
+                Proyectos que me interesan:
+              </h1>
 
-            <div className="flex gap-4 items-center justify-center">
-              {/* <div className="hidden md:block">
-                <ReloadProjects />
-              </div> */}
-              
+              <div className="flex gap-4 items-center justify-center">
+                {/* <div className="hidden md:block">
+                  <ReloadProjects />
+                </div> */}
+                
 
-                <AddProjectButton />
+                  <AddProjectButton />
 
-              <DialogItem
-                projectsList={projectsList.proyectos}
-                mode="add"
-                catalogos={[data4t, decision, exchange, sector]}
-                data={null}
-                close={null}
-              />
+                <DialogItem
+                  projectsList={projectsList.proyectos}
+                  mode="add"
+                  catalogos={[data4t, decision, exchange, sector]}
+                  data={null}
+                  close={null}
+                />
+              </div>
             </div>
-          </div>
-          {/* <div className="md:hidden">
-            <ReloadProjects />
-          </div> */}
+            {/* <div className="md:hidden">
+              <ReloadProjects />
+            </div> */}
 
-          <Dashboard
-            projectsList={projectsList.proyectos}
-            catalogos={[data4t, decision, exchange, sector]}
-          />
-        </section>
+            <Dashboard
+              projectsList={projectsList.proyectos}
+              catalogos={[data4t, decision, exchange, sector]}
+            />
+          </section>
 
-        {/* Seccion de lecciones*/}
-        <section className="2xl:py-4 py-2 xl:pt-8" id="lecciones-main-page">
-          <div className="md:flex items-center justify-between lessons-header ">
-            <h1 className="text-2xl 2xl:text-4xl font-bold ">
-              Aprende a hacer un análisis:
-            </h1>
-            {/* <InputSearcher /> */}
-          </div>
-          <Lessons
-          // lessons={lessons}
-          />
-        </section>
+          {/* Seccion de lecciones*/}
+          <section className="2xl:py-4 py-2 xl:pt-8" id="lecciones-main-page">
+            <div className="md:flex items-center justify-between lessons-header ">
+              <h1 className="text-2xl 2xl:text-4xl font-bold ">
+                Aprende a hacer un análisis:
+              </h1>
+              {/* <InputSearcher /> */}
+            </div>
+            <Lessons
+            // lessons={lessons}
+            />
+          </section>
 
         
-      </div>
+      
     </div>
   );
 };

@@ -71,11 +71,12 @@ const DialogInstructions = () => {
 
   return (
     
-   <div className='fixed inset-0 z-50 bg-black bg-opacity-50'>
+   <div >
  
     {
       open && (
-        <div className="p-4 rounded-lg top-[55%] relative  bg-dark-grey border-primary border-4 w-96 mx-auto">
+        <div className='fixed inset-0 z-50 bg-black bg-opacity-50'>
+          <div className="p-4 rounded-lg top-[55%] relative  bg-dark-grey border-primary border-4 w-96 mx-auto">
             <button onClick={() => setOpen(false)}>
               <X size={20} />
 
@@ -125,6 +126,8 @@ const DialogInstructions = () => {
 
             </div>
             </div>
+        </div>
+        
            
       )
 

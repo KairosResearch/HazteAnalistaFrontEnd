@@ -16,7 +16,7 @@ const AddProjectButton = () => {
                     setMode("add");
                 }}
             >
-                <p>
+                <p className='p-0'>
                 <span className="hidden md:inline">Agregar proyecto</span>
                 <span> +</span>
                 </p>

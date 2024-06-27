@@ -103,7 +103,7 @@ const Navbar = () => {
                                       Home
                                   </Link>
                               
-                              {/* <Link className='header-nav_text'
+                              <Link className='header-nav_text'
                                 href='/lessons'
                               >
                                     <Image 
@@ -113,9 +113,9 @@ const Navbar = () => {
                                       height={20}
                                     />
                                   
-                                      Apredizaje
+                                      Metodología 4E
                               </Link>
-                              
+                              {/* 
                               <Link className='header-nav_text'
                                 href='/tools'
                               >

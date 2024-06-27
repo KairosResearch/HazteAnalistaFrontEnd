@@ -30,11 +30,17 @@ import { DashboardProps } from "@/index";
 import { handleGetProyects } from "@/actions/proyectActions";
 import Loading from "../Loading";
 import Image from "next/image";
+import { useDialogItem } from "@/hooks/useDialogs";
+
+
 
 const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
   const [loading, setLoading] = useState(false);
 
   const { userTableData } = useUserTableData();
+
+  const { setIsOpen } = useDialogItem();
+
 
   // const [sectores, setSectores] = useState<any[]>([]);
   const [tableData, setTableData] = useState<TableData[]>([]);
@@ -87,7 +93,9 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                 <TableCell className="font-medium  " colSpan={11}>
                   <p className="pb-3 md:text-center">
                   No hay proyectos registrados. 
-                  <span id='cta' className="block md:inline-block">¡Registra tu primer proyecto!</span>
+                  <span id='cta' className="block md:inline-block"
+                    onClick={() => setIsOpen(true)}
+                  >¡Registra tu primer proyecto!</span>
                   </p>
                 </TableCell>
           </TableRow>
@@ -125,6 +133,16 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
 
               {/* Ticker */}
               <TableCell className="whitespace-nowrap">{data.ticker}</TableCell>
+               {/******Metodo 4E**** */}
+                <TableCell>
+                <Badge
+                  variant='fourE'
+                  color={
+                  (data.id4e === 1) ? 'yellow' : (data.id4e === 2) ? 'grey' : (data.id4e === 3) ? 'blue' : 'green'
+                }>
+                  {data.id4e === 1 ? 'Encontrar' : data.id4e === 2 ? 'Estudiar' : data.id4e === 3 ? 'Ejecutar' : 'Evaluar'}
+                </Badge>
+              </TableCell>
 
               {/******Decision**** */}
               <TableCell>
@@ -215,16 +233,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                 </Badge>
               </TableCell>
 
-                {/******Metodo 4E**** */}
-                {/* <TableCell>
-                <Badge
-                  variant='fourE'
-                  color={
-                  (data.id4e === 1) ? 'yellow' : (data.id4e === 2) ? 'grey' : (data.id4e === 3) ? 'blue' : 'green'
-                }>
-                  {data.id4e === 1 ? 'Encontrar' : data.id4e === 2 ? 'Estudiar' : data.id4e === 3 ? 'Ejecutar' : 'Evaluar'}
-                </Badge>
-              </TableCell> */}
+               
             </TableRow>
           ))}
       </TableBody>

@@ -20,6 +20,7 @@ import {
   } from "@/components/ui/card"
 //Data
 import {lessons} from '@/lib/data';
+import { X } from 'lucide-react';
 
 // interface LessonProps {
 //   lessons: [{
@@ -53,7 +54,10 @@ const Lessons = () => {
                     href={lesson.link}
                     target='_blank'
                   >
-                      <Card className='h-full'>
+                      <Card className='relative h-full'>
+                        <p className='absolute top-[-10px] right-0 p-4 bg-primary' >
+                          <X />
+                        </p>
                       <CardHeader className='max-h-[20vh]'>
                         
                         <img style={{height:'20vh'}} src={lesson.img}  alt="" />

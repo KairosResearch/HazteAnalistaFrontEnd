@@ -10,7 +10,6 @@ import {
   BackendValues,
   CatalogosType,
   DashboardDataFormProps,
-  TableData,
 } from "@/index";
 
 //El coso de actions
@@ -21,7 +20,7 @@ import {
 
 //Shadcn staff for forms
 import { useForm } from "react-hook-form";
-import { Form, FormLabel } from "@/components/ui/form";
+import { Form } from "@/components/ui/form";
 
 //UI needed
 import { Button } from "@/components/ui/button";
@@ -49,7 +48,7 @@ const DashboardDataForm = ({
   projectsList,
 }: DashboardDataFormProps) => {
   //Catalogos, separated as they come as an array
-  const data4t = catalogos[0] as CatalogosType[];
+  const data4e = catalogos[0] as CatalogosType[];
   const decision = catalogos[1] as CatalogosType[];
   const exchange = catalogos[2] as CatalogosType[];
   const sector = catalogos[3] as CatalogosType[];
@@ -154,7 +153,7 @@ const DashboardDataForm = ({
       //Values/types we need to send to avoid backend errors
       const backendValues: BackendValues = {
         idProyecto: Number(values.nombre),
-        id4e: 1,
+        id4e: values.id4e,
         id_decision_proyecto: Number(values.id_decision_proyecto),
         marketCap: prInfo.market_cap ?? 0,
         idExchange: Number(values.idExchange),
@@ -316,6 +315,7 @@ const DashboardDataForm = ({
                     decision={decision}
                     exchange={exchange}
                     sector={sector}
+                    data4e={data4e}
                   />
                   <div className="justify-center mt-8">
                     <Button
@@ -360,6 +360,7 @@ const DashboardDataForm = ({
               decision={decision}
               exchange={exchange}
               sector={sector}
+              data4e={data4e}
             />
           </div>
         </div>

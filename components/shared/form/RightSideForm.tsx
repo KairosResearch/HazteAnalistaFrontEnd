@@ -29,6 +29,10 @@ interface RightSideForm{
     sector: {
         value: number;
         label: string;
+    }[],
+    data4e:{
+      value: number;
+      label: string;
     }[]
 }
 
@@ -41,7 +45,8 @@ const RightSideForm = (
         clearErrors,
         decision,
         exchange,
-        sector
+        sector,
+        data4e
     }: RightSideForm
 ) => {
   return (
@@ -56,6 +61,49 @@ const RightSideForm = (
         />  
     </div>
 
+    <div id="foureblock">
+    <CustomField
+      type={type}
+      name="id4e"
+      formLabel="4E (Opcional)"
+      className={` w-[90%] md:w-full ${type === "update" ? "sm:mt-6 " : "mt-0 mb-2 md:mb-0"}`}
+      render={({ field }) => (
+        <>
+          <Select
+            onValueChange={(value) => {
+              field.onChange(value);
+              clearErrors("id_decision_proyecto");
+            }}
+            defaultValue={field.value}
+          >
+            <SelectTrigger
+              className=''
+            >
+              <SelectValue placeholder="Elige el 4e sobre el proyecto" />
+            </SelectTrigger>  
+            <SelectContent>
+              {data4e.map((fourE) => (
+                <SelectItem
+                  key={fourE.value}
+                  value={String(fourE.value)}
+                >
+                  <Badge
+                  >
+                    {fourE.label}
+                  </Badge>
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          {errors.id_decision_proyecto && (
+            <p className="text-red-500 text-sm mt-2">
+              Decision es obligatorio
+            </p>
+          )}
+        </>
+      )}
+    />
+    </div>
       
 
     {/**Decision */}
