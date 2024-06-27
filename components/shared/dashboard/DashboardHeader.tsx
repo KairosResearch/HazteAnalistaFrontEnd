@@ -10,7 +10,7 @@ import {
 const DashboardHeader = () => {
   return (
     <TableHeader className="">
-        <TableRow className="divide-x-2 divide-y sticky top-[-1px] border-grey-light bg-dark-grey/95 z-50 divide-grey-light">
+        <TableRow className="divide-x-2 divide-y sticky top-[-1px] border-grey-light bg-dark-grey/95 z-10 divide-grey-light">
           {
             tableHeaders.map((header) => (
               <TableHead key={header.key} className="">

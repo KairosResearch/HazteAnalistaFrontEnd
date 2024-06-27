@@ -393,6 +393,7 @@ const DashboardDataForm = ({
             type="submit"
             variant="secondary"
             className={`w-4/5 font-bold`}
+            id="submit-button"
           >
             {type === "create" ? "Añadir" : "Actualizar"}
           </Button>

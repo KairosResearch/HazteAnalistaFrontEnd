@@ -43,7 +43,7 @@ const LeftSideForm = (
 
   return (
     <div className="">
-              
+              <div id='nombreblock'>
               <CustomField
                 type={type}
                 name="nombre"
@@ -92,45 +92,55 @@ const LeftSideForm = (
                     <p className="text-red-500 text-sm mt-2">
                       {errors.nombre && <>{errors.nombre.message || ""}</>}
                     </p>
-                    {symbol && (
-                      <p className="text-sm text-gray-500 mt-2">
-                        Token: $ {symbol}
-                      </p>
-                    )}
+                   
                   </>
                 )}
               />
+              </div>
+              {symbol && (
+                      <p id="token" className="text-sm text-gray-500 mt-2">
+                        Token: $ {symbol}
+                      </p>
+              )}
+              
 
               <div className="flex flex-col gap-4 mt-6 justify-center pl-2">
                 {/**Market Cap */}
-                <FormNumbers
-                  values={`$ ${
-                    prInfo.market_cap != undefined
-                      ? prInfo.market_cap.toLocaleString()
-                      : 0
-                  } USD`}
-                  title="Market Cap"
-                  image="marketCap"
-                />
+                <div id="capblock">
+                  <FormNumbers
+                    values={`$ ${
+                      prInfo.market_cap != undefined
+                        ? prInfo.market_cap.toLocaleString()
+                        : 0
+                    } USD`}
+                    title="Market Cap"
+                    image="marketCap"
+                  />
+                </div>
+
+                
 
                 {/**Si Ath */}
+                <div id="calcblock">
+                  <FormNumbers
+                    values={`${rendimiento} %`}
+                    title="Rendimiento"
+                    image="siAth"
+                  />
 
-                <FormNumbers
-                  values={`${rendimiento} %`}
-                  title="Rendimiento"
-                  image="siAth"
-                />
+                  {/**Precio Actual */}
+                  <FormNumbers
+                    values={`$ ${
+                      prInfo.price != undefined
+                        ? prInfo.price.toLocaleString()
+                        : 0
+                    } USD`}
+                    title="Precio Actual"
+                    image="precioActual"
+                  />
+                </div>
 
-                {/**Precio Actual */}
-                <FormNumbers
-                  values={`$ ${
-                    prInfo.price != undefined
-                      ? prInfo.price.toLocaleString()
-                      : 0
-                  } USD`}
-                  title="Precio Actual"
-                  image="precioActual"
-                />
+               
               </div>
             </div>
   )

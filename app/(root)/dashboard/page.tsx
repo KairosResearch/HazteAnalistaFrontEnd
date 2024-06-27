@@ -3,6 +3,7 @@ import Lessons from "@/components/shared/Lessons";
 // import InputSearcher from '@/components/shared/InputSearcher';
 import Dashboard from "@/components/shared/dashboard/Dashboard";
 import DialogItem from "@/components/shared/DialogItem";
+import DialogInstructions from "@/components/shared/on-boarding/DialogInstructions";
 import {
   get4t,
   getDecision,
@@ -27,6 +28,7 @@ const HomePage = async () => {
 
   return (
     <div className={`md:w-full px-4 2xl:w-full `}>
+      <DialogInstructions />
       <div className="2xl:px-24 pl-1 my-8">
       <section className="seguimiento mb-8">
           <div className="flex items-center justify-between mt-4 2xl:my-8 md:my-3">

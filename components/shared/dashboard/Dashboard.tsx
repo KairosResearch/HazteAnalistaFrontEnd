@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/table";
 import DashboardHeader from "./DashboardHeader";
 import DialogInfo from "../DialogInfo";
-import DialogInstructions from "../DialogInstructions";
 
 
 import { Badge } from "../../ui/badge";
@@ -74,27 +73,23 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
   };
 
   return (
-    <div className="relative">
+    <div>
    
 
-    <Table id="mochila"  className="border border-grey-light ">
+    <Table id='mochila'  className="border border-grey-light ">
       <DashboardHeader />
       
-      <TableBody>
+      <TableBody id="first-project">
         {/* If no data  */}
         {tableData && tableData.length === 0 && !loading && (
           <>
              <TableRow className="">
-            <TableCell className="font-medium  " colSpan={11}>
-              <p className="pb-3 text-center">
-              No hay proyectos registrados. ¡Registra tu primer proyecto!
-              </p>
-            </TableCell>
-          </TableRow>
-          <TableRow className="">
-            <TableCell className="font-medium  " colSpan={11}>
-              <DialogInstructions />
-            </TableCell>
+                <TableCell className="font-medium  " colSpan={11}>
+                  <p className="pb-3 md:text-center">
+                  No hay proyectos registrados. 
+                  <span id='cta' className="block md:inline-block">¡Registra tu primer proyecto!</span>
+                  </p>
+                </TableCell>
           </TableRow>
           
 
