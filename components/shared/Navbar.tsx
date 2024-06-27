@@ -24,16 +24,6 @@ const Navbar = () => {
 
 
 
-//Logout on beforeunload
-// if (typeof window !== 'undefined'){
-//   window.addEventListener('beforeunload', (e) => {
-//     e.preventDefault();
-//     logout();
-//   })
-// }
-
-
-
   //Añadir el de twitter y validar si es web 2 poner nombre completo, si es web 3 poner la direccion cortada
 
   return (

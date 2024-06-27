@@ -9,11 +9,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import DialogInfo from "./DialogInfo";
+import DashboardHeader from "./DashboardHeader";
+import DialogInfo from "../DialogInfo";
+import DialogInstructions from "../DialogInstructions";
 
 
-import { Badge } from "../ui/badge";
-import { tableHeaders } from "@/utils";
+import { Badge } from "../../ui/badge";
+
 
 //Calculous
 import { rangeDesigner } from "@/utils";
@@ -27,7 +29,7 @@ import { tableDataDefault } from "@/lib/data";
 import { TableData } from "@/index";
 import { DashboardProps } from "@/index";
 import { handleGetProyects } from "@/actions/proyectActions";
-import Loading from "./Loading";
+import Loading from "../Loading";
 import Image from "next/image";
 
 const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
@@ -72,38 +74,40 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
   };
 
   return (
-    <Table className="border border-grey-light ">
-      <TableHeader className="">
-        <TableRow className="divide-x-2 divide-y sticky top-[-1px] border-grey-light bg-dark-grey/95 z-50 divide-grey-light">
-          {
-            tableHeaders.map((header) => (
-              <TableHead key={header.key} className="">
-                <div className="flex gap-2 items-center justify-center">
-                  <Image width={20} height={20} src={header.icon} alt={header.name} />
-                  <p>{header.name}</p>
-                </div>
-              </TableHead>
-            ))
-          }
-          </TableRow>
-      </TableHeader>
-      
+    <div className="relative">
+   
+
+    <Table id="mochila"  className="border border-grey-light ">
+      <DashboardHeader />
       
       <TableBody>
         {/* If no data  */}
         {tableData && tableData.length === 0 && !loading && (
-          <TableRow className="">
-            <TableCell className="font-medium border-2 " colSpan={11}>
+          <>
+             <TableRow className="">
+            <TableCell className="font-medium  " colSpan={11}>
               <p className="pb-3 text-center">
-                No hay proyectos registrados! Registra tu primer proyecto!
+              No hay proyectos registrados. ¡Registra tu primer proyecto!
               </p>
             </TableCell>
           </TableRow>
+          <TableRow className="">
+            <TableCell className="font-medium  " colSpan={11}>
+              <DialogInstructions />
+            </TableCell>
+          </TableRow>
+          
+
+          
+          
+          </>
+         
+          
         )}
         {/* If loading */}
         {loading && (
           <TableRow className="">
-            <TableCell className="font-medium border-2 " colSpan={11}>
+            <TableCell className="font-medium  " colSpan={11}>
               <Loading />
             </TableCell>
           </TableRow>
@@ -240,6 +244,10 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
         />
       )}
     </Table>
+
+   
+    </div>
+    
   );
 };
 
