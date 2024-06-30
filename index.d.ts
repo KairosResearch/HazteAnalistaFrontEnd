@@ -15,6 +15,11 @@ interface DialogHookProps {
     mode: 'add' |'edit' | 'none';
     setMode: (newMode: 'add' |'edit' | 'none') => void;
 }
+interface DialogInstrHookProps {
+    isOpenInstr: boolean;
+    setIsOpenInstr: (newState: boolean) => void;
+    
+}
 
 interface UserProps {
     id: number

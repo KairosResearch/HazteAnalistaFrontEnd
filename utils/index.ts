@@ -77,34 +77,34 @@ export const defaultValuesDashboardForm = {
 
 //Icons for the form:
 export const iconsForm = [
-  {name: 'nombre', alt: 'nombre', icon: '/Proyecto.png'},
-  {name: 'ticket', alt: 'ticker', icon: '/Ticker.png'},
-  {name: 'id4e', alt: '4e', icon: '/4E.png'},
-  {name: 'id_decision_proyecto', alt: 'decision', icon: '/Decision.png'},
-  {name: 'idExchange', alt: 'exchange', icon: '/Exchange.png'},
-  {name: 'idSector', alt: 'sector', icon: '/Sector.png'},
-  {name: 'precioEntrada', alt: 'precio entrada', icon: '/Precio.png'},
+  {name: 'nombre', alt: 'nombre', icon: '/icons/table/Proyecto.png'},
+  {name: 'ticket', alt: 'ticker', icon: '/icons/table/Ticker.png'},
+  {name: 'id4e', alt: '4e', icon: '/icons/table/4E.png'},
+  {name: 'id_decision_proyecto', alt: 'decision', icon: '/icons/table/Decision.png'},
+  {name: 'idExchange', alt: 'exchange', icon: '/icons/table/Exchange.png'},
+  {name: 'idSector', alt: 'sector', icon: '/icons/table/Sector.png'},
+  {name: 'precioEntrada', alt: 'precio entrada', icon: '/icons/table/Precio.png'},
 ]
 export const iconsFormLeftSide = [
-  {name: 'marketCap', alt: 'market cap', icon: '/cap.png'},
-  {name: 'siAth', alt: 'si ath', icon: '/ATH.png'},
-  {name: 'precioActual', alt: 'precio actual', icon: '/Precio.png'},
+  {name: 'marketCap', alt: 'market cap', icon: '/icons/table/cap.png'},
+  {name: 'siAth', alt: 'si ath', icon: '/icons/table/ATH.png'},
+  {name: 'precioActual', alt: 'precio actual', icon: '/icons/table/Precio.png'},
 ]
 
 
 
 export const tableHeaders = [
-  {name: 'Proyecto', icon:'/Proyecto.png', key: 'proyecto'},
-  {name: 'Token', icon:'/Ticker.png', key: 'ticket'},
-  {name: '4E', icon:'', key: 'id4e'},
-  {name: 'Decision', icon:'/Decision.png', key: 'id_decision_proyecto'},
-  {name: 'Sector', icon:'/Sector.png', key: 'sector'},
-  {name: 'Exchange', icon:'/Exchange.png', key: 'idExchange'},
-  {name: 'Precio Entrada', icon:'/Precio.png', key: 'precioEntrada'},
-  {name: 'Precio Actual', icon:'/Precio.png', key: 'precioActual'},
-  {name: 'Rendimiento Actual', icon:'/ATH.png', key: 'siAth'},
-  {name: 'Market Cap', icon:'/cap.png', key: 'marketCap'},
-  {name: 'Rango', icon: '/Rango.png', key: 'rango'},
+  {name: 'Proyecto', icon:'/icons/table/Proyecto.png', key: 'proyecto'},
+  {name: 'Token', icon:'/icons/table/Ticker.png', key: 'ticket'},
+  {name: '4E', icon:'/icons/table/4E.png', key: 'id4e'},
+  {name: 'Decision', icon:'/icons/table/Decision.png', key: 'id_decision_proyecto'},
+  {name: 'Sector', icon:'/icons/table/Sector.png', key: 'sector'},
+  {name: 'Exchange', icon:'/icons/table/Exchange.png', key: 'idExchange'},
+  {name: 'Precio Entrada', icon:'/icons/table/Precio.png', key: 'precioEntrada'},
+  {name: 'Precio Actual', icon:'/icons/table/Precio.png', key: 'precioActual'},
+  {name: 'Rendimiento Actual', icon:'/icons/table/ATH.png', key: 'siAth'},
+  {name: 'Market Cap', icon:'/icons/table/cap.png', key: 'marketCap'},
+  {name: 'Rango', icon: '/icons/table/Rango.png', key: 'rango'},
 
 ]
 

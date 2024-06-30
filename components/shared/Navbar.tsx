@@ -28,7 +28,7 @@ const Navbar = () => {
 
   return (
     
-    <header className="navbar">
+    <header className="navbar fixed md:relative bg-black/90 md:bg-inherit md:z-0 z-50">
           <div>
               <Link className=" text-xl font-bold md:text-2xl" href="#">
                 <Image 

@@ -11,7 +11,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useDialogItem } from "@/hooks/useDialogs";
+import { useDialogItem, useDialogInstructions } from "@/hooks/useDialogs";
 
 import DashboardDataForm from "./form/DashboardDataForm";
 
@@ -20,9 +20,11 @@ import { X } from "lucide-react";
 
 const DialogItem = (props: DialogItemProps) => {
   const { isOpen, setIsOpen, mode } = useDialogItem();
+  const {isOpenInstr} = useDialogInstructions();
 
   return (
-    <Dialog open={isOpen}>
+    <Dialog  open={isOpen}>
+     
 
       <DialogContent className="max-h-[69vh] md:max-h-full md:min-w-[80%] overflow-auto">
         <DialogHeader >
@@ -50,13 +52,17 @@ const DialogItem = (props: DialogItemProps) => {
 
             </div>
 
-              
-                <X 
+              {
+                !isOpenInstr && (
+                  <X 
                     className='absolute top-2 right-2 cursor-pointer hover:text-red-500'
                     onClick={() => {setIsOpen(false)}}
-                >
+                  >
 
-                </X>
+                  </X>
+                )
+              }
+                
               
         </DialogHeader>
         {mode === "edit" ? (

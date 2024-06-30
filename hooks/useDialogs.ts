@@ -2,6 +2,7 @@ import { create } from 'zustand'
 
 
 import {DialogHookProps} from '@/index'
+import {DialogInstrHookProps} from '@/index'
 
 export const useDialogItem = create<DialogHookProps>((set) => ({
     isOpen: false,
@@ -10,3 +11,8 @@ export const useDialogItem = create<DialogHookProps>((set) => ({
     setMode: (newMode: 'add' |'edit' | 'none' ) => set({ mode: newMode }) 
 }));
 
+export const useDialogInstructions = create<DialogInstrHookProps>((set) => ({
+    isOpenInstr: true,
+    setIsOpenInstr: (newState: boolean) => set({ isOpenInstr: newState }),
+    
+}));

@@ -41,24 +41,6 @@ const PopoverForm = ({ usage }: PopoverFormProps) => {
     }
 
 
-//   useEffect(() => {
-//     if (logoutSuccess) {
-//       const deleteCookie = async () => {
-//         const success = await deleteCookieUserId();
-//         if (success === true) {
-//           router.push("/");
-//         }
-//       };
-//       deleteCookie();
-//     }
-//   }, [logoutSuccess, router]);
-
-//   const { logout } = useLogout({
-//     onSuccess: () => {
-//       setLogoutSuccess(true);
-//     },
-//   });
-
   return (
     <Popover>
       <PopoverTrigger asChild className="cursor-pointer">
@@ -72,20 +54,20 @@ const PopoverForm = ({ usage }: PopoverFormProps) => {
           <div>
             <div className="flex flex-col justify-center gap-3">
               <div className="flex gap-1">
-                <h2>Hola, </h2>
+                <h2 className="block">Hola, </h2>
                 {wallet ? (
-                  <h2>
+                  <h2 className="block">
                     {wallet?.length ?? 0 > 10
                       ? `${wallet?.substring(0, 5)}...${wallet?.substring(wallet?.length - 3)}`
                       : wallet}
                   </h2>
                 ) : (
-                  <h2>{name}</h2>
+                  <h2 className="block">{name}</h2>
                 )}
               </div>
 
               {/* <LinkAccounts /> */}
-              <p>Bienvenido a tu plataforma de mundo crypto!</p>
+              <p className="block">Bienvenido a tu plataforma de mundo crypto!</p>
               <div className="flex justify-center mt-1 ">
                 <Button
                   variant={"destructive"}

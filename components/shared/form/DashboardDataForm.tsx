@@ -47,6 +47,7 @@ const DashboardDataForm = ({
   catalogos,
   projectsList,
 }: DashboardDataFormProps) => {
+  console.log("LLEGUE A FORM JASJAJA")
   //Catalogos, separated as they come as an array
   const data4e = catalogos[0] as CatalogosType[];
   const decision = catalogos[1] as CatalogosType[];
@@ -70,7 +71,6 @@ const DashboardDataForm = ({
     setError,
     clearErrors,
   } = useForm();
-
   //Estados para el manejo de la data de coinmarketcap
   const [prInfo, setPrInfo] = useState({
     market_cap: 0,
@@ -240,7 +240,7 @@ const DashboardDataForm = ({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} action="">
+      <form  onSubmit={form.handleSubmit(onSubmit)} action="">
         <div className="mx-auto w-4/5 mt-6 hidden md:block">
           {errors.nombre?.message === "Ya guardaste este proyecto" ? (
             <p className="bg-red-200 p-2 text-center text-red-700">
