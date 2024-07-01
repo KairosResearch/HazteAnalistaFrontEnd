@@ -23,23 +23,22 @@ interface PopoverFormProps {
 const PopoverForm = ({ usage }: PopoverFormProps) => {
   const router = useRouter();
   const { user, logout } = usePrivy();
-//   const [logoutSuccess, setLogoutSuccess] = React.useState(false);
+  //   const [logoutSuccess, setLogoutSuccess] = React.useState(false);
   const wallet = user?.wallet?.address || user?.email?.address;
-  const name = user?.wallet?.address 
-  || user?.google?.email 
-  || user?.email?.address 
-  || user?.twitter?.username
-  || user?.github?.username
-  || user?.linkedin?.name
-  || user?.discord?.username;
+  const name =
+    user?.wallet?.address ||
+    user?.google?.email ||
+    user?.email?.address ||
+    user?.twitter?.username ||
+    user?.github?.username ||
+    user?.linkedin?.name ||
+    user?.discord?.username;
 
-    const onLogout = async () => {
-            localStorage.removeItem('guzma'); 
-            await logout();
-            router.push("/");
-            
-    }
-
+  const onLogout = async () => {
+    localStorage.removeItem("guzma");
+    await logout();
+    router.push("/");
+  };
 
   return (
     <Popover>
@@ -67,7 +66,9 @@ const PopoverForm = ({ usage }: PopoverFormProps) => {
               </div>
 
               {/* <LinkAccounts /> */}
-              <p className="block">Bienvenido a tu plataforma de mundo crypto!</p>
+              <p className="block">
+                Bienvenido a tu plataforma de mundo crypto!
+              </p>
               <div className="flex justify-center mt-1 ">
                 <Button
                   variant={"destructive"}

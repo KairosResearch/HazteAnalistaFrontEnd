@@ -1,64 +1,61 @@
-import {AUTH_URL} from './urls';
+import { AUTH_URL } from "./urls";
 
 export const postLogin = async (values: any) => {
   try {
     const response = await fetch(`${AUTH_URL}login`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(values)
+      body: JSON.stringify(values),
     });
-    
+
     if (response.ok) {
       const data = await response.json();
       return data;
     } else {
       return response.status;
     }
-    
   } catch (err: any) {
-    console.error(err.message)
+    console.error(err.message);
   }
-}
+};
 
 export const postRegister = async (values: any) => {
   try {
-    console.log(values)
+    console.log(values);
     const response = await fetch(`${AUTH_URL}registro`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-      'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(values)
+      body: JSON.stringify(values),
     });
-    if(response.ok){
+    if (response.ok) {
       const data = await response.json();
       return data;
-    }else {
+    } else {
       return response.status;
     }
-    
   } catch (err: any) {
-    console.error(err.message)
-    return { error: err.message}
+    console.error(err.message);
+    return { error: err.message };
   }
-}
+};
 
 //Isnt working
 export const logout = async (accessToken: string | undefined) => {
   try {
     const response = await fetch(`${AUTH_URL}logout`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${accessToken}`
-      }
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
     });
-      const data = await response.json();
-      return data;
-
+    const data = await response.json();
+    return data;
   } catch (err) {
-    console.error(err)
+    console.error(err);
   }
-}
+};

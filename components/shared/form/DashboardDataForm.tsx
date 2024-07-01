@@ -6,11 +6,7 @@ import { useDialogItem, useDialogInstructions } from "@/hooks/useDialogs";
 import { useTabsState } from "@/hooks/useTabs";
 
 //Types:
-import {
-  BackendValues,
-  CatalogosType,
-  DashboardDataFormProps,
-} from "@/index";
+import { BackendValues, CatalogosType, DashboardDataFormProps } from "@/index";
 
 //El coso de actions
 import {
@@ -25,9 +21,7 @@ import { Form } from "@/components/ui/form";
 //UI needed
 import { Button } from "@/components/ui/button";
 
-
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 //Values and utils
 import {
@@ -47,7 +41,7 @@ const DashboardDataForm = ({
   catalogos,
   projectsList,
 }: DashboardDataFormProps) => {
-  console.log("LLEGUE A FORM JASJAJA")
+  console.log("LLEGUE A FORM JASJAJA");
   //Catalogos, separated as they come as an array
   const data4e = catalogos[0] as CatalogosType[];
   const decision = catalogos[1] as CatalogosType[];
@@ -61,12 +55,11 @@ const DashboardDataForm = ({
   const [editablePrecio, setEditablePrecio] = useState(0);
   const [rendimiento, setRendimiento] = useState(0);
   const { setUserTableData } = useUserTableData();
-  const {isReadyNextTab, setIsReadyNextTab} = useTabsState();
+  const { isReadyNextTab, setIsReadyNextTab } = useTabsState();
   const { setIsOpen } = useDialogItem();
 
   //If is user's first time
-  const {isOpenInstr, defaultTab} = useDialogInstructions();
-
+  const { isOpenInstr, defaultTab } = useDialogInstructions();
 
   //States for setting errors using the hook
   const {
@@ -243,7 +236,7 @@ const DashboardDataForm = ({
 
   return (
     <Form {...form}>
-      <form  onSubmit={form.handleSubmit(onSubmit)} action="">
+      <form onSubmit={form.handleSubmit(onSubmit)} action="">
         <div className="mx-auto w-4/5 mt-6 hidden md:block">
           {errors.nombre?.message === "Ya guardaste este proyecto" ? (
             <p className="bg-red-200 p-2 text-center text-red-700">
@@ -267,63 +260,32 @@ const DashboardDataForm = ({
         )}
 
         <div className={`space-y-6 md:flex md:divide-x`}>
-          
           {type === "create" ? (
-            
             <>
-            {/* If user's first time, will show onboarding method */}
+              {/* If user's first time, will show onboarding method */}
               {isOpenInstr ? (
-                  <>
-                    <div className="block md:hidden">
-                      {
-                        defaultTab === 'first-part' ?  (
-                          <>
-                              <LeftSideForm
-                              type={type}
-                              symbol={symbol}
-                              errors={errors}
-                              setSymbol={setSymbol}
-                              projectsList={projectsList}
-                              clearErrors={clearErrors}
-                              prInfo={prInfo}
-                              rendimiento={rendimiento}
-                            /> 
-                            <EditablePrecio 
-                              type={type}
-                              editablePrecio={editablePrecio}
-                              setEditablePrecio={setEditablePrecio}
-                            />
-                          </>
-                        )
-
-                        :
-                        <RightSideForm 
+                <>
+                  <div className="block md:hidden">
+                    {defaultTab === "first-part" ? (
+                      <>
+                        <LeftSideForm
+                          type={type}
+                          symbol={symbol}
+                          errors={errors}
+                          setSymbol={setSymbol}
+                          projectsList={projectsList}
+                          clearErrors={clearErrors}
+                          prInfo={prInfo}
+                          rendimiento={rendimiento}
+                        />
+                        <EditablePrecio
                           type={type}
                           editablePrecio={editablePrecio}
                           setEditablePrecio={setEditablePrecio}
-                          errors={errors}
-                          clearErrors={clearErrors}
-                          decision={decision}
-                          exchange={exchange}
-                          sector={sector}
-                          data4e={data4e}
                         />
-                      }
-                    </div>
-                    <div className="hidden md:block md:w-2/5 md:px-5 ">
-                      <LeftSideForm 
-                        type={type}
-                        symbol={symbol}
-                        errors={errors}
-                        setSymbol={setSymbol}
-                        projectsList={projectsList}
-                        clearErrors={clearErrors}
-                        prInfo={prInfo}
-                        rendimiento={rendimiento}
-                      />
-                    </div>
-                    <div  className={`grid ${type === "create" ? "md:w-3/5 md:px-5 hidden md:grid gap-7 md:gap-4" : "w-full gap-4 md:gap-0 md:grid-cols-2"}`}>
-                      <RightSideForm 
+                      </>
+                    ) : (
+                      <RightSideForm
                         type={type}
                         editablePrecio={editablePrecio}
                         setEditablePrecio={setEditablePrecio}
@@ -334,14 +296,39 @@ const DashboardDataForm = ({
                         sector={sector}
                         data4e={data4e}
                       />
-                    </div>
-                  </>
-                ) 
-                : 
-                (
-                  <>
-                    <Tabs className="md:hidden" defaultValue={'first-part'}>
-
+                    )}
+                  </div>
+                  <div className="hidden md:block md:w-2/5 md:px-5 ">
+                    <LeftSideForm
+                      type={type}
+                      symbol={symbol}
+                      errors={errors}
+                      setSymbol={setSymbol}
+                      projectsList={projectsList}
+                      clearErrors={clearErrors}
+                      prInfo={prInfo}
+                      rendimiento={rendimiento}
+                    />
+                  </div>
+                  <div
+                    className={`grid ${type === "create" ? "md:w-3/5 md:px-5 hidden md:grid gap-7 md:gap-4" : "w-full gap-4 md:gap-0 md:grid-cols-2"}`}
+                  >
+                    <RightSideForm
+                      type={type}
+                      editablePrecio={editablePrecio}
+                      setEditablePrecio={setEditablePrecio}
+                      errors={errors}
+                      clearErrors={clearErrors}
+                      decision={decision}
+                      exchange={exchange}
+                      sector={sector}
+                      data4e={data4e}
+                    />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <Tabs className="md:hidden" defaultValue={"first-part"}>
                     <TabsContent value="first-part">
                       <LeftSideForm
                         type={type}
@@ -352,38 +339,36 @@ const DashboardDataForm = ({
                         clearErrors={clearErrors}
                         prInfo={prInfo}
                         rendimiento={rendimiento}
-                      /> 
-                      <EditablePrecio 
+                      />
+                      <EditablePrecio
                         type={type}
                         editablePrecio={editablePrecio}
                         setEditablePrecio={setEditablePrecio}
                       />
-                      
-                          <TabsList>
-                      
-                            <TabsTrigger value="second-part" className="absolute bottom-8 right-3">
-                              <Button variant="secondary" className="font-bold"
-                                disabled={!isReadyNextTab}
-                              >
-                                Siguiente
-                              </Button>
-                            </TabsTrigger>
-                          </TabsList>
-                       
 
-                      
-                      
+                      <TabsList>
+                        <TabsTrigger
+                          value="second-part"
+                          className="absolute bottom-8 right-3"
+                        >
+                          <Button
+                            variant="secondary"
+                            className="font-bold"
+                            disabled={!isReadyNextTab}
+                          >
+                            Siguiente
+                          </Button>
+                        </TabsTrigger>
+                      </TabsList>
                     </TabsContent>
                     <TabsContent value="second-part">
-                      
-                          <TabsList>
-                            <TabsTrigger className="pl-0 " value="first-part">
-                              Volver
-                            </TabsTrigger>
-                          </TabsList>
-                       
+                      <TabsList>
+                        <TabsTrigger className="pl-0 " value="first-part">
+                          Volver
+                        </TabsTrigger>
+                      </TabsList>
 
-                      <RightSideForm 
+                      <RightSideForm
                         type={type}
                         editablePrecio={editablePrecio}
                         setEditablePrecio={setEditablePrecio}
@@ -394,7 +379,9 @@ const DashboardDataForm = ({
                         sector={sector}
                         data4e={data4e}
                       />
-                      <div className={`${type === 'create' ? '  md:flex' : 'flex'}  justify-center mt-8`}>
+                      <div
+                        className={`${type === "create" ? "  md:flex" : "flex"}  justify-center mt-8`}
+                      >
                         <Button
                           type="submit"
                           variant="secondary"
@@ -403,60 +390,43 @@ const DashboardDataForm = ({
                           {type === "create" ? "Añadir" : "Actualizar"}
                         </Button>
                       </div>
-                      
                     </TabsContent>
+                  </Tabs>
 
-                    </Tabs>
-
-                    <div className="hidden md:block md:w-2/5 md:px-5 ">
-                      <LeftSideForm 
-                        type={type}
-                        symbol={symbol}
-                        errors={errors}
-                        setSymbol={setSymbol}
-                        projectsList={projectsList}
-                        clearErrors={clearErrors}
-                        prInfo={prInfo}
-                        rendimiento={rendimiento}
-                      />
-                    </div>
-                  </>
-                  
-                )
-              
-              }
-              
-
-              
-              
-
-              
-
-
-              
+                  <div className="hidden md:block md:w-2/5 md:px-5 ">
+                    <LeftSideForm
+                      type={type}
+                      symbol={symbol}
+                      errors={errors}
+                      setSymbol={setSymbol}
+                      projectsList={projectsList}
+                      clearErrors={clearErrors}
+                      prInfo={prInfo}
+                      rendimiento={rendimiento}
+                    />
+                  </div>
+                </>
+              )}
             </>
-              
           ) : null}
 
-          {isOpenInstr ? null
-          : (
-            <div  className={`grid ${type === "create" ? "md:w-3/5 md:px-5 hidden md:grid gap-7 md:gap-4" : "w-full gap-4 md:gap-0 md:grid-cols-2"}`}>
-            <RightSideForm 
-              type={type}
-              editablePrecio={editablePrecio}
-              setEditablePrecio={setEditablePrecio}
-              errors={errors}
-              clearErrors={clearErrors}
-              decision={decision}
-              exchange={exchange}
-              sector={sector}
-              data4e={data4e}
-            />
-          </div>
-          )
-          }
-
-          
+          {isOpenInstr ? null : (
+            <div
+              className={`grid ${type === "create" ? "md:w-3/5 md:px-5 hidden md:grid gap-7 md:gap-4" : "w-full gap-4 md:gap-0 md:grid-cols-2"}`}
+            >
+              <RightSideForm
+                type={type}
+                editablePrecio={editablePrecio}
+                setEditablePrecio={setEditablePrecio}
+                errors={errors}
+                clearErrors={clearErrors}
+                decision={decision}
+                exchange={exchange}
+                sector={sector}
+                data4e={data4e}
+              />
+            </div>
+          )}
         </div>
 
         {submitted && (
@@ -483,7 +453,9 @@ const DashboardDataForm = ({
 
         {/*Botones*/}
 
-        <div className={`${type === 'create' ? ' hidden md:flex' : 'flex'}  justify-center mt-8`}>
+        <div
+          className={`${type === "create" ? " hidden md:flex" : "flex"}  justify-center mt-8`}
+        >
           <Button
             type="submit"
             variant="secondary"

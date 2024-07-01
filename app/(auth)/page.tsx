@@ -1,17 +1,13 @@
-import React from 'react';
-import PrivyBox from '@/components/shared/PrivyBox';
-
+import React from "react";
+import PrivyBox from "@/components/shared/PrivyBox";
 
 const Login = () => {
-
-
-
   // useEffect(() => {
   //   if (user) {
   //     const id = user?.id;
-  //     const name = user?.wallet?.address 
-  //       || user?.google?.name 
-  //       || user?.email?.address 
+  //     const name = user?.wallet?.address
+  //       || user?.google?.name
+  //       || user?.email?.address
   //       || user?.twitter?.name
   //       || user?.github?.name
   //       || user?.linkedin?.name
@@ -33,7 +29,6 @@ const Login = () => {
   //   }
   // }, [user, logout]);
 
-
   // useEffect(() => {
   //   handleLogin(user);
   // }, [user])
@@ -43,26 +38,24 @@ const Login = () => {
   //     router.push('/dashboard')
   // }
 
-
   return (
+    <div className="bg-[#2c2c2c] p-2 py-5 lg:p-10 rounded-lg shadow-md w-full">
+      <h2 className="text-3xl md:text-4xl xl:text-5xl font-bold mb-10 text-center">
+        Iniciar Sesión
+      </h2>
+      <div className="">
+        <p className="text-center text-white">
+          Bienvenido de nuevo a Kairos Research
+        </p>
+        <p className="text-center text-white">Inicia sesión para continuar</p>
+      </div>
 
-        <div className="bg-[#2c2c2c] p-2 py-5 lg:p-10 rounded-lg shadow-md w-full">
-            
-            <h2 className="text-3xl md:text-4xl xl:text-5xl font-bold mb-10 text-center">Iniciar Sesión</h2>
-            <div className=''> 
-              <p className="text-center text-white">Bienvenido de nuevo a Kairos Research</p>
-              <p className="text-center text-white">Inicia sesión para continuar</p>
+      <PrivyBox />
 
-            </div>
+      {/**Formulario*/}
+      {/* <AuthForm type='login' /> */}
 
-            <PrivyBox />
-
-            
-            {/**Formulario*/}
-            {/* <AuthForm type='login' /> */}
-            
-            
-            {/* <div className="text-center">
+      {/* <div className="text-center">
               <p className='my-5'>
                 <Link href="/forgot-password">
                   ¿Olvidaste tu contraseña?
@@ -76,10 +69,8 @@ const Login = () => {
               </p>
               
             </div> */}
-            
-        </div>
-    
+    </div>
   );
-}
+};
 
 export default Login;

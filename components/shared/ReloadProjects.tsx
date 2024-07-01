@@ -1,33 +1,30 @@
-'use client';
-import React, {useState} from 'react'
-import Image from 'next/image';
-import { useUserTableData } from '@/hooks/useUserData';
+"use client";
+import React, { useState } from "react";
+import Image from "next/image";
+import { useUserTableData } from "@/hooks/useUserData";
 
 const ReloadProjects = () => {
-    const {setUserTableData} = useUserTableData();
-    const [loading, setLoading] = useState(false);
-    const [count, setCount] = useState(0);
-    const handleReload = () => {
-        setLoading(true);
-        setCount(count + 1);
-        setUserTableData(['Recargo ' + count]);
-        setTimeout(() => {
-            setLoading(false);
-        }, 2000)
-        
-    }
+  const { setUserTableData } = useUserTableData();
+  const [loading, setLoading] = useState(false);
+  const [count, setCount] = useState(0);
+  const handleReload = () => {
+    setLoading(true);
+    setCount(count + 1);
+    setUserTableData(["Recargo " + count]);
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  };
   return (
-    
-        <Image
-            src='/restart-line.svg'
-            alt='reload'
-            width={30}
-            height={30}
-            className={`cursor-pointer  ${loading ? 'animate-spin': ''}` }
-            onClick={handleReload}
-        />
+    <Image
+      src="/restart-line.svg"
+      alt="reload"
+      width={30}
+      height={30}
+      className={`cursor-pointer  ${loading ? "animate-spin" : ""}`}
+      onClick={handleReload}
+    />
+  );
+};
 
-  )
-}
-
-export default ReloadProjects
+export default ReloadProjects;

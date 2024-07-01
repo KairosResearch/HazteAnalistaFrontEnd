@@ -1,16 +1,16 @@
-import type { Config } from "tailwindcss"
-import { BINANCE, COINBASE, KRAKEN} from "./lib/constants";
+import type { Config } from "tailwindcss";
+import { BINANCE, COINBASE, KRAKEN } from "./lib/constants";
 let greenDark = "#319383";
-let greyLight = '#d9d9d9';
+let greyLight = "#d9d9d9";
 
 const config = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-	],
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -22,27 +22,27 @@ const config = {
     },
     extend: {
       backgroundImage: {
-        'hero-pattern': "url('/bg-hero-login.jpg')",
-        'footer-texture': "url('/img/footer-texture.png')",
-        'page-texture': "url('/rombos.png')",
+        "hero-pattern": "url('/bg-hero-login.jpg')",
+        "footer-texture": "url('/img/footer-texture.png')",
+        "page-texture": "url('/rombos.png')",
       },
       scrollbar: {
-        thin: '10px',
-        thumb: '#888',
-        track: '#f1f1f1',
+        thin: "10px",
+        thumb: "#888",
+        track: "#f1f1f1",
       },
       colors: {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        green:{
+        green: {
           light: "#57FFDC",
-          dark: greenDark
+          dark: greenDark,
         },
-        white: '#edf4fb',
+        white: "#edf4fb",
         dark: {
-          black: '#000',
-          grey: '#2b2b2b',
+          black: "#000",
+          grey: "#2b2b2b",
         },
         grey: {
           light: greyLight,
@@ -64,26 +64,26 @@ const config = {
           foreground: "hsl(var(--destructive-foreground))",
         },
         card: {
-           DEFAULT: "hsl(var(--card))",
-           foreground: "hsl(var(--card-foreground))",
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
         },
         typeProyect: {
-          DEFAULT: '#3b82f6', // blue-500
+          DEFAULT: "#3b82f6", // blue-500
         },
         typeNarrative: {
-          DEFAULT: '#fb923c', // orange-400
+          DEFAULT: "#fb923c", // orange-400
         },
         typeReflection: {
-          DEFAULT: '#10b981', // green-500
+          DEFAULT: "#10b981", // green-500
         },
         decisionWatchlist: {
-          DEFAULT: '#06b6d4', // cyan-500
+          DEFAULT: "#06b6d4", // cyan-500
         },
         desicionLeave: {
-          DEFAULT: '#9ca3af', // neutral-500
+          DEFAULT: "#9ca3af", // neutral-500
         },
         desicionInvest: {
-          DEFAULT: '#10b981', // green-500
+          DEFAULT: "#10b981", // green-500
         },
         binance: {
           DEFAULT: BINANCE,
@@ -113,18 +113,14 @@ const config = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        'spin-slow': 'spin 2s linear infinite',
+        "spin-slow": "spin 2s linear infinite",
       },
     },
   },
-  plugins: [
-    require("tailwindcss-animate"),
-    require("tailwind-scrollbar"),
-  ],
+  plugins: [require("tailwindcss-animate"), require("tailwind-scrollbar")],
   corePlugins: {
     position: true,
   },
-  
-} satisfies Config
+} satisfies Config;
 
-export default config
+export default config;
