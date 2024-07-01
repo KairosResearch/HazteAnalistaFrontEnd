@@ -14,11 +14,13 @@ interface DialogHookProps {
     setIsOpen: (newState: boolean) => void;
     mode: 'add' |'edit' | 'none';
     setMode: (newMode: 'add' |'edit' | 'none') => void;
+    
 }
 interface DialogInstrHookProps {
     isOpenInstr: boolean;
     setIsOpenInstr: (newState: boolean) => void;
-    
+    defaultTab: 'first-part' | 'second-part';
+    setDefaultTab: (tab: 'first-part' | 'second-part') => void;
 }
 
 interface UserProps {

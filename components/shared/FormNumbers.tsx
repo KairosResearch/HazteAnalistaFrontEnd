@@ -2,6 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import { iconsFormLeftSide as icons } from "@/utils/index";
 import { FormLabel } from '../ui/form';
+import { useDialogInstructions } from '@/hooks/useDialogs';
 
 interface FormNumbersProps {
     values: any;
@@ -10,7 +11,7 @@ interface FormNumbersProps {
 }
 
 const FormNumbers = ({values, title, image}: FormNumbersProps) => {
-
+    const {isOpenInstr} = useDialogInstructions();
     const icon = icons.find((icon) => icon.name === image) ;
     const a = icon ? icon : {icon: '', alt: ''};
 
@@ -27,7 +28,7 @@ const FormNumbers = ({values, title, image}: FormNumbersProps) => {
         />   {title}:
         </FormLabel>
         <div className='pl-5'>
-            <span className="text-sm text-gray-500">
+            <span className={`${isOpenInstr ? '' : 'text-gray-500'}`}>
                 {values}
             </span>
         </div>

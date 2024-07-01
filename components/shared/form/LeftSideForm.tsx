@@ -43,7 +43,7 @@ const LeftSideForm = (
 
   return (
     <div className="">
-              <div id='nombreblock'>
+              <div className='nombreblock'>
               <CustomField
                 type={type}
                 name="nombre"
@@ -98,7 +98,7 @@ const LeftSideForm = (
               />
               </div>
               {symbol && (
-                      <p id="token" className="text-sm text-gray-500 mt-2">
+                      <p  className=" token text-sm text-gray-500 mt-2">
                         Token: $ {symbol}
                       </p>
               )}
@@ -106,7 +106,7 @@ const LeftSideForm = (
 
               <div className="flex flex-col gap-4 mt-6 justify-center pl-2">
                 {/**Market Cap */}
-                <div id="capblock">
+                <div className="capblock">
                   <FormNumbers
                     values={`$ ${
                       prInfo.market_cap != undefined
@@ -121,7 +121,7 @@ const LeftSideForm = (
                 
 
                 {/**Si Ath */}
-                <div id="calcblock">
+                <div className="calcblock">
                   <FormNumbers
                     values={`${rendimiento} %`}
                     title="Rendimiento"

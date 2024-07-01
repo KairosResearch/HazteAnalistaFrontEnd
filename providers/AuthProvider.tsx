@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { handleLogin } from '@/actions/login';
 import { handleRegister } from "@/actions/register";
 // import { useUserData} from "@/hooks/useUserData"
+import {useDialogInstructions} from '@/hooks/useDialogs'
 
 
 function PrivyProviderWrapper({
@@ -14,6 +15,7 @@ function PrivyProviderWrapper({
 }) {
   const router = useRouter();
   // const {setUserId} = useUserData();
+  const {setIsOpenInstr} = useDialogInstructions();
   return (
     <PrivyProvider
       appId={process.env.NEXT_PUBLIC_PRIVY_APP_ID || ""}
@@ -41,6 +43,7 @@ function PrivyProviderWrapper({
                   if (typeof window !== 'undefined'&& data !== null) { 
                     window.localStorage.setItem('guzma', data.toString());
                   }
+                  setIsOpenInstr(true)
                   router.push('/dashboard')
                 }
   

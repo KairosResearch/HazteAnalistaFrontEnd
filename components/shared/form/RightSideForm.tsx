@@ -61,7 +61,7 @@ const RightSideForm = (
         />  
     </div>
 
-    <div id="foureblock">
+    <div className="foureblock">
     <CustomField
       type={type}
       name="id4e"
@@ -107,7 +107,7 @@ const RightSideForm = (
       
 
     {/**Decision */}
-    <div id="decisionblock">
+    <div className="decisionblock">
     <CustomField
       type={type}
       name="id_decision_proyecto"
@@ -159,7 +159,7 @@ const RightSideForm = (
     </div>
      {/**Exchange */}
    
-    <div id="exchangeblock">
+    <div className="exchangeblock">
     <CustomField
       type={type}
       name="idExchange"
@@ -198,7 +198,7 @@ const RightSideForm = (
     />
     </div>
      {/**Sector */}
-    <div id='sectorblock'>
+    <div className='sectorblock'>
     <CustomField
       type={type}
       name="idSector"

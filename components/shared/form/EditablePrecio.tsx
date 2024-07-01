@@ -20,7 +20,7 @@ const EditablePrecio = (
    
 
   return (
-    <div id="editableblock">
+    <div className="editableblock">
         {/**Precio entrada */}
     {type === "create" ? (
       <CustomField
