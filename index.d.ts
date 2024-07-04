@@ -85,12 +85,11 @@ export interface DashboardDataFormProps {
         proyecto: string;
         ticker: string;
         symbol: string;
-      }[]
-    | null;
+      }[];
 }
 
 export interface BackendValues {
-  idProyecto: number;
+  idProyecto: string;
   id4e: number;
   id_decision_proyecto: number;
   marketCap: number;

@@ -13,8 +13,8 @@ import { useLogout } from "@privy-io/react-auth";
 
 import { useRouter } from "next/navigation";
 
-import SearcherResults from "./SearcherResults";
-import LinkAccounts from "./LinkAccounts";
+import SearcherResults from "../shared/SearcherResults";
+import LinkAccounts from "../shared/LinkAccounts";
 
 interface PopoverFormProps {
   usage: "searcher" | "userinfo";

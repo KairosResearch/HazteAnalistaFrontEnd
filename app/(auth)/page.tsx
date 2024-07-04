@@ -1,5 +1,5 @@
 import React from "react";
-import PrivyBox from "@/components/shared/PrivyBox";
+import PrivyBox from "@/components/auth/PrivyBox";
 
 const Login = () => {
   // useEffect(() => {

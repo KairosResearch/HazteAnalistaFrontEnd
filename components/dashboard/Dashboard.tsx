@@ -10,9 +10,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import DashboardHeader from "./DashboardHeader";
-import DialogInfo from "../DialogInfo";
+import DialogInfo from "./DialogInfo";
 
-import { Badge } from "../../ui/badge";
+import { Badge } from "../ui/badge";
 
 //Calculous
 import { rangeDesigner } from "@/utils";
@@ -26,9 +26,9 @@ import { tableDataDefault } from "@/lib/data";
 import { TableData } from "@/index";
 import { DashboardProps } from "@/index";
 import { handleGetProyects } from "@/actions/proyectActions";
-import Loading from "../Loading";
-import Image from "next/image";
+import Loading from "../shared/Loading";
 import { useDialogItem } from "@/hooks/useDialogs";
+import DialogItem from "./form/DialogItem";
 
 const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
   const [loading, setLoading] = useState(false);
@@ -37,10 +37,13 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
 
   const { setIsOpen } = useDialogItem();
 
-  // const [sectores, setSectores] = useState<any[]>([]);
   const [tableData, setTableData] = useState<TableData[]>([]);
+  
+  //State to handle the projectList so that user might only add a project 
+  //that hasn't been added yet
+  const [availableProjects, setAvaliableProjects] = useState(projectsList);
 
-  //State for Dialog
+  //State for Dialog info about the projects
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedRow, setSelectedRow] = useState<any>(null);
 
@@ -54,10 +57,18 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
         const guzma = Number(window.localStorage.getItem("guzma"));
         console.log("guzma", guzma);
         // console.log('userid', userId)
-        const data = await handleGetProyects(guzma ?? 0);
+        const data = await handleGetProyects(guzma ?? 0) as TableData[] | string;
+        console.log("data", data);
+        
         if (typeof data === "string") {
           setTableData([]);
         } else {
+          // Crear un conjunto con los nombres de los proyectos ya tomados
+          const takenProjectsSet = new Set(data?.map(pr => pr.proyecto));
+          // Filtrar projectList para incluir solo proyectos no tomados
+          const availableProjects = projectsList?.filter(pr => !takenProjectsSet.has(pr.proyecto)) || [];
+          setAvaliableProjects(availableProjects);
+
           setTableData(data || []);
         }
       }
@@ -75,6 +86,13 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
 
   return (
     <div>
+      <DialogItem
+              projectsList={availableProjects}
+              mode="add"
+              catalogos={catalogos}
+              data={null}
+              close={null}
+            />
       <Table id="mochila" className="border border-grey-light ">
         <DashboardHeader />
 

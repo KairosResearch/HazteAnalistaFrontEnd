@@ -1,18 +1,18 @@
 import React from "react";
-import Lessons from "@/components/shared/Lessons";
+import Lessons from "@/components/dashboard/Lessons";
 // import InputSearcher from '@/components/shared/InputSearcher';
-import Dashboard from "@/components/shared/dashboard/Dashboard";
-import DialogItem from "@/components/shared/DialogItem";
-import DialogInstructions from "@/components/shared/on-boarding/DialogInstructions";
+import Dashboard from "@/components/dashboard/Dashboard";
+import DialogItem from "@/components/dashboard/form/DialogItem";
+import DialogInstructions from "@/components/on-boarding/DialogInstructions";
 import {
   get4t,
   getDecision,
   getExchange,
   getSectores,
 } from "@/services/backend/catalogos";
-import AddProjectButton from "@/components/shared/AddProjectButton";
+import AddProjectButton from "@/components/dashboard/AddProjectButton";
 import { getProjectsList } from "@/services/backend/proyectsInfo";
-import ReloadProjects from "@/components/shared/ReloadProjects";
+import ReloadProjects from "@/components/dashboard/ReloadProjects";
 
 const HomePage = async () => {
   const [data4t, decision, exchange, sector, projectsList] = await Promise.all([
@@ -43,13 +43,7 @@ const HomePage = async () => {
 
             <AddProjectButton />
 
-            <DialogItem
-              projectsList={projectsList.proyectos}
-              mode="add"
-              catalogos={[data4t, decision, exchange, sector]}
-              data={null}
-              close={null}
-            />
+            
           </div>
         </div>
         {/* <div className="md:hidden">

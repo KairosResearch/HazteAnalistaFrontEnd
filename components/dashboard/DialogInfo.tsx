@@ -7,13 +7,13 @@ import {
 } from "@/components/ui/dialog";
 import { X } from "lucide-react";
 
-import DialogAlert from "@/components/shared/DialogAlert";
-import DialogItem from "@/components/shared/DialogItem";
+import DialogAlert from "@/components/dashboard/DialogAlert";
+import DialogItem from "@/components/dashboard/form/DialogItem";
 
 import { DialogInfoProps, InfoTabsProps, ProyectsInfo } from "@/index";
 import InfoTabs from "./InfoTabs";
 import { getProyectById } from "@/services/backend/proyectsInfo";
-import EditProjectButton from "./EditProjectButton";
+import EditProjectButton from "@/components/dashboard/EditProjectButton";
 
 const DialogInfo = ({
   isDialogOpen,

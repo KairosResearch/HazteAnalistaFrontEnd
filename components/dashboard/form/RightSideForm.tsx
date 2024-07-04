@@ -1,7 +1,6 @@
 import React from "react";
 import { Badge } from "@/components/ui/badge";
-import { Input } from "../../ui/input";
-import { CustomField } from "../CustomField";
+import { CustomField } from "./CustomField";
 import {
   Select,
   SelectContent,

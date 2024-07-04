@@ -1,7 +1,5 @@
 "use client";
-import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogClose,
@@ -13,7 +11,8 @@ import {
 } from "@/components/ui/dialog";
 import { useDialogItem, useDialogInstructions } from "@/hooks/useDialogs";
 
-import DashboardDataForm from "./form/DashboardDataForm";
+import DashboardDataForm from "@/components/dashboard/form/DashboardDataForm";
+
 
 import { DialogItemProps } from "@/index";
 import { X } from "lucide-react";
@@ -21,6 +20,7 @@ import { X } from "lucide-react";
 const DialogItem = (props: DialogItemProps) => {
   const { isOpen, setIsOpen, mode } = useDialogItem();
   const { isOpenInstr } = useDialogInstructions();
+  
 
   return (
     <Dialog open={isOpen}>

@@ -10,7 +10,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import Image from "next/image";
-import PopoverForm from "./PopoverForm";
+import PopoverForm from "../auth/PopoverForm";
 
 //Auth Stuff
 import { usePrivy } from "@privy-io/react-auth";

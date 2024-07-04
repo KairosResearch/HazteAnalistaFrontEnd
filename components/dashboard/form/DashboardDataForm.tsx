@@ -1,4 +1,7 @@
 "use client";
+
+//Imports for the component
+//React
 import React, { useState, useEffect } from "react";
 //Hooks
 import { useUserTableData } from "@/hooks/useUserData";
@@ -8,7 +11,7 @@ import { useTabsState } from "@/hooks/useTabs";
 //Types:
 import { BackendValues, CatalogosType, DashboardDataFormProps } from "@/index";
 
-//El coso de actions
+//Server actions for both adding and updating
 import {
   handleSubmitProyectForm,
   handleUpdateProyect,
@@ -20,7 +23,6 @@ import { Form } from "@/components/ui/form";
 
 //UI needed
 import { Button } from "@/components/ui/button";
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 //Values and utils
@@ -29,19 +31,23 @@ import {
   defaultValuesDashboardForm,
   rendimientoCalculator,
 } from "@/utils/index";
+//service for fetching data from coinmarketcap about prices
 import { getProyectNumbers } from "@/services/coinmarketcap/info";
+
+//reusable components used in the form
 import LeftSideForm from "./LeftSideForm";
 import RightSideForm from "./RightSideForm";
 import EditablePrecio from "./EditablePrecio";
 
-//The component with its functionalities
+
+//------The component with its functionalities------//
 const DashboardDataForm = ({
   type,
   data = null,
   catalogos,
   projectsList,
 }: DashboardDataFormProps) => {
-  console.log("LLEGUE A FORM JASJAJA");
+  
   //Catalogos, separated as they come as an array
   const data4e = catalogos[0] as CatalogosType[];
   const decision = catalogos[1] as CatalogosType[];
@@ -49,46 +55,61 @@ const DashboardDataForm = ({
   const sector = catalogos[3] as CatalogosType[];
 
   //States for the right use of the form
+  //Counter so that everytime the submit is correct, it changes the value of
+  //global state that manipulates the fetching data on the table
   const [count, setCount] = useState(1);
+
   const [submitted, setSubmitted] = useState(false);
+  
+  //States of the values added automatically with apis
   const [symbol, setSymbol] = useState("");
   const [editablePrecio, setEditablePrecio] = useState(0);
   const [rendimiento, setRendimiento] = useState(0);
-  const { setUserTableData } = useUserTableData();
-  const { isReadyNextTab, setIsReadyNextTab } = useTabsState();
-  const { setIsOpen } = useDialogItem();
 
-  //If is user's first time
+  //States from hooks
+  //Global state that manipulates the fetching data on the table
+  const { setUserTableData } = useUserTableData();
+  //Global state that manipulates the change-tab-button (mobile view)
+  const { isReadyNextTab, setIsReadyNextTab } = useTabsState();
+  //manipulates the dialog open-state 
+  const { setIsOpen } = useDialogItem();
+  //If is user's first time, will show onboarding methods
+  //And if its mobile, it needs to read the tab 
+  //That are changed in the onboarding process
   const { isOpenInstr, defaultTab } = useDialogInstructions();
 
-  //States for setting errors using the hook
+  //States for setting/cleaning errors using the hook useForm
   const {
     formState: { errors },
     setError,
     clearErrors,
   } = useForm();
-  //Estados para el manejo de la data de coinmarketcap
+
+  //Estado para el manejo de la data de coinmarketcap
   const [prInfo, setPrInfo] = useState({
     market_cap: 0,
     price: 0,
   });
 
+  //We disabled the next tab button when the form is loaded
   useEffect(() => {
     setIsReadyNextTab(false);
   }, []);
 
   //Fetching project info just right after user selects the project
   useEffect(() => {
-    console.log(symbol);
+    
+    //set everything to 0
     const foo = async () => {
       setPrInfo({
         market_cap: 0,
         price: 0,
       });
 
+      //fetching the data from the api
       const newPrInfo = await getProyectNumbers(symbol);
+      //setting the values as they come from the api
       const opa = newPrInfo?.data?.[symbol]?.quote?.USD;
-      console.log(opa);
       const market_cap = opa?.market_cap;
       const price = opa?.price;
 
@@ -96,13 +117,15 @@ const DashboardDataForm = ({
         market_cap,
         price,
       });
-
+      //editable price is the 'Precio entrada' field
+      //And its default value is the price from the api
       setEditablePrecio(price);
     };
     foo();
   }, [symbol]);
 
   //Difning the 'rendimiento' when editablePrice changes
+  //Not inmediately, but after a debounce foo of 1 sec
   useEffect(() => {
     const debouncedFunction = debounce(() => {
       const rendimiento = rendimientoCalculator(editablePrecio, prInfo.price);
@@ -144,82 +167,85 @@ const DashboardDataForm = ({
     //Form is in create mode
 
     if (type === "create") {
-      //By default this error is false
 
       //Values/types we need to send to avoid backend errors
       const backendValues: BackendValues = {
-        idProyecto: Number(values.nombre),
+        idProyecto: values.nombre,
         id4e: values.id4e,
-        id_decision_proyecto: Number(values.id_decision_proyecto),
+        id_decision_proyecto: Number(values.id_decision_proyecto) ?? 1,
         marketCap: prInfo.market_cap ?? 0,
         idExchange: Number(values.idExchange),
         idSector: Number(values.idSector),
         precioActual: prInfo.price ?? 0,
         precioEntrada: editablePrecio ?? 0,
       };
-      console.log("Backend values", backendValues);
+      
+      console.log(backendValues)
 
-      //Checking if all the values are filled
-      if (
-        backendValues.id_decision_proyecto !== 0 &&
-        backendValues.idProyecto !== 0
-      ) {
-        //Checking if the user is logged in and bring the guzma value
-        if (
-          typeof window !== "undefined" &&
-          window.localStorage.getItem("guzma") !== null
-        ) {
-          const guzma = Number(window.localStorage.getItem("guzma"));
-          console.log("Guzma", guzma);
-          const newData = await handleSubmitProyectForm(
-            backendValues,
-            guzma ?? 0,
-          );
-          if (newData === "praldreadyexists") {
-            setError("nombre", {
-              type: "manual",
-              message: `Ya guardaste este proyecto`,
-            });
-          } else {
-            setCount(count + 1);
-            setUserTableData(["Dato añadido" + count]);
-            setSubmitted(true);
-
-            setTimeout(() => {
-              setIsOpen(false);
-            }, 1000);
-          }
-        } else {
-          console.log("No guzma");
-        }
-      } else {
-        if (backendValues.idProyecto === 0) {
-          setError("nombre", {
-            type: "manual",
-            message: `Nombre es obligatorio`,
-          });
-        }
-        if (backendValues.id_decision_proyecto === 0) {
-          setError("id_decision_proyecto", {
-            type: "manual",
-            message: `Decision es obligatorio`,
-          });
-        }
-      }
+      //Checking if all the needed values are filled
+      // if (
+      //   backendValues.id_decision_proyecto !== 0 &&
+      //   backendValues.idProyecto !== 0
+      // ) {
+      //   //Checking if the user is logged in and bring the guzma value
+      //   if (
+      //     typeof window !== "undefined" &&
+      //     window.localStorage.getItem("guzma") !== null
+      //   ) {
+      //     const guzma = Number(window.localStorage.getItem("guzma"));
+      //     //If guzma is not 0, we send the data to the backend
+      //     const newData = await handleSubmitProyectForm(
+      //       backendValues,
+      //       guzma ?? 0,
+      //     );
+      //     //if the project already exists, we show an error
+      //     if (newData === "praldreadyexists") {
+      //       setError("nombre", {
+      //         type: "manual",
+      //         message: `Ya guardaste este proyecto`,
+      //       });
+      //     } 
+      //     //If the data is sent correctly, we show a success message
+      //     else {
+      //       setCount(count + 1);
+      //       setUserTableData(["Dato añadido" + count]);
+      //       setSubmitted(true);
+      //       //Close the dialog
+      //       setTimeout(() => {
+      //         setIsOpen(false);
+      //       }, 1000);
+      //     }
+      //   } else {
+      //     console.log("No guzma");
+      //   }
+      // } 
+      // //If not all needed values are filled, we show respective error
+      // else {
+      //   if (backendValues.idProyecto === 0) {
+      //     setError("nombre", {
+      //       type: "manual",
+      //       message: `Nombre es obligatorio`,
+      //     });
+      //   }
+      //   if (backendValues.id_decision_proyecto === 0) {
+      //     setError("id_decision_proyecto", {
+      //       type: "manual",
+      //       message: `Decision es obligatorio`,
+      //     });
+      //   }
+      // }
     }
+
     //Form is in update mode
     if (type === "update") {
       const backendValuesUpdate = {
         id4e: Number(values.id4e),
         id_decision_proyecto: Number(values.id_decision_proyecto),
         idExchange: Number(values.idExchange),
-        siAth: 0,
         idSector: Number(values.idSector),
         precioEntrada: values.precioEntrada,
         id: data?.id_proyecto,
       };
-
-      console.log("Backend values", backendValuesUpdate);
 
       const newData = await handleUpdateProyect(backendValuesUpdate);
 
@@ -259,12 +285,16 @@ const DashboardDataForm = ({
           </>
         )}
 
+
+        {/* All the form structured accordingly */}
         <div className={`space-y-6 md:flex md:divide-x`}>
+          {/* If is create mode */}
           {type === "create" ? (
             <>
               {/* If user's first time, will show onboarding method */}
               {isOpenInstr ? (
                 <>
+                {/* On boarding for mobile  */}
                   <div className="block md:hidden">
                     {defaultTab === "first-part" ? (
                       <>
@@ -298,6 +328,9 @@ const DashboardDataForm = ({
                       />
                     )}
                   </div>
+
+                  {/*On boarding for desktop */}
+
                   <div className="hidden md:block md:w-2/5 md:px-5 ">
                     <LeftSideForm
                       type={type}
@@ -327,7 +360,9 @@ const DashboardDataForm = ({
                   </div>
                 </>
               ) : (
+                // If not first time, will show the form normally
                 <>
+                {/* for mobile */}
                   <Tabs className="md:hidden" defaultValue={"first-part"}>
                     <TabsContent value="first-part">
                       <LeftSideForm
@@ -392,7 +427,7 @@ const DashboardDataForm = ({
                       </div>
                     </TabsContent>
                   </Tabs>
-
+                {/* for desktop */}
                   <div className="hidden md:block md:w-2/5 md:px-5 ">
                     <LeftSideForm
                       type={type}
@@ -409,8 +444,13 @@ const DashboardDataForm = ({
               )}
             </>
           ) : null}
+          {/* finished components only shownn in create mode */}
 
+          {/* Components shown in both create and update mode */}
+
+          {/* If user's first time, we show nothing as it is shown above */}
           {isOpenInstr ? null : (
+            // If not first time, will show the form normally
             <div
               className={`grid ${type === "create" ? "md:w-3/5 md:px-5 hidden md:grid gap-7 md:gap-4" : "w-full gap-4 md:gap-0 md:grid-cols-2"}`}
             >

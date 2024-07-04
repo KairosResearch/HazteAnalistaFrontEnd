@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { CustomField } from "../CustomField";
+import { CustomField } from './CustomField';
 import { Input } from "../../ui/input";
 
 interface EditablePrecioProps {

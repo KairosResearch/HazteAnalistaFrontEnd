@@ -1,13 +1,15 @@
 import React from "react";
-import { CustomField } from "../CustomField";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../../ui/select";
-import FormNumbers from "../FormNumbers";
+import { CustomField } from "./CustomField";
+
+import ComboboxName from "./ComboboxName";
+// import {
+//   Select,
+//   SelectContent,
+//   SelectItem,
+//   SelectTrigger,
+//   SelectValue,
+// } from "../../ui/select";
+import FormNumbers from './FormNumbers';
 import { useTabsState } from "@/hooks/useTabs";
 
 interface LeftSideForm {
@@ -21,8 +23,7 @@ interface LeftSideForm {
         proyecto: string;
         ticker: string;
         symbol: string;
-      }[]
-    | null;
+      }[];
   clearErrors: any;
   prInfo: any;
   rendimiento: any;
@@ -39,6 +40,8 @@ const LeftSideForm = ({
   rendimiento,
 }: LeftSideForm) => {
   const { isReadyNextTab, setIsReadyNextTab } = useTabsState();
+  const [open, setOpen] = React.useState(false)
+
 
   return (
     <div className="">
@@ -50,42 +53,11 @@ const LeftSideForm = ({
           className="w-full sm:mt-6"
           render={({ field }) => (
             <>
-              <Select
-                onValueChange={(value) => {
-                  field.onChange(value);
-                  clearErrors("nombre");
-                  if (value !== "") {
-                    const foo = () => {
-                      const b = Number(value);
-                      const a = projectsList?.find((pr) => pr.id === b);
-                      const symbol = a?.symbol;
-                      return symbol as string;
-                    };
-                    setSymbol(foo());
-                  }
-                  setIsReadyNextTab(true);
-                }}
-                defaultValue={field.value}
-              >
-                <SelectTrigger
-                  className={errors.nombre ? "border-red-500 text-red-500" : ""}
-                >
-                  <SelectValue placeholder="Selecciona el nombre" />
-                </SelectTrigger>
-                <SelectContent>
-                  {projectsList?.map((proyect) => (
-                    <>
-                      <SelectItem
-                        className="hover:text-black"
-                        key={proyect.id}
-                        value={String(proyect.id)}
-                      >
-                        {proyect.proyecto}
-                      </SelectItem>
-                    </>
-                  ))}
-                </SelectContent>
-              </Select>
+              
+              <ComboboxName 
+                projects={projectsList}
+              />
+     
               <p className="text-red-500 text-sm mt-2">
                 {errors.nombre && <>{errors.nombre.message || ""}</>}
               </p>

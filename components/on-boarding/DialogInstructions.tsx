@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 
 import { X } from "lucide-react";
-import { Button } from "../../ui/button";
+import { Button } from "../ui/button";
 import { instructionsSteps } from "@/utils";
 import { useDialogInstructions, useDialogItem } from "@/hooks/useDialogs";
 

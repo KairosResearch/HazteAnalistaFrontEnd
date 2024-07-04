@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { iconsFormLeftSide as icons } from "@/utils/index";
-import { FormLabel } from "../ui/form";
+import { FormLabel } from "@/components/ui/form";
 import { useDialogInstructions } from "@/hooks/useDialogs";
 
 interface FormNumbersProps {

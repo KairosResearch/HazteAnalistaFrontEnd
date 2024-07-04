@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 //Components
-import NavbarLessons from "@/components/shared/lessons/NavbarLessons";
+import NavbarLessons from "@/components/lessons/NavbarLessons";
 
 import { aprendizaje } from "@/lib/data";
 

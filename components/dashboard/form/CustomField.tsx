@@ -8,7 +8,7 @@ import {
   FormControl,
   FormMessage,
   FormLabel,
-} from "../ui/form";
+} from "@/components/ui/form";
 import Image from "next/image";
 
 // import { formSchema } from "./DashboardDataForm";
