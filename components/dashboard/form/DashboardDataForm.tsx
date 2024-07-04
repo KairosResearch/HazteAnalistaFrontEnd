@@ -65,6 +65,7 @@ const DashboardDataForm = ({
   const [symbol, setSymbol] = useState("");
   const [editablePrecio, setEditablePrecio] = useState(0);
   const [rendimiento, setRendimiento] = useState(0);
+  console.log(symbol)
 
   //States from hooks
   //Global state that manipulates the fetching data on the table
@@ -130,7 +131,7 @@ const DashboardDataForm = ({
     const debouncedFunction = debounce(() => {
       const rendimiento = rendimientoCalculator(editablePrecio, prInfo.price);
       setRendimiento(rendimiento);
-    }, 1000);
+    }, 500);
 
     if (editablePrecio) {
       debouncedFunction();
@@ -170,7 +171,7 @@ const DashboardDataForm = ({
 
       //Values/types we need to send to avoid backend errors
       const backendValues: BackendValues = {
-        idProyecto: values.nombre,
+        idProyecto: Number(values.nombre),
         id4e: values.id4e,
         id_decision_proyecto: Number(values.id_decision_proyecto) ?? 1,
         marketCap: prInfo.market_cap ?? 0,
@@ -183,57 +184,57 @@ const DashboardDataForm = ({
       console.log(backendValues)
 
       //Checking if all the needed values are filled
-      // if (
-      //   backendValues.id_decision_proyecto !== 0 &&
-      //   backendValues.idProyecto !== 0
-      // ) {
-      //   //Checking if the user is logged in and bring the guzma value
-      //   if (
-      //     typeof window !== "undefined" &&
-      //     window.localStorage.getItem("guzma") !== null
-      //   ) {
-      //     const guzma = Number(window.localStorage.getItem("guzma"));
-      //     //If guzma is not 0, we send the data to the backend
-      //     const newData = await handleSubmitProyectForm(
-      //       backendValues,
-      //       guzma ?? 0,
-      //     );
-      //     //if the project already exists, we show an error
-      //     if (newData === "praldreadyexists") {
-      //       setError("nombre", {
-      //         type: "manual",
-      //         message: `Ya guardaste este proyecto`,
-      //       });
-      //     } 
-      //     //If the data is sent correctly, we show a success message
-      //     else {
-      //       setCount(count + 1);
-      //       setUserTableData(["Dato añadido" + count]);
-      //       setSubmitted(true);
-      //       //Close the dialog
-      //       setTimeout(() => {
-      //         setIsOpen(false);
-      //       }, 1000);
-      //     }
-      //   } else {
-      //     console.log("No guzma");
-      //   }
-      // } 
-      // //If not all needed values are filled, we show respective error
-      // else {
-      //   if (backendValues.idProyecto === 0) {
-      //     setError("nombre", {
-      //       type: "manual",
-      //       message: `Nombre es obligatorio`,
-      //     });
-      //   }
-      //   if (backendValues.id_decision_proyecto === 0) {
-      //     setError("id_decision_proyecto", {
-      //       type: "manual",
-      //       message: `Decision es obligatorio`,
-      //     });
-      //   }
-      // }
+      if (
+        backendValues.id_decision_proyecto !== 0 &&
+        backendValues.idProyecto !== 0
+      ) {
+        //Checking if the user is logged in and bring the guzma value
+        if (
+          typeof window !== "undefined" &&
+          window.localStorage.getItem("guzma") !== null
+        ) {
+          const guzma = Number(window.localStorage.getItem("guzma"));
+          //If guzma is not 0, we send the data to the backend
+          const newData = await handleSubmitProyectForm(
+            backendValues,
+            guzma ?? 0,
+          );
+          //if the project already exists, we show an error
+          if (newData === "praldreadyexists") {
+            setError("nombre", {
+              type: "manual",
+              message: `Ya guardaste este proyecto`,
+            });
+          } 
+          //If the data is sent correctly, we show a success message
+          else {
+            setCount(count + 1);
+            setUserTableData(["Dato añadido" + count]);
+            setSubmitted(true);
+            //Close the dialog
+            setTimeout(() => {
+              setIsOpen(false);
+            }, 1000);
+          }
+        } else {
+          console.log("No guzma");
+        }
+      } 
+      //If not all needed values are filled, we show respective error
+      else {
+        if (backendValues.idProyecto === 0) {
+          setError("nombre", {
+            type: "manual",
+            message: `Nombre es obligatorio`,
+          });
+        }
+        if (backendValues.id_decision_proyecto === 0) {
+          setError("id_decision_proyecto", {
+            type: "manual",
+            message: `Decision es obligatorio`,
+          });
+        }
+      }
     }
 
     //Form is in update mode

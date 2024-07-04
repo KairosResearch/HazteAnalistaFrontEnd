@@ -18,6 +18,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { useTabsState } from "@/hooks/useTabs";
+
 
 interface ComboboxDemoProps {
     projects: | {
@@ -25,13 +27,18 @@ interface ComboboxDemoProps {
         proyecto: string;
         ticker: string;
         symbol: string;
-      }[]
+      }[];
+      field: any;
+      setSymbol: any;
+      clearErrors: any;
 }
 
-const  ComboboxDemo= ({projects}: ComboboxDemoProps) => {
+const  ComboboxDemo= ({projects, field, clearErrors, setSymbol}: ComboboxDemoProps) => {
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState("")
-  console.log
+  const { isReadyNextTab, setIsReadyNextTab } = useTabsState();
+
+
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -60,8 +67,19 @@ const  ComboboxDemo= ({projects}: ComboboxDemoProps) => {
                   key={project.id}
                   value={String(project.proyecto)}
                   onSelect={(curentValue) => {
+                    const projectSelected = projects.find((project) => project.proyecto === curentValue)
+                    field.onChange(projectSelected?.id)
                     setValue(curentValue === value ? "" : curentValue)
                     setOpen(false)
+                    clearErrors("nombre");
+                    
+                      const foo = () => {
+                        const symbol = projectSelected?.symbol;
+                        return symbol as string;
+                      };
+                      setSymbol(foo());
+                    
+                  setIsReadyNextTab(true);
                   }}
                 >
                   <Check

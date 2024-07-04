@@ -10,7 +10,6 @@ import ComboboxName from "./ComboboxName";
 //   SelectValue,
 // } from "../../ui/select";
 import FormNumbers from './FormNumbers';
-import { useTabsState } from "@/hooks/useTabs";
 
 interface LeftSideForm {
   type: "create" | "update" | null;
@@ -39,7 +38,6 @@ const LeftSideForm = ({
   prInfo,
   rendimiento,
 }: LeftSideForm) => {
-  const { isReadyNextTab, setIsReadyNextTab } = useTabsState();
   const [open, setOpen] = React.useState(false)
 
 
@@ -56,6 +54,9 @@ const LeftSideForm = ({
               
               <ComboboxName 
                 projects={projectsList}
+                field={field}
+                setSymbol={setSymbol}
+                clearErrors={clearErrors}
               />
      
               <p className="text-red-500 text-sm mt-2">
