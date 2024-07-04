@@ -27,6 +27,12 @@ const FormNumbers = ({ values, title, image }: FormNumbersProps) => {
         />{" "}
         {title}:
       </FormLabel>
+      <div>
+        {title === "Market Cap" && (<p className="m-0 text-primary-foreground/90 text-xs">Capitalización de mercado del proyecto</p>)}
+        {title === "Rendimiento" && (<p className="m-0 text-primary-foreground/90 text-xs">Rendimiento con relación a tu precio de entrada</p>)}
+        
+        
+      </div>
       <div className="pl-5">
         <span className={`${isOpenInstr ? "" : "text-gray-500"}`}>
           {values}

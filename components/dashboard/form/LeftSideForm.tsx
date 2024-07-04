@@ -38,7 +38,6 @@ const LeftSideForm = ({
   prInfo,
   rendimiento,
 }: LeftSideForm) => {
-  const [open, setOpen] = React.useState(false)
 
 
   return (

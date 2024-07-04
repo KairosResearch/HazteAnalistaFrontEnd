@@ -8,7 +8,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         <Image
           className="xl:mb-20 mb-6 "
           alt="kairos"
-          src="/kairos-login.svg"
+          src="/backgrounds/kairos-login.svg"
           width={250}
           height={150}
         ></Image>

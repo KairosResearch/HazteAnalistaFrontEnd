@@ -46,6 +46,9 @@ const HomePage = async () => {
             
           </div>
         </div>
+        <p className="text-sm text-primary-foreground/90">
+          Aquí podras registrar todos los proyectos que te llaman la atención o en los que ya has invertido.
+        </p>
         {/* <div className="md:hidden">
               <ReloadProjects />
             </div> */}
@@ -64,12 +67,15 @@ const HomePage = async () => {
           </h1>
           {/* <InputSearcher /> */}
         </div>
+        <p className="text-sm text-primary-foreground/90">
+        Inicia con las lecciones para apender a hacer un análisis de manera profesional y convertirte en analista.
+        </p>
         <Lessons
         // lessons={lessons}
         />
       </section>
     </div>
   );
-};
+};  
 
 export default HomePage;

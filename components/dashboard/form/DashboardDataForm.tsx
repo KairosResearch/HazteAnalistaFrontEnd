@@ -288,7 +288,7 @@ const DashboardDataForm = ({
 
 
         {/* All the form structured accordingly */}
-        <div className={`space-y-6 md:flex md:divide-x`}>
+        <div className={`space-y-6 md:flex `}>
           {/* If is create mode */}
           {type === "create" ? (
             <>
@@ -429,7 +429,7 @@ const DashboardDataForm = ({
                     </TabsContent>
                   </Tabs>
                 {/* for desktop */}
-                  <div className="hidden md:block md:w-2/5 md:px-5 ">
+                  <div className="hidden md:block md:w-2/5 md:px-5 md:border-r">
                     <LeftSideForm
                       type={type}
                       symbol={symbol}

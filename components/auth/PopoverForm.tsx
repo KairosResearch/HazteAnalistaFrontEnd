@@ -44,7 +44,7 @@ const PopoverForm = ({ usage }: PopoverFormProps) => {
     <Popover>
       <PopoverTrigger asChild className="cursor-pointer">
         <Avatar>
-          <AvatarImage src="" />
+          <AvatarImage src="/icons/profile/Perfil.png" />
           <AvatarFallback></AvatarFallback>
         </Avatar>
       </PopoverTrigger>

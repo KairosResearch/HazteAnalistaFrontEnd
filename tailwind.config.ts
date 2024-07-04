@@ -22,9 +22,9 @@ const config = {
     },
     extend: {
       backgroundImage: {
-        "hero-pattern": "url('/bg-hero-login.jpg')",
+        "hero-pattern": "url('/backgrounds/bg-hero-login.jpg')",
         "footer-texture": "url('/img/footer-texture.png')",
-        "page-texture": "url('/rombos.png')",
+        "page-texture": "url('/backgrounds/rombos.png')",
       },
       scrollbar: {
         thin: "10px",

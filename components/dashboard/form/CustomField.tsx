@@ -41,13 +41,23 @@ export const CustomField = ({
                   <Image src={a?.icon} alt={a?.alt} width={15} height={15} />
                 )}
 
-                <p>
+                <h3 className="p-0 m-0">
                   {(formLabel === "Sector" || formLabel === "Exchange") &&
                   type === "create"
                     ? `${formLabel} (opcional)`
                     : formLabel}
-                </p>
+                </h3>
               </div>
+              <p className="text-xs text-primary-foreground/90">
+            {name === "precioEntrada" && type === "create" ? (
+                            <span>¿A qué precio adquiriste el token?</span>
+
+                ) : name === "id4e" ? (
+                  <span>Etapa de análisis en la que te encuentres</span>
+              ) : name === "idSector" ? (
+                <span>Sector al que pertenece el proyecto</span>
+              ): null}
+            </p>
             </FormLabel>
           )}
 

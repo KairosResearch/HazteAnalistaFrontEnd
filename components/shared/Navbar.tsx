@@ -29,23 +29,7 @@ const Navbar = () => {
           <Image src="/kairos-main.svg" alt="Kairos" width={50} height={50} />
         </Link>
       </div>
-      {/* <nav className='hidden sm:block'>
-                <ul className="flex space-evenly">
-                    <li className='mr-9'>
-                        <a href="#">Home</a>
-                    </li>
-                    <li className='mr-9'>
-                        <a href="#">About</a>
-                    </li>
-                    <li className='mr-9'>
-                        <a href="#">Services</a>
-                    </li>
-                    <li>
-                        <a href="#">Contact</a>
-                    </li>
-                </ul>
-            </nav>
-           */}
+     
       <div className="flex gap-4 flex-center">
         <PopoverForm usage="userinfo" />
 
