@@ -3,9 +3,10 @@ import React from "react";
 import { aprendizaje } from "@/lib/data";
 import LessonsCard from "@/components/lessons/LessonsCard";
 
+
 const page = () => {
-  const leccion = aprendizaje[0].lessons.find((lesson) => lesson.id === 1);
-  const {html, ...leccionSinHtml } = leccion;
+  const leccion = aprendizaje[0].lessons.find((lesson) => lesson.id === 1) as any;
+  const {html,  ...leccionSinHtml } = leccion;
   const lessonItemsToShow = { ...leccionSinHtml, link: `/lessons/${leccion?.id}` };
   return (
     <div className="my-10">

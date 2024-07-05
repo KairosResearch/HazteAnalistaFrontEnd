@@ -13,18 +13,19 @@ const NavbarLessons = ({ numParam, modulo }: NavbarLessonsProps) => {
 
   return (
     <nav
-      className={`sticky bottom-0 left-0  
-      top-0  h-12 bg-primary   flex items-center justify-between w-full
-     px-4 py-2 
+      className={`fixed bottom-0 left-0
+        md:sticky md:bottom-0 md:left-0  
+      md:top-0  h-12 bg-primary   flex items-center justify-between w-full
+     md:px-4 px-2 py-2 
     `}
     >
       {numParam === 1 ? null : (
-        <Link href={`/lessons/${numParam - 1}`} className="flex gap-3 items-center">
+        <Link href={`/lessons/${numParam - 1}`} className="flex md:gap-3 gap-1 items-center">
            <Image
           src={'/icons/lessons/Anterior.png'}
           alt="Anterior lección"
-          width={30}
-          height={30}
+          width={20}
+          height={20}
         />
 
           Anterior
@@ -33,15 +34,15 @@ const NavbarLessons = ({ numParam, modulo }: NavbarLessonsProps) => {
         </Link>
       )}
 
-      <h1 className="text-xl">
+      <h1 className="text-lg md:text-xl">
         Modulo: {modulo} | Leccion: {numParam}
       </h1>
-      <Link href={`/lessons/${numParam + 1}`} className="flex gap-3 items-center">Siguiente
+      <Link href={`/lessons/${numParam + 1}`} className="flex md:gap-3 gap-1 items-center">Siguiente
         <Image
             src={'/icons/lessons/Siguiente.png'}
             alt="Siguiente lección"
-            width={30}
-            height={30}
+            width={20}
+            height={20}
           />
 
 

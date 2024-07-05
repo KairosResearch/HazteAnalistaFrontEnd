@@ -6,7 +6,7 @@ import { Badge } from '../ui/badge';
 
 interface LessonsCardProps {
     lesson: {
-        id: number;
+        id: number | undefined;
         title: string;
         cover: string;
         modulo: number;
