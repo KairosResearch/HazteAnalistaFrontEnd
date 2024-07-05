@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import Link from "next/link";
 
 //Context (menu)
 import { useStateContext } from "@/contexts/ContextProvider";
@@ -13,19 +12,10 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import LessonsCard from "@/components/lessons/LessonsCard";
 //Data
 import { lessons } from "@/lib/data";
-import { X } from "lucide-react";
 
-// interface LessonProps {
-//   lessons: [{
-//     id: number;
-//     img: string;
-//     title: string;
-//     date: string;
-//   }]
-// }
 
 const Lessons = () => {
   const { activeMenu } = useStateContext();
@@ -48,21 +38,7 @@ const Lessons = () => {
                 className={`md:basis-1/3 ${activeMenu ? "md:w-[66px] md:basis-1/3  lg:w-[176px] 2xl:w-full" : "pl-6 2xl:basis-1/5 lg:max-xl:basis-1/4 md:max-lg:w-[80px]"} `}
                 key={lesson.id}
               >
-                <Link href={lesson.link} target="_blank">
-                  <Card className="relative h-full">
-                    <p className="absolute top-[-10px] right-0 p-4 bg-primary">
-                      <X />
-                    </p>
-                    <CardHeader className="max-h-[20vh]">
-                      <img style={{ height: "20vh" }} src={lesson.img} alt="" />
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm line-clamp-1">{lesson.title}</p>
-
-                      <span className="opacity-75 text-xs">{lesson.date}</span>
-                    </CardContent>
-                  </Card>
-                </Link>
+                <LessonsCard lesson={lesson} />
               </CarouselItem>
             ))}
           </CarouselContent>
@@ -73,17 +49,10 @@ const Lessons = () => {
       {/* Carousel de lecciones en mobile */}
       <div className="md:hidden px-1 pt-8 flex overflow-x-scroll gap-6">
         {lessons.map((lesson) => (
-          <Link href={lesson.link} key={lesson.id} target="_blank">
-            <Card className="min-w-64 " key={lesson.id}>
-              <CardHeader className="max-h-[180px]">
-                <img style={{ height: "180px" }} src={lesson.img} alt="" />
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm line-clamp-2">{lesson.title}</p>
-                <span className="opacity-75 text-xs">{lesson.date}</span>
-              </CardContent>
-            </Card>
-          </Link>
+          <LessonsCard 
+            lesson={lesson} 
+            key={lesson.id}
+          />
         ))}
       </div>
     </>

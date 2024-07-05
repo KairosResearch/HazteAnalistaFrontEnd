@@ -9,20 +9,19 @@ import ComboboxName from "./ComboboxName";
 //   SelectTrigger,
 //   SelectValue,
 // } from "../../ui/select";
-import FormNumbers from './FormNumbers';
+import FormNumbers from "./FormNumbers";
 
 interface LeftSideForm {
   type: "create" | "update" | null;
   symbol: string;
   errors: any;
   setSymbol: any;
-  projectsList:
-    | {
-        id: number;
-        proyecto: string;
-        ticker: string;
-        symbol: string;
-      }[];
+  projectsList: {
+    id: number;
+    proyecto: string;
+    ticker: string;
+    symbol: string;
+  }[];
   clearErrors: any;
   prInfo: any;
   rendimiento: any;
@@ -38,8 +37,6 @@ const LeftSideForm = ({
   prInfo,
   rendimiento,
 }: LeftSideForm) => {
-
-
   return (
     <div className="">
       <div className="nombreblock">
@@ -47,17 +44,16 @@ const LeftSideForm = ({
           type={type}
           name="nombre"
           formLabel="Nombre"
-          className="w-full sm:mt-6"
+          className="w-full "
           render={({ field }) => (
             <>
-              
-              <ComboboxName 
+              <ComboboxName
                 projects={projectsList}
                 field={field}
                 setSymbol={setSymbol}
                 clearErrors={clearErrors}
               />
-     
+
               <p className="text-red-500 text-sm mt-2">
                 {errors.nombre && <>{errors.nombre.message || ""}</>}
               </p>
@@ -69,7 +65,7 @@ const LeftSideForm = ({
         <p className=" token text-sm text-gray-500 mt-2">Token: $ {symbol}</p>
       )}
 
-      <div className="flex flex-col gap-4 mt-6 justify-center pl-2">
+      <div className="flex flex-col gap-4 md:gap-7 my-6 justify-center pl-2">
         {/**Market Cap */}
         <div className="capblock">
           <FormNumbers
@@ -84,7 +80,7 @@ const LeftSideForm = ({
         </div>
 
         {/**Si Ath */}
-        <div className="calcblock">
+        <div className="calcblock flex flex-col gap-4 md:gap-7 ">
           <FormNumbers
             values={`${rendimiento} %`}
             title="Rendimiento"
@@ -92,13 +88,16 @@ const LeftSideForm = ({
           />
 
           {/**Precio Actual */}
-          <FormNumbers
-            values={`$ ${
-              prInfo.price != undefined ? prInfo.price.toLocaleString() : 0
-            } USD`}
-            title="Precio Actual"
-            image="precioActual"
-          />
+          
+            <FormNumbers
+              values={`$ ${
+                prInfo.price != undefined ? prInfo.price.toLocaleString() : 0
+              } USD`}
+              title="Precio Actual"
+              image="precioActual"
+            />
+          
+          
         </div>
       </div>
     </div>

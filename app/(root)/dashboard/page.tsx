@@ -31,7 +31,7 @@ const HomePage = async () => {
       <DialogInstructions />
 
       <section className="seguimiento mb-8">
-        <div className="flex items-center justify-between mt-4 2xl:my-8 md:my-3">
+        <div className="flex items-center justify-between mt-4">
           <h1 className="text-2xl font-bold  2xl:text-4xl">
             Proyectos que me interesan:
           </h1>
@@ -42,12 +42,11 @@ const HomePage = async () => {
                 </div> */}
 
             <AddProjectButton />
-
-            
           </div>
         </div>
-        <p className="text-sm text-primary-foreground/90">
-          Aquí podras registrar todos los proyectos que te llaman la atención o en los que ya has invertido.
+        <p className="text-sm mb-4 text-primary-foreground/90">
+          Aquí podras registrar todos los proyectos que te llaman la atención o
+          en los que ya has invertido.
         </p>
         {/* <div className="md:hidden">
               <ReloadProjects />
@@ -68,7 +67,8 @@ const HomePage = async () => {
           {/* <InputSearcher /> */}
         </div>
         <p className="text-sm text-primary-foreground/90">
-        Inicia con las lecciones para apender a hacer un análisis de manera profesional y convertirte en analista.
+          Inicia con las lecciones para apender a hacer un análisis de manera
+          profesional y convertirte en analista.
         </p>
         <Lessons
         // lessons={lessons}
@@ -76,6 +76,6 @@ const HomePage = async () => {
       </section>
     </div>
   );
-};  
+};
 
 export default HomePage;

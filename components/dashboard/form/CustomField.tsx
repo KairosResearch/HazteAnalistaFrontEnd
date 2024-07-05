@@ -36,7 +36,7 @@ export const CustomField = ({
         <FormItem className={className}>
           {formLabel && (
             <FormLabel>
-              <div className="flex gap-2 items-center mb-6 md:mb-0">
+              <div className="flex gap-2 items-center  md:mb-0">
                 {a && (
                   <Image src={a?.icon} alt={a?.alt} width={15} height={15} />
                 )}
@@ -48,16 +48,15 @@ export const CustomField = ({
                     : formLabel}
                 </h3>
               </div>
-              <p className="text-xs text-primary-foreground/90">
-            {name === "precioEntrada" && type === "create" ? (
-                            <span>¿A qué precio adquiriste el token?</span>
-
+              <p className="text-xs text-primary-foreground/90 m-0.5">
+                {name === "precioEntrada" && type === "create" ? (
+                  <span>¿A qué precio adquiriste el token?</span>
                 ) : name === "id4e" ? (
                   <span>Etapa de análisis en la que te encuentres</span>
-              ) : name === "idSector" ? (
-                <span>Sector al que pertenece el proyecto</span>
-              ): null}
-            </p>
+                ) : name === "idSector" ? (
+                  <span>Sector al que pertenece el proyecto</span>
+                ) : null}
+              </p>
             </FormLabel>
           )}
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { CustomField } from './CustomField';
+import { CustomField } from "./CustomField";
 import { Input } from "../../ui/input";
 
 interface EditablePrecioProps {
@@ -21,7 +21,7 @@ const EditablePrecio = ({
           type={type}
           name="precioEntrada"
           formLabel="Precio entrada"
-          className="w-full"
+          className="w-9/12 md:w-full"
           render={({ field }) => (
             <>
               <div className="flex items-center gap-1 justify-stretch">

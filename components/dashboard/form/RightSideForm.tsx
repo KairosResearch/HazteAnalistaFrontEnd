@@ -47,7 +47,7 @@ const RightSideForm = ({
   data4e,
 }: RightSideForm) => {
   return (
-    <div>
+    <>
       <div className="hidden md:block">
         <EditablePrecio
           type={type}
@@ -61,7 +61,7 @@ const RightSideForm = ({
           type={type}
           name="id4e"
           formLabel="4E (Opcional)"
-          className={` w-[90%] md:w-full ${type === "update" ? "sm:mt-6 " : "mt-0 mb-2 md:mb-0"}`}
+          className={`  w-full ${type === "update" ? "sm:mt-6 " : "mt-0 mb-2 md:mb-0"}`}
           render={({ field }) => (
             <>
               <Select
@@ -98,7 +98,7 @@ const RightSideForm = ({
           type={type}
           name="id_decision_proyecto"
           formLabel="Decision"
-          className={` w-[90%] md:w-full ${type === "update" ? "sm:mt-6 " : "mt-0 mb-2 md:mb-0"}`}
+          className={`  w-full ${type === "update" ? "sm:mt-6 " : "mt-0 mb-2 md:mb-0"}`}
           render={({ field }) => (
             <>
               <Select
@@ -150,7 +150,7 @@ const RightSideForm = ({
           type={type}
           name="idExchange"
           formLabel="Exchange"
-          className=" w-[90%] md:w-full"
+          className="  w-full"
           render={({ field }) => (
             <Select onValueChange={field.onChange} defaultValue={field.value}>
               <SelectTrigger>
@@ -186,7 +186,7 @@ const RightSideForm = ({
           type={type}
           name="idSector"
           formLabel="Sector"
-          className=" w-[90%] md:w-full"
+          className="  w-full"
           render={({ field }) => (
             <Select onValueChange={field.onChange} defaultValue={field.value}>
               <SelectTrigger>
@@ -203,7 +203,7 @@ const RightSideForm = ({
           )}
         />
       </div>
-    </div>
+    </>
   );
 };
 

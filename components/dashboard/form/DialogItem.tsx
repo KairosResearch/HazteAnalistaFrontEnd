@@ -13,19 +13,17 @@ import { useDialogItem, useDialogInstructions } from "@/hooks/useDialogs";
 
 import DashboardDataForm from "@/components/dashboard/form/DashboardDataForm";
 
-
 import { DialogItemProps } from "@/index";
 import { X } from "lucide-react";
 
 const DialogItem = (props: DialogItemProps) => {
   const { isOpen, setIsOpen, mode } = useDialogItem();
   const { isOpenInstr } = useDialogInstructions();
-  
 
   return (
     <Dialog open={isOpen}>
       <DialogContent className="max-h-[69vh] md:max-h-full md:min-w-[80%] overflow-auto">
-        <DialogHeader>
+        <DialogHeader className="m-0 p-0">
           {mode === "edit" && (
             <DialogTitle className="text-xl md:text-3xl">
               <span>{props.data?.proyecto} </span>
@@ -35,11 +33,11 @@ const DialogItem = (props: DialogItemProps) => {
             </DialogTitle>
           )}
 
-          <div className="md:hidden">
-            <DialogTitle className="text-xl">
+          <div className="md:hidden ">
+            <DialogTitle className="text-xl m-0">
               {mode === "add" && <span>Agregar Proyecto</span>}
             </DialogTitle>
-            <DialogDescription>Configura tu proyecto</DialogDescription>
+            <DialogDescription className="m-0 p-0">Configura tu proyecto</DialogDescription>
           </div>
 
           {!isOpenInstr && (

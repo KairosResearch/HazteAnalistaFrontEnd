@@ -85,7 +85,8 @@ export interface DashboardDataFormProps {
         proyecto: string;
         ticker: string;
         symbol: string;
-      }[];
+      }[]
+    | null;
 }
 
 export interface BackendValues {

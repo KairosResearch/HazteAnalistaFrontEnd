@@ -29,7 +29,7 @@ const Navbar = () => {
           <Image src="/kairos-main.svg" alt="Kairos" width={50} height={50} />
         </Link>
       </div>
-     
+
       <div className="flex gap-4 flex-center">
         <PopoverForm usage="userinfo" />
 

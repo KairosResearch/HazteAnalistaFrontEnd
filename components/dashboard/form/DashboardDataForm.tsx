@@ -39,7 +39,6 @@ import LeftSideForm from "./LeftSideForm";
 import RightSideForm from "./RightSideForm";
 import EditablePrecio from "./EditablePrecio";
 
-
 //------The component with its functionalities------//
 const DashboardDataForm = ({
   type,
@@ -47,7 +46,6 @@ const DashboardDataForm = ({
   catalogos,
   projectsList,
 }: DashboardDataFormProps) => {
-  
   //Catalogos, separated as they come as an array
   const data4e = catalogos[0] as CatalogosType[];
   const decision = catalogos[1] as CatalogosType[];
@@ -60,22 +58,22 @@ const DashboardDataForm = ({
   const [count, setCount] = useState(1);
 
   const [submitted, setSubmitted] = useState(false);
-  
+
   //States of the values added automatically with apis
   const [symbol, setSymbol] = useState("");
   const [editablePrecio, setEditablePrecio] = useState(0);
   const [rendimiento, setRendimiento] = useState(0);
-  console.log(symbol)
+  console.log(symbol);
 
   //States from hooks
   //Global state that manipulates the fetching data on the table
   const { setUserTableData } = useUserTableData();
   //Global state that manipulates the change-tab-button (mobile view)
   const { isReadyNextTab, setIsReadyNextTab } = useTabsState();
-  //manipulates the dialog open-state 
+  //manipulates the dialog open-state
   const { setIsOpen } = useDialogItem();
   //If is user's first time, will show onboarding methods
-  //And if its mobile, it needs to read the tab 
+  //And if its mobile, it needs to read the tab
   //That are changed in the onboarding process
   const { isOpenInstr, defaultTab } = useDialogInstructions();
 
@@ -99,7 +97,6 @@ const DashboardDataForm = ({
 
   //Fetching project info just right after user selects the project
   useEffect(() => {
-    
     //set everything to 0
     const foo = async () => {
       setPrInfo({
@@ -168,7 +165,6 @@ const DashboardDataForm = ({
     //Form is in create mode
 
     if (type === "create") {
-
       //Values/types we need to send to avoid backend errors
       const backendValues: BackendValues = {
         idProyecto: Number(values.nombre),
@@ -180,8 +176,8 @@ const DashboardDataForm = ({
         precioActual: prInfo.price ?? 0,
         precioEntrada: editablePrecio ?? 0,
       };
-      
-      console.log(backendValues)
+
+      console.log(backendValues);
 
       //Checking if all the needed values are filled
       if (
@@ -205,7 +201,7 @@ const DashboardDataForm = ({
               type: "manual",
               message: `Ya guardaste este proyecto`,
             });
-          } 
+          }
           //If the data is sent correctly, we show a success message
           else {
             setCount(count + 1);
@@ -219,7 +215,7 @@ const DashboardDataForm = ({
         } else {
           console.log("No guzma");
         }
-      } 
+      }
       //If not all needed values are filled, we show respective error
       else {
         if (backendValues.idProyecto === 0) {
@@ -286,7 +282,6 @@ const DashboardDataForm = ({
           </>
         )}
 
-
         {/* All the form structured accordingly */}
         <div className={`space-y-6 md:flex `}>
           {/* If is create mode */}
@@ -295,7 +290,7 @@ const DashboardDataForm = ({
               {/* If user's first time, will show onboarding method */}
               {isOpenInstr ? (
                 <>
-                {/* On boarding for mobile  */}
+                  {/* On boarding for mobile  */}
                   <div className="block md:hidden">
                     {defaultTab === "first-part" ? (
                       <>
@@ -304,7 +299,7 @@ const DashboardDataForm = ({
                           symbol={symbol}
                           errors={errors}
                           setSymbol={setSymbol}
-                          projectsList={projectsList}
+                          projectsList={projectsList ?? []}
                           clearErrors={clearErrors}
                           prInfo={prInfo}
                           rendimiento={rendimiento}
@@ -338,7 +333,7 @@ const DashboardDataForm = ({
                       symbol={symbol}
                       errors={errors}
                       setSymbol={setSymbol}
-                      projectsList={projectsList}
+                      projectsList={projectsList ?? []}
                       clearErrors={clearErrors}
                       prInfo={prInfo}
                       rendimiento={rendimiento}
@@ -363,7 +358,7 @@ const DashboardDataForm = ({
               ) : (
                 // If not first time, will show the form normally
                 <>
-                {/* for mobile */}
+                  {/* for mobile */}
                   <Tabs className="md:hidden" defaultValue={"first-part"}>
                     <TabsContent value="first-part">
                       <LeftSideForm
@@ -371,7 +366,7 @@ const DashboardDataForm = ({
                         symbol={symbol}
                         errors={errors}
                         setSymbol={setSymbol}
-                        projectsList={projectsList}
+                        projectsList={projectsList ?? []}
                         clearErrors={clearErrors}
                         prInfo={prInfo}
                         rendimiento={rendimiento}
@@ -385,11 +380,11 @@ const DashboardDataForm = ({
                       <TabsList>
                         <TabsTrigger
                           value="second-part"
-                          className="absolute bottom-8 right-3"
+                          className="absolute bottom-1 right-[-6px]"
                         >
                           <Button
                             variant="secondary"
-                            className="font-bold"
+                            className="font-bold "
                             disabled={!isReadyNextTab}
                           >
                             Siguiente
@@ -403,18 +398,19 @@ const DashboardDataForm = ({
                           Volver
                         </TabsTrigger>
                       </TabsList>
-
-                      <RightSideForm
-                        type={type}
-                        editablePrecio={editablePrecio}
-                        setEditablePrecio={setEditablePrecio}
-                        errors={errors}
-                        clearErrors={clearErrors}
-                        decision={decision}
-                        exchange={exchange}
-                        sector={sector}
-                        data4e={data4e}
-                      />
+                      <div className="flex flex-col gap-5">
+                        <RightSideForm
+                          type={type}
+                          editablePrecio={editablePrecio}
+                          setEditablePrecio={setEditablePrecio}
+                          errors={errors}
+                          clearErrors={clearErrors}
+                          decision={decision}
+                          exchange={exchange}
+                          sector={sector}
+                          data4e={data4e}
+                        />
+                      </div>
                       <div
                         className={`${type === "create" ? "  md:flex" : "flex"}  justify-center mt-8`}
                       >
@@ -428,14 +424,14 @@ const DashboardDataForm = ({
                       </div>
                     </TabsContent>
                   </Tabs>
-                {/* for desktop */}
+                  {/* for desktop */}
                   <div className="hidden md:block md:w-2/5 md:px-5 md:border-r">
                     <LeftSideForm
                       type={type}
                       symbol={symbol}
                       errors={errors}
                       setSymbol={setSymbol}
-                      projectsList={projectsList}
+                      projectsList={projectsList ?? []}
                       clearErrors={clearErrors}
                       prInfo={prInfo}
                       rendimiento={rendimiento}

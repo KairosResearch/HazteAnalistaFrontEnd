@@ -38,8 +38,8 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
   const { setIsOpen } = useDialogItem();
 
   const [tableData, setTableData] = useState<TableData[]>([]);
-  
-  //State to handle the projectList so that user might only add a project 
+
+  //State to handle the projectList so that user might only add a project
   //that hasn't been added yet
   const [availableProjects, setAvaliableProjects] = useState(projectsList);
 
@@ -57,16 +57,20 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
         const guzma = Number(window.localStorage.getItem("guzma"));
         console.log("guzma", guzma);
         // console.log('userid', userId)
-        const data = await handleGetProyects(guzma ?? 0) as TableData[] | string;
+        const data = (await handleGetProyects(guzma ?? 0)) as
+          | TableData[]
+          | string;
         console.log("data", data);
-        
+
         if (typeof data === "string") {
           setTableData([]);
         } else {
           // Crear un conjunto con los nombres de los proyectos ya tomados
-          const takenProjectsSet = new Set(data?.map(pr => pr.proyecto));
+          const takenProjectsSet = new Set(data?.map((pr) => pr.proyecto));
           // Filtrar projectList para incluir solo proyectos no tomados
-          const availableProjects = projectsList?.filter(pr => !takenProjectsSet.has(pr.proyecto)) || [];
+          const availableProjects =
+            projectsList?.filter((pr) => !takenProjectsSet.has(pr.proyecto)) ||
+            [];
           setAvaliableProjects(availableProjects);
 
           setTableData(data || []);
@@ -87,12 +91,12 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
   return (
     <div>
       <DialogItem
-              projectsList={availableProjects}
-              mode="add"
-              catalogos={catalogos}
-              data={null}
-              close={null}
-            />
+        projectsList={availableProjects}
+        mode="add"
+        catalogos={catalogos}
+        data={null}
+        close={null}
+      />
       <Table id="mochila" className="border border-grey-light ">
         <DashboardHeader />
 
