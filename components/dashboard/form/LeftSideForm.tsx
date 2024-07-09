@@ -88,16 +88,14 @@ const LeftSideForm = ({
           />
 
           {/**Precio Actual */}
-          
-            <FormNumbers
-              values={`$ ${
-                prInfo.price != undefined ? prInfo.price.toLocaleString() : 0
-              } USD`}
-              title="Precio Actual"
-              image="precioActual"
-            />
-          
-          
+
+          <FormNumbers
+            values={`$ ${
+              prInfo.price != undefined ? prInfo.price.toLocaleString() : 0
+            } USD`}
+            title="Precio Actual"
+            image="precioActual"
+          />
         </div>
       </div>
     </div>

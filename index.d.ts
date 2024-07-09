@@ -30,7 +30,6 @@ interface UserProps {
   updated_at: string;
 }
 
-
 interface TableData {
   id_proyecto: number;
   proyecto: string;
@@ -212,20 +211,22 @@ interface LessonPortadaProps {
   id: number;
   title: string;
   cover: string;
-  modulo: number
+  modulo: number;
 }
 
 interface LessonProps {
-    id: number;
-    id_modulo: number;
-    numero_leccion: string;
-    leccion: string;
-    html_portada: LessonPortadaProps;
-    html_leccion: string;
+  id: number;
+  id_modulo: number;
+  numero_leccion: string;
+  leccion: string;
+  html_portada: LessonPortadaProps;
+  html_leccion: string;
 }
 
-
-
-interface ModulesProps{
-  modules: LessonProps[];
+   
+interface AllModules {
+  "Módulo 1": LessonProps[];
+  "Módulo 2": LessonProps[];
+  "Módulo 3": LessonProps[];
 }
+

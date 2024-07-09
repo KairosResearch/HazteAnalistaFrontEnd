@@ -10,6 +10,7 @@ import {
   getExchange,
   getSectores,
 } from "@/services/backend/catalogos";
+import { getLessons } from "@/services/backend/lessons";
 import AddProjectButton from "@/components/dashboard/AddProjectButton";
 import { getProjectsList } from "@/services/backend/proyectsInfo";
 import ReloadProjects from "@/components/dashboard/ReloadProjects";
@@ -22,6 +23,7 @@ const HomePage = async () => {
     getSectores(),
     getProjectsList(),
   ]);
+  const allModules = await getLessons()
 
   //const response = await fetch('http://localhost:3000/api/lessons');
   //const {lessons} = await response.json();
@@ -72,6 +74,7 @@ const HomePage = async () => {
         </p>
         <Lessons
         // lessons={lessons}
+          allModules={allModules}
         />
       </section>
     </div>

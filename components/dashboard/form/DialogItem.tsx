@@ -37,7 +37,9 @@ const DialogItem = (props: DialogItemProps) => {
             <DialogTitle className="text-xl m-0">
               {mode === "add" && <span>Agregar Proyecto</span>}
             </DialogTitle>
-            <DialogDescription className="m-0 p-0">Configura tu proyecto</DialogDescription>
+            <DialogDescription className="m-0 p-0">
+              Configura tu proyecto
+            </DialogDescription>
           </div>
 
           {!isOpenInstr && (
