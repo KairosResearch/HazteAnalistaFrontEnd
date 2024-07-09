@@ -1,3 +1,4 @@
+'use client';
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image';
@@ -10,25 +11,31 @@ interface LessonsCardProps {
         title: string;
         cover: string;
         modulo: number;
-        link: string;
+        
     };
+    status: 0|1|null;
+    link: string;
 }
 
 
-const LessonsCard = ({lesson}: LessonsCardProps) => {
+const LessonsCard = ({lesson, status, link}: LessonsCardProps) => {
   return (
-    <Link href={lesson.link}>
+    <Link href={link}>
                   <Card className="relative h-full min-w-64">
                    
-                      <Image
-                        className='absolute top-[-11px] right-[-8px] z-10'
-                        src={'/icons/lessons/readylesson.png'}
-                        height={70}
-                        width={70}
-                        alt='Lección completada'
-                      >
+                   {
+                        status === 1 && (
+                          <Image
+                            className='absolute top-[-11px] right-[-8px] z-10'
+                            src={'/icons/lessons/readylesson.png'}
+                            height={70}
+                            width={70}
+                            alt='Lección completada'
+                          >
 
-                      </Image>
+                          </Image>
+                        )
+                   }
                     
                     <CardHeader className="max-h-[20vh]">
                       <img style={{ height: "20vh" }} src={lesson.cover} alt="" />

@@ -29,8 +29,7 @@ interface UserProps {
   created_at: string;
   updated_at: string;
 }
-{
-}
+
 
 interface TableData {
   id_proyecto: number;
@@ -207,4 +206,26 @@ interface ProyectsInfo {
 
 interface InfoTabsProps {
   info: ProyectsInfo;
+}
+
+interface LessonPortadaProps {
+  id: number;
+  title: string;
+  cover: string;
+  modulo: number
+}
+
+interface LessonProps {
+    id: number;
+    id_modulo: number;
+    numero_leccion: string;
+    leccion: string;
+    html_portada: LessonPortadaProps;
+    html_leccion: string;
+}
+
+
+
+interface ModulesProps{
+  modules: LessonProps[];
 }
