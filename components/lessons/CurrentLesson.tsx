@@ -2,36 +2,48 @@
 import React, { useEffect } from "react";
 import { buscarLesson } from "@/utils/lessons/buscarLesson";
 import LessonsCard from "./LessonsCard";
-import { getLastElement } from "@/utils/lessons/ultimoElemento";
-import { LessonProps } from "@/index";
+import { getLastElement } from "@/utils/lessons/lessonsUtils";
+import { LessonPortadaProps, LessonProps } from "@/index";
+import { getGuzmaValue } from "@/utils/values";
+import { getLastLesson } from "@/services/backend/lessons";
+import Link from "next/link";
 
 const CurrentLesson = () => {
-  const [currentLesson, setCurrentLesson] = React.useState<any>({});
+  const [currentLesson, setCurrentLesson] = React.useState<LessonProps>();
   const [loading, setLoading] = React.useState<boolean>(true);
+  
   useEffect(() => {
-    const getCurrentLesson = async () => {
-      const { currentLessonId } = (await getLastElement()) as {
-        currentLessonId: number;
-      };
+    const getLastLessonObject = async () => {
+      const guzma = await getGuzmaValue()
+      console.log('guzma en el currentLesson', guzma)
+      const lastLesson = await getLastLesson(guzma)
 
-      const leccion = await buscarLesson(currentLessonId);
-      setCurrentLesson(leccion);
-    };
-
-    getCurrentLesson();
+      setCurrentLesson(lastLesson)
+      
+    }
+    getLastLessonObject()
   }, []);
 
-  const link = `/lessons/${currentLesson?.id}`;
-
+console.log(currentLesson)
+ 
   return (
     <>
-    <h1>
-      {currentLesson.leccion}
-    </h1>
-    <p>
-      {currentLesson.numero_leccion}
-    </p>
-    {/* <LessonsCard lesson={currentLesson} status={0} link={link} /> */}
+      {
+        currentLesson ? (
+          <LessonsCard lesson={JSON.parse(currentLesson.html_portada)} lessonNumber={currentLesson.numero_leccion} link={`/lessons/${JSON.parse(currentLesson.html_portada).id}`} status={0}/>
+        ):(
+          <p>O, sí no has empezado, puedes comenzar a leer nuestras lecciones dando click
+            <Link
+            className="underline"
+            href={'lessons/1'}
+            >
+            acá
+            </Link>
+          </p>
+        )
+      }     
+
+
     </>
   );
 };

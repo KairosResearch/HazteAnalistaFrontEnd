@@ -1,8 +1,11 @@
 'use client'
 import React, { useEffect } from "react";
 // import { getLastElement } from "@/utils/lessons/ultimoElemento";
-import { AllModules, LessonProps } from "@/index";
-import { getLastElement } from "@/utils/lessons/ultimoElemento";
+import { AllModules, LessonPortadaProps, LessonProps } from "@/index";
+import { getLastElement, lessonsCompletedArray} from "@/utils/lessons/lessonsUtils";
+import { getGuzmaValue } from "@/utils/values";
+import LessonsCard from "./LessonsCard";
+import {getLastLesson} from '@/services/backend/lessons'
 
 type Props = {
   allModules: AllModules | undefined;
@@ -10,16 +13,17 @@ type Props = {
 
 const CurrentModule = ({allModules}: Props) => {
   const [modules, setModules] = React.useState<any[]>([]);
-  const [lastLesson, setLastLesson] = React.useState<number>(0);
+  const [lessonsCompleted, setLessonsCompleted] =  React.useState<any[]>([]);
+ 
 
   useEffect(() => {
+    
     const getModules = async () => {
       
-        const { currentModuleId, id_leccion } = (await getLastElement()) as {
+        const { currentModuleId } = (await getLastElement()) as {
           currentModuleId: number;
-          id_leccion: number;
         };
-        setLastLesson(id_leccion);
+        
         if(allModules != undefined){
           
             if(currentModuleId === 2){
@@ -32,31 +36,36 @@ const CurrentModule = ({allModules}: Props) => {
               
               setModules([allModules["Módulo 1"]]);
             }
-        }
-  
-        
+        }      
   }
   getModules();
+    const getLessonsCompleted = async () => {
+      const lessonsArray = await lessonsCompletedArray();
+      setLessonsCompleted(lessonsArray)
+    }
+    getLessonsCompleted()
   }, []);
 
-  console.log(modules)
-  
+console.log(lessonsCompleted)
 
   return (
     <>
-      {modules.map((mod, i) => (
+      {modules && modules.map((mod, i) => (
         <div role="row" key={i}>
           <h1 className="text-2xl mb-6">Modulo</h1>
           <section className="grid grid-cols-1 px-4 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {mod.map((lesson: LessonProps) => (
-              <div key={lesson.id}>
-                <h2>{lesson.leccion}</h2>
-                <p>{lesson.numero_leccion}</p>
-                <p>Modulo {lesson.id_modulo}</p>
-                {(lesson.id <= lastLesson) ? <p>Completado</p> : <p>Pendiente</p>}
-              </div>
-            
-            ))}
+            {mod.map(((lesson: any) => {
+          const portada: LessonPortadaProps = JSON.parse(lesson.html_portada);
+          const link = `/lessons/${portada.id}`
+
+          return (
+            <LessonsCard lesson={portada} lessonNumber={lesson.numero_leccion} link={link} status={
+              lessonsCompleted.find((item) => item === portada.id) ? 1 : 0
+            }/>
+          )
+               
+              
+        }))}
           </section>
         </div>
       ))}

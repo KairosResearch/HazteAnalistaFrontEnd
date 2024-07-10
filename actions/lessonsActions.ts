@@ -1,6 +1,6 @@
 "use server";
 
-import { saveLesson } from "@/services/backend/lessons";
+import { saveLesson, updateLastLesson } from "@/services/backend/lessons";
 
 export const saveLessonAction = async (
   guzma: number,
@@ -19,3 +19,20 @@ export const saveLessonAction = async (
     console.error(err);
   }
 };
+
+export const setLastLessonAction = async (
+  guzma: number,
+  mod: number,
+  less: number,
+) => {
+  try {
+    const response = await updateLastLesson({
+      id_usuario: guzma,
+      id_modulo: mod,
+      id_leccion: less,
+    });
+    return response;
+  } catch (err) {
+    console.error(err);
+  }
+}

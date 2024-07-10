@@ -219,7 +219,7 @@ interface LessonProps {
   id_modulo: number;
   numero_leccion: string;
   leccion: string;
-  html_portada: LessonPortadaProps;
+  html_portada: string;
   html_leccion: string;
 }
 

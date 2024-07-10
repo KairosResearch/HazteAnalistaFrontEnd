@@ -1,4 +1,4 @@
-"use client";
+
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -14,9 +14,10 @@ interface LessonsCardProps {
   };
   status: 0 | 1 | null;
   link: string;
+  lessonNumber: string 
 }
 
-const LessonsCard = ({ lesson, status, link }: LessonsCardProps) => {
+const LessonsCard = ({ lesson, status, link, lessonNumber }: LessonsCardProps) => {
   return (
     <Link href={link}>
       <Card className="relative h-full min-w-64">
@@ -36,7 +37,7 @@ const LessonsCard = ({ lesson, status, link }: LessonsCardProps) => {
         <CardContent>
           <p className="text-sm line-clamp-1">{lesson.title}</p>
 
-          <Badge>Modulo {lesson.modulo}</Badge>
+          <Badge>Modulo {lesson.modulo}</Badge> <span className="text-xs text-primary-foreground/45 ml-2">{lessonNumber}</span>
         </CardContent>
       </Card>
     </Link>

@@ -1,8 +1,9 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { saveLessonAction } from "@/actions/lessonsActions";
+import { saveLessonAction, setLastLessonAction } from "@/actions/lessonsActions";
+import {getGuzmaValue} from '@/utils/values'
 
 interface NavbarLessonsProps {
   numParam: number;
@@ -11,6 +12,15 @@ interface NavbarLessonsProps {
 }
 
 const NavbarLessons = ({ numParam, modulo, leccion }: NavbarLessonsProps) => {
+
+  useEffect(() => {
+      const setCurrentLesson = async () => {
+        const guzma = await getGuzmaValue();
+        await setLastLessonAction(guzma, modulo ?? 0, numParam)
+      }
+      setCurrentLesson()
+  }, [])
+
   const saveLessonRead = async () => {
     if (
       typeof window !== undefined &&
