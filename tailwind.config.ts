@@ -1,5 +1,5 @@
 import type { Config } from "tailwindcss";
-import { BINANCE, COINBASE, KRAKEN } from "./lib/constants";
+import { BINANCE, COINBASE, KRAKEN, DAO, DEFI, BLOCKCHAIN, NFT,GAMING } from "./lib/constants";
 let greenDark = "#319383";
 let greyLight = "#d9d9d9";
 
@@ -94,6 +94,22 @@ const config = {
         kraken: {
           DEFAULT: KRAKEN,
         },
+        dao: {
+          DEFAULT: DAO,
+        },
+        defi: {
+          DEFAULT: DEFI,
+        },
+        blockchain: {
+          DEFAULT: BLOCKCHAIN,
+        },
+        nft: {
+          DEFAULT: NFT,
+        },
+        gaming: {
+          DEFAULT: GAMING,
+        },
+        
       },
       borderRadius: {
         lg: "var(--radius)",
