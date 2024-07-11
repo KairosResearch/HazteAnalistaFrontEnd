@@ -102,6 +102,7 @@ export const iconsFormLeftSide = [
 ];
 
 export const tableHeaders = [
+  {name: '', icon: '/icons/table/Basurero.png', key: 'selection'},
   { name: "Proyecto", icon: "/icons/table/Proyecto.png", key: "proyecto" },
   { name: "Token", icon: "/icons/table/Ticker.png", key: "ticket" },
   { name: "4E", icon: "/icons/table/4E.png", key: "id4e" },

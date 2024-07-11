@@ -58,7 +58,7 @@ export const getSectores = async () => {
       headers: {
         "Content-Type": "application/json",
       },
-      cache: "force-cache",
+      cache: "reload",
     });
     const data = await response.json();
     const { sectores } = data;

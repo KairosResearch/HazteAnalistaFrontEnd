@@ -198,7 +198,11 @@ const RightSideForm = ({
               <SelectContent>
                 {sector.map((sector) => (
                   <SelectItem key={sector.value} value={String(sector.value)}>
-                    <Badge>{sector.label}</Badge>
+                    <Badge
+                      variant={
+                        sector.label as any
+                      }
+                    >{sector.label}</Badge>
                   </SelectItem>
                 ))}
               </SelectContent>

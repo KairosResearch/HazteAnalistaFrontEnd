@@ -33,7 +33,14 @@ const badgeVariants = cva(
         Defi: `bg-defi`,
         Blockchain: 'bg-blockchain',
         NFT: 'bg-nft',
-        Gaming: 'bg-gaming'
+        Gaming: 'bg-gaming',
+        Metaverse: 'bg-metaverso',
+        Lending: 'bg-lending',
+        Web3: 'bg-web3',
+        DEX: 'bg-dex',
+        Staking: 'bg-staking',
+        Oraculo: 'bg-oraculo',
+        Marketplace: 'bg-marketplace',
       },
     },
     defaultVariants: {

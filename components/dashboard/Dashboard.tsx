@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/table";
 import DashboardHeader from "./DashboardHeader";
 import DialogInfo from "./DialogInfo";
+import { Checkbox } from "../ui/checkbox";
 
 import { Badge } from "../ui/badge";
 
@@ -38,6 +39,8 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
   const { setIsOpen } = useDialogItem();
 
   const [tableData, setTableData] = useState<TableData[]>([]);
+
+  const [prToDelete, setPrToDelete] = useState<number[]>([]);
 
   //State to handle the projectList so that user might only add a project
   //that hasn't been added yet
@@ -79,8 +82,9 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
       setLoading(false);
     };
     fetchData();
-  }, [userTableData]);
+  }, []);
 
+  console.log(prToDelete)
   const sectores = catalogos[3];
 
   const range = (marketCap: number) => {
@@ -135,21 +139,48 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
               <TableRow
                 className="divide-x-2 divide-y-2 divide-green-dark hover:bg-primary/10 cursor-pointer"
                 key={data.id_proyecto}
-                onClick={() => {
+                
+              >
+                <TableCell>
+                  <Checkbox 
+                    checked={prToDelete.includes(data.id_proyecto)}
+                    onCheckedChange={
+                      (checked) => {
+                        return checked
+                          ? setPrToDelete([...prToDelete, data.id_proyecto])
+                          : setPrToDelete(
+                              prToDelete.filter(
+                                (value) => value !== data.id_proyecto
+                              )
+                            )
+                      }}
+                  />
+                </TableCell>
+                <TableCell 
+                  onClick={() => {
                   setSelectedRow(data);
                   setIsDialogOpen(true);
                 }}
-              >
-                <TableCell className="font-medium border-2 border-green-dark relative">
+                className="font-medium border-2 border-green-dark relative">
                   <p className="">{data.proyecto}</p>
                 </TableCell>
 
                 {/* Ticker */}
-                <TableCell className="whitespace-nowrap">
+                <TableCell 
+                  onClick={() => {
+                  setSelectedRow(data);
+                  setIsDialogOpen(true);
+                }}
+                className="whitespace-nowrap">
                   {data.ticker}
                 </TableCell>
                 {/******Metodo 4E**** */}
-                <TableCell>
+                <TableCell 
+                  onClick={() => {
+                  setSelectedRow(data);
+                  setIsDialogOpen(true);
+                }}
+                >
                   <Badge
                     variant="fourE"
                     color={
@@ -173,7 +204,12 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                 </TableCell>
 
                 {/******Decision**** */}
-                <TableCell>
+                <TableCell 
+                  onClick={() => {
+                  setSelectedRow(data);
+                  setIsDialogOpen(true);
+                }}
+                >
                   <Badge
                     variant={
                       data.id_decision_proyecto === 2
@@ -192,11 +228,22 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                 </TableCell>
 
                 {/******Sector**** */}
-                <TableCell>
+                <TableCell 
+                  onClick={() => {
+                  setSelectedRow(data);
+                  setIsDialogOpen(true);
+                }}
+                >
                   {sectores.find(
                     (sector) => sector.value === data.idSector,
                   ) && (
-                    <Badge>
+                    <Badge
+                      variant={
+                        sectores.find(
+                          (sector) => sector.value === data.idSector,
+                        )?.label as any
+                      }  
+                    >
                       {
                         sectores.find(
                           (sector) => sector.value === data.idSector,
@@ -207,7 +254,12 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                 </TableCell>
 
                 {/******Exchange**** */}
-                <TableCell>
+                <TableCell 
+                  onClick={() => {
+                  setSelectedRow(data);
+                  setIsDialogOpen(true);
+                }}
+                >
                   <Badge
                     variant={
                       data.idExchange === 2
@@ -231,17 +283,32 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                 </TableCell>
 
                 {/******precio entrada**** */}
-                <TableCell className="whitespace-nowrap">
+                <TableCell 
+                  onClick={() => {
+                  setSelectedRow(data);
+                  setIsDialogOpen(true);
+                }}
+                className="whitespace-nowrap">
                   $ {data.precioEntrada.toLocaleString()}
                 </TableCell>
 
                 {/****** precio actual**** */}
-                <TableCell className="whitespace-nowrap">
+                <TableCell 
+                  onClick={() => {
+                  setSelectedRow(data);
+                  setIsDialogOpen(true);
+                }}
+                className="whitespace-nowrap">
                   $ {data.price.toLocaleString()}
                 </TableCell>
 
                 {/******Si ATH**** */}
-                <TableCell>
+                <TableCell 
+                  onClick={() => {
+                  setSelectedRow(data);
+                  setIsDialogOpen(true);
+                }}
+                >
                   {rendimientoCalculator(
                     data.precioEntrada,
                     data.price,
@@ -250,11 +317,21 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                 </TableCell>
 
                 {/******Market Cap**** */}
-                <TableCell className="whitespace-nowrap">
+                <TableCell 
+                  onClick={() => {
+                  setSelectedRow(data);
+                  setIsDialogOpen(true);
+                }}
+                className="whitespace-nowrap">
                   $ {data.market_cap.toLocaleString()}
                 </TableCell>
                 {/******Rango**** */}
-                <TableCell>
+                <TableCell 
+                  onClick={() => {
+                  setSelectedRow(data);
+                  setIsDialogOpen(true);
+                }}
+                >
                   <Badge
                     variant="range"
                     color={
