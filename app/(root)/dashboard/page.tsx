@@ -16,14 +16,14 @@ import { getProjectsList } from "@/services/backend/proyectsInfo";
 import ReloadProjects from "@/components/dashboard/ReloadProjects";
 
 const HomePage = async () => {
-  const [data4t, decision, exchange, sector, projectsList] = await Promise.all([
+  const [data4t, decision, exchange, sector, projectsList, allModules] = await Promise.all([
     get4t(),
     getDecision(),
     getExchange(),
     getSectores(),
     getProjectsList(),
+    getLessons()
   ]);
-  const allModules = await getLessons()
 
   //const response = await fetch('http://localhost:3000/api/lessons');
   //const {lessons} = await response.json();

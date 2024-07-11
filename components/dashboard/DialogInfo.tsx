@@ -35,7 +35,7 @@ const DialogInfo = ({
       setInfo(info);
     };
     getInfo();
-  }, []);
+  }, [id]);
 
   return (
     <Dialog open={isDialogOpen}>

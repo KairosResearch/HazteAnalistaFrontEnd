@@ -19,7 +19,7 @@ const NavbarLessons = ({ numParam, modulo, leccion }: NavbarLessonsProps) => {
         await setLastLessonAction(guzma, modulo ?? 0, numParam)
       }
       setCurrentLesson()
-  }, [])
+  }, [modulo, numParam])
 
   const saveLessonRead = async () => {
     if (

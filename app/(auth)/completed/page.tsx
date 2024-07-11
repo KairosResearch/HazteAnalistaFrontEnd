@@ -14,7 +14,7 @@ const CompletedRegistration = () => {
     setTimeout(() => {
       router.push("/");
     }, 3000);
-  }, []);
+  }, [logout, router]);
 
   return (
     <div className="bg-[#2c2c2c] p-10 rounded-lg shadow-md flex flex-col flex-center w-120">

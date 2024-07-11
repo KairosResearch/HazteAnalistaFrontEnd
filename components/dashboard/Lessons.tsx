@@ -17,7 +17,7 @@ import Loading from "../shared/Loading";
 //Data
 //import { lessons } from "@/lib/data";
 import { AllModules, LessonPortadaProps, LessonProps } from "@/index";
-import {getLastElement }from "@/utils/lessons/lessonsUtils";
+import {getLastElement, lessonsCompletedArray }from "@/utils/lessons/lessonsUtils";
 
 type LessonsProps = {
   allModules: AllModules |  undefined;
@@ -25,19 +25,18 @@ type LessonsProps = {
 const Lessons = ({allModules}: LessonsProps) => {
   const { activeMenu } = useStateContext();
   const [lessons, setLessons] = React.useState<LessonProps []>([]);
-  const [lastLesson, setLastLesson] = React.useState<number>(0);
   const [loading, setLoading] = React.useState<boolean>(false);
+  const [lessonsCompleted, setLessonsCompleted] =  React.useState<any[]>([]);
+
 
   useEffect(() => { 
     const meCompota = async () => {
       setLoading(true);
       console.log("Holaa" )
-      const { currentModuleId, id_leccion } = (await getLastElement()) as {
+      const { currentModuleId} = (await getLastElement()) as {
         currentModuleId: number;
-        id_leccion: number;
       };
-      console.log(currentModuleId, id_leccion)
-      setLastLesson(id_leccion);
+      console.log(currentModuleId)
       if (allModules != undefined){
         if (currentModuleId === 2) {
           const moduleLesson = allModules["Módulo 2"];
@@ -57,7 +56,12 @@ const Lessons = ({allModules}: LessonsProps) => {
       setLoading(false);
     };  
   meCompota();
-  }, []);
+  const getLessonsCompleted = async () => {
+    const lessonsArray = await lessonsCompletedArray();
+    setLessonsCompleted(lessonsArray)
+  }
+  getLessonsCompleted()
+  }, [allModules]);
 
   console.log(lessons)
   return (
@@ -85,7 +89,8 @@ const Lessons = ({allModules}: LessonsProps) => {
                   className={`md:basis-1/3 ${activeMenu ? "md:w-[66px] md:basis-1/3  lg:w-[176px] 2xl:w-full" : "pl-6 2xl:basis-1/5 lg:max-xl:basis-1/4 md:max-lg:w-[80px]"} `}
                   key={lesson.id}
                 >
-                  <LessonsCard lesson={portada} lessonNumber={lesson.numero_leccion} link={link} status={(lesson.id <= lastLesson) ? 1 : 0}/>
+                  <LessonsCard lesson={portada} lessonNumber={lesson.numero_leccion} link={link} status={              lessonsCompleted.find((item) => item === portada.id) ? 1 : 0
+}/>
                  
                 
                 </CarouselItem>
@@ -98,12 +103,15 @@ const Lessons = ({allModules}: LessonsProps) => {
 
       {/* Carousel de lecciones en mobile */}
       <div className="md:hidden px-1 pt-8 flex overflow-x-scroll gap-6">
-        {lessons.map((lesson) => {
+        {lessons.map((lesson, i) => {
           const portada: LessonPortadaProps = JSON.parse(lesson.html_portada);
           const link = `/lessons/${portada.id}`
 
           return (
-            <LessonsCard lesson={portada} lessonNumber={lesson.numero_leccion} link={link} status={(lesson.id <= lastLesson) ? 1 : 0}/>
+            <LessonsCard key={i} lesson={portada} lessonNumber={lesson.numero_leccion} link={link} status={
+              lessonsCompleted.find((item) => item === portada.id) ? 1 : 0
+
+            }/>
           )
                
               

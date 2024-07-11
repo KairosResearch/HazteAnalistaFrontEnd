@@ -31,7 +31,7 @@ const CurrentModule = ({allModules}: Props) => {
               setModules([allModules["Módulo 1"], allModules["Módulo 2"]]);
             } else if(currentModuleId === 3){
             
-              setModules([allModules]);
+              setModules([allModules["Módulo 1"], allModules["Módulo 2"], allModules["Módulo 3"]]);
             } else {
               
               setModules([allModules["Módulo 1"]]);
@@ -44,7 +44,7 @@ const CurrentModule = ({allModules}: Props) => {
       setLessonsCompleted(lessonsArray)
     }
     getLessonsCompleted()
-  }, []);
+  }, [allModules]);
 
 console.log(lessonsCompleted)
 
@@ -54,12 +54,12 @@ console.log(lessonsCompleted)
         <div role="row" key={i}>
           <h1 className="text-2xl mb-6">Modulo</h1>
           <section className="grid grid-cols-1 px-4 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {mod.map(((lesson: any) => {
+            {mod.map(((lesson: any, i: number) => {
           const portada: LessonPortadaProps = JSON.parse(lesson.html_portada);
           const link = `/lessons/${portada.id}`
 
           return (
-            <LessonsCard lesson={portada} lessonNumber={lesson.numero_leccion} link={link} status={
+            <LessonsCard key={i} lesson={portada} lessonNumber={lesson.numero_leccion} link={link} status={
               lessonsCompleted.find((item) => item === portada.id) ? 1 : 0
             }/>
           )

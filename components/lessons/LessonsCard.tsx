@@ -32,7 +32,7 @@ const LessonsCard = ({ lesson, status, link, lessonNumber }: LessonsCardProps) =
         )}
 
         <CardHeader className="max-h-[20vh]">
-          <img style={{ height: "20vh" }} src={lesson.cover} alt="" />
+          <Image style={{ height: "20vh" }} height={800} width={800} src={lesson.cover} alt="" />
         </CardHeader>
         <CardContent>
           <p className="text-sm line-clamp-1">{lesson.title}</p>

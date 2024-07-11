@@ -163,16 +163,19 @@ const RightSideForm = ({
                     value={String(exchange.value)}
                   >
                     <Badge
-                      variant={
-                        exchange.value === 1
-                          ? "binance"
-                          : exchange.value === 2
-                            ? "coinbase"
-                            : "kraken"
-                      }
-                    >
-                      {exchange.label}
-                    </Badge>
+                    variant={
+                      exchange.value === 2
+                        ? "binance"
+                        : exchange.value === 3
+                          ? "coinbase"
+                        : exchange.value === 4
+                      ?"kraken"
+                      : "decisionWatchlist"
+                    }
+                  >
+                    {exchange.label
+                    }
+                  </Badge>
                   </SelectItem>
                 ))}
               </SelectContent>

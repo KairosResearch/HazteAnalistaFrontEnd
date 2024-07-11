@@ -24,7 +24,7 @@ export const getDecision = async () => {
       headers: {
         "Content-Type": "application/json",
       },
-      cache: "force-cache",
+      cache: "reload",
     });
     const data = await response.json();
     const { decesiproyecto } = data;
@@ -41,6 +41,7 @@ export const getExchange = async () => {
       headers: {
         "Content-Type": "application/json",
       },
+      cache: 'reload'
     });
     const data = await response.json();
     const { exchages } = data;

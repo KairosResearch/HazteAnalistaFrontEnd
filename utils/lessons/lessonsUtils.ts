@@ -14,7 +14,7 @@ const getLessonsCompletedByUser = async () => {
 //defining an array that contains all ids of the lessons completed
 
 export const lessonsCompletedArray = async () => {
-  console.log('Holaaaaaaaa')
+  
   const lessonsReadByUser = await getLessonsCompletedByUser();
   console.log(lessonsReadByUser)
   let lessonsArray: number[] = []
@@ -41,9 +41,9 @@ export const getLastElement = async () => {
       const currentModuleId =
         id_leccion === 6 || id_leccion === 11 ? id_modulo + 1 : id_modulo;
 
-      return { currentLessonId, currentModuleId, id_leccion };
+      return { currentLessonId, currentModuleId };
     } else {
-      return { currentLessonId: 1, currentModuleId: 1, id_leccion: 0};
+      return { currentLessonId: 1, currentModuleId: 1};
     }
   
 };

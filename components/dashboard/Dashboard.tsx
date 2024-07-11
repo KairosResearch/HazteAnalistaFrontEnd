@@ -210,18 +210,23 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                 <TableCell>
                   <Badge
                     variant={
-                      data.idExchange === 1
+                      data.idExchange === 2
                         ? "binance"
-                        : data.idExchange === 2
+                        : data.idExchange === 3
                           ? "coinbase"
-                          : "kraken"
+                        : data.idExchange === 4
+                      ?"kraken"
+                      : "decisionWatchlist"
                     }
                   >
-                    {data.idExchange === 1
+                    {data.idExchange === 2
                       ? "Binance"
-                      : data.idExchange === 2
+                      : data.idExchange === 3
                         ? "Coinbase"
-                        : "Kraken"}
+                        : data.idExchange === 4
+                      ? "Kraken"
+                      :"Ninguno"
+                    }
                   </Badge>
                 </TableCell>
 

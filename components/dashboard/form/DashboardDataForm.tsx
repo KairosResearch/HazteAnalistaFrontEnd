@@ -90,10 +90,6 @@ const DashboardDataForm = ({
     price: 0,
   });
 
-  //We disabled the next tab button when the form is loaded
-  useEffect(() => {
-    setIsReadyNextTab(false);
-  }, []);
 
   //Fetching project info just right after user selects the project
   useEffect(() => {
@@ -135,6 +131,7 @@ const DashboardDataForm = ({
     }
 
     return () => debouncedFunction.cancel();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editablePrecio]);
 
   //Default values for the form
