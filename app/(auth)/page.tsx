@@ -49,7 +49,7 @@ const Login = () => {
 
         <div className="bg-[#2c2c2c] p-2 py-5 lg:p-10 rounded-lg shadow-md w-full">
 
-            <h2 className="text-3xl md:text-4xl xl:text-5xl font-bold mb-10 text-center">Bienvenido al Proyecto Dragon de Kairosresearch</h2>
+            <h2 className="text-2xl md:text-3xl  font-bold mb-10 text-center">Bienvenido al Proyecto Dragon de Kairosresearch</h2>
             <p>En este momento estamos trabajando en el mantenimiento de la pagina... Pronto podrás volver a acceder!</p>
 
             <Link
