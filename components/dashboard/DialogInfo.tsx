@@ -58,7 +58,6 @@ const DialogInfo = ({
                     id4e: selectedRow.id4e?.toString(),
                     id_decision_proyecto:
                       selectedRow.id_decision_proyecto?.toString(),
-                    idSector: selectedRow.idSector?.toString(),
                     idExchange: selectedRow.idExchange?.toString(),
                   }}
                   close={null}

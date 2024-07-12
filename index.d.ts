@@ -62,6 +62,7 @@ interface DataToReceiveInForm {
   precioEntrada: number;
   precioActual: number;
 }
+
 export interface DashboardDataFormProps {
   type: "create" | "update";
   data: {
@@ -126,7 +127,7 @@ interface DialogItemProps {
     id4e: string;
     id_decision_proyecto: string;
     siAth: number;
-    idSector: string;
+    sectores: number[];
     idExchange: string;
     precioEntrada: number;
   } | null;
@@ -170,7 +171,7 @@ interface DialogInfoProps {
     id4e: number;
     id_decision_proyecto: number;
     siAth: number;
-    idSector: number;
+    sectores: number[];
     idExchange: number;
     precioEntrada: number;
   } | null;

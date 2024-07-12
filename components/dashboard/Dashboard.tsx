@@ -80,6 +80,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
       setLoading(false);
     };
     fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userTableData]);
 
   console.log(prToDelete)
@@ -242,6 +243,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                   {
                     data.sectores.map((sector) => (
                       <Badge
+                        key={sector}
                       variant={
                         sectores.find(
                           (sectorCat) => sectorCat.value === sector,

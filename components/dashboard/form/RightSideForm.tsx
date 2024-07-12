@@ -210,7 +210,7 @@ const RightSideForm = ({
           render={({ field }) => (
             <div className="grid  grid-cols-3 lg:grid-cols-5 gap-2">
               {sector.map((sector) => (
-                  <div className="flex items-center">
+                  <div key={sector.value} className="flex items-center">
                     <Checkbox
                       className="mr-3"
                             checked={field.value?.includes(sector.value)}
