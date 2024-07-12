@@ -19,45 +19,72 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { handleDeleteProyect } from "@/actions/proyectActions";
+import { TableHead } from "@/components/ui/table";
+import Image from "next/image";
 
-const DialogAlert = (props: DialogAlertProps) => {
+const DialogAlert = ({prToDelete}: DialogAlertProps) => {
   //to modify the global state
   const { setUserTableData } = useUserTableData();
 
   const [count, setCount] = React.useState(0);
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [error, setError] = React.useState("");
-  const [loading, setLoading] = React.useState(false);
+  // const [isOpen, setIsOpen] = React.useState(false);
+  // const [error, setError] = React.useState("");
+  // const [loading, setLoading] = React.useState(false);
 
   const onDeleteProject = async () => {
-    const deleted = await handleDeleteProyect(props.id);
-    console.log(deleted);
-    if (deleted.error) {
-      setError(deleted.error);
-    } else {
-      setCount(count + 1);
-      console.log(count);
-      setUserTableData(["Cambio" + count]);
-      props.close();
+    if (
+      typeof window !== undefined &&
+      window.localStorage.getItem("guzma") !== null
+    ) {
+      const guzma = Number(window.localStorage.getItem("guzma"));
+        console.log("guzma", guzma);
+      console.log(prToDelete)
+
+      const deleted = await handleDeleteProyect(guzma, prToDelete);
+      console.log(deleted);
+      if (deleted.error) {
+        alert("Error al eliminar el proyecto");
+      } else {
+        setCount(count + 1);
+        console.log(count);
+        setUserTableData(["Cambio" + count]);
+       
+      }
     }
   };
   return (
     <>
-      {props.action === "deleteProyect" ? (
+      
         <AlertDialog>
-          <AlertDialogTrigger>
-            <span className="md:hidden text-xs text-red-500">Eliminar</span>
-            <Button variant={"destructive"} className="hidden md:inline">
-              Eliminar
-            </Button>
-          </AlertDialogTrigger>
+          <TableHead>
+
+            {
+              prToDelete.length > 0 && (
+                <AlertDialogTrigger className="h-7 w-7">
+          
+            
+          <Image
+            width={70}
+            height={70}
+            src={'/icons/table/Basurero.png'}
+            alt={'Eliminar proyectos'}
+          />
+          
+       
+      
+      </AlertDialogTrigger>
+              )
+            }
+          
+          </TableHead>
+          
           <AlertDialogContent className="w-96">
             <AlertDialogHeader>
               <AlertDialogTitle>
-                ¿Seguro que quieres eliminar el proyecto {props.name}?
+                ¿Seguro que quieres eliminar {prToDelete.length} proyecto{"(s)"}?
               </AlertDialogTitle>
               <AlertDialogDescription>
-                Vas a eliminar este proyecto de tu Dashboard de seguimiento
+                Será{"(n)"} eliminado{"(s)"} de tu Dashboard de seguimiento
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter className="my-3">
@@ -74,31 +101,8 @@ const DialogAlert = (props: DialogAlertProps) => {
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
-      ) : (
-        <AlertDialog>
-          <AlertDialogTrigger>
-            <Button variant="destructive">Logout</Button>
-          </AlertDialogTrigger>
-          <AlertDialogContent className="w-96">
-            <AlertDialogHeader>
-              <AlertDialogTitle>
-                Seguro que quieres cerrar sesión
-              </AlertDialogTitle>
-              <AlertDialogDescription>
-                Cerrarás tu sesión y tendrás que volver a iniciar sesión
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter className="my-3">
-              <AlertDialogCancel>Cancelar</AlertDialogCancel>
-              <AlertDialogAction>
-                <Button variant="destructive" className="w-full">
-                  Si, cerrar sesión
-                </Button>
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
-      )}
+     
+      
     </>
   );
 };

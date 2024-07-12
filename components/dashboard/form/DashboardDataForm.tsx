@@ -63,7 +63,7 @@ const DashboardDataForm = ({
   const [symbol, setSymbol] = useState("");
   const [editablePrecio, setEditablePrecio] = useState(0);
   const [rendimiento, setRendimiento] = useState(0);
-  console.log(symbol);
+
 
   //States from hooks
   //Global state that manipulates the fetching data on the table
@@ -144,7 +144,7 @@ const DashboardDataForm = ({
           id_decision_proyecto: data?.id_decision_proyecto,
           siAth: data?.siAth,
           idExchange: data?.idExchange,
-          idSector: data?.idSector,
+          sectores: data?.sectores,
           precioEntrada: data?.precioEntrada,
         }
       : {
@@ -169,14 +169,14 @@ const DashboardDataForm = ({
         id_decision_proyecto: Number(values.id_decision_proyecto) ?? 1,
         marketCap: prInfo.market_cap ?? 0,
         idExchange: Number(values.idExchange),
-        idSector: Number(values.idSector),
+        idSector: values.sectores,
         precioActual: prInfo.price ?? 0,
         precioEntrada: editablePrecio ?? 0,
       };
 
       console.log(backendValues);
 
-      //Checking if all the needed values are filled
+      // //Checking if all the needed values are filled
       if (
         backendValues.id_decision_proyecto !== 0 &&
         backendValues.idProyecto !== 0
@@ -236,7 +236,7 @@ const DashboardDataForm = ({
         id4e: Number(values.id4e),
         id_decision_proyecto: Number(values.id_decision_proyecto),
         idExchange: Number(values.idExchange),
-        idSector: Number(values.idSector),
+        idSector: values.sectores,
         precioEntrada: values.precioEntrada,
         id: data?.id_proyecto,
       };
@@ -442,11 +442,11 @@ const DashboardDataForm = ({
 
           {/* Components shown in both create and update mode */}
 
-          {/* If user's first time, we show nothing as it is shown above */}
+          {/* If user's first time, we show nothing cuz all to be shown is above */}
           {isOpenInstr ? null : (
             // If not first time, will show the form normally
             <div
-              className={`grid ${type === "create" ? "md:w-3/5 md:px-5 hidden md:grid gap-7 md:gap-4" : "w-full gap-4 md:gap-0 md:grid-cols-2"}`}
+              className={`grid ${type === "create" ? "md:w-3/5 md:px-5 hidden md:grid gap-7 md:gap-4" : "md:w-10/12 mx-auto md:px-5 md:gap-9 md:grid-cols-2"}`}
             >
               <RightSideForm
                 type={type}

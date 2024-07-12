@@ -63,12 +63,12 @@ export const rendimientoCalculator = (
 export const defaultValuesDashboardForm = {
   nombre: "",
   ticket: "",
-  id4e: "",
-  id_decision_proyecto: "",
+  id4e: "1",
+  id_decision_proyecto: "1",
   marketCap: 0,
   siAth: 0,
   idExchange: "1",
-  idSector: "1",
+  sectores: [1],
   precioEntrada: "",
   precioActual: 0,
 };
@@ -102,7 +102,6 @@ export const iconsFormLeftSide = [
 ];
 
 export const tableHeaders = [
-  {name: '', icon: '/icons/table/Basurero.png', key: 'selection'},
   { name: "Proyecto", icon: "/icons/table/Proyecto.png", key: "proyecto" },
   { name: "Token", icon: "/icons/table/Ticker.png", key: "ticket" },
   { name: "4E", icon: "/icons/table/4E.png", key: "id4e" },

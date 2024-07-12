@@ -63,8 +63,6 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
         const data = (await handleGetProyects(guzma ?? 0)) as
           | TableData[]
           | string;
-        console.log("data", data);
-
         if (typeof data === "string") {
           setTableData([]);
         } else {
@@ -82,9 +80,10 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
       setLoading(false);
     };
     fetchData();
-  }, []);
+  }, [userTableData]);
 
   console.log(prToDelete)
+
   const sectores = catalogos[3];
 
   const range = (marketCap: number) => {
@@ -102,7 +101,9 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
         close={null}
       />
       <Table id="mochila" className="border border-grey-light ">
-        <DashboardHeader />
+        <DashboardHeader 
+          prToDelete={prToDelete}
+        />
 
         <TableBody id="first-project">
           {/* If no data  */}
@@ -141,7 +142,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                 key={data.id_proyecto}
                 
               >
-                <TableCell>
+                <TableCell className="">
                   <Checkbox 
                     checked={prToDelete.includes(data.id_proyecto)}
                     onCheckedChange={
@@ -182,15 +183,17 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                 }}
                 >
                   <Badge
-                    variant="fourE"
                     color={
-                      data.id4e === 1
+                      data.id4e === 2
                         ? "yellow"
-                        : data.id4e === 2
-                          ? "grey"
-                          : data.id4e === 3
+                        : data.id4e === 3
+                          ? "orange"
+                          : data.id4e === 4
                             ? "blue"
-                            : "green"
+                            : data.id4e === 5
+                              ? "green"
+                              : "grey"
+                    
                     }
                   >
                     {data.id4e === 1
@@ -211,46 +214,50 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                 }}
                 >
                   <Badge
-                    variant={
-                      data.id_decision_proyecto === 2
-                        ? "decisionWatchlist"
-                        : data.id_decision_proyecto === 1
-                          ? "desicionInvest"
-                          : "desicionLeave"
-                    }
-                  >
-                    {data.id_decision_proyecto === 1
-                      ? "Invertir"
-                      : data.id_decision_proyecto === 2
-                        ? "Watchlist"
-                        : "Descartar"}
+                        variant={
+                          data.id_decision_proyecto === 2
+                            ? "decisionWatchlist"
+                            : data.id_decision_proyecto  === 3
+                              ? "desicionLeave"
+                              : "Ninguno"
+                        }
+                      >
+                    {data.id_decision_proyecto === 2
+                      ? "Lista de seguimiento"
+                      : data.id_decision_proyecto === 3
+                        ? "Invertir"
+                        : "Ninguno"}
                   </Badge>
                 </TableCell>
 
                 {/******Sector**** */}
                 <TableCell 
+                  className="grid gap-2 py-1 px-2"
                   onClick={() => {
                   setSelectedRow(data);
                   setIsDialogOpen(true);
                 }}
                 >
-                  {sectores.find(
-                    (sector) => sector.value === data.idSector,
-                  ) && (
-                    <Badge
+                  
+                  {
+                    data.sectores.map((sector) => (
+                      <Badge
                       variant={
                         sectores.find(
-                          (sector) => sector.value === data.idSector,
+                          (sectorCat) => sectorCat.value === sector,
                         )?.label as any
                       }  
                     >
                       {
                         sectores.find(
-                          (sector) => sector.value === data.idSector,
+                          (sectorCat) => sectorCat.value === sector,
                         )?.label
                       }
                     </Badge>
-                  )}
+                    ))
+
+                  }
+                  
                 </TableCell>
 
                 {/******Exchange**** */}

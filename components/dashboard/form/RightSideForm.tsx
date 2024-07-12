@@ -10,6 +10,8 @@ import {
 } from "../../ui/select";
 import EditablePrecio from "./EditablePrecio";
 
+import { Checkbox } from "@/components/ui/checkbox";
+
 //Types:
 interface RightSideForm {
   type: "create" | "update" | null;
@@ -77,7 +79,20 @@ const RightSideForm = ({
                 <SelectContent>
                   {data4e.map((fourE) => (
                     <SelectItem key={fourE.value} value={String(fourE.value)}>
-                      <Badge>{fourE.label}</Badge>
+                      <Badge
+                        variant="fourE"
+                        color={
+                          fourE.value === 2
+                            ? "yellow"
+                            : fourE.value === 3
+                              ? "orange"
+                              : fourE.value === 4
+                                ? "blue"
+                                : fourE.value === 5
+                                  ? "green"
+                                  : "grey"
+                        }
+                      >{fourE.label}</Badge>
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -98,7 +113,7 @@ const RightSideForm = ({
           type={type}
           name="id_decision_proyecto"
           formLabel="Decision"
-          className={`  w-full ${type === "update" ? "sm:mt-6 " : "mt-0 mb-2 md:mb-0"}`}
+          className={`  w-full ${type === "update" ? "" : " mb-2 md:mb-0"}`}
           render={({ field }) => (
             <>
               <Select
@@ -121,11 +136,11 @@ const RightSideForm = ({
                     >
                       <Badge
                         variant={
-                          decision.label === "Watchlist"
+                          decision.value === 2
                             ? "decisionWatchlist"
-                            : decision.label === "Descartar"
+                            : decision.value === 3
                               ? "desicionLeave"
-                              : "desicionInvest"
+                              : "Ninguno"
                         }
                       >
                         {decision.label}
@@ -170,7 +185,7 @@ const RightSideForm = ({
                           ? "coinbase"
                         : exchange.value === 4
                       ?"kraken"
-                      : "decisionWatchlist"
+                      : "Ninguno"
                     }
                   >
                     {exchange.label
@@ -183,30 +198,46 @@ const RightSideForm = ({
           )}
         />
       </div>
+
+
       {/**Sector */}
       <div className="sectorblock">
         <CustomField
           type={type}
-          name="idSector"
-          formLabel="Sector"
+          name="sectores"
+          formLabel="Sectores"
           className="  w-full"
           render={({ field }) => (
-            <Select onValueChange={field.onChange} defaultValue={field.value}>
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {sector.map((sector) => (
-                  <SelectItem key={sector.value} value={String(sector.value)}>
+            <div className="grid  grid-cols-3 lg:grid-cols-5 gap-2">
+              {sector.map((sector) => (
+                  <div className="flex items-center">
+                    <Checkbox
+                      className="mr-3"
+                            checked={field.value?.includes(sector.value)}
+                            onCheckedChange={(checked) => {
+                              return checked
+                                ? field.onChange([...field.value, sector.value])
+                                : field.onChange(
+                                    field.value?.filter(
+                                      (value: any) => value !== sector.value
+                                    )
+                                  )
+                            }}
+                          />
                     <Badge
                       variant={
                         sector.label as any
                       }
                     >{sector.label}</Badge>
-                  </SelectItem>
+                  </div>
+                    
+                  
                 ))}
-              </SelectContent>
-            </Select>
+            
+            </div>
+            
+                
+             
           )}
         />
       </div>

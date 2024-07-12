@@ -2,11 +2,21 @@ import React from "react";
 import { TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import Image from "next/image";
 import { tableHeaders } from "@/utils";
+import DialogAlert from "./DialogAlert";
 
-const DashboardHeader = () => {
+type DashboardHeaderProps = {
+  prToDelete: number[]
+};
+
+const DashboardHeader = (
+  { prToDelete }: DashboardHeaderProps
+) => {
   return (
     <TableHeader className="">
       <TableRow className="divide-x-2 divide-y sticky top-[-1px] border-grey-light bg-dark-grey/95 z-10 divide-grey-light">
+        <DialogAlert
+          prToDelete={prToDelete}
+        />
         {tableHeaders.map((header) => (
           <TableHead key={header.key} className="">
             <div className="flex gap-2 items-center justify-center">

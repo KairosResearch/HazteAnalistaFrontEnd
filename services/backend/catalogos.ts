@@ -7,7 +7,7 @@ export const get4t = async () => {
       headers: {
         "Content-Type": "application/json",
       },
-      cache: "force-cache",
+      cache: "reload",
     });
     const data = await response.json();
     const { calatalogo4t } = data;
@@ -24,7 +24,7 @@ export const getDecision = async () => {
       headers: {
         "Content-Type": "application/json",
       },
-      cache: "reload",
+      cache: "no-cache",
     });
     const data = await response.json();
     const { decesiproyecto } = data;

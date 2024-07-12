@@ -5,7 +5,7 @@ const InputSearcher = () => {
     <div className="relative md:w-auto mt-2 md:mt-0">
       <input
         type="text"
-        className="block w-full bg-transparent border-b-2 focus:border-green-light border-green-dark focus:outline-none
+        className="block w-full bg-transparent border-b-2 focus:border-green-light border-green-dark 
                text-grey-light placeholder-grey-light transition-colors duration-200 ease-in-out p-2 "
         placeholder="Busca una lección..."
       />

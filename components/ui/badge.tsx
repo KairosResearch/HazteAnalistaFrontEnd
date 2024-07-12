@@ -24,7 +24,7 @@ const badgeVariants = cva(
         decisionWatchlist: "border-transparent rounded bg-decisionWatchlist/50",
         desicionLeave: "border-transparent rounded bg-desicionLeave/50",
         desicionInvest: "border-transparent rounded bg-desicionInvest/50",
-        range: "text-foreground",
+        range: "text-foreground bg-primary rounded-sm",
         sectorAndExchange: "bg-primary rounded  text-primary-foreground",
         binance: `bg-binance text-[#1E1F24]`,
         coinbase: `bg-coinbase`,
@@ -41,6 +41,7 @@ const badgeVariants = cva(
         Staking: 'bg-staking',
         Oraculo: 'bg-oraculo',
         Marketplace: 'bg-marketplace',
+        Ninguno: 'bg-none',
       },
     },
     defaultVariants: {
@@ -56,7 +57,7 @@ export interface BadgeProps
 function Badge({ className, variant, color, ...props }: BadgeProps) {
   const colorClass = colorMap[color as keyof typeof colorMap] || colorMap.blue;
   return (
-    <div className={cn(badgeVariants({ variant }), className)} {...props}>
+    <div className={cn(badgeVariants({ variant }), className, "text-background")} {...props}>
       {(variant === "fourE" || variant === "range") && (
         <span
           className={`inline-block  ${variant === "range" ? "h-4 w-4 mr-2" : "h-3 w-3 mr-1"}  rounded-full ${colorClass} align-middle`}

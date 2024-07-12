@@ -7,7 +7,6 @@ import {
 } from "@/components/ui/dialog";
 import { X } from "lucide-react";
 
-import DialogAlert from "@/components/dashboard/DialogAlert";
 import DialogItem from "@/components/dashboard/form/DialogItem";
 
 import { DialogInfoProps, InfoTabsProps, ProyectsInfo } from "@/index";
@@ -30,7 +29,7 @@ const DialogInfo = ({
   useEffect(() => {
     const getInfo = async () => {
       const info: ProyectsInfo = await getProyectById(id?.id ?? 0);
-      console.log("info", info);
+      
 
       setInfo(info);
     };
@@ -65,12 +64,7 @@ const DialogInfo = ({
                   close={null}
                 />
 
-                <DialogAlert
-                  action="deleteProyect"
-                  id={selectedRow.id_proyecto}
-                  name={selectedRow.proyecto}
-                  close={close}
-                />
+                
               </div>
               <X
                 className="absolute top-2 right-2 cursor-pointer hover:text-red-500"

@@ -66,10 +66,11 @@ export const handleSubmitProyectForm = async (
   }
 };
 
-export const handleDeleteProyect = async (id_proyecto: number | null) => {
+export const handleDeleteProyect = async (guzma: number, body: any) => {
   try {
     const dataToPass = {
-      id_proyecto: id_proyecto,
+      idUsuario: guzma,
+      arrayProyectos: body,
     };
     const deleted = await deleteProyect(dataToPass);
     // if (deleted) {

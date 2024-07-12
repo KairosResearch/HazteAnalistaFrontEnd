@@ -38,7 +38,7 @@ interface TableData {
   id_decision_proyecto: number;
   market_cap: number;
   siAth: number;
-  idSector: number;
+  sectores: number[];
   idExchange: number;
   precioEntrada: number;
   price: number;
@@ -71,7 +71,7 @@ export interface DashboardDataFormProps {
     id4e: string;
     id_decision_proyecto: string;
     siAth: number;
-    idSector: atring;
+    sectores: number[];
     idExchange: string;
     precioEntrada: number;
   } | null;
@@ -93,7 +93,7 @@ export interface BackendValues {
   id_decision_proyecto: number;
   marketCap: number;
   idExchange: number;
-  idSector: number;
+  idSector: any[];
   precioEntrada: number;
   precioActual: number;
 }
@@ -154,10 +154,10 @@ interface DashboardProps {
 }
 
 interface DialogAlertProps {
-  action: "deleteProyect" | "logout";
-  id: number | null;
-  close: () => void;
-  name: string;
+  // action: "deleteProyect" | "logout";
+  prToDelete: number[]
+  // close: () => void;
+  // name: string;
 }
 
 interface DialogInfoProps {

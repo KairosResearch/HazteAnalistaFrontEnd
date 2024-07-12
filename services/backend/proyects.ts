@@ -37,14 +37,14 @@ export const postProyect = async (proyectData: any) => {
   }
 };
 
-export const deleteProyect = async (idBody: any) => {
+export const deleteProyect = async (body: any) => {
   try {
-    const response = await fetch(`${AUTH_URL}delteProject`, {
+    const response = await fetch(`${AUTH_URL}deleteMasivo`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(idBody),
+      body: JSON.stringify(body),
     });
     const data = await response.json();
     return data;
