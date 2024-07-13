@@ -21,12 +21,10 @@ Desarrollo y mantenimiento: [@gabo-hacStyle](https://github.com/gabo-hacStyle)
   - Service
   - Utils
 - Middleware
-- 
-
+  
 ## Herramientas y lenguajes de desarrollo
 
-- Next.js como framework SSR [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) an interactive Next.js tutorial.
+- Next.js como framework SSR [Next.js Documentation](https://nextjs.org/docs) [Learn Next.js](https://nextjs.org/learn)
 - React como librería de JavaScript (usando TypeScript) [Reactjs](https://react.dev/)
 - Tailwind CSS para el manejo de estilos, animaciones y diseño responsive. [Tailwind](https://tailwindcss.com/)
 - Shadcn-ui para componentes de UI preconstruidos [Shadcn](https://ui.shadcn.com/docs)
@@ -42,7 +40,7 @@ Desarrollo y mantenimiento: [@gabo-hacStyle](https://github.com/gabo-hacStyle)
 1. Clonar el proyecto:
 
 ```bash
-git clone url
+git clone url https://github.com/KairosResearch/HazteAnalistaFrontEnd.git
 ```
 2. Instalación de paquetes
 ```bash
