@@ -63,7 +63,7 @@ interface DataToReceiveInForm {
   siAth: number;
   idSector: string | undefined;
   idExchange: string | undefined;
-  precioEntrada: number;
+  precioEntrada: string;
   precioActual: number;
 }
 
@@ -78,7 +78,7 @@ export interface DashboardDataFormProps {
     siAth: number;
     sectores: number[];
     idExchange: string;
-    precioEntrada: number;
+    precioEntrada: string;
   } | null;
   catalogos: CatalogosType[][];
   close: (() => void) | null;
@@ -99,7 +99,7 @@ export interface BackendValues {
   marketCap: number;
   idExchange: number;
   idSector: any[];
-  precioEntrada: number;
+  precioEntrada: string;
   precioActual: number;
 }
 
@@ -161,7 +161,7 @@ interface DashboardProps {
 interface DialogAlertProps {
   // action: "deleteProyect" | "logout";
   prToDelete: number[]
-  // close: () => void;
+  clean: () => void;
   // name: string;
 }
 

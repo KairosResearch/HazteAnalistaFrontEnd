@@ -4,7 +4,7 @@ import { Input } from "../../ui/input";
 
 interface EditablePrecioProps {
   type: "create" | "update" | null;
-  editablePrecio: number;
+  editablePrecio: string;
   setEditablePrecio: any;
 }
 
@@ -29,13 +29,16 @@ const EditablePrecio = ({
                 <Input
                   {...field}
                   type="text"
+                  pattern="^[0-9]+([,.][0-9]+){0,7}?$"
                   value={
-                    editablePrecio != undefined ? String(editablePrecio) : " "
+                    editablePrecio 
                   }
                   onChange={(e) => {
-                    setEditablePrecio(Number(e.target.value));
-                    field.value === Number(e.target.value);
+                    const valorFiltrado = e.target.value.replace(/[^0-9.,]+/, '');
+                    setEditablePrecio(valorFiltrado);
+                    field.value === (valorFiltrado);
                   }}
+                  onKeyDown={editablePrecio.length > 7 && false}
                 />
                 <span>USD</span>
               </div>
@@ -58,9 +61,10 @@ const EditablePrecio = ({
                 <Input
                   {...field}
                   type="text"
+                  pattern="^[0-9]+([,.][0-9]+){0,7}?$"
                   value={field.value}
                   onChange={(e) => {
-                    field.onChange(Number(e.target.value));
+                    field.onChange(e.target.value.replace(/[^0-9.,]+/, ''));
                   }}
                 />
                 <span>USD</span>

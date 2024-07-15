@@ -15,7 +15,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 //Types:
 interface RightSideForm {
   type: "create" | "update" | null;
-  editablePrecio: number;
+  editablePrecio: string;
   setEditablePrecio: any;
   errors: any;
   clearErrors: any;

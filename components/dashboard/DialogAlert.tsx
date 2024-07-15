@@ -22,7 +22,7 @@ import { handleDeleteProyect } from "@/actions/proyectActions";
 import { TableHead } from "@/components/ui/table";
 import Image from "next/image";
 
-const DialogAlert = ({prToDelete}: DialogAlertProps) => {
+const DialogAlert = ({prToDelete, clean}: DialogAlertProps) => {
   //to modify the global state
   const { setUserTableData } = useUserTableData();
 
@@ -48,6 +48,7 @@ const DialogAlert = ({prToDelete}: DialogAlertProps) => {
         setCount(count + 1);
         console.log(count);
         setUserTableData(["Cambio" + count]);
+        clean();
        
       }
     }

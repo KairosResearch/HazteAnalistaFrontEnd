@@ -61,7 +61,7 @@ const DashboardDataForm = ({
 
   //States of the values added automatically with apis
   const [symbol, setSymbol] = useState("");
-  const [editablePrecio, setEditablePrecio] = useState(0);
+  const [editablePrecio, setEditablePrecio] = useState('');
   const [rendimiento, setRendimiento] = useState(0);
 
 
@@ -106,6 +106,8 @@ const DashboardDataForm = ({
       const opa = newPrInfo?.data?.[symbol]?.quote?.USD;
       const market_cap = opa?.market_cap;
       const price = opa?.price;
+      price && setEditablePrecio(price.toString());
+
 
       setPrInfo({
         market_cap,
@@ -113,7 +115,6 @@ const DashboardDataForm = ({
       });
       //editable price is the 'Precio entrada' field
       //And its default value is the price from the api
-      setEditablePrecio(price);
     };
     foo();
   }, [symbol]);
@@ -122,9 +123,10 @@ const DashboardDataForm = ({
   //Not inmediately, but after a debounce foo of 1 sec
   useEffect(() => {
     const debouncedFunction = debounce(() => {
-      const rendimiento = rendimientoCalculator(editablePrecio, prInfo.price);
+      const valorDecimal = parseFloat(editablePrecio.replace(',', '.'));
+      const rendimiento = rendimientoCalculator(valorDecimal, prInfo.price);
       setRendimiento(rendimiento);
-    }, 500);
+    }, 900);
 
     if (editablePrecio) {
       debouncedFunction();
@@ -145,11 +147,10 @@ const DashboardDataForm = ({
           siAth: data?.siAth,
           idExchange: data?.idExchange,
           sectores: data?.sectores,
-          precioEntrada: data?.precioEntrada,
+          precioEntrada: data?.precioEntrada.toString(),
         }
       : {
           ...defaultValuesDashboardForm,
-          precioEntrada: editablePrecio,
         };
 
   //Defining the form
@@ -171,7 +172,7 @@ const DashboardDataForm = ({
         idExchange: Number(values.idExchange),
         idSector: values.sectores,
         precioActual: prInfo.price ?? 0,
-        precioEntrada: editablePrecio ?? 0,
+        precioEntrada: editablePrecio ?? '0',
       };
 
       console.log(backendValues);
@@ -236,8 +237,8 @@ const DashboardDataForm = ({
         id4e: Number(values.id4e),
         id_decision_proyecto: Number(values.id_decision_proyecto),
         idExchange: Number(values.idExchange),
-        idSector: values.sectores,
-        precioEntrada: values.precioEntrada,
+        idSectoradd: values.sectores,
+        precioEntrada: parseFloat(values.precioEntrada.replace(',', '.')),
         id: data?.id_proyecto,
       };
 

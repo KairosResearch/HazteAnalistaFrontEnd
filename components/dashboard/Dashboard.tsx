@@ -104,6 +104,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
       <Table id="mochila" className="border border-grey-light ">
         <DashboardHeader 
           prToDelete={prToDelete}
+          clean={() => setPrToDelete([])}
         />
 
         <TableBody id="first-project">
@@ -198,11 +199,12 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                     }
                   >
                     {data.id4e === 1
-                      ? "Encontrar"
+                      ? "Ninguno"
                       : data.id4e === 2
-                        ? "Estudiar"
+                        ? "Encontrar"
                         : data.id4e === 3
-                          ? "Ejecutar"
+                          ? "Estudiar"
+                          : data.id4e === 4 ? "Ejecutar" 
                           : "Evaluar"}
                   </Badge>
                 </TableCell>
