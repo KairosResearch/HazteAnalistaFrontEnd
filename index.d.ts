@@ -20,6 +20,10 @@ interface DialogInstrHookProps {
   defaultTab: "first-part" | "second-part";
   setDefaultTab: (tab: "first-part" | "second-part") => void;
 }
+interface AuthLoadingStatusProps {
+  isLoading: boolean;
+  setIsLoading: (newState: boolean) => void;
+}
 
 interface UserProps {
   id: number;
