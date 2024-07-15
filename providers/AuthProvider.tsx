@@ -6,7 +6,7 @@ import { handleLogin } from "@/actions/login";
 import { handleRegister } from "@/actions/register";
 // import { useUserData} from "@/hooks/useUserData"
 import { useDialogInstructions } from "@/hooks/useDialogs";
-import {useAuthLoadingStatus} from "@/hooks/useLoading";
+import { useAuthLoadingStatus } from "@/hooks/useLoading";
 
 function PrivyProviderWrapper({ children }: { children: React.ReactNode }) {
   const router = useRouter();

@@ -30,15 +30,15 @@ const EditablePrecio = ({
                   {...field}
                   type="text"
                   pattern="^[0-9]+([,.][0-9]+){0,7}?$"
-                  value={
-                    editablePrecio 
-                  }
+                  value={editablePrecio}
                   onChange={(e) => {
-                    const valorFiltrado = e.target.value.replace(/[^0-9.,]+/, '');
+                    const valorFiltrado = e.target.value.replace(
+                      /[^0-9.,]+/,
+                      "",
+                    );
                     setEditablePrecio(valorFiltrado);
-                    field.value === (valorFiltrado);
+                    field.value === valorFiltrado;
                   }}
-                  onKeyDown={editablePrecio.length > 7 && false}
                 />
                 <span>USD</span>
               </div>
@@ -64,7 +64,7 @@ const EditablePrecio = ({
                   pattern="^[0-9]+([,.][0-9]+){0,7}?$"
                   value={field.value}
                   onChange={(e) => {
-                    field.onChange(e.target.value.replace(/[^0-9.,]+/, ''));
+                    field.onChange(e.target.value.replace(/[^0-9.,]+/, ""));
                   }}
                 />
                 <span>USD</span>

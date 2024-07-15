@@ -2,15 +2,14 @@
 import { AllModules, LessonProps } from "@/index";
 import { AUTH_URL } from "./urls";
 
-export const getLessons = async (): Promise<AllModules | undefined>  => {
+export const getLessons = async (): Promise<AllModules | undefined> => {
   try {
     const response = await fetch(`${AUTH_URL}getLecciones/1`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
-      cache: 'reload'
-      
+      cache: "reload",
     });
 
     const data = await response.json();
@@ -35,7 +34,9 @@ export const getLessonsByUser = async (id: number) => {
   }
 };
 
-export const getLastLesson = async (id: number): Promise<LessonProps | undefined> => {
+export const getLastLesson = async (
+  id: number,
+): Promise<LessonProps | undefined> => {
   try {
     const response = await fetch(`${AUTH_URL}get_ultima_leccion/${id}`, {
       method: "GET",
@@ -44,13 +45,12 @@ export const getLastLesson = async (id: number): Promise<LessonProps | undefined
       },
     });
     const data = await response.json();
-    const lastLesson = data.UltimaLeccion[0]
+    const lastLesson = data.UltimaLeccion[0];
     return lastLesson;
   } catch (err) {
     console.error(err);
   }
-}
-
+};
 
 export const saveLesson = async (body: any) => {
   try {
@@ -82,5 +82,4 @@ export const updateLastLesson = async (body: any) => {
   } catch (err) {
     console.error(err);
   }
-}
-
+};

@@ -12,6 +12,21 @@ import EditablePrecio from "./EditablePrecio";
 
 import { Checkbox } from "@/components/ui/checkbox";
 
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
+
 //Types:
 interface RightSideForm {
   type: "create" | "update" | null;
@@ -48,6 +63,8 @@ const RightSideForm = ({
   sector,
   data4e,
 }: RightSideForm) => {
+  const [open, setOpen] = React.useState(false);
+  const [value, setValue] = React.useState("");
   return (
     <>
       <div className="hidden md:block">
@@ -92,7 +109,9 @@ const RightSideForm = ({
                                   ? "green"
                                   : "grey"
                         }
-                      >{fourE.label}</Badge>
+                      >
+                        {fourE.label}
+                      </Badge>
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -178,19 +197,18 @@ const RightSideForm = ({
                     value={String(exchange.value)}
                   >
                     <Badge
-                    variant={
-                      exchange.value === 2
-                        ? "binance"
-                        : exchange.value === 3
-                          ? "coinbase"
-                        : exchange.value === 4
-                      ?"kraken"
-                      : "Ninguno"
-                    }
-                  >
-                    {exchange.label
-                    }
-                  </Badge>
+                      variant={
+                        exchange.value === 2
+                          ? "binance"
+                          : exchange.value === 3
+                            ? "coinbase"
+                            : exchange.value === 4
+                              ? "kraken"
+                              : "Ninguno"
+                      }
+                    >
+                      {exchange.label}
+                    </Badge>
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -198,7 +216,6 @@ const RightSideForm = ({
           )}
         />
       </div>
-
 
       {/**Sector */}
       <div className="sectorblock">
@@ -208,36 +225,63 @@ const RightSideForm = ({
           formLabel="Sectores"
           className="  w-full"
           render={({ field }) => (
-            <div className="grid  grid-cols-3 lg:grid-cols-5 gap-2">
-              {sector.map((sector) => (
-                  <div key={sector.value} className="flex items-center">
-                    <Checkbox
-                      className="mr-3"
-                            checked={field.value?.includes(sector.value)}
-                            onCheckedChange={(checked) => {
-                              return checked
-                                ? field.onChange([...field.value, sector.value])
-                                : field.onChange(
-                                    field.value?.filter(
-                                      (value: any) => value !== sector.value
-                                    )
-                                  )
-                            }}
-                          />
-                    <Badge
-                      variant={
-                        sector.label as any
-                      }
-                    >{sector.label}</Badge>
-                  </div>
-                    
-                  
-                ))}
-            
+            <div className="">
+              <Popover open={open} onOpenChange={setOpen}>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    role="combobox"
+                    aria-expanded={open}
+                    className="w-full justify-between m-0"
+                  >
+                    {field.value?.length
+                      ? sector
+                          .filter((sector) =>
+                            field.value.includes(sector.value),
+                          )
+                          .map((sector) => sector.label)
+                          .join(", ")
+                      : "Selecciona los sectores"}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="p-0 w-full">
+                  <Command>
+                    <CommandInput placeholder="Busca algun proyecto ..." />
+                    <CommandList>
+                      <CommandEmpty>No se encontró sector.</CommandEmpty>
+                      <CommandGroup>
+                        {sector.map((sector) => (
+                          <CommandItem
+                            className="hover:cursor-pointer flex items-center gap-3 "
+                            key={sector.value}
+                          >
+                            <Checkbox
+                              className="mr-3 w-8 h-8"
+                              checked={field.value?.includes(sector.value)}
+                              onCheckedChange={(checked) => {
+                                return checked
+                                  ? field.onChange([
+                                      ...field.value,
+                                      sector.value,
+                                    ])
+                                  : field.onChange(
+                                      field.value?.filter(
+                                        (value: any) => value !== sector.value,
+                                      ),
+                                    );
+                              }}
+                            />
+                            <Badge variant={sector.label as any}>
+                              {sector.label}
+                            </Badge>
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </CommandList>
+                  </Command>
+                </PopoverContent>
+              </Popover>
             </div>
-            
-                
-             
           )}
         />
       </div>

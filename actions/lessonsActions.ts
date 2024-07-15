@@ -35,4 +35,4 @@ export const setLastLessonAction = async (
   } catch (err) {
     console.error(err);
   }
-}
+};

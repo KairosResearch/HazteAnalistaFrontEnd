@@ -80,10 +80,10 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
       setLoading(false);
     };
     fetchData();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userTableData]);
 
-  console.log(prToDelete)
+  console.log(prToDelete);
 
   const sectores = catalogos[3];
 
@@ -102,7 +102,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
         close={null}
       />
       <Table id="mochila" className="border border-grey-light ">
-        <DashboardHeader 
+        <DashboardHeader
           prToDelete={prToDelete}
           clean={() => setPrToDelete([])}
         />
@@ -142,47 +142,47 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
               <TableRow
                 className="divide-x-2 divide-y-2 divide-green-dark hover:bg-primary/10 cursor-pointer"
                 key={data.id_proyecto}
-                
               >
                 <TableCell className="">
-                  <Checkbox 
+                  <Checkbox
                     checked={prToDelete.includes(data.id_proyecto)}
-                    onCheckedChange={
-                      (checked) => {
-                        return checked
-                          ? setPrToDelete([...prToDelete, data.id_proyecto])
-                          : setPrToDelete(
-                              prToDelete.filter(
-                                (value) => value !== data.id_proyecto
-                              )
-                            )
-                      }}
+                    onCheckedChange={(checked) => {
+                      return checked
+                        ? setPrToDelete([...prToDelete, data.id_proyecto])
+                        : setPrToDelete(
+                            prToDelete.filter(
+                              (value) => value !== data.id_proyecto,
+                            ),
+                          );
+                    }}
                   />
                 </TableCell>
-                <TableCell 
+                <TableCell
                   onClick={() => {
-                  setSelectedRow(data);
-                  setIsDialogOpen(true);
-                }}
-                className="font-medium border-2 border-green-dark relative">
+                    setSelectedRow(data);
+                    setIsDialogOpen(true);
+                  }}
+                  className="font-medium border-2 border-green-dark relative"
+                >
                   <p className="">{data.proyecto}</p>
                 </TableCell>
 
                 {/* Ticker */}
-                <TableCell 
+                <TableCell
                   onClick={() => {
-                  setSelectedRow(data);
-                  setIsDialogOpen(true);
-                }}
-                className="whitespace-nowrap">
+                    setSelectedRow(data);
+                    setIsDialogOpen(true);
+                  }}
+                  className="whitespace-nowrap"
+                >
                   {data.ticker}
                 </TableCell>
                 {/******Metodo 4E**** */}
-                <TableCell 
+                <TableCell
                   onClick={() => {
-                  setSelectedRow(data);
-                  setIsDialogOpen(true);
-                }}
+                    setSelectedRow(data);
+                    setIsDialogOpen(true);
+                  }}
                 >
                   <Badge
                     color={
@@ -195,7 +195,6 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                             : data.id4e === 5
                               ? "green"
                               : "grey"
-                    
                     }
                   >
                     {data.id4e === 1
@@ -204,27 +203,28 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                         ? "Encontrar"
                         : data.id4e === 3
                           ? "Estudiar"
-                          : data.id4e === 4 ? "Ejecutar" 
-                          : "Evaluar"}
+                          : data.id4e === 4
+                            ? "Ejecutar"
+                            : "Evaluar"}
                   </Badge>
                 </TableCell>
 
                 {/******Decision**** */}
-                <TableCell 
+                <TableCell
                   onClick={() => {
-                  setSelectedRow(data);
-                  setIsDialogOpen(true);
-                }}
+                    setSelectedRow(data);
+                    setIsDialogOpen(true);
+                  }}
                 >
                   <Badge
-                        variant={
-                          data.id_decision_proyecto === 2
-                            ? "decisionWatchlist"
-                            : data.id_decision_proyecto  === 3
-                              ? "desicionLeave"
-                              : "Ninguno"
-                        }
-                      >
+                    variant={
+                      data.id_decision_proyecto === 2
+                        ? "decisionWatchlist"
+                        : data.id_decision_proyecto === 3
+                          ? "desicionLeave"
+                          : "Ninguno"
+                    }
+                  >
                     {data.id_decision_proyecto === 2
                       ? "Lista de seguimiento"
                       : data.id_decision_proyecto === 3
@@ -234,42 +234,35 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                 </TableCell>
 
                 {/******Sector**** */}
-                <TableCell 
+                <TableCell
                   className="grid gap-2 py-1 px-2"
                   onClick={() => {
-                  setSelectedRow(data);
-                  setIsDialogOpen(true);
-                }}
+                    setSelectedRow(data);
+                    setIsDialogOpen(true);
+                  }}
                 >
-                  
-                  {
-                    data.sectores.map((sector) => (
-                      <Badge
-                        key={sector}
+                  {data.sectores.map((sector) => (
+                    <Badge
+                      key={sector}
                       variant={
-                        sectores.find(
-                          (sectorCat) => sectorCat.value === sector,
-                        )?.label as any
-                      }  
+                        sectores.find((sectorCat) => sectorCat.value === sector)
+                          ?.label as any
+                      }
                     >
                       {
-                        sectores.find(
-                          (sectorCat) => sectorCat.value === sector,
-                        )?.label
+                        sectores.find((sectorCat) => sectorCat.value === sector)
+                          ?.label
                       }
                     </Badge>
-                    ))
-
-                  }
-                  
+                  ))}
                 </TableCell>
 
                 {/******Exchange**** */}
-                <TableCell 
+                <TableCell
                   onClick={() => {
-                  setSelectedRow(data);
-                  setIsDialogOpen(true);
-                }}
+                    setSelectedRow(data);
+                    setIsDialogOpen(true);
+                  }}
                 >
                   <Badge
                     variant={
@@ -277,9 +270,9 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                         ? "binance"
                         : data.idExchange === 3
                           ? "coinbase"
-                        : data.idExchange === 4
-                      ?"kraken"
-                      : "decisionWatchlist"
+                          : data.idExchange === 4
+                            ? "kraken"
+                            : "decisionWatchlist"
                     }
                   >
                     {data.idExchange === 2
@@ -287,38 +280,39 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                       : data.idExchange === 3
                         ? "Coinbase"
                         : data.idExchange === 4
-                      ? "Kraken"
-                      :"Ninguno"
-                    }
+                          ? "Kraken"
+                          : "Ninguno"}
                   </Badge>
                 </TableCell>
 
                 {/******precio entrada**** */}
-                <TableCell 
+                <TableCell
                   onClick={() => {
-                  setSelectedRow(data);
-                  setIsDialogOpen(true);
-                }}
-                className="whitespace-nowrap">
+                    setSelectedRow(data);
+                    setIsDialogOpen(true);
+                  }}
+                  className="whitespace-nowrap"
+                >
                   $ {data.precioEntrada.toLocaleString()}
                 </TableCell>
 
                 {/****** precio actual**** */}
-                <TableCell 
+                <TableCell
                   onClick={() => {
-                  setSelectedRow(data);
-                  setIsDialogOpen(true);
-                }}
-                className="whitespace-nowrap">
+                    setSelectedRow(data);
+                    setIsDialogOpen(true);
+                  }}
+                  className="whitespace-nowrap"
+                >
                   $ {data.price.toLocaleString()}
                 </TableCell>
 
                 {/******Si ATH**** */}
-                <TableCell 
+                <TableCell
                   onClick={() => {
-                  setSelectedRow(data);
-                  setIsDialogOpen(true);
-                }}
+                    setSelectedRow(data);
+                    setIsDialogOpen(true);
+                  }}
                 >
                   {rendimientoCalculator(
                     data.precioEntrada,
@@ -328,20 +322,21 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                 </TableCell>
 
                 {/******Market Cap**** */}
-                <TableCell 
+                <TableCell
                   onClick={() => {
-                  setSelectedRow(data);
-                  setIsDialogOpen(true);
-                }}
-                className="whitespace-nowrap">
+                    setSelectedRow(data);
+                    setIsDialogOpen(true);
+                  }}
+                  className="whitespace-nowrap"
+                >
                   $ {data.market_cap.toLocaleString()}
                 </TableCell>
                 {/******Rango**** */}
-                <TableCell 
+                <TableCell
                   onClick={() => {
-                  setSelectedRow(data);
-                  setIsDialogOpen(true);
-                }}
+                    setSelectedRow(data);
+                    setIsDialogOpen(true);
+                  }}
                 >
                   <Badge
                     variant="range"

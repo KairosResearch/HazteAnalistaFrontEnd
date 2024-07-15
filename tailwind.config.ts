@@ -1,5 +1,22 @@
 import type { Config } from "tailwindcss";
-import { BINANCE, COINBASE, KRAKEN, DAO, DEFI, BLOCKCHAIN, NFT,GAMING, LENDING, WEB3, DEX, STAKING, ORACULO, METAVERSO, MARKETPLACE, NONE } from "./lib/constants";
+import {
+  BINANCE,
+  COINBASE,
+  KRAKEN,
+  DAO,
+  DEFI,
+  BLOCKCHAIN,
+  NFT,
+  GAMING,
+  LENDING,
+  WEB3,
+  DEX,
+  STAKING,
+  ORACULO,
+  METAVERSO,
+  MARKETPLACE,
+  NONE,
+} from "./lib/constants";
 let greenDark = "#319383";
 let greyLight = "#d9d9d9";
 
@@ -132,7 +149,7 @@ const config = {
         },
         none: {
           DEFAULT: NONE,
-         }
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

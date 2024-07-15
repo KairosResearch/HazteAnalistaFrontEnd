@@ -61,9 +61,8 @@ const DashboardDataForm = ({
 
   //States of the values added automatically with apis
   const [symbol, setSymbol] = useState("");
-  const [editablePrecio, setEditablePrecio] = useState('');
+  const [editablePrecio, setEditablePrecio] = useState("");
   const [rendimiento, setRendimiento] = useState(0);
-
 
   //States from hooks
   //Global state that manipulates the fetching data on the table
@@ -90,7 +89,6 @@ const DashboardDataForm = ({
     price: 0,
   });
 
-
   //Fetching project info just right after user selects the project
   useEffect(() => {
     //set everything to 0
@@ -108,7 +106,6 @@ const DashboardDataForm = ({
       const price = opa?.price;
       price && setEditablePrecio(price.toString());
 
-
       setPrInfo({
         market_cap,
         price,
@@ -123,7 +120,7 @@ const DashboardDataForm = ({
   //Not inmediately, but after a debounce foo of 1 sec
   useEffect(() => {
     const debouncedFunction = debounce(() => {
-      const valorDecimal = parseFloat(editablePrecio.replace(',', '.'));
+      const valorDecimal = parseFloat(editablePrecio.replace(",", "."));
       const rendimiento = rendimientoCalculator(valorDecimal, prInfo.price);
       setRendimiento(rendimiento);
     }, 900);
@@ -172,7 +169,7 @@ const DashboardDataForm = ({
         idExchange: Number(values.idExchange),
         idSector: values.sectores,
         precioActual: prInfo.price ?? 0,
-        precioEntrada: editablePrecio ?? '0',
+        precioEntrada: editablePrecio ?? "0",
       };
 
       console.log(backendValues);
@@ -238,7 +235,7 @@ const DashboardDataForm = ({
         id_decision_proyecto: Number(values.id_decision_proyecto),
         idExchange: Number(values.idExchange),
         idSectoradd: values.sectores,
-        precioEntrada: parseFloat(values.precioEntrada.replace(',', '.')),
+        precioEntrada: parseFloat(values.precioEntrada.replace(",", ".")),
         id: data?.id_proyecto,
       };
 

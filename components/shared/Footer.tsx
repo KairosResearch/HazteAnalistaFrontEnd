@@ -9,7 +9,6 @@ const Footer = () => {
           <div className="mb-4 md:mb-0 w-[70%]">
             <h2 className="font-bold text-lg mb-1">Kairos Research</h2>
             <p>&copy;2023 Kairos Research. All rights reserved</p>
-            
           </div>
           <div className="grid grid-cols-2 w-full md:grid-cols-4 gap-4 ">
             <div>

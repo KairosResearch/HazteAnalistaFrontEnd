@@ -5,20 +5,15 @@ import { tableHeaders } from "@/utils";
 import DialogAlert from "./DialogAlert";
 
 type DashboardHeaderProps = {
-  prToDelete: number[]
-  clean: () => void
+  prToDelete: number[];
+  clean: () => void;
 };
 
-const DashboardHeader = (
-  { prToDelete, clean }: DashboardHeaderProps
-) => {
+const DashboardHeader = ({ prToDelete, clean }: DashboardHeaderProps) => {
   return (
     <TableHeader className="">
       <TableRow className="divide-x-2 divide-y sticky top-[-1px] border-grey-light bg-dark-grey/95 z-10 divide-grey-light">
-        <DialogAlert
-          prToDelete={prToDelete}
-          clean={clean}
-        />
+        <DialogAlert prToDelete={prToDelete} clean={clean} />
         {tableHeaders.map((header) => (
           <TableHead key={header.key} className="">
             <div className="flex gap-2 items-center justify-center">

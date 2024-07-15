@@ -133,7 +133,7 @@ interface DialogItemProps {
     siAth: number;
     sectores: number[];
     idExchange: string;
-    precioEntrada: number;
+    precioEntrada: string;
   } | null;
   close: (() => void) | null;
   projectsList:
@@ -160,7 +160,7 @@ interface DashboardProps {
 
 interface DialogAlertProps {
   // action: "deleteProyect" | "logout";
-  prToDelete: number[]
+  prToDelete: number[];
   clean: () => void;
   // name: string;
 }
@@ -228,10 +228,8 @@ interface LessonProps {
   html_leccion: string;
 }
 
-   
 interface AllModules {
   "Módulo 1": LessonProps[];
   "Módulo 2": LessonProps[];
   "Módulo 3": LessonProps[];
 }
-

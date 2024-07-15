@@ -29,7 +29,6 @@ const DialogInfo = ({
   useEffect(() => {
     const getInfo = async () => {
       const info: ProyectsInfo = await getProyectById(id?.id ?? 0);
-      
 
       setInfo(info);
     };
@@ -59,11 +58,10 @@ const DialogInfo = ({
                     id_decision_proyecto:
                       selectedRow.id_decision_proyecto?.toString(),
                     idExchange: selectedRow.idExchange?.toString(),
+                    precioEntrada: selectedRow.precioEntrada?.toString(),
                   }}
                   close={null}
                 />
-
-                
               </div>
               <X
                 className="absolute top-2 right-2 cursor-pointer hover:text-red-500"
