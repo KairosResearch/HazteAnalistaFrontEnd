@@ -18,7 +18,7 @@ type CustomFieldProps = {
   name: string;
   formLabel?: string;
   className?: string;
-  type: "create" | "update" | null;
+  type: string | null;
 };
 
 export const CustomField = ({

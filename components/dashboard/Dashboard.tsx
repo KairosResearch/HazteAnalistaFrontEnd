@@ -18,8 +18,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
+  
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
@@ -194,6 +193,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                   }}
                 >
                   <Badge
+                  variant={"fourE"}
                     color={
                       data.id4e === 2
                         ? "yellow"

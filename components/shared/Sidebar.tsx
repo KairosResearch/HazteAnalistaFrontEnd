@@ -32,10 +32,10 @@ const Sidebar = () => {
                 />
                 Metodología 4 E
               </Link>
-              {/* 
+              
                         <Link 
                         className='sidebar-nav_element'
-                        href='/tools'>
+                        href='/analisys'>
                                 <Image
                                     src='/tools-fill.svg'
                                     alt='tools'
@@ -44,10 +44,10 @@ const Sidebar = () => {
                                 />
 
                              
-                                Herramientas
+                                Analisis Profundo 
                         </Link>
                         
-                        <Link 
+                        {/* <Link 
                             className='sidebar-nav_element'
                             href="/data-on-chain"
                         >
@@ -59,7 +59,7 @@ const Sidebar = () => {
                                 />
                             Data on Chain
                         </Link> */}
-            </ul>
+            </ul> 
           </nav>
         </aside>
       )}

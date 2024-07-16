@@ -77,6 +77,19 @@ const Navbar = () => {
                     />
                     Metodología 4E
                   </Link>
+                  <Link 
+                        className='sidebar-nav_element'
+                        href='/analisys'>
+                                <Image
+                                    src='/tools-fill.svg'
+                                    alt='tools'
+                                    height={20}
+                                    width={20}
+                                />
+
+                             
+                                Analisis Profundo 
+                        </Link>
                   {/* 
                               <Link className='header-nav_text'
                                 href='/tools'

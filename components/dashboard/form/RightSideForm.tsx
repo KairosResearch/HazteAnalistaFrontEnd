@@ -1,6 +1,6 @@
 import React from "react";
 import { Badge } from "@/components/ui/badge";
-import { CustomField } from "./CustomField";
+import { CustomField } from "../../shared/CustomField";
 import {
   Select,
   SelectContent,
