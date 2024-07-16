@@ -14,6 +14,15 @@ import DialogInfo from "./DialogInfo";
 import { Checkbox } from "../ui/checkbox";
 
 import { Badge } from "../ui/badge";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
 
 //Calculous
 import { rangeDesigner } from "@/utils";
@@ -101,7 +110,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
         data={null}
         close={null}
       />
-      <Table id="mochila" className="border border-grey-light ">
+      <Table id="mochila" className="border border-primary-foreground ">
         <DashboardHeader
           prToDelete={prToDelete}
           clean={() => setPrToDelete([])}
@@ -140,10 +149,10 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
           {tableData &&
             tableData.map((data) => (
               <TableRow
-                className="divide-x-2 divide-y-2 divide-green-dark hover:bg-primary/10 cursor-pointer"
+                className=" divide-green-dark hover:bg-primary/10 cursor-pointer"
                 key={data.id_proyecto}
               >
-                <TableCell className="">
+                <TableCell className="border-2 border-green-dark sticky left-[-1px] bg-dark-grey/95 z-10">
                   <Checkbox
                     checked={prToDelete.includes(data.id_proyecto)}
                     onCheckedChange={(checked) => {
@@ -162,7 +171,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                     setSelectedRow(data);
                     setIsDialogOpen(true);
                   }}
-                  className="font-medium border-2 border-green-dark relative"
+                  className="font-medium sticky left-[1.95rem] bg-dark-grey/95 z-10"
                 >
                   <p className="">{data.proyecto}</p>
                 </TableCell>
@@ -235,26 +244,49 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
 
                 {/******Sector**** */}
                 <TableCell
-                  className="grid gap-2 py-1 px-2"
+                  className=""
                   onClick={() => {
                     setSelectedRow(data);
                     setIsDialogOpen(true);
                   }}
                 >
-                  {data.sectores.map((sector) => (
+                  <DropdownMenu>
+                  <DropdownMenuTrigger>
+                  
                     <Badge
-                      key={sector}
-                      variant={
-                        sectores.find((sectorCat) => sectorCat.value === sector)
-                          ?.label as any
-                      }
-                    >
-                      {
-                        sectores.find((sectorCat) => sectorCat.value === sector)
-                          ?.label
-                      }
+                        variant={
+                          sectores.find((sectorCat) => sectorCat.value === data.sectores[0])
+                            ?.label as any
+                        }
+                      >
+                        {
+                          sectores.find((sectorCat) => sectorCat.value === data.sectores[0])
+                        ?.label 
+                        }{data.sectores.length > 1 ? "..." : ""}
                     </Badge>
+                    
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                  {data.sectores.map((sector) => (
+                    <DropdownMenuItem>
+                      <Badge
+                        key={sector}
+                        variant={
+                          sectores.find((sectorCat) => sectorCat.value === sector)
+                            ?.label as any
+                        }
+                      >
+                        {
+                          sectores.find((sectorCat) => sectorCat.value === sector)
+                            ?.label
+                        }
+                      </Badge>
+                    </DropdownMenuItem>
+                    
                   ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+                  
                 </TableCell>
 
                 {/******Exchange**** */}

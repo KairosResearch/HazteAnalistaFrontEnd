@@ -167,7 +167,7 @@ const DashboardDataForm = ({
         id_decision_proyecto: Number(values.id_decision_proyecto) ?? 1,
         marketCap: prInfo.market_cap ?? 0,
         idExchange: Number(values.idExchange),
-        idSector: values.sectores,
+        idSector: values.sectores.length === 0 ? [1] : values.sectores,
         precioActual: prInfo.price ?? 0,
         precioEntrada: editablePrecio ?? "0",
       };

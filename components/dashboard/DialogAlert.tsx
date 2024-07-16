@@ -55,12 +55,14 @@ const DialogAlert = ({ prToDelete, clean }: DialogAlertProps) => {
   return (
     <>
       <AlertDialog>
-        <TableHead>
+        <TableHead
+          className="sticky left-[-2px] top-0 border-x-2  bg-dark-grey z-20"
+        >
           {prToDelete.length > 0 && (
             <AlertDialogTrigger className="h-7 w-7">
               <Image
-                width={70}
-                height={70}
+                width={50}
+                height={50}
                 src={"/icons/table/Basurero.png"}
                 alt={"Eliminar proyectos"}
               />

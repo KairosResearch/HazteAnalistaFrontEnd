@@ -12,20 +12,20 @@ import EditablePrecio from "./EditablePrecio";
 
 import { Checkbox } from "@/components/ui/checkbox";
 
+
+import { Button } from "@/components/ui/button"
 import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Button } from "@/components/ui/button";
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu";
+
+type Checked = DropdownMenuCheckboxItemProps["checked"]
+
 
 //Types:
 interface RightSideForm {
@@ -226,61 +226,49 @@ const RightSideForm = ({
           className="  w-full"
           render={({ field }) => (
             <div className="">
-              <Popover open={open} onOpenChange={setOpen}>
-                <PopoverTrigger asChild>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
                   <Button
-                    variant="outline"
-                    role="combobox"
-                    aria-expanded={open}
-                    className="w-full justify-between m-0"
-                  >
-                    {field.value?.length
-                      ? sector
-                          .filter((sector) =>
-                            field.value.includes(sector.value),
-                          )
-                          .map((sector) => sector.label)
-                          .join(", ")
-                      : "Selecciona los sectores"}
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="p-0 w-full">
-                  <Command>
-                    <CommandInput placeholder="Busca algun proyecto ..." />
-                    <CommandList>
-                      <CommandEmpty>No se encontró sector.</CommandEmpty>
-                      <CommandGroup>
-                        {sector.map((sector) => (
-                          <CommandItem
-                            className="hover:cursor-pointer flex items-center gap-3 "
-                            key={sector.value}
-                          >
-                            <Checkbox
-                              className="mr-3 w-8 h-8"
-                              checked={field.value?.includes(sector.value)}
-                              onCheckedChange={(checked) => {
-                                return checked
-                                  ? field.onChange([
-                                      ...field.value,
-                                      sector.value,
-                                    ])
-                                  : field.onChange(
-                                      field.value?.filter(
-                                        (value: any) => value !== sector.value,
-                                      ),
-                                    );
-                              }}
-                            />
-                            <Badge variant={sector.label as any}>
-                              {sector.label}
-                            </Badge>
-                          </CommandItem>
-                        ))}
-                      </CommandGroup>
-                    </CommandList>
-                  </Command>
-                </PopoverContent>
-              </Popover>
+                      variant="outline"
+                      role="combobox"
+                      aria-expanded={open}
+                      className="w-full justify-between m-0"
+                    >
+                      {field.value?.length
+                        ? sector
+                            .filter((sector) =>
+                              field.value.includes(sector.value),
+                            )
+                            .map((sector) => sector.label)
+                            .join(", ")
+                        : "Selecciona los sectores"}
+                    </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56">
+                  <DropdownMenuLabel>Elige el sector</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                    {sector.map((sector) => (
+                      <DropdownMenuCheckboxItem
+                        key={sector.value}
+                        checked={field.value?.includes(sector.value)}
+                        onCheckedChange={(checked) => {
+                          return checked
+                            ? field.onChange([...field.value, sector.value])
+                            : field.onChange(
+                                field.value?.filter(
+                                  (value: any) => value !== sector.value,
+                                ),
+                              );
+                        }}
+                      >
+                      <Badge variant={sector.label as any}>
+                                {sector.label}
+                        </Badge>
+                      </DropdownMenuCheckboxItem>
+                    ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+                            
             </div>
           )}
         />
