@@ -168,7 +168,7 @@ const InfoTabs = ({ info }: InfoTabsProps) => {
 
               <div className="flex justify-end">
                 <Button 
-                  onClick={() => router.push(`/dashboard/analisis/${info.proyecto}`)}
+                  onClick={() => router.push(`/analisis/${info.proyecto}`)}
                   className="w-5/12">Editar análisis</Button>
               </div>
 

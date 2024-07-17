@@ -52,14 +52,16 @@ const Lessons = ({ allModules }: LessonsProps) => {
           setLessons(moduleLesson);
         }
       }
-      setLoading(false);
+      
     };
     meCompota();
     const getLessonsCompleted = async () => {
       const lessonsArray = await lessonsCompletedArray();
       setLessonsCompleted(lessonsArray);
+      setLoading(false);
     };
     getLessonsCompleted();
+    
   }, []);
 
   console.log(lessons);
