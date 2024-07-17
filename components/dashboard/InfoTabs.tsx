@@ -6,8 +6,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { InfoTabsProps } from "@/index";
 import { Button } from "../ui/button";
+import { useRouter } from "next/navigation";
 
 const InfoTabs = ({ info }: InfoTabsProps) => {
+  const router = useRouter();
   return (
     <Tabs defaultValue="description">
       <TabsList className="pl-0 md:pl-1">
@@ -165,7 +167,9 @@ const InfoTabs = ({ info }: InfoTabsProps) => {
               </div>
 
               <div className="flex justify-end">
-                <Button className="w-5/12">Editar análisis</Button>
+                <Button 
+                  onClick={() => router.push(`/dashboard/analisis/${info.proyecto}`)}
+                  className="w-5/12">Editar análisis</Button>
               </div>
 
               <div className="flex flex-col">

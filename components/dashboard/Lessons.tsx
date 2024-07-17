@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 
 //Context (menu)
 import { useStateContext } from "@/contexts/ContextProvider";
@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/carousel";
 import LessonsCard from "@/components/lessons/LessonsCard";
 import Loading from "../shared/Loading";
+import SkeletonCard from "../shared/skeletons/SkeletonCard";
 //Data
 //import { lessons } from "@/lib/data";
 import { AllModules, LessonPortadaProps, LessonProps } from "@/index";
@@ -59,7 +60,7 @@ const Lessons = ({ allModules }: LessonsProps) => {
       setLessonsCompleted(lessonsArray);
     };
     getLessonsCompleted();
-  }, [allModules]);
+  }, []);
 
   console.log(lessons);
   return (
@@ -68,7 +69,15 @@ const Lessons = ({ allModules }: LessonsProps) => {
       <div
         className={` hidden md:flex 2xl:p-14 2xl:py-2 2xl:px-20 md:px-10 2xl:mt-9 mt-3 `}
       >
-        {loading && <Loading />}
+        {loading && 
+        <div className="flex gap-3">
+          <SkeletonCard />
+          <SkeletonCard />
+          <SkeletonCard />
+          
+        </div>
+        
+        }
         <Carousel
           opts={{
             loop: true,
@@ -108,6 +117,15 @@ const Lessons = ({ allModules }: LessonsProps) => {
 
       {/* Carousel de lecciones en mobile */}
       <div className="md:hidden px-1 pt-8 flex overflow-x-scroll gap-6">
+      {loading && 
+        <div className="flex gap-3">
+          <SkeletonCard />
+          <SkeletonCard />
+          <SkeletonCard />
+          
+        </div>
+        
+        }
         {lessons.map((lesson, i) => {
           const portada: LessonPortadaProps = JSON.parse(lesson.html_portada);
           const link = `/lessons/${portada.id}`;

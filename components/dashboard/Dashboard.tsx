@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { LOW, MID, LARGE } from "@/lib/constants";
 import {
   Table,
@@ -22,6 +22,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
+import SkeletonTable from "../shared/skeletons/SkeletonTable";
+
 
 //Calculous
 import { rangeDesigner } from "@/utils";
@@ -35,7 +37,6 @@ import { tableDataDefault } from "@/lib/data";
 import { TableData } from "@/index";
 import { DashboardProps } from "@/index";
 import { handleGetProyects } from "@/actions/proyectActions";
-import Loading from "../shared/Loading";
 import { useDialogItem } from "@/hooks/useDialogs";
 import DialogItem from "./form/DialogItem";
 
@@ -109,6 +110,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
         data={null}
         close={null}
       />
+      
       <Table id="mochila" className="border border-primary-foreground ">
         <DashboardHeader
           prToDelete={prToDelete}
@@ -117,7 +119,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
 
         <TableBody id="first-project">
           {/* If no data  */}
-          {tableData && tableData.length === 0 && !loading && (
+          {tableData && tableData.length === 0 && !loading &&  (
             <>
               <TableRow className="">
                 <TableCell className="font-medium  " colSpan={11}>
@@ -137,11 +139,13 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
           )}
           {/* If loading */}
           {loading && (
-            <TableRow className="">
-              <TableCell className="font-medium  " colSpan={11}>
-                <Loading />
-              </TableCell>
-            </TableRow>
+            <>
+             
+              <SkeletonTable />
+              
+            </>
+           
+            
           )}
 
           {/* Data directly manipulated by the user */}
@@ -268,7 +272,9 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
                   {data.sectores.map((sector) => (
-                    <DropdownMenuItem>
+                    <DropdownMenuItem
+                      key={sector} 
+                    >
                       <Badge
                         key={sector}
                         variant={
@@ -399,6 +405,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
           />
         )}
       </Table>
+     
     </div>
   );
 };

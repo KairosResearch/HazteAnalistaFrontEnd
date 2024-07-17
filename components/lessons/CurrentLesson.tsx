@@ -7,18 +7,21 @@ import { LessonPortadaProps, LessonProps } from "@/index";
 import { getGuzmaValue } from "@/utils/values";
 import { getLastLesson } from "@/services/backend/lessons";
 import Link from "next/link";
+import SkeletonCard from "../shared/skeletons/SkeletonCard";
 
 const CurrentLesson = () => {
   const [currentLesson, setCurrentLesson] = React.useState<LessonProps>();
-  const [loading, setLoading] = React.useState<boolean>(true);
+  const [loading, setLoading] = React.useState<boolean>(false);
 
   useEffect(() => {
     const getLastLessonObject = async () => {
+      setLoading(true)
       const guzma = await getGuzmaValue();
       console.log("guzma en el currentLesson", guzma);
       const lastLesson = await getLastLesson(guzma);
 
       setCurrentLesson(lastLesson);
+      setLoading(false);
     };
     getLastLessonObject();
   }, []);
@@ -27,6 +30,7 @@ const CurrentLesson = () => {
 
   return (
     <>
+    {loading && <SkeletonCard />}
       {currentLesson ? (
         <LessonsCard
           lesson={JSON.parse(currentLesson.html_portada)}

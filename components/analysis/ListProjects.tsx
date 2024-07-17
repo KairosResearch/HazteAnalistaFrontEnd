@@ -6,6 +6,7 @@ import { Card, CardContent } from '../ui/card';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
 import Loading from '../shared/Loading';
+import SkeletonListItem from '../shared/skeletons/SkeletonListItem';
 
 
 const ListProjects = () => {
@@ -48,7 +49,12 @@ const ListProjects = () => {
   return (
     <div className='grid gap-4'>
       {
-        loading && <Loading />
+        loading && 
+        <div className='grid gap-8'>
+          <SkeletonListItem />
+          <SkeletonListItem />
+          <SkeletonListItem />
+        </div>
       }
       {
         projectsSaved?.map((project) => (

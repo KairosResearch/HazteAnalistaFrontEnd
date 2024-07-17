@@ -9,6 +9,8 @@ import {
 import { getGuzmaValue } from "@/utils/values";
 import LessonsCard from "./LessonsCard";
 import { getLastLesson } from "@/services/backend/lessons";
+import { Separator } from "../ui/separator";
+import SkeletonCard from "../shared/skeletons/SkeletonCard";
 
 type Props = {
   allModules: AllModules | undefined;
@@ -17,9 +19,11 @@ type Props = {
 const CurrentModule = ({ allModules }: Props) => {
   const [modules, setModules] = React.useState<any[]>([]);
   const [lessonsCompleted, setLessonsCompleted] = React.useState<any[]>([]);
+  const [loading, setLoading] = React.useState<boolean>(false);
 
   useEffect(() => {
     const getModules = async () => {
+      setLoading(true);
       const { currentModuleId } = (await getLastElement()) as {
         currentModuleId: number;
       };
@@ -42,18 +46,32 @@ const CurrentModule = ({ allModules }: Props) => {
     const getLessonsCompleted = async () => {
       const lessonsArray = await lessonsCompletedArray();
       setLessonsCompleted(lessonsArray);
+      setLoading(false);
     };
     getLessonsCompleted();
-  }, [allModules]);
+  }, []);
 
   console.log(lessonsCompleted);
 
   return (
     <>
+    {
+      loading && <div role="row" className="grid grid-cols-1 px-4 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        
+        <SkeletonCard/>
+        <SkeletonCard/>
+        <SkeletonCard/>
+        <SkeletonCard/>
+        <SkeletonCard/>
+
+      </div>
+    }
       {modules &&
         modules.map((mod, i) => (
           <div role="row" key={i}>
-            <h1 className="text-2xl mb-6">Modulo</h1>
+            <h1>
+            </h1>
+            <Separator className="mb-6"/>
             <section className="grid grid-cols-1 px-4 gap-6 md:grid-cols-2 lg:grid-cols-3">
               {mod.map((lesson: any, i: number) => {
                 const portada: LessonPortadaProps = JSON.parse(

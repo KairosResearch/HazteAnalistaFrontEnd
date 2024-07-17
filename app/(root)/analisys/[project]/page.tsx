@@ -11,10 +11,11 @@ interface pageProps {
 }
 
 const page = ({params}: pageProps) => {
+  const projectName = decodeURIComponent(params.project);
   return( 
   <>
     <header className="mb-10  ">
-      <h1>Realiza tu análisis - {params.project}</h1>
+      <h1>Realiza tu análisis - {projectName}</h1>
       
 
       <div className="sticky top-1 z-20 mt-10 bg-dark-black/50 text-primary-foreground/70 w-full rounded flex flex-col text-sm  p-1 px-2">

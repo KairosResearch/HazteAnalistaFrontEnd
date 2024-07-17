@@ -84,6 +84,9 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        muted: {
+          DEFAULT: greyLight,
+        },
         typeProyect: {
           DEFAULT: "#3b82f6", // blue-500
         },
