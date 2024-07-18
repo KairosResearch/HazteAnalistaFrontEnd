@@ -62,7 +62,7 @@ const ListProjects = () => {
             <div  className="flex flex-row justify-between items-center">
             
               <Link 
-                href={`/analisys/${project.proyecto}`}
+                href={`/analysis/${project.proyecto}`}
                 
               >
                 <h2 className='text-2xl pt-0 underline text-green-light'>{project.proyecto}</h2>

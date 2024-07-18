@@ -13,7 +13,7 @@ const getLessonsCompletedByUser = async () => {
 
 export const lessonsCompletedArray = async () => {
   const lessonsReadByUser = await getLessonsCompletedByUser();
-  console.log(lessonsReadByUser);
+  console.log('lessonsReadByUser');
   let lessonsArray: number[] = [];
   lessonsReadByUser.map((item: any) => {
     lessonsArray.push(item.id_leccion);

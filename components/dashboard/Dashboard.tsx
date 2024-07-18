@@ -92,7 +92,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userTableData]);
 
-  console.log(prToDelete);
+  
 
   const sectores = catalogos[3];
 

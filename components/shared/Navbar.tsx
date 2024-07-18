@@ -30,14 +30,14 @@ const Navbar = () => {
         </Link>
       </div>
 
-      <div className="flex gap-4 flex-center">
+      <div className="flex gap-4 md:gap-8 flex-center">
         <PopoverForm usage="userinfo" />
 
-        <div className="md:hidden">
+        <div className="lg:hidden">
           <Sheet>
             <SheetTrigger>
               <svg
-                className="w-6 h-6"
+                className="w-8 h-6"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -79,7 +79,7 @@ const Navbar = () => {
                   </Link>
                   <Link 
                         className='header-nav_text'
-                        href='/analisys'>
+                        href='/analysis'>
                                 <Image
                                     src='/tools-fill.svg'
                                     alt='tools'

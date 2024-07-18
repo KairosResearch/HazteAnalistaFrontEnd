@@ -27,6 +27,7 @@ type LessonsProps = {
   allModules: AllModules | undefined;
 };
 const Lessons = ({ allModules }: LessonsProps) => {
+  console.log('Viniendo del fetch en page', allModules)
   const { activeMenu } = useStateContext();
   const [lessons, setLessons] = React.useState<LessonProps[]>([]);
   const [loading, setLoading] = React.useState<boolean>(false);
@@ -52,13 +53,14 @@ const Lessons = ({ allModules }: LessonsProps) => {
           setLessons(moduleLesson);
         }
       }
+      setLoading(false);
       
     };
     meCompota();
     const getLessonsCompleted = async () => {
       const lessonsArray = await lessonsCompletedArray();
       setLessonsCompleted(lessonsArray);
-      setLoading(false);
+      
     };
     getLessonsCompleted();
     
