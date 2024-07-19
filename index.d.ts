@@ -111,6 +111,10 @@ export type UserTableData = {
   userTableData: [];
   setUserTableData: (newData: any) => void;
 };
+export type UserGuzma = {
+  userGuzma: number| null;
+  setUserGuzma: (newData: number| null) => void;
+}
 
 export interface AuthDataFormProps {
   type: "login" | "register";

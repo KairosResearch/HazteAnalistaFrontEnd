@@ -1,5 +1,4 @@
-"use client";
-import React, { useEffect } from "react";
+import React from "react";
 import Link from "next/link";
 //UI comps
 import {
@@ -12,12 +11,6 @@ import {
 import Image from "next/image";
 import PopoverForm from "../auth/PopoverForm";
 
-//Auth Stuff
-import { usePrivy } from "@privy-io/react-auth";
-
-// import DialogAlert from './DialogAlert';
-import { useRouter } from "next/navigation";
-import { Button } from "../ui/button";
 
 const Navbar = () => {
   //Añadir el de twitter y validar si es web 2 poner nombre completo, si es web 3 poner la direccion cortada
