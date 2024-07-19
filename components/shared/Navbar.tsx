@@ -15,6 +15,7 @@ import PopoverForm from "../auth/PopoverForm";
 const Navbar = () => {
   //Añadir el de twitter y validar si es web 2 poner nombre completo, si es web 3 poner la direccion cortada
 
+  
   return (
     <header className="navbar fixed md:relative bg-black/90 md:bg-inherit md:z-0 z-50">
       <div>

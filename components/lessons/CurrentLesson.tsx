@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import { buscarLesson } from "@/utils/lessons/buscarLesson";
 import LessonsCard from "./LessonsCard";
-import { getLastElement } from "@/utils/lessons/lessonsUtils";
+// import { getLastElement } from "@/utils/lessons/lessonsUtils";
 import { LessonPortadaProps, LessonProps } from "@/index";
 import { getGuzmaValue } from "@/utils/values";
 import { getLastLesson } from "@/services/backend/lessons";
@@ -22,11 +22,17 @@ const CurrentLesson = () => {
   useEffect(() => {
     const getLastLessonObject = async () => {
       setLoading(true)
+      if(typeof window !== "undefined") {
+        const guzma = localStorage.getItem("guzma");
+        if(guzma) {
+          const id = parseInt(guzma);
       
-      const lastLesson = await getLastLesson(userGuzma ?? 0);
+      const lastLesson = await getLastLesson(id ?? 0);
 
       setCurrentLesson(lastLesson);
       console.log(currentLesson);
+    }
+  }
       setLoading(false);
     };
     getLastLessonObject();

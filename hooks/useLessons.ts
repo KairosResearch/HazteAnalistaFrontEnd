@@ -11,19 +11,37 @@ const calculateCurrentModuleId = (lastLesson: any) => {
 
 const buildLessonsArray = (data: any) => data?.map((item: any) => item.id_leccion) || [];
 
-export const useLessons = (id: number) => {
-  const { data, error, isLoading } = useSWR(`getLecciones/${id}`, getLessonsByUser);
-
-  // Memoización de cálculos basados en `data`
-  const currentModuleId = useMemo(() => calculateCurrentModuleId(data?.[data.length - 1]), [data]);
-  const lessonsArray = useMemo(() => buildLessonsArray(data), [data]);
-
-  return {
-    module: currentModuleId,
-    completed: lessonsArray,
-    lessons: data,
-    isLoading,
-    isError: error
+export const useLessons = () => {
+  const defaultReturn = {
+    module: null,
+    completed: [],
+    lessons: [],
+    isLoading: true,
+    isError: null
   };
+  
+  if(typeof window !== "undefined") {
+    const guzma = localStorage.getItem("guzma");
+    if(guzma) {
+      const id = parseInt(guzma);
+      console.log('Id de guzma en useLessons' + id);
+
+      const { data, error, isLoading } = useSWR(`getLecciones/${id}`, getLessonsByUser);
+
+      // Memoización de cálculos basados en `data`
+      const currentModuleId = useMemo(() => calculateCurrentModuleId(data?.[data.length - 1]), [data]);
+      const lessonsArray = buildLessonsArray(data);
+    
+      return {
+        module: currentModuleId,
+        completed: lessonsArray,
+        lessons: data,
+        isLoading,
+        isError: error
+      };
+    }
+  }
+  return defaultReturn;
+ 
 };
 

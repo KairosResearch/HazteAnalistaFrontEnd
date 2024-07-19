@@ -25,7 +25,10 @@ const CurrentModule = ({ allModules }: Props) => {
   const [lessonsCompleted, setLessonsCompleted] = React.useState<any[]>([]);
   const [loading, setLoading] = React.useState<boolean>(false);
 
-  const {  module, completed, isLoading, isError } = useLessons(userGuzma ?? 0);
+  //traer guzma de localstorage
+  
+
+  const {  module, completed, isLoading, isError } = useLessons();
  
   
 

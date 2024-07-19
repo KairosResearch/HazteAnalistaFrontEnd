@@ -10,7 +10,6 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { usePrivy } from "@privy-io/react-auth";
-import { useUserGuzma } from "@/hooks/useUserData";
 import { useLogout } from "@privy-io/react-auth";
 
 import { useRouter } from "next/navigation";
@@ -25,18 +24,7 @@ interface PopoverFormProps {
 const PopoverForm = ({ usage }: PopoverFormProps) => {
 
   //Setting the guzma value from localStorage to a global state
-  const { setUserGuzma } = useUserGuzma();
-  useEffect(() => {
-    if (
-      typeof window !== undefined &&
-      window.localStorage.getItem("guzma") !== null
-    ) {
-      const guzma = Number(window.localStorage.getItem("guzma"));
-      setUserGuzma(guzma);
-    } else {
-      setUserGuzma(null);
-    }
-  }, []);
+  
 
 
 

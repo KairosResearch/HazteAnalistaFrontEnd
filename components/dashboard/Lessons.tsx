@@ -31,14 +31,14 @@ type LessonsProps = {
   allModules: AllModules | undefined;
 };
 const Lessons = ({ allModules }: LessonsProps) => {
-  const { userGuzma } = useUserGuzma();
+  // const { userGuzma } = useUserGuzma();
 
   const { activeMenu } = useStateContext();
   const [lessons, setLessons] = React.useState<LessonProps[]>([]);
   const [loading, setLoading] = React.useState<boolean>(false);
   const [lessonsCompleted, setLessonsCompleted] = React.useState<any[]>([]);
 
-  const {  module, completed, isLoading, isError } = useLessons(userGuzma ?? 0);
+  const {  module, completed, isLoading, isError } = useLessons();
 
 
   useEffect(() => {
