@@ -60,7 +60,7 @@ const Navbar = () => {
                 <ul className="header-nav_elements">
                   <Link className="header-nav_text" href="/dashboard">
                     <Image
-                      src="/home-4-line.svg"
+                      src="/icons/navigation/table-fill.svg"
                       alt="Kairos"
                       width={20}
                       height={20}
