@@ -2,61 +2,92 @@
 import React, { useEffect } from "react";
 // import { getLastElement } from "@/utils/lessons/ultimoElemento";
 import { AllModules, LessonPortadaProps, LessonProps } from "@/index";
-import {
-  getLastElement,
-  lessonsCompletedArray,
-} from "@/utils/lessons/lessonsUtils";
-import { getGuzmaValue } from "@/utils/values";
+// import {
+//   getLastElement,
+//   lessonsCompletedArray,
+// } from "@/utils/lessons/lessonsUtils";
 import LessonsCard from "./LessonsCard";
 import { getLastLesson } from "@/services/backend/lessons";
 import { Separator } from "../ui/separator";
 import SkeletonCard from "../shared/skeletons/SkeletonCard";
+import {useLessons} from "@/hooks/useLessons";
+import { useUserGuzma } from "@/hooks/useUserData";
+
 
 type Props = {
   allModules: AllModules | undefined;
 };
 
 const CurrentModule = ({ allModules }: Props) => {
-  const [modules, setModules] = React.useState<any[]>([]);
+  //Guzma
+  const { userGuzma } = useUserGuzma();
+  const [modulesToRender, setModules] = React.useState<any[]>([]);
   const [lessonsCompleted, setLessonsCompleted] = React.useState<any[]>([]);
   const [loading, setLoading] = React.useState<boolean>(false);
 
+  //traer guzma de localstorage
+  
+
+  const {  module, completed, isLoading, isError } = useLessons();
+ 
+  
+
+
   useEffect(() => {
     const getModules = async () => {
-      setLoading(true);
-      const { currentModuleId } = (await getLastElement()) as {
-        currentModuleId: number;
-      };
-
-      if (allModules != undefined) {
-        if (currentModuleId === 2) {
-          setModules([allModules["Módulo 1"], allModules["Módulo 2"]]);
-        } else if (currentModuleId === 3) {
-          setModules([
-            allModules["Módulo 1"],
-            allModules["Módulo 2"],
-            allModules["Módulo 3"],
-          ]);
-        } else {
-          setModules([allModules["Módulo 1"]]);
+      if(module === undefined || module === null) {
+        return null;
+      } else {
+        if (allModules != undefined) {
+          if (module === 2) {
+            setModules([allModules["Módulo 1"], allModules["Módulo 2"]]);
+          } else if (module === 3) {
+            setModules([
+              allModules["Módulo 1"],
+              allModules["Módulo 2"],
+              allModules["Módulo 3"],
+            ]);
+          } else {
+            setModules([allModules["Módulo 1"]]);
+          }
         }
       }
+
+
+      // setLoading(true);
+      
+
+
+      // const { currentModuleId } = (await getLastElement()) as {
+      //   currentModuleId: number;
+      // };
+
+      
     };
     getModules();
-    const getLessonsCompleted = async () => {
-      const lessonsArray = await lessonsCompletedArray();
-      setLessonsCompleted(lessonsArray);
-      setLoading(false);
-    };
-    getLessonsCompleted();
-  }, []);
+    if (completed !== undefined && completed !== null) {
+      setLessonsCompleted(completed);
+    }
+    // const getLessonsCompleted = async () => {
+    //   const lessonsArray = await lessonsCompletedArray();
+    //   setLessonsCompleted(lessonsArray);
+    //   setLoading(false);
+    // };
+    // getLessonsCompleted();
+  }, [module]);
 
-  console.log(lessonsCompleted);
+  console.log(isLoading);
 
+  
   return (
     <>
     {
-      loading && <div role="row" className="grid grid-cols-1 px-4 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      isError && <div role="row" className="grid grid-cols-1 px-4 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <h1>Hubo un error al cargar los módulos: ${isError}</h1>
+      </div>
+    }
+    {
+      isLoading === true && <div role="row" className="grid grid-cols-1 px-4 gap-6 md:grid-cols-2 lg:grid-cols-3">
         
         <SkeletonCard/>
         <SkeletonCard/>
@@ -66,8 +97,8 @@ const CurrentModule = ({ allModules }: Props) => {
 
       </div>
     }
-      {modules &&
-        modules.map((mod, i) => (
+      {modulesToRender &&
+        modulesToRender.map((mod, i) => (
           <div role="row" key={i}>
             <h1>
             </h1>
@@ -100,4 +131,4 @@ const CurrentModule = ({ allModules }: Props) => {
   );
 };
 
-export default CurrentModule;
+export default React.memo(CurrentModule);

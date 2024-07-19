@@ -1,3 +1,4 @@
+'use client';
 import React, { useEffect } from "react";
 import {
   Popover,
@@ -21,6 +22,12 @@ interface PopoverFormProps {
 }
 
 const PopoverForm = ({ usage }: PopoverFormProps) => {
+
+  //Setting the guzma value from localStorage to a global state
+  
+
+
+
   const router = useRouter();
   const { user, logout } = usePrivy();
   //   const [logoutSuccess, setLogoutSuccess] = React.useState(false);

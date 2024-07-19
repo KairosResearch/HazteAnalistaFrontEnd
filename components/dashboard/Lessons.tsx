@@ -18,53 +18,56 @@ import SkeletonCard from "../shared/skeletons/SkeletonCard";
 //Data
 //import { lessons } from "@/lib/data";
 import { AllModules, LessonPortadaProps, LessonProps } from "@/index";
-import {
-  getLastElement,
-  lessonsCompletedArray,
-} from "@/utils/lessons/lessonsUtils";
+// import {
+//   getLastElement,
+//   lessonsCompletedArray,
+// } from "@/utils/lessons/lessonsUtils";
+
+import {useLessons} from "@/hooks/useLessons";
+import { useUserGuzma } from "@/hooks/useUserData";
+
 
 type LessonsProps = {
   allModules: AllModules | undefined;
 };
 const Lessons = ({ allModules }: LessonsProps) => {
-  console.log('Viniendo del fetch en page', allModules)
+  // const { userGuzma } = useUserGuzma();
+
   const { activeMenu } = useStateContext();
   const [lessons, setLessons] = React.useState<LessonProps[]>([]);
   const [loading, setLoading] = React.useState<boolean>(false);
   const [lessonsCompleted, setLessonsCompleted] = React.useState<any[]>([]);
 
+  const {  module, completed, isLoading, isError } = useLessons();
+
+
   useEffect(() => {
     const meCompota = async () => {
-      setLoading(true);
+      // setLoading(true);
       console.log("Holaa");
-      const { currentModuleId } = (await getLastElement()) as {
-        currentModuleId: number;
-      };
-      console.log(currentModuleId);
+     
+      console.log(module);
       if (allModules != undefined) {
-        if (currentModuleId === 2) {
+        if (module === 2) {
           const moduleLesson = allModules["Módulo 2"];
           setLessons(moduleLesson);
-        } else if (currentModuleId === 3) {
+        } else if (module === 3) {
           const moduleLesson = allModules["Módulo 3"];
           setLessons(moduleLesson);
-        } else if (currentModuleId === 1) {
+        } else if (module === 1) {
           const moduleLesson = allModules["Módulo 1"];
           setLessons(moduleLesson);
         }
       }
-      setLoading(false);
+          // setLoading(false);
       
     };
     meCompota();
-    const getLessonsCompleted = async () => {
-      const lessonsArray = await lessonsCompletedArray();
-      setLessonsCompleted(lessonsArray);
-      
-    };
-    getLessonsCompleted();
+    if (completed !== undefined && completed !== null) {
+      setLessonsCompleted(completed);
+    }
     
-  }, []);
+  }, [module]);
 
   console.log(lessons);
   return (
@@ -73,7 +76,7 @@ const Lessons = ({ allModules }: LessonsProps) => {
       <div
         className={` hidden md:flex 2xl:p-14 2xl:py-2 2xl:px-20 md:px-10 2xl:mt-9 mt-3 `}
       >
-        {loading && 
+        {isLoading && 
         <div className="flex gap-3">
           <SkeletonCard />
           <SkeletonCard />

@@ -19,9 +19,11 @@ export const getLessons = async (): Promise<AllModules | undefined> => {
   }
 };
 
-export const getLessonsByUser = async (id: number) => {
+//This function is the fetcher for the SWR useLessonsHook.
+//The key to that function is the url + the id of the user
+export const getLessonsByUser = async (route: string) => {
   try {
-    const response = await fetch(`${AUTH_URL}getLecciones/${id}`, {
+    const response = await fetch(`${AUTH_URL}${route}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -38,6 +40,7 @@ export const getLastLesson = async (
   id: number,
 ): Promise<LessonProps | undefined> => {
   try {
+    if(id === 0) return undefined;
     const response = await fetch(`${AUTH_URL}get_ultima_leccion/${id}`, {
       method: "GET",
       headers: {
