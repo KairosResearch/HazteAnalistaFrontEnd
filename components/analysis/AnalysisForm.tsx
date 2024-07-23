@@ -9,13 +9,17 @@ import { useDialogItem, useDialogInstructions } from "@/hooks/useDialogs";
 //import { useTabsState } from "@/hooks/useTabs";
 
 //Types:
-import { BackendValues, CatalogosType, DashboardDataFormProps } from "@/index";
+import { AnalisysCatalogs, BackendValues, CatalogosType, DashboardDataFormProps } from "@/index";
 
 //Server actions for both adding and updating
 import {
   handleSubmitProyectForm,
   handleUpdateProyect,
 } from "@/actions/proyectActions";
+import CualitativeFields from "./CualitativeFields";
+import CuantitativeFields from "./CuantitativeForm";
+
+
 
 //Shadcn staff for forms
 import { useForm } from "react-hook-form";
@@ -24,44 +28,54 @@ import { Form } from "@/components/ui/form";
 //UI needed
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-  } from "@/components/ui/select"
 
 
 //Values and utils
 import {
   debounce,
-  defaultValuesDashboardForm,
-  rendimientoCalculator,
+  promedioCalculator,
 } from "@/utils/index";
-import { CustomField } from "../shared/CustomField";
+
 
 //Types: 
 interface AnalysisFormProps {
     type: "cual" | "cuant";
+    mode: "add" | "edit";
     // data?: BackendValues;
     // catalogos: CatalogosType;
     // mode: "add" | "edit";
+    data: AnalisysCatalogs;
 }
 
 const AnalysisForm = (
-    {type}: AnalysisFormProps
+    {type, mode, data}: AnalysisFormProps
 ) => {
+
+    const [valuesToCalculate, setValuesToCalculate] = useState<number[]>([]);
+    const [promedio, setPromedio] = useState<any>(0);
+
+
     const initialValues = 
+    type === "cual" ? 
      {
-        campo1: "",
-        campo2: "",
-        campo3: "",
-        campo4: "",
-        campo5: "",
-        campo6: "",
-        campo7: "",
-        campo8: "",
+        alianzas: 0,
+        auditorias: 0,
+        equipo: 0,
+        financeCual: 0,
+        whitepaper: 0,
+        roadmap: 0,
+        comunidad: 0,
+        casosUso: 0,
+        tokenomics: 0,
+        onChain: 0,
+        finance: 0,
+        exchange: 0
+        
+    } : {
+        tokenomics: 0,
+        onChain: 0,
+        finance: 0,
+        exchange: 0,
     };
 
     
@@ -69,215 +83,51 @@ const AnalysisForm = (
     const form = useForm({
         defaultValues: initialValues,
     });
-    // Submit handler
-    async function onSubmit(values: any) {
-        console.log("Values", values);
-    };
+    
+    //Para calcular promedios
+    useEffect(() => {
+        const debouncedFunction = debounce(() => {
+            if (valuesToCalculate.length > 0){
+                const valoresFiltrados = valuesToCalculate.filter(valor => valor !== undefined);
+                console.log("Values to calculate", valuesToCalculate);
+                const promedio = promedioCalculator(valoresFiltrados);
+                setPromedio(promedio);
+            }
+
+            
+          }, 900);
+      
+          if (valuesToCalculate) {
+            debouncedFunction();
+          }
+      
+          return () => debouncedFunction.cancel();
+    }, [valuesToCalculate]);
+    
+    
+  // Submit handler
+async function onSubmit(values: any) {
+    const convertedValues = Object.keys(values).reduce((acc: any, key) => {
+        acc[key] = Number(values[key]);
+        return acc;
+    }, {});
+
+    console.log("Converted Values", convertedValues);
+};
 
     return (
         <Form {...form}>
+            <div>{promedio}%</div>
             <form  onSubmit={form.handleSubmit(onSubmit)}>
+                
                 <div className="grid gap-4">
-                            <CustomField
-                            type={type}
-                            name="campo1"
-                            formLabel=""
-                            className=" w-full"
-                            render={({ field }) => (
-                                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                <SelectTrigger>
-                                    Casos de uso
-                                    
-                                </SelectTrigger>
-                                <SelectContent>
-                                    
-                                    <SelectItem
-                                    value={'Blalala'}
-                                    >
-                                        
-                                        Blalal
-                                        
-                                    </SelectItem>
-                                    
-                                </SelectContent>
-                                </Select>
-                            )}
-                        />
-                        <CustomField
-                            type={type}
-                            name="campo1"
-                            formLabel=""
-                            className=" w-full"
-                            render={({ field }) => (
-                                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                <SelectTrigger>
-                                   Integrantes del equipo 
-                                    
-                                </SelectTrigger>
-                                <SelectContent>
-                                    
-                                    <SelectItem
-                                    value={'Blalala'}
-                                    >
-                                        
-                                        Blalal
-                                        
-                                    </SelectItem>
-                                    
-                                </SelectContent>
-                                </Select>
-                            )}
-                        />
-                        <CustomField
-                            type={type}
-                            name="campo1"
-                            formLabel=""
-                            className=" w-full"
-                            render={({ field }) => (
-                                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                <SelectTrigger>
-                                   Roadmap
-                                    
-                                </SelectTrigger>
-                                <SelectContent>
-                                    
-                                    <SelectItem
-                                    value={'Blalala'}
-                                    >
-                                        
-                                        Blalal
-                                        
-                                    </SelectItem>
-                                    
-                                </SelectContent>
-                                </Select>
-                            )}
-                        />
-                        <CustomField
-                            type={type}
-                            name="campo1"
-                            formLabel=""
-                            className=" w-full"
-                            render={({ field }) => (
-                                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                <SelectTrigger>
-                                   Auditorias
-                                    
-                                </SelectTrigger>
-                                <SelectContent>
-                                    
-                                    <SelectItem
-                                    value={'Blalala'}
-                                    >
-                                        
-                                        Blalal
-                                        
-                                    </SelectItem>
-                                    
-                                </SelectContent>
-                                </Select>
-                            )}
-                        />
-                        <CustomField
-                            type={type}
-                            name="campo1"
-                            formLabel=""
-                            className=" w-full"
-                            render={({ field }) => (
-                                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                <SelectTrigger>
-                                   Comunidad
-                                    
-                                </SelectTrigger>
-                                <SelectContent>
-                                    
-                                    <SelectItem
-                                    value={'Blalala'}
-                                    >
-                                        
-                                        Blalal
-                                        
-                                    </SelectItem>
-                                    
-                                </SelectContent>
-                                </Select>
-                            )}
-                        />
-                        <CustomField
-                            type={type}
-                            name="campo1"
-                            formLabel=""
-                            className=" w-full"
-                            render={({ field }) => (
-                                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                <SelectTrigger>
-                                   Financiamentos
-                                    
-                                </SelectTrigger>
-                                <SelectContent>
-                                    
-                                    <SelectItem
-                                    value={'Blalala'}
-                                    >
-                                        
-                                        Blalal
-                                        
-                                    </SelectItem>
-                                    
-                                </SelectContent>
-                                </Select>
-                            )}
-                        />
-                        <CustomField
-                            type={type}
-                            name="campo1"
-                            formLabel=""
-                            className=" w-full"
-                            render={({ field }) => (
-                                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                <SelectTrigger>
-                                   Whitepapaer
-                                    
-                                </SelectTrigger>
-                                <SelectContent>
-                                    
-                                    <SelectItem
-                                    value={'Blalala'}
-                                    >
-                                        
-                                        Blalal
-                                        
-                                    </SelectItem>
-                                    
-                                </SelectContent>
-                                </Select>
-                            )}
-                        />
-                        <CustomField
-                            type={type}
-                            name="campo1"
-                            formLabel=""
-                            className=" w-full"
-                            render={({ field }) => (
-                                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                <SelectTrigger>
-                                   Alianzas
-                                    
-                                </SelectTrigger>
-                                <SelectContent>
-                                    
-                                    <SelectItem
-                                    value={'Blalala'}
-                                    >
-                                        
-                                        Blalal
-                                        
-                                    </SelectItem>
-                                    
-                                </SelectContent>
-                                </Select>
-                            )}
-                        />
+                {
+                    type === "cual" ? (
+                        <CualitativeFields mode={mode} data={data} setValuesToCalculate={setValuesToCalculate}/>
+                    ) : (
+                        <CuantitativeFields mode={mode} data={data} setValuesToCalculate={setValuesToCalculate}/>
+                    )
+                } 
 
                 </div>
             

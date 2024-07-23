@@ -55,6 +55,10 @@ export const rendimientoCalculator = (
   return (precioActual / precioEntrada - 1) * 100;
 };
 
+export const promedioCalculator = (values: number[]) => {
+  return values.reduce((acc, curr) => acc + curr) / values.length;
+}
+
 //-----Default values---//
 
 //For the :

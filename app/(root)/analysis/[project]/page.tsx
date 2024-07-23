@@ -1,6 +1,8 @@
 import React from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import AnalysisForm from "@/components/analysis/AnalysisForm";
+import {getAlianza, getAuditorias, getComunity, getExchanges, getFinance, getFinanceCuant, getOnChain, getRoadmap, getTeamMembers, getTokenomics, getUseCases, getWhitepaper  } from "@/services/backend/analisys";
+import { AnalisysCatalogs } from "@/index";
 
 
 
@@ -10,8 +12,25 @@ interface pageProps {
   }
 }
 
-const page = ({params}: pageProps) => {
+const page = async ({params}: pageProps) => {
   const projectName = decodeURIComponent(params.project);
+  const dropdownNeedsCualitative: AnalisysCatalogs =  await Promise.all([
+    getAlianza(),
+    getAuditorias(),
+    getUseCases(),
+    getComunity(),
+    getFinance(),
+    getTeamMembers(),
+    getRoadmap(),
+    getWhitepaper(),
+  ]);
+  const dropdownNeedsCuantitative: AnalisysCatalogs =  await Promise.all([
+    getTokenomics(),
+    getOnChain(),
+   getFinanceCuant(),
+    getExchanges(),
+  ]);
+
   return( 
   <>
     <header className="mb-10  ">
@@ -41,7 +60,9 @@ const page = ({params}: pageProps) => {
         <h1 className="text-primary">Análisis cualitativo</h1>
         <p>Aqui realizarás tu analísis cualitativo</p>
           <AnalysisForm 
+            data={dropdownNeedsCualitative}
             type="cual"
+            mode="add"
           />
         </CardContent>
       </Card>
@@ -61,6 +82,8 @@ const page = ({params}: pageProps) => {
         <p>Aqui realizarás tu analísis cuantitativo</p>
         <AnalysisForm 
             type="cuant"
+            data={dropdownNeedsCuantitative}
+            mode="add"
           />
         </CardContent>  
       </Card>

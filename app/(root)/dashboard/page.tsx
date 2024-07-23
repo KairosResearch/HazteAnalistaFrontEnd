@@ -15,7 +15,7 @@ import {
 import { getLessons } from "@/services/backend/lessons";
 import AddProjectButton from "@/components/dashboard/AddProjectButton";
 import { getProjectsList } from "@/services/backend/proyectsInfo";
-import ReloadProjects from "@/components/dashboard/ReloadProjects";
+// import ReloadProjects from "@/components/dashboard/ReloadProjects";
 
 const HomePage = async () => {
   const [data4t, decision, exchange, sector, projectsList, allModules] =

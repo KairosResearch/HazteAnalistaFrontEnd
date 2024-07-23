@@ -1,7 +1,23 @@
 import React from "react";
 import ListProjects from "@/components/analysis/ListProjects";
 
-const page = () => {
+const page = async () => {
+  // const [tokenomics, onChain, alianza, auditorias, useCases, comunity, financeCuant, finance, teamMembers, roadmap, whitepaper, exchanges] =
+  //   await Promise.all([
+  //     getTokenomics(),
+  //     getOnChain(),
+  //     getAlianza(),
+  //     getAuditorias(),
+  //     getUseCases(),
+  //     getComunity(),
+  //     getFinanceCuant(),
+  //     getFinance(),
+  //     getTeamMembers(),
+  //     getRoadmap(),
+  //     getWhitepaper(),
+  //     getExchanges(),
+  //   ]);
+
   
   return (
     <main>

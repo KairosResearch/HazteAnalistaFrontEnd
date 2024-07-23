@@ -25,6 +25,12 @@ interface AuthLoadingStatusProps {
   setIsLoading: (newState: boolean) => void;
 }
 
+export type AnalisysCatalogs = {
+  id: number;
+  item: string;
+  value: number;
+}[][];
+
 interface UserProps {
   id: number;
   email: string;
