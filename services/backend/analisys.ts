@@ -1,4 +1,120 @@
+'use server'
 import { AUTH_URL} from "./urls";
+
+//Get
+export const getSingleAnalisysCualitative = async (id :number, pr: number) => {
+  try {
+    const response = await fetch(`${AUTH_URL}getAnalisisCualitativo/${id}/${pr}/`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+    });
+    const data = await response.json();
+    
+    return data[0];
+  } catch (err) {
+    console.error(err);
+  }
+};
+export const getSingleAnalisysCuantitative = async (id :number, pr: number) => {
+  try {
+    const response = await fetch(`${AUTH_URL}getAnalisisCuantitativo/${id}/${pr}/`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+    });
+    const data = await response.json();
+    
+    return data[0];
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+//Post
+
+export const postAnalisisCualitativo = async (anData :any) => {
+  try {
+    const response = await fetch(`${AUTH_URL}saveAnalisisCualitativo`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(anData),
+
+    });
+    const data = await response.json();
+    
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const postAnalisisCuantitativo = async (anData :any) => {
+  try {
+    const response = await fetch(`${AUTH_URL}saveAnalisisCuantitativo`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(anData),
+
+    });
+    const data = await response.json();
+    return  data;
+
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+//Update
+export const updateAnalisisCualitativo = async (newData: any) => {
+  try {
+    const response = await fetch(`${AUTH_URL}updateAnalisisCualitativo`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newData),
+
+    });
+    const data: Response = await response.json();
+    console.log(data)
+    
+    return true
+   
+
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export const updateAnalisisCuantitativo = async (newData: any) => {
+  try {
+    const response = await fetch(`${AUTH_URL}updateAnalisisCuantitativo`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newData),
+
+    });
+    const data: Response = await response.json();
+    console.log(data)
+    
+    return true
+    
+
+  } catch (err) {
+    console.error(err);
+  }
+}
 
 //cualitativos
 

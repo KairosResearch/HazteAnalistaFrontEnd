@@ -1,14 +1,18 @@
 import React from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import AnalysisForm from "@/components/analysis/AnalysisForm";
+import ShowAverages from "@/components/analysis/ShowAvarages";
 import {getAlianza, getAuditorias, getComunity, getExchanges, getFinance, getFinanceCuant, getOnChain, getRoadmap, getTeamMembers, getTokenomics, getUseCases, getWhitepaper  } from "@/services/backend/analisys";
 import { AnalisysCatalogs } from "@/index";
+import FormContainer from "@/components/analysis/FormContainer";
+import Link from "next/link";
 
 
 
 interface pageProps {
   params: {
     project: string;
+    mode: 'add' | 'edit';
   }
 }
 
@@ -31,23 +35,28 @@ const page = async ({params}: pageProps) => {
     getExchanges(),
   ]);
 
+  const mode = params.mode;
+  console.log(mode)
   return( 
   <>
-    <header className="mb-10  ">
-      <h1>Realiza tu análisis - {projectName}</h1>
-      
+  <ShowAverages />
+    <header className="my-10  flex justify-between items-center">
 
-      <div className="sticky top-1 z-20 mt-10 bg-dark-black/50 text-primary-foreground/70 w-full rounded flex flex-col text-sm  p-1 px-2">
-          <div>
-            <h2>Promedio del proyecto: 100%</h2>
-          </div>
-          <div>
-            <h2>Promedio cualitativo: 100/100</h2>
-          </div>
-          <div>
-            <h2>Promedio del cuantitativo: 100/100</h2>
-          </div>
-      </div>
+      <h1>
+        {mode === 'add' ? 'Realiza' : 'Editemos'} tu análisis - {projectName}</h1>
+        <div>
+          <Link href="/dashboard" className="mr-4">
+            <span className="text-primary underline">Dashboard</span>
+          </Link>
+          <Link href="/analysis">
+            <span className="text-primary underline">Página de análisis</span>
+          </Link>
+        </div>
+        
+        
+      
+      
+      
       
     </header>
     
@@ -59,10 +68,10 @@ const page = async ({params}: pageProps) => {
         <CardContent>
         <h1 className="text-primary">Análisis cualitativo</h1>
         <p>Aqui realizarás tu analísis cualitativo</p>
-          <AnalysisForm 
-            data={dropdownNeedsCualitative}
-            type="cual"
-            mode="add"
+        <FormContainer
+          type="cual"
+          data={dropdownNeedsCualitative}
+          mode={mode}
           />
         </CardContent>
       </Card>
@@ -71,7 +80,7 @@ const page = async ({params}: pageProps) => {
     
     <section >
       
-      <Card className="bg-grey-light/15 py-4 px-2 border-primary-foreground/40" >
+      <Card className= "bg-grey-light/15 py-4 px-2 border-primary-foreground/40" >
         
           
         
@@ -80,11 +89,15 @@ const page = async ({params}: pageProps) => {
         <CardContent>
         <h1 className="text-primary">Análisis cuantitativo</h1>
         <p>Aqui realizarás tu analísis cuantitativo</p>
-        <AnalysisForm 
+        
+          <FormContainer
             type="cuant"
             data={dropdownNeedsCuantitative}
-            mode="add"
+            mode={mode}
           />
+
+            
+          
         </CardContent>  
       </Card>
     </section>

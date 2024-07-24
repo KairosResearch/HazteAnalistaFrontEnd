@@ -7,8 +7,12 @@ import Image from "next/image";
 import { InfoTabsProps } from "@/index";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
+import { useProjectId } from "@/hooks/useAnalisys";
+import { set } from "zod";
 
 const InfoTabs = ({ info }: InfoTabsProps) => {
+  const {setProjectId} =useProjectId()  
+
   const router = useRouter();
   return (
     <Tabs defaultValue="description">
@@ -141,10 +145,14 @@ const InfoTabs = ({ info }: InfoTabsProps) => {
       <TabsContent className="min-h-[250px]" value="analyzis">
         <div className="h-full">
           <div className="my-16 xl:my-24 flex justify-center items-center">
-            {false && (
-              <Button variant={"outline"}>Crea un análisis express</Button>
-            )}
-            <div className="grid grid-cols-2">
+            {false ? (
+              <Button variant={"outline"} onClick={() => {
+                setProjectId(info.id)
+                router.push(`/analysis/${info.proyecto}/add`)
+
+            }}>Crea un análisis express</Button>
+            ) : (
+              <div className="grid grid-cols-2">
               <div className="flex flex-col">
                 <h2 className="flex items-center mt-0">
                   <Image
@@ -168,7 +176,9 @@ const InfoTabs = ({ info }: InfoTabsProps) => {
 
               <div className="flex justify-end">
                 <Button 
-                  onClick={() => router.push(`/analysis/${info.proyecto}`)}
+                  onClick={() => {
+                    setProjectId(info.id)
+                    router.push(`/analysis/${info.proyecto}/edit`)}}
                   className="w-5/12">Editar análisis</Button>
               </div>
 
@@ -214,6 +224,9 @@ const InfoTabs = ({ info }: InfoTabsProps) => {
                 </div>
               </div>
             </div>
+            )
+            }
+            
             <div></div>
           </div>
 

@@ -7,11 +7,14 @@ import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
 import Loading from '../shared/Loading';
 import SkeletonListItem from '../shared/skeletons/SkeletonListItem';
+import { useProjectId } from '@/hooks/useAnalisys';
 
 
 const ListProjects = () => {
   const [projectsSaved, setProjectsSaved] = useState<TableData[]>([]);
   const [loading, setLoading] = useState(false);
+  const {setProjectId} =useProjectId()  
+
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -58,17 +61,12 @@ const ListProjects = () => {
       }
       {
         projectsSaved?.map((project) => (
-          <Card className="px-4" key={project.id_proyecto}>
-            <div  className="flex flex-row justify-between items-center">
-            
-              <Link 
-                href={`/analysis/${project.proyecto}`}
-                
-              >
-                <h2 className='text-2xl pt-0 underline text-green-light'>{project.proyecto}</h2>
-              </Link>
-
-              <Badge
+          <Card className="p-4" key={project.id_proyecto}>
+            <div  className="flex flex-row justify-between items-center ">
+              <div className='flex gap-4 '>
+              
+                  <h2 className='text-2xl pt-0 mt-0 text-green-light'>{project.proyecto}</h2>
+                  <Badge
               variant={"fourE"}
                     color={
                       project.id4e === 2
@@ -92,6 +90,36 @@ const ListProjects = () => {
                             ? "Ejecutar"
                             : "Evaluar"}
                   </Badge>
+
+              </div>
+            
+              
+                
+              
+              <div className='flex gap-4 '> 
+              
+
+
+              
+
+                  <Link 
+                href={`/analysis/${project.proyecto}/edit`}
+                onClick={() => setProjectId(project.id_proyectoInicial)}
+                
+              >
+                <p className=' underline text-gray-200'>Editar</p>
+              </Link>
+              <Link 
+                href={`/analysis/${project.proyecto}/add`}
+                onClick={() => setProjectId(project.id_proyectoInicial)}
+                
+              >
+                <p className=' underline text-gray-200'>Realizar análisis</p>
+              </Link>
+
+              </div>
+
+              
             </div>
             <CardContent>
               <p className='text-pretty text-primary-foreground/85'>Market Cap: $ {project.market_cap}</p>
