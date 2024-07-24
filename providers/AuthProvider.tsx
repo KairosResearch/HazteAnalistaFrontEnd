@@ -6,11 +6,13 @@ import { handleLogin } from "@/actions/login";
 import { handleRegister } from "@/actions/register";
 // import { useUserData} from "@/hooks/useUserData"
 import { useDialogInstructions } from "@/hooks/useDialogs";
+import { useAuthLoadingStatus } from "@/hooks/useLoading";
 
 function PrivyProviderWrapper({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   // const {setUserId} = useUserData();
   const { setIsOpenInstr } = useDialogInstructions();
+  const { setIsLoading } = useAuthLoadingStatus();
   return (
     <PrivyProvider
       appId={process.env.NEXT_PUBLIC_PRIVY_APP_ID || ""}
@@ -28,6 +30,7 @@ function PrivyProviderWrapper({ children }: { children: React.ReactNode }) {
           user?.discord?.username;
 
         const foo = async () => {
+          setIsLoading(true);
           try {
             if (isNewUser) {
               const data = await handleRegister(id, name);
@@ -57,6 +60,7 @@ function PrivyProviderWrapper({ children }: { children: React.ReactNode }) {
           } catch (error) {
             alert("Error al logear al usuario");
           }
+          setIsLoading(false);
         };
         foo();
       }}

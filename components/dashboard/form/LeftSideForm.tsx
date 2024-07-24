@@ -1,5 +1,5 @@
 import React from "react";
-import { CustomField } from "./CustomField";
+import { CustomField } from "../../shared/CustomField";
 
 import ComboboxName from "./ComboboxName";
 // import {

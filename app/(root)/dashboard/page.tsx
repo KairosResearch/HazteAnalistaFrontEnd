@@ -4,6 +4,8 @@ import Lessons from "@/components/dashboard/Lessons";
 import Dashboard from "@/components/dashboard/Dashboard";
 import DialogItem from "@/components/dashboard/form/DialogItem";
 import DialogInstructions from "@/components/on-boarding/DialogInstructions";
+
+
 import {
   get4t,
   getDecision,
@@ -13,17 +15,18 @@ import {
 import { getLessons } from "@/services/backend/lessons";
 import AddProjectButton from "@/components/dashboard/AddProjectButton";
 import { getProjectsList } from "@/services/backend/proyectsInfo";
-import ReloadProjects from "@/components/dashboard/ReloadProjects";
+// import ReloadProjects from "@/components/dashboard/ReloadProjects";
 
 const HomePage = async () => {
-  const [data4t, decision, exchange, sector, projectsList, allModules] = await Promise.all([
-    get4t(),
-    getDecision(),
-    getExchange(),
-    getSectores(),
-    getProjectsList(),
-    getLessons()
-  ]);
+  const [data4t, decision, exchange, sector, projectsList, allModules] =
+    await Promise.all([
+      get4t(),
+      getDecision(),
+      getExchange(),
+      getSectores(),
+      getProjectsList(),
+      getLessons(),
+    ]);
 
   //const response = await fetch('http://localhost:3000/api/lessons');
   //const {lessons} = await response.json();
@@ -53,11 +56,14 @@ const HomePage = async () => {
         {/* <div className="md:hidden">
               <ReloadProjects />
             </div> */}
+            
+                <Dashboard
+                  projectsList={projectsList.proyectos}
+                  catalogos={[data4t, decision, exchange, sector]}
+                />
+            
 
-        <Dashboard
-          projectsList={projectsList.proyectos}
-          catalogos={[data4t, decision, exchange, sector]}
-        />
+        
       </section>
 
       {/* Seccion de lecciones*/}
@@ -72,8 +78,9 @@ const HomePage = async () => {
           Inicia con las lecciones para apender a hacer un análisis de manera
           profesional y convertirte en analista.
         </p>
+        
         <Lessons
-        // lessons={lessons}
+          // lessons={lessons}
           allModules={allModules}
         />
       </section>

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { LOW, MID, LARGE } from "@/lib/constants";
 import {
   Table,
@@ -14,6 +14,16 @@ import DialogInfo from "./DialogInfo";
 import { Checkbox } from "../ui/checkbox";
 
 import { Badge } from "../ui/badge";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
+import SkeletonTable from "../shared/skeletons/SkeletonTable";
+
 
 //Calculous
 import { rangeDesigner } from "@/utils";
@@ -27,7 +37,6 @@ import { tableDataDefault } from "@/lib/data";
 import { TableData } from "@/index";
 import { DashboardProps } from "@/index";
 import { handleGetProyects } from "@/actions/proyectActions";
-import Loading from "../shared/Loading";
 import { useDialogItem } from "@/hooks/useDialogs";
 import DialogItem from "./form/DialogItem";
 
@@ -80,10 +89,10 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
       setLoading(false);
     };
     fetchData();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userTableData]);
 
-  console.log(prToDelete)
+  
 
   const sectores = catalogos[3];
 
@@ -101,14 +110,16 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
         data={null}
         close={null}
       />
-      <Table id="mochila" className="border border-grey-light ">
-        <DashboardHeader 
+      
+      <Table id="mochila" className="border border-primary-foreground ">
+        <DashboardHeader
           prToDelete={prToDelete}
+          clean={() => setPrToDelete([])}
         />
 
         <TableBody id="first-project">
           {/* If no data  */}
-          {tableData && tableData.length === 0 && !loading && (
+          {tableData && tableData.length === 0 && !loading &&  (
             <>
               <TableRow className="">
                 <TableCell className="font-medium  " colSpan={11}>
@@ -128,62 +139,65 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
           )}
           {/* If loading */}
           {loading && (
-            <TableRow className="">
-              <TableCell className="font-medium  " colSpan={11}>
-                <Loading />
-              </TableCell>
-            </TableRow>
+            <>
+             
+              <SkeletonTable />
+              
+            </>
+           
+            
           )}
 
           {/* Data directly manipulated by the user */}
           {tableData &&
             tableData.map((data) => (
               <TableRow
-                className="divide-x-2 divide-y-2 divide-green-dark hover:bg-primary/10 cursor-pointer"
+                className=" divide-green-dark hover:bg-primary/10 cursor-pointer"
                 key={data.id_proyecto}
-                
               >
-                <TableCell className="">
-                  <Checkbox 
+                <TableCell className="border-2 border-green-dark sticky left-[-1px] bg-dark-grey/95 z-10">
+                  <Checkbox
                     checked={prToDelete.includes(data.id_proyecto)}
-                    onCheckedChange={
-                      (checked) => {
-                        return checked
-                          ? setPrToDelete([...prToDelete, data.id_proyecto])
-                          : setPrToDelete(
-                              prToDelete.filter(
-                                (value) => value !== data.id_proyecto
-                              )
-                            )
-                      }}
+                    onCheckedChange={(checked) => {
+                      return checked
+                        ? setPrToDelete([...prToDelete, data.id_proyecto])
+                        : setPrToDelete(
+                            prToDelete.filter(
+                              (value) => value !== data.id_proyecto,
+                            ),
+                          );
+                    }}
                   />
                 </TableCell>
-                <TableCell 
+                <TableCell
                   onClick={() => {
-                  setSelectedRow(data);
-                  setIsDialogOpen(true);
-                }}
-                className="font-medium border-2 border-green-dark relative">
+                    setSelectedRow(data);
+                    setIsDialogOpen(true);
+                  }}
+                  className="font-medium sticky left-[1.95rem] bg-dark-grey/95 z-10"
+                >
                   <p className="">{data.proyecto}</p>
                 </TableCell>
 
                 {/* Ticker */}
-                <TableCell 
+                <TableCell
                   onClick={() => {
-                  setSelectedRow(data);
-                  setIsDialogOpen(true);
-                }}
-                className="whitespace-nowrap">
+                    setSelectedRow(data);
+                    setIsDialogOpen(true);
+                  }}
+                  className="whitespace-nowrap"
+                >
                   {data.ticker}
                 </TableCell>
                 {/******Metodo 4E**** */}
-                <TableCell 
+                <TableCell
                   onClick={() => {
-                  setSelectedRow(data);
-                  setIsDialogOpen(true);
-                }}
+                    setSelectedRow(data);
+                    setIsDialogOpen(true);
+                  }}
                 >
                   <Badge
+                  variant={"fourE"}
                     color={
                       data.id4e === 2
                         ? "yellow"
@@ -194,35 +208,36 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                             : data.id4e === 5
                               ? "green"
                               : "grey"
-                    
                     }
                   >
                     {data.id4e === 1
-                      ? "Encontrar"
+                      ? "Ninguno"
                       : data.id4e === 2
-                        ? "Estudiar"
+                        ? "Encontrar"
                         : data.id4e === 3
-                          ? "Ejecutar"
-                          : "Evaluar"}
+                          ? "Estudiar"
+                          : data.id4e === 4
+                            ? "Ejecutar"
+                            : "Evaluar"}
                   </Badge>
                 </TableCell>
 
                 {/******Decision**** */}
-                <TableCell 
+                <TableCell
                   onClick={() => {
-                  setSelectedRow(data);
-                  setIsDialogOpen(true);
-                }}
+                    setSelectedRow(data);
+                    setIsDialogOpen(true);
+                  }}
                 >
                   <Badge
-                        variant={
-                          data.id_decision_proyecto === 2
-                            ? "decisionWatchlist"
-                            : data.id_decision_proyecto  === 3
-                              ? "desicionLeave"
-                              : "Ninguno"
-                        }
-                      >
+                    variant={
+                      data.id_decision_proyecto === 2
+                        ? "decisionWatchlist"
+                        : data.id_decision_proyecto === 3
+                          ? "desicionLeave"
+                          : "Ninguno"
+                    }
+                  >
                     {data.id_decision_proyecto === 2
                       ? "Lista de seguimiento"
                       : data.id_decision_proyecto === 3
@@ -232,42 +247,60 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                 </TableCell>
 
                 {/******Sector**** */}
-                <TableCell 
-                  className="grid gap-2 py-1 px-2"
+                <TableCell
+                  className=""
                   onClick={() => {
-                  setSelectedRow(data);
-                  setIsDialogOpen(true);
-                }}
+                    setSelectedRow(data);
+                    setIsDialogOpen(true);
+                  }}
                 >
+                  <DropdownMenu>
+                  <DropdownMenuTrigger>
                   
-                  {
-                    data.sectores.map((sector) => (
+                    <Badge
+                        variant={
+                          sectores.find((sectorCat) => sectorCat.value === data.sectores[0])
+                            ?.label as any
+                        }
+                      >
+                        {
+                          sectores.find((sectorCat) => sectorCat.value === data.sectores[0])
+                        ?.label 
+                        }{data.sectores.length > 1 ? "..." : ""}
+                    </Badge>
+                    
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                  {data.sectores.map((sector) => (
+                    <DropdownMenuItem
+                      key={sector} 
+                    >
                       <Badge
                         key={sector}
-                      variant={
-                        sectores.find(
-                          (sectorCat) => sectorCat.value === sector,
-                        )?.label as any
-                      }  
-                    >
-                      {
-                        sectores.find(
-                          (sectorCat) => sectorCat.value === sector,
-                        )?.label
-                      }
-                    </Badge>
-                    ))
-
-                  }
+                        variant={
+                          sectores.find((sectorCat) => sectorCat.value === sector)
+                            ?.label as any
+                        }
+                      >
+                        {
+                          sectores.find((sectorCat) => sectorCat.value === sector)
+                            ?.label
+                        }
+                      </Badge>
+                    </DropdownMenuItem>
+                    
+                  ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
                   
                 </TableCell>
 
                 {/******Exchange**** */}
-                <TableCell 
+                <TableCell
                   onClick={() => {
-                  setSelectedRow(data);
-                  setIsDialogOpen(true);
-                }}
+                    setSelectedRow(data);
+                    setIsDialogOpen(true);
+                  }}
                 >
                   <Badge
                     variant={
@@ -275,9 +308,9 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                         ? "binance"
                         : data.idExchange === 3
                           ? "coinbase"
-                        : data.idExchange === 4
-                      ?"kraken"
-                      : "decisionWatchlist"
+                          : data.idExchange === 4
+                            ? "kraken"
+                            : "decisionWatchlist"
                     }
                   >
                     {data.idExchange === 2
@@ -285,38 +318,39 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                       : data.idExchange === 3
                         ? "Coinbase"
                         : data.idExchange === 4
-                      ? "Kraken"
-                      :"Ninguno"
-                    }
+                          ? "Kraken"
+                          : "Ninguno"}
                   </Badge>
                 </TableCell>
 
                 {/******precio entrada**** */}
-                <TableCell 
+                <TableCell
                   onClick={() => {
-                  setSelectedRow(data);
-                  setIsDialogOpen(true);
-                }}
-                className="whitespace-nowrap">
+                    setSelectedRow(data);
+                    setIsDialogOpen(true);
+                  }}
+                  className="whitespace-nowrap"
+                >
                   $ {data.precioEntrada.toLocaleString()}
                 </TableCell>
 
                 {/****** precio actual**** */}
-                <TableCell 
+                <TableCell
                   onClick={() => {
-                  setSelectedRow(data);
-                  setIsDialogOpen(true);
-                }}
-                className="whitespace-nowrap">
+                    setSelectedRow(data);
+                    setIsDialogOpen(true);
+                  }}
+                  className="whitespace-nowrap"
+                >
                   $ {data.price.toLocaleString()}
                 </TableCell>
 
                 {/******Si ATH**** */}
-                <TableCell 
+                <TableCell
                   onClick={() => {
-                  setSelectedRow(data);
-                  setIsDialogOpen(true);
-                }}
+                    setSelectedRow(data);
+                    setIsDialogOpen(true);
+                  }}
                 >
                   {rendimientoCalculator(
                     data.precioEntrada,
@@ -326,20 +360,21 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                 </TableCell>
 
                 {/******Market Cap**** */}
-                <TableCell 
+                <TableCell
                   onClick={() => {
-                  setSelectedRow(data);
-                  setIsDialogOpen(true);
-                }}
-                className="whitespace-nowrap">
+                    setSelectedRow(data);
+                    setIsDialogOpen(true);
+                  }}
+                  className="whitespace-nowrap"
+                >
                   $ {data.market_cap.toLocaleString()}
                 </TableCell>
                 {/******Rango**** */}
-                <TableCell 
+                <TableCell
                   onClick={() => {
-                  setSelectedRow(data);
-                  setIsDialogOpen(true);
-                }}
+                    setSelectedRow(data);
+                    setIsDialogOpen(true);
+                  }}
                 >
                   <Badge
                     variant="range"
@@ -370,6 +405,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
           />
         )}
       </Table>
+     
     </div>
   );
 };

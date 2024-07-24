@@ -31,17 +31,17 @@ const badgeVariants = cva(
         kraken: `bg-kraken`,
         DAO: `bg-dao`,
         Defi: `bg-defi`,
-        Blockchain: 'bg-blockchain',
-        NFT: 'bg-nft',
-        Gaming: 'bg-gaming',
-        Metaverse: 'bg-metaverso',
-        Lending: 'bg-lending',
-        Web3: 'bg-web3',
-        DEX: 'bg-dex',
-        Staking: 'bg-staking',
-        Oraculo: 'bg-oraculo',
-        Marketplace: 'bg-marketplace',
-        Ninguno: 'bg-none',
+        Blockchain: "bg-blockchain",
+        NFT: "bg-nft",
+        Gaming: "bg-gaming",
+        Metaverse: "bg-metaverso",
+        Lending: "bg-lending",
+        Web3: "bg-web3",
+        DEX: "bg-dex",
+        Staking: "bg-staking",
+        Oraculo: "bg-oraculo",
+        Marketplace: "bg-marketplace",
+        Ninguno: "bg-none",
       },
     },
     defaultVariants: {
@@ -57,7 +57,10 @@ export interface BadgeProps
 function Badge({ className, variant, color, ...props }: BadgeProps) {
   const colorClass = colorMap[color as keyof typeof colorMap] || colorMap.blue;
   return (
-    <div className={cn(badgeVariants({ variant }), className, "text-background")} {...props}>
+    <div
+      className={cn(badgeVariants({ variant }), className, "text-background")}
+      {...props}
+    >
       {(variant === "fourE" || variant === "range") && (
         <span
           className={`inline-block  ${variant === "range" ? "h-4 w-4 mr-2" : "h-3 w-3 mr-1"}  rounded-full ${colorClass} align-middle`}

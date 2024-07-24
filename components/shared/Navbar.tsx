@@ -1,5 +1,4 @@
-"use client";
-import React, { useEffect } from "react";
+import React from "react";
 import Link from "next/link";
 //UI comps
 import {
@@ -12,16 +11,11 @@ import {
 import Image from "next/image";
 import PopoverForm from "../auth/PopoverForm";
 
-//Auth Stuff
-import { usePrivy } from "@privy-io/react-auth";
-
-// import DialogAlert from './DialogAlert';
-import { useRouter } from "next/navigation";
-import { Button } from "../ui/button";
 
 const Navbar = () => {
   //Añadir el de twitter y validar si es web 2 poner nombre completo, si es web 3 poner la direccion cortada
 
+  
   return (
     <header className="navbar fixed md:relative bg-black/90 md:bg-inherit md:z-0 z-50">
       <div>
@@ -30,14 +24,14 @@ const Navbar = () => {
         </Link>
       </div>
 
-      <div className="flex gap-4 flex-center">
+      <div className="flex gap-4 md:gap-8 flex-center">
         <PopoverForm usage="userinfo" />
 
-        <div className="md:hidden">
+        <div className="lg:hidden">
           <Sheet>
             <SheetTrigger>
               <svg
-                className="w-6 h-6"
+                className="w-8 h-6"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -60,7 +54,7 @@ const Navbar = () => {
                 <ul className="header-nav_elements">
                   <Link className="header-nav_text" href="/dashboard">
                     <Image
-                      src="/home-4-line.svg"
+                      src="/icons/navigation/table-fill.svg"
                       alt="Kairos"
                       width={20}
                       height={20}
@@ -77,6 +71,19 @@ const Navbar = () => {
                     />
                     Metodología 4E
                   </Link>
+                  <Link 
+                        className='header-nav_text'
+                        href='/analysis'>
+                                <Image
+                                    src='/tools-fill.svg'
+                                    alt='tools'
+                                    height={20}
+                                    width={20}
+                                />
+
+                             
+                                Analisis Profundo 
+                        </Link>
                   {/* 
                               <Link className='header-nav_text'
                                 href='/tools'

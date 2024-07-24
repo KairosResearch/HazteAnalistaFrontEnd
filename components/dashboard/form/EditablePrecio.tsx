@@ -1,10 +1,10 @@
 import React from "react";
-import { CustomField } from "./CustomField";
+import { CustomField } from "../../shared/CustomField";
 import { Input } from "../../ui/input";
 
 interface EditablePrecioProps {
   type: "create" | "update" | null;
-  editablePrecio: number;
+  editablePrecio: string;
   setEditablePrecio: any;
 }
 
@@ -29,12 +29,15 @@ const EditablePrecio = ({
                 <Input
                   {...field}
                   type="text"
-                  value={
-                    editablePrecio != undefined ? String(editablePrecio) : " "
-                  }
+                  pattern="^[0-9]+([,.][0-9]+){0,7}?$"
+                  value={editablePrecio}
                   onChange={(e) => {
-                    setEditablePrecio(Number(e.target.value));
-                    field.value === Number(e.target.value);
+                    const valorFiltrado = e.target.value.replace(
+                      /[^0-9.,]+/,
+                      "",
+                    );
+                    setEditablePrecio(valorFiltrado);
+                    field.value === valorFiltrado;
                   }}
                 />
                 <span>USD</span>
@@ -58,9 +61,10 @@ const EditablePrecio = ({
                 <Input
                   {...field}
                   type="text"
+                  pattern="^[0-9]+([,.][0-9]+){0,7}?$"
                   value={field.value}
                   onChange={(e) => {
-                    field.onChange(Number(e.target.value));
+                    field.onChange(e.target.value.replace(/[^0-9.,]+/, ""));
                   }}
                 />
                 <span>USD</span>

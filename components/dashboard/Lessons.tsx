@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 
 //Context (menu)
 import { useStateContext } from "@/contexts/ContextProvider";
@@ -14,63 +14,77 @@ import {
 } from "@/components/ui/carousel";
 import LessonsCard from "@/components/lessons/LessonsCard";
 import Loading from "../shared/Loading";
+import SkeletonCard from "../shared/skeletons/SkeletonCard";
 //Data
 //import { lessons } from "@/lib/data";
 import { AllModules, LessonPortadaProps, LessonProps } from "@/index";
-import {getLastElement, lessonsCompletedArray }from "@/utils/lessons/lessonsUtils";
+// import {
+//   getLastElement,
+//   lessonsCompletedArray,
+// } from "@/utils/lessons/lessonsUtils";
+
+import {useLessons} from "@/hooks/useLessons";
+import { useUserGuzma } from "@/hooks/useUserData";
+
 
 type LessonsProps = {
-  allModules: AllModules |  undefined;
+  allModules: AllModules | undefined;
 };
-const Lessons = ({allModules}: LessonsProps) => {
+const Lessons = ({ allModules }: LessonsProps) => {
+  // const { userGuzma } = useUserGuzma();
+
   const { activeMenu } = useStateContext();
-  const [lessons, setLessons] = React.useState<LessonProps []>([]);
+  const [lessons, setLessons] = React.useState<LessonProps[]>([]);
   const [loading, setLoading] = React.useState<boolean>(false);
-  const [lessonsCompleted, setLessonsCompleted] =  React.useState<any[]>([]);
+  const [lessonsCompleted, setLessonsCompleted] = React.useState<any[]>([]);
+
+  const {  module, completed, isLoading, isError } = useLessons();
 
 
-  useEffect(() => { 
+  useEffect(() => {
     const meCompota = async () => {
-      setLoading(true);
-      console.log("Holaa" )
-      const { currentModuleId} = (await getLastElement()) as {
-        currentModuleId: number;
-      };
-      console.log(currentModuleId)
-      if (allModules != undefined){
-        if (currentModuleId === 2) {
+      // setLoading(true);
+      console.log("Holaa");
+     
+      console.log(module);
+      if (allModules != undefined) {
+        if (module === 2) {
           const moduleLesson = allModules["Módulo 2"];
           setLessons(moduleLesson);
-        }else
-        if (currentModuleId === 3) {
+        } else if (module === 3) {
           const moduleLesson = allModules["Módulo 3"];
           setLessons(moduleLesson);
-        }else
-        if (currentModuleId === 1) {
-
+        } else if (module === 1) {
           const moduleLesson = allModules["Módulo 1"];
           setLessons(moduleLesson);
         }
-
       }
-      setLoading(false);
-    };  
-  meCompota();
-  const getLessonsCompleted = async () => {
-    const lessonsArray = await lessonsCompletedArray();
-    setLessonsCompleted(lessonsArray)
-  }
-  getLessonsCompleted()
-  }, [allModules]);
+          // setLoading(false);
+      
+    };
+    meCompota();
+    if (completed !== undefined && completed !== null) {
+      setLessonsCompleted(completed);
+    }
+    
+  }, [module]);
 
-  console.log(lessons)
+  console.log(lessons);
   return (
     <>
       {/* Carousel de lecciones */}
       <div
         className={` hidden md:flex 2xl:p-14 2xl:py-2 2xl:px-20 md:px-10 2xl:mt-9 mt-3 `}
       >
-      {loading && <Loading/>}
+        {isLoading && 
+        <div className="flex gap-3">
+          <SkeletonCard />
+          <SkeletonCard />
+          <SkeletonCard />
+          
+        </div>
+        
+        }
         <Carousel
           opts={{
             loop: true,
@@ -80,22 +94,29 @@ const Lessons = ({allModules}: LessonsProps) => {
           <CarouselPrevious></CarouselPrevious>
           <CarouselContent className={` flex items-stretch`}>
             {lessons.map((lesson) => {
-
-              const portada: LessonPortadaProps = JSON.parse(lesson.html_portada);
-              const link = `/lessons/${portada.id}`
+              const portada: LessonPortadaProps = JSON.parse(
+                lesson.html_portada,
+              );
+              const link = `/lessons/${portada.id}`;
 
               return (
                 <CarouselItem
                   className={`md:basis-1/3 ${activeMenu ? "md:w-[66px] md:basis-1/3  lg:w-[176px] 2xl:w-full" : "pl-6 2xl:basis-1/5 lg:max-xl:basis-1/4 md:max-lg:w-[80px]"} `}
                   key={lesson.id}
                 >
-                  <LessonsCard lesson={portada} lessonNumber={lesson.numero_leccion} link={link} status={              lessonsCompleted.find((item) => item === portada.id) ? 1 : 0
-}/>
-                 
-                
+                  <LessonsCard
+                    lesson={portada}
+                    lessonNumber={lesson.numero_leccion}
+                    link={link}
+                    status={
+                      lessonsCompleted.find((item) => item === portada.id)
+                        ? 1
+                        : 0
+                    }
+                  />
                 </CarouselItem>
-              )
-            } )}
+              );
+            })}
           </CarouselContent>
           <CarouselNext></CarouselNext>
         </Carousel>
@@ -103,18 +124,30 @@ const Lessons = ({allModules}: LessonsProps) => {
 
       {/* Carousel de lecciones en mobile */}
       <div className="md:hidden px-1 pt-8 flex overflow-x-scroll gap-6">
+      {loading && 
+        <div className="flex gap-3">
+          <SkeletonCard />
+          <SkeletonCard />
+          <SkeletonCard />
+          
+        </div>
+        
+        }
         {lessons.map((lesson, i) => {
           const portada: LessonPortadaProps = JSON.parse(lesson.html_portada);
-          const link = `/lessons/${portada.id}`
+          const link = `/lessons/${portada.id}`;
 
           return (
-            <LessonsCard key={i} lesson={portada} lessonNumber={lesson.numero_leccion} link={link} status={
-              lessonsCompleted.find((item) => item === portada.id) ? 1 : 0
-
-            }/>
-          )
-               
-              
+            <LessonsCard
+              key={i}
+              lesson={portada}
+              lessonNumber={lesson.numero_leccion}
+              link={link}
+              status={
+                lessonsCompleted.find((item) => item === portada.id) ? 1 : 0
+              }
+            />
+          );
         })}
       </div>
     </>

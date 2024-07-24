@@ -1,6 +1,6 @@
 import React from "react";
 import { Badge } from "@/components/ui/badge";
-import { CustomField } from "./CustomField";
+import { CustomField } from "../../shared/CustomField";
 import {
   Select,
   SelectContent,
@@ -12,10 +12,25 @@ import EditablePrecio from "./EditablePrecio";
 
 import { Checkbox } from "@/components/ui/checkbox";
 
+
+import { Button } from "@/components/ui/button"
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu";
+
+type Checked = DropdownMenuCheckboxItemProps["checked"]
+
+
 //Types:
 interface RightSideForm {
   type: "create" | "update" | null;
-  editablePrecio: number;
+  editablePrecio: string;
   setEditablePrecio: any;
   errors: any;
   clearErrors: any;
@@ -48,6 +63,8 @@ const RightSideForm = ({
   sector,
   data4e,
 }: RightSideForm) => {
+  const [open, setOpen] = React.useState(false);
+  const [value, setValue] = React.useState("");
   return (
     <>
       <div className="hidden md:block">
@@ -92,7 +109,9 @@ const RightSideForm = ({
                                   ? "green"
                                   : "grey"
                         }
-                      >{fourE.label}</Badge>
+                      >
+                        {fourE.label}
+                      </Badge>
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -178,19 +197,18 @@ const RightSideForm = ({
                     value={String(exchange.value)}
                   >
                     <Badge
-                    variant={
-                      exchange.value === 2
-                        ? "binance"
-                        : exchange.value === 3
-                          ? "coinbase"
-                        : exchange.value === 4
-                      ?"kraken"
-                      : "Ninguno"
-                    }
-                  >
-                    {exchange.label
-                    }
-                  </Badge>
+                      variant={
+                        exchange.value === 2
+                          ? "binance"
+                          : exchange.value === 3
+                            ? "coinbase"
+                            : exchange.value === 4
+                              ? "kraken"
+                              : "Ninguno"
+                      }
+                    >
+                      {exchange.label}
+                    </Badge>
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -198,7 +216,6 @@ const RightSideForm = ({
           )}
         />
       </div>
-
 
       {/**Sector */}
       <div className="sectorblock">
@@ -208,36 +225,51 @@ const RightSideForm = ({
           formLabel="Sectores"
           className="  w-full"
           render={({ field }) => (
-            <div className="grid  grid-cols-3 lg:grid-cols-5 gap-2">
-              {sector.map((sector) => (
-                  <div key={sector.value} className="flex items-center">
-                    <Checkbox
-                      className="mr-3"
-                            checked={field.value?.includes(sector.value)}
-                            onCheckedChange={(checked) => {
-                              return checked
-                                ? field.onChange([...field.value, sector.value])
-                                : field.onChange(
-                                    field.value?.filter(
-                                      (value: any) => value !== sector.value
-                                    )
-                                  )
-                            }}
-                          />
-                    <Badge
-                      variant={
-                        sector.label as any
-                      }
-                    >{sector.label}</Badge>
-                  </div>
-                    
-                  
-                ))}
-            
+            <div className="">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                      variant="outline"
+                      role="combobox"
+                      aria-expanded={open}
+                      className="w-full justify-between m-0"
+                    >
+                      {field.value?.length
+                        ? sector
+                            .filter((sector) =>
+                              field.value.includes(sector.value),
+                            )
+                            .map((sector) => sector.label)
+                            .join(", ")
+                        : "Selecciona los sectores"}
+                    </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56">
+                  <DropdownMenuLabel>Elige el sector</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                    {sector.map((sector) => (
+                      <DropdownMenuCheckboxItem
+                        key={sector.value}
+                        checked={field.value?.includes(sector.value)}
+                        onCheckedChange={(checked) => {
+                          return checked
+                            ? field.onChange([...field.value, sector.value])
+                            : field.onChange(
+                                field.value?.filter(
+                                  (value: any) => value !== sector.value,
+                                ),
+                              );
+                        }}
+                      >
+                      <Badge variant={sector.label as any}>
+                                {sector.label}
+                        </Badge>
+                      </DropdownMenuCheckboxItem>
+                    ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+                            
             </div>
-            
-                
-             
           )}
         />
       </div>

@@ -55,6 +55,10 @@ export const rendimientoCalculator = (
   return (precioActual / precioEntrada - 1) * 100;
 };
 
+export const promedioCalculator = (values: number[]) => {
+  return values.reduce((acc, curr) => acc + curr) / values.length;
+}
+
 //-----Default values---//
 
 //For the :
@@ -68,7 +72,7 @@ export const defaultValuesDashboardForm = {
   marketCap: 0,
   siAth: 0,
   idExchange: "1",
-  sectores: [1],
+  sectores: [],
   precioEntrada: "",
   precioActual: 0,
 };
@@ -110,7 +114,7 @@ export const tableHeaders = [
     icon: "/icons/table/Decision.png",
     key: "id_decision_proyecto",
   },
-  { name: "Sector", icon: "/icons/table/Sector.png", key: "sector" },
+  { name: "Sectores", icon: "/icons/table/Sector.png", key: "sector" },
   { name: "Exchange", icon: "/icons/table/Exchange.png", key: "idExchange" },
   {
     name: "Precio Entrada",

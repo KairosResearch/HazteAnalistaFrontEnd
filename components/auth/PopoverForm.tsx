@@ -1,3 +1,4 @@
+'use client';
 import React, { useEffect } from "react";
 import {
   Popover,
@@ -21,6 +22,12 @@ interface PopoverFormProps {
 }
 
 const PopoverForm = ({ usage }: PopoverFormProps) => {
+
+  //Setting the guzma value from localStorage to a global state
+  
+
+
+
   const router = useRouter();
   const { user, logout } = usePrivy();
   //   const [logoutSuccess, setLogoutSuccess] = React.useState(false);
@@ -56,7 +63,7 @@ const PopoverForm = ({ usage }: PopoverFormProps) => {
                 <h2 className="block">Hola, </h2>
                 {wallet ? (
                   <h2 className="block">
-                    {wallet?.length ?? 0 > 10
+                    {(wallet?.length ?? 0 > 10)
                       ? `${wallet?.substring(0, 5)}...${wallet?.substring(wallet?.length - 3)}`
                       : wallet}
                   </h2>

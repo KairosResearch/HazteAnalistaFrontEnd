@@ -4,7 +4,7 @@ import { getLessons } from "@/services/backend/lessons";
 
 export const separateModules = async (moduleToBring: 1 | 2 | 3 | "all") => {
   try {
-    const response = await getLessons() as AllModules;
+    const response = (await getLessons()) as AllModules;
 
     if (moduleToBring === "all") return response;
 
@@ -19,4 +19,3 @@ export const separateModules = async (moduleToBring: 1 | 2 | 3 | "all") => {
     console.error(error);
   }
 };
-

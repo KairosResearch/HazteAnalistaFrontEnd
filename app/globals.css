@@ -108,7 +108,7 @@
 
   /* Sidebar Component */
   .sidebar {
-    @apply h-screen md:w-72 bg-dark-grey py-5 shadow-md shadow-dark-black/50;
+    @apply h-screen p-4 md:w-72 bg-dark-grey py-5 shadow-md shadow-dark-black/50;
   }
 
   .sidebar-logo {
@@ -124,7 +124,7 @@
   }
 
   .sidebar-nav_element {
-    @apply flex items-center gap-3 pl-7 mt-4 cursor-pointer rounded-full font-semibold p-2 leading-[140%] w-full whitespace-nowrap hover:bg-green-dark hover:shadow-inner;
+    @apply flex items-center gap-4  mt-4 cursor-pointer rounded font-semibold p-2 leading-[140%] w-full whitespace-nowrap hover:bg-green-dark hover:shadow-inner;
   }
 
   .sidebar-link {
