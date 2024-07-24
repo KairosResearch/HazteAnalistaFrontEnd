@@ -10,9 +10,8 @@ import LessonsCard from "./LessonsCard";
 import { getLastLesson } from "@/services/backend/lessons";
 import { Separator } from "../ui/separator";
 import SkeletonCard from "../shared/skeletons/SkeletonCard";
-import {useLessons} from "@/hooks/useLessons";
+import { useLessons } from "@/hooks/useLessons";
 import { useUserGuzma } from "@/hooks/useUserData";
-
 
 type Props = {
   allModules: AllModules | undefined;
@@ -26,16 +25,12 @@ const CurrentModule = ({ allModules }: Props) => {
   const [loading, setLoading] = React.useState<boolean>(false);
 
   //traer guzma de localstorage
-  
 
-  const {  module, completed, isLoading, isError } = useLessons();
- 
-  
-
+  const { module, completed, isLoading, isError } = useLessons();
 
   useEffect(() => {
     const getModules = async () => {
-      if(module === undefined || module === null) {
+      if (module === undefined || module === null) {
         return null;
       } else {
         if (allModules != undefined) {
@@ -53,16 +48,11 @@ const CurrentModule = ({ allModules }: Props) => {
         }
       }
 
-
       // setLoading(true);
-      
-
 
       // const { currentModuleId } = (await getLastElement()) as {
       //   currentModuleId: number;
       // };
-
-      
     };
     getModules();
     if (completed !== undefined && completed !== null) {
@@ -78,31 +68,33 @@ const CurrentModule = ({ allModules }: Props) => {
 
   console.log(isLoading);
 
-  
   return (
     <>
-    {
-      isError && <div role="row" className="grid grid-cols-1 px-4 gap-6 md:grid-cols-2 lg:grid-cols-3">
-        <h1>Hubo un error al cargar los módulos: ${isError}</h1>
-      </div>
-    }
-    {
-      isLoading === true && <div role="row" className="grid grid-cols-1 px-4 gap-6 md:grid-cols-2 lg:grid-cols-3">
-        
-        <SkeletonCard/>
-        <SkeletonCard/>
-        <SkeletonCard/>
-        <SkeletonCard/>
-        <SkeletonCard/>
-
-      </div>
-    }
+      {isError && (
+        <div
+          role="row"
+          className="grid grid-cols-1 px-4 gap-6 md:grid-cols-2 lg:grid-cols-3"
+        >
+          <h1>Hubo un error al cargar los módulos: ${isError}</h1>
+        </div>
+      )}
+      {isLoading === true && (
+        <div
+          role="row"
+          className="grid grid-cols-1 px-4 gap-6 md:grid-cols-2 lg:grid-cols-3"
+        >
+          <SkeletonCard />
+          <SkeletonCard />
+          <SkeletonCard />
+          <SkeletonCard />
+          <SkeletonCard />
+        </div>
+      )}
       {modulesToRender &&
         modulesToRender.map((mod, i) => (
           <div role="row" key={i}>
-            <h1>
-            </h1>
-            <Separator className="mb-6"/>
+            <h1></h1>
+            <Separator className="mb-6" />
             <section className="grid grid-cols-1 px-4 gap-6 md:grid-cols-2 lg:grid-cols-3">
               {mod.map((lesson: any, i: number) => {
                 const portada: LessonPortadaProps = JSON.parse(

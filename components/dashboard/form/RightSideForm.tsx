@@ -12,8 +12,7 @@ import EditablePrecio from "./EditablePrecio";
 
 import { Checkbox } from "@/components/ui/checkbox";
 
-
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -21,11 +20,10 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu";
 
-type Checked = DropdownMenuCheckboxItemProps["checked"]
-
+type Checked = DropdownMenuCheckboxItemProps["checked"];
 
 //Types:
 interface RightSideForm {
@@ -229,46 +227,45 @@ const RightSideForm = ({
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button
-                      variant="outline"
-                      role="combobox"
-                      aria-expanded={open}
-                      className="w-full justify-between m-0"
-                    >
-                      {field.value?.length
-                        ? sector
-                            .filter((sector) =>
-                              field.value.includes(sector.value),
-                            )
-                            .map((sector) => sector.label)
-                            .join(", ")
-                        : "Selecciona los sectores"}
-                    </Button>
+                    variant="outline"
+                    role="combobox"
+                    aria-expanded={open}
+                    className="w-full justify-between m-0"
+                  >
+                    {field.value?.length
+                      ? sector
+                          .filter((sector) =>
+                            field.value.includes(sector.value),
+                          )
+                          .map((sector) => sector.label)
+                          .join(", ")
+                      : "Selecciona los sectores"}
+                  </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56">
                   <DropdownMenuLabel>Elige el sector</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                    {sector.map((sector) => (
-                      <DropdownMenuCheckboxItem
-                        key={sector.value}
-                        checked={field.value?.includes(sector.value)}
-                        onCheckedChange={(checked) => {
-                          return checked
-                            ? field.onChange([...field.value, sector.value])
-                            : field.onChange(
-                                field.value?.filter(
-                                  (value: any) => value !== sector.value,
-                                ),
-                              );
-                        }}
-                      >
+                  {sector.map((sector) => (
+                    <DropdownMenuCheckboxItem
+                      key={sector.value}
+                      checked={field.value?.includes(sector.value)}
+                      onCheckedChange={(checked) => {
+                        return checked
+                          ? field.onChange([...field.value, sector.value])
+                          : field.onChange(
+                              field.value?.filter(
+                                (value: any) => value !== sector.value,
+                              ),
+                            );
+                      }}
+                    >
                       <Badge variant={sector.label as any}>
-                                {sector.label}
-                        </Badge>
-                      </DropdownMenuCheckboxItem>
-                    ))}
+                        {sector.label}
+                      </Badge>
+                    </DropdownMenuCheckboxItem>
+                  ))}
                 </DropdownMenuContent>
               </DropdownMenu>
-                            
             </div>
           )}
         />

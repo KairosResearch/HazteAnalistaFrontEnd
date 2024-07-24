@@ -40,7 +40,7 @@ export const getLastLesson = async (
   id: number,
 ): Promise<LessonProps | undefined> => {
   try {
-    if(id === 0) return undefined;
+    if (id === 0) return undefined;
     const response = await fetch(`${AUTH_URL}get_ultima_leccion/${id}`, {
       method: "GET",
       headers: {

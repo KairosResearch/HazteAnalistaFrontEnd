@@ -23,9 +23,8 @@ import { AllModules, LessonPortadaProps, LessonProps } from "@/index";
 //   lessonsCompletedArray,
 // } from "@/utils/lessons/lessonsUtils";
 
-import {useLessons} from "@/hooks/useLessons";
+import { useLessons } from "@/hooks/useLessons";
 import { useUserGuzma } from "@/hooks/useUserData";
-
 
 type LessonsProps = {
   allModules: AllModules | undefined;
@@ -38,14 +37,13 @@ const Lessons = ({ allModules }: LessonsProps) => {
   const [loading, setLoading] = React.useState<boolean>(false);
   const [lessonsCompleted, setLessonsCompleted] = React.useState<any[]>([]);
 
-  const {  module, completed, isLoading, isError } = useLessons();
-
+  const { module, completed, isLoading, isError } = useLessons();
 
   useEffect(() => {
     const meCompota = async () => {
       // setLoading(true);
       console.log("Holaa");
-     
+
       console.log(module);
       if (allModules != undefined) {
         if (module === 2) {
@@ -59,14 +57,12 @@ const Lessons = ({ allModules }: LessonsProps) => {
           setLessons(moduleLesson);
         }
       }
-          // setLoading(false);
-      
+      // setLoading(false);
     };
     meCompota();
     if (completed !== undefined && completed !== null) {
       setLessonsCompleted(completed);
     }
-    
   }, [module]);
 
   console.log(lessons);
@@ -76,15 +72,13 @@ const Lessons = ({ allModules }: LessonsProps) => {
       <div
         className={` hidden md:flex 2xl:p-14 2xl:py-2 2xl:px-20 md:px-10 2xl:mt-9 mt-3 `}
       >
-        {isLoading && 
-        <div className="flex gap-3">
-          <SkeletonCard />
-          <SkeletonCard />
-          <SkeletonCard />
-          
-        </div>
-        
-        }
+        {isLoading && (
+          <div className="flex gap-3">
+            <SkeletonCard />
+            <SkeletonCard />
+            <SkeletonCard />
+          </div>
+        )}
         <Carousel
           opts={{
             loop: true,
@@ -124,15 +118,13 @@ const Lessons = ({ allModules }: LessonsProps) => {
 
       {/* Carousel de lecciones en mobile */}
       <div className="md:hidden px-1 pt-8 flex overflow-x-scroll gap-6">
-      {loading && 
-        <div className="flex gap-3">
-          <SkeletonCard />
-          <SkeletonCard />
-          <SkeletonCard />
-          
-        </div>
-        
-        }
+        {loading && (
+          <div className="flex gap-3">
+            <SkeletonCard />
+            <SkeletonCard />
+            <SkeletonCard />
+          </div>
+        )}
         {lessons.map((lesson, i) => {
           const portada: LessonPortadaProps = JSON.parse(lesson.html_portada);
           const link = `/lessons/${portada.id}`;

@@ -15,24 +15,20 @@ const CurrentLesson = () => {
   const [currentLesson, setCurrentLesson] = React.useState<LessonProps>();
   const [loading, setLoading] = React.useState<boolean>(false);
 
-  
-
- 
-
   useEffect(() => {
     const getLastLessonObject = async () => {
-      setLoading(true)
-      if(typeof window !== "undefined") {
+      setLoading(true);
+      if (typeof window !== "undefined") {
         const guzma = localStorage.getItem("guzma");
-        if(guzma) {
+        if (guzma) {
           const id = parseInt(guzma);
-      
-      const lastLesson = await getLastLesson(id ?? 0);
 
-      setCurrentLesson(lastLesson);
-      console.log(currentLesson);
-    }
-  }
+          const lastLesson = await getLastLesson(id ?? 0);
+
+          setCurrentLesson(lastLesson);
+          console.log(currentLesson);
+        }
+      }
       setLoading(false);
     };
     getLastLessonObject();
@@ -40,7 +36,7 @@ const CurrentLesson = () => {
 
   return (
     <>
-    {loading && <SkeletonCard />}
+      {loading && <SkeletonCard />}
       {currentLesson ? (
         <LessonsCard
           lesson={JSON.parse(currentLesson.html_portada)}

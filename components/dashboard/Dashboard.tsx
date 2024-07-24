@@ -18,12 +18,10 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 
 import SkeletonTable from "../shared/skeletons/SkeletonTable";
-
 
 //Calculous
 import { rangeDesigner } from "@/utils";
@@ -92,8 +90,6 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userTableData]);
 
-  
-
   const sectores = catalogos[3];
 
   const range = (marketCap: number) => {
@@ -110,7 +106,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
         data={null}
         close={null}
       />
-      
+
       <Table id="mochila" className="border border-primary-foreground ">
         <DashboardHeader
           prToDelete={prToDelete}
@@ -119,7 +115,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
 
         <TableBody id="first-project">
           {/* If no data  */}
-          {tableData && tableData.length === 0 && !loading &&  (
+          {tableData && tableData.length === 0 && !loading && (
             <>
               <TableRow className="">
                 <TableCell className="font-medium  " colSpan={11}>
@@ -140,12 +136,8 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
           {/* If loading */}
           {loading && (
             <>
-             
               <SkeletonTable />
-              
             </>
-           
-            
           )}
 
           {/* Data directly manipulated by the user */}
@@ -197,7 +189,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                   }}
                 >
                   <Badge
-                  variant={"fourE"}
+                    variant={"fourE"}
                     color={
                       data.id4e === 2
                         ? "yellow"
@@ -255,44 +247,43 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                   }}
                 >
                   <DropdownMenu>
-                  <DropdownMenuTrigger>
-                  
-                    <Badge
-                        variant={
-                          sectores.find((sectorCat) => sectorCat.value === data.sectores[0])
-                            ?.label as any
-                        }
-                      >
-                        {
-                          sectores.find((sectorCat) => sectorCat.value === data.sectores[0])
-                        ?.label 
-                        }{data.sectores.length > 1 ? "..." : ""}
-                    </Badge>
-                    
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent>
-                  {data.sectores.map((sector) => (
-                    <DropdownMenuItem
-                      key={sector} 
-                    >
+                    <DropdownMenuTrigger>
                       <Badge
-                        key={sector}
                         variant={
-                          sectores.find((sectorCat) => sectorCat.value === sector)
-                            ?.label as any
+                          sectores.find(
+                            (sectorCat) => sectorCat.value === data.sectores[0],
+                          )?.label as any
                         }
                       >
                         {
-                          sectores.find((sectorCat) => sectorCat.value === sector)
-                            ?.label
+                          sectores.find(
+                            (sectorCat) => sectorCat.value === data.sectores[0],
+                          )?.label
                         }
+                        {data.sectores.length > 1 ? "..." : ""}
                       </Badge>
-                    </DropdownMenuItem>
-                    
-                  ))}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-                  
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                      {data.sectores.map((sector) => (
+                        <DropdownMenuItem key={sector}>
+                          <Badge
+                            key={sector}
+                            variant={
+                              sectores.find(
+                                (sectorCat) => sectorCat.value === sector,
+                              )?.label as any
+                            }
+                          >
+                            {
+                              sectores.find(
+                                (sectorCat) => sectorCat.value === sector,
+                              )?.label
+                            }
+                          </Badge>
+                        </DropdownMenuItem>
+                      ))}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </TableCell>
 
                 {/******Exchange**** */}
@@ -405,7 +396,6 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
           />
         )}
       </Table>
-     
     </div>
   );
 };

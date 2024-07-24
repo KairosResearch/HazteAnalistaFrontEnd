@@ -11,11 +11,9 @@ import {
 import Image from "next/image";
 import PopoverForm from "../auth/PopoverForm";
 
-
 const Navbar = () => {
   //Añadir el de twitter y validar si es web 2 poner nombre completo, si es web 3 poner la direccion cortada
 
-  
   return (
     <header className="navbar fixed md:relative bg-black/90 md:bg-inherit md:z-0 z-50">
       <div>
@@ -71,19 +69,15 @@ const Navbar = () => {
                     />
                     Metodología 4E
                   </Link>
-                  <Link 
-                        className='header-nav_text'
-                        href='/analysis'>
-                                <Image
-                                    src='/tools-fill.svg'
-                                    alt='tools'
-                                    height={20}
-                                    width={20}
-                                />
-
-                             
-                                Analisis Profundo 
-                        </Link>
+                  <Link className="header-nav_text" href="/analysis">
+                    <Image
+                      src="/tools-fill.svg"
+                      alt="tools"
+                      height={20}
+                      width={20}
+                    />
+                    Analisis Profundo
+                  </Link>
                   {/* 
                               <Link className='header-nav_text'
                                 href='/tools'

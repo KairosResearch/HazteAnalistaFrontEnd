@@ -2,7 +2,7 @@ export type CatalogosType = {
   value: number;
   label: string;
 };
-interface AveragesProps{
+interface AveragesProps {
   cuantitativePromedio: number;
   cualitativePromedio: number;
   setCuantitativePromedio: (newState: number) => void;
@@ -33,7 +33,7 @@ interface AuthLoadingStatusProps {
 interface ValueObject {
   field: string;
   value: number;
-};
+}
 export type AnalisysCatalogs = {
   id: number;
   item: string;
@@ -128,9 +128,9 @@ export type UserTableData = {
   setUserTableData: (newData: any) => void;
 };
 export type UserGuzma = {
-  userGuzma: number| null;
-  setUserGuzma: (newData: number| null) => void;
-}
+  userGuzma: number | null;
+  setUserGuzma: (newData: number | null) => void;
+};
 
 export interface AuthDataFormProps {
   type: "login" | "register";
@@ -248,26 +248,26 @@ interface LessonProps {
   html_leccion: string;
 }
 interface AnalisysInitialvaluesCual {
-  id_usuario:number,
-  id_proyecto:number,
-  id_caso_uso:number,
-  id_integrantes_equipo:number,
-  id_auditoria:number,
-  id_roadmap:number,
-  id_comunidad:number,
-  id_financiamiento:number,
-  id_whitepapaers:number,
-  id_alianzas:number,
-  promedio:number,
+  id_usuario: number;
+  id_proyecto: number;
+  id_caso_uso: number;
+  id_integrantes_equipo: number;
+  id_auditoria: number;
+  id_roadmap: number;
+  id_comunidad: number;
+  id_financiamiento: number;
+  id_whitepapaers: number;
+  id_alianzas: number;
+  promedio: number;
 }
 interface AnalisysInitialvaluesCuant {
-        id_usuario: number,
-        id_proyecto: number,
-        id_tokenomic: number,
-        id_movimientosOnChain: number,
-        id_metricasExchage: number,
-        id_financiamitos: number,
-        promedio: number,
+  id_usuario: number;
+  id_proyecto: number;
+  id_tokenomic: number;
+  id_movimientosOnChain: number;
+  id_metricasExchage: number;
+  id_financiamitos: number;
+  promedio: number;
 }
 interface AnalisysResponse {
   filteredCualitative: AnalisysInitialvaluesCual;

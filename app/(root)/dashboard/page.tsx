@@ -5,7 +5,6 @@ import Dashboard from "@/components/dashboard/Dashboard";
 import DialogItem from "@/components/dashboard/form/DialogItem";
 import DialogInstructions from "@/components/on-boarding/DialogInstructions";
 
-
 import {
   get4t,
   getDecision,
@@ -56,14 +55,11 @@ const HomePage = async () => {
         {/* <div className="md:hidden">
               <ReloadProjects />
             </div> */}
-            
-                <Dashboard
-                  projectsList={projectsList.proyectos}
-                  catalogos={[data4t, decision, exchange, sector]}
-                />
-            
 
-        
+        <Dashboard
+          projectsList={projectsList.proyectos}
+          catalogos={[data4t, decision, exchange, sector]}
+        />
       </section>
 
       {/* Seccion de lecciones*/}
@@ -78,7 +74,7 @@ const HomePage = async () => {
           Inicia con las lecciones para apender a hacer un análisis de manera
           profesional y convertirte en analista.
         </p>
-        
+
         <Lessons
           // lessons={lessons}
           allModules={allModules}

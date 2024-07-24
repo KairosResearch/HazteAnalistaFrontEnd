@@ -21,7 +21,7 @@ Desarrollo y mantenimiento: [@gabo-hacStyle](https://github.com/gabo-hacStyle)
   - Service
   - Utils
 - Middleware
-  
+
 ## Herramientas y lenguajes de desarrollo
 
 - Next.js como framework SSR [Next.js Documentation](https://nextjs.org/docs) [Learn Next.js](https://nextjs.org/learn)
@@ -42,11 +42,14 @@ Desarrollo y mantenimiento: [@gabo-hacStyle](https://github.com/gabo-hacStyle)
 ```bash
 git clone url https://github.com/KairosResearch/HazteAnalistaFrontEnd.git
 ```
+
 2. Instalación de paquetes
+
 ```bash
 npm i
 npm run dev
 ```
+
 3. Variables de entorno (la de privy)
 
 ## Estructura del proyecto
@@ -118,6 +121,6 @@ Aquí se encuentran diversas utilidades para el manejo de lógicas dentro de las
 ## Middleware
 
 En este middleware se configura lo siguiente:
+
 - Cada vez que se borra la cookie en el servidor de Privy con el token de usuario (cada 30 minutos), se redirige a una página de actualización para volver a adquirir ese valor (usando el token de sesión, que no expira) y establecerlo correctamente.
 - Se bloquea el acceso a ciertas rutas y se redirecciona según el estado de inicio de sesión del cliente.
-

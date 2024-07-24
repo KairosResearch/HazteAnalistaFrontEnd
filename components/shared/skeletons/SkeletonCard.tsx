@@ -1,5 +1,5 @@
-import React from 'react'
-import { Skeleton } from "@/components/ui/skeleton"
+import React from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const SkeletonCard = () => {
   return (
@@ -10,7 +10,7 @@ const SkeletonCard = () => {
         <Skeleton className="h-4 " />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SkeletonCard
+export default SkeletonCard;
