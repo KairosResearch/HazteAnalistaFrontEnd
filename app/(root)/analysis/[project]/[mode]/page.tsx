@@ -51,11 +51,12 @@ const page = async ({ params }: pageProps) => {
   return (
     <>
       <ShowAverages />
-      <header className="my-10  flex justify-between items-center">
+      <div className="">
+      <header className="my-10  md:flex justify-between items-center">
         <h1>
           {mode === "add" ? "Realiza" : "Editemos"} tu análisis - {projectName}
         </h1>
-        <div>
+        <div className="">
           <Link href="/dashboard" className="mr-4">
             <span className="text-primary underline">Dashboard</span>
           </Link>
@@ -93,6 +94,9 @@ const page = async ({ params }: pageProps) => {
           </CardContent>
         </Card>
       </section>
+
+      </div>
+      
     </>
   );
 };

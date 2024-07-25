@@ -57,7 +57,7 @@ const DialogAlert = ({ prToDelete, clean }: DialogAlertProps) => {
       <AlertDialog>
         <TableHead className="sticky left-[-2px] top-0 border-x-2  bg-dark-grey z-20">
           {prToDelete.length > 0 && (
-            <AlertDialogTrigger className="h-7 w-7">
+            <AlertDialogTrigger className="h-6 w-6">
               <Image
                 width={50}
                 height={50}
@@ -78,7 +78,7 @@ const DialogAlert = ({ prToDelete, clean }: DialogAlertProps) => {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter className="my-3">
-            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogCancel onClick={() => clean()}>Cancelar</AlertDialogCancel>
             <AlertDialogAction>
               <Button
                 variant="destructive"

@@ -1,0 +1,46 @@
+<DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="outline"
+                    role="combobox"
+                    aria-expanded={false}
+                    className="w-full justify-between m-0"
+                  >
+                    {field.value?.length
+                      ? item
+                          .filter((item) =>
+                            field.value.includes(item.id),
+                          )
+                          .map((item) => item.item)
+                          .join(", ")
+                      : ` Elige el ${fieldsMapping[index].name}`}
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-full">
+                  {item.map((item) => (
+                    <DropdownMenuCheckboxItem
+                      key={item.id}
+                      checked={field.value?.includes(item.id)}
+                      
+                      onCheckedChange={(checked) => {
+                        const iDunno = (checked: boolean) => {
+                          if (checked) {
+                            setCualitativeValues((prev:number) => prev + item.value);
+                            field.onChange([...field.value, item.id]);
+                          } else {
+                            setCualitativeValues((prev: number) => prev - item.value);
+                            field.onChange(field.value?.filter((value: any) => value !== item.id));
+                          }
+                        }
+                        
+
+                        return iDunno(checked);
+                      }}
+                    >
+                      
+                        {item.item}
+                    
+                    </DropdownMenuCheckboxItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>

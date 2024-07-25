@@ -2,12 +2,15 @@ import React from "react";
 import { Input } from "@/components/ui/input";
 import { CustomField } from "@/components/shared/CustomField";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Checkbox } from "../ui/checkbox";
+import { Button } from "../ui/button";
 import { AnalisysCatalogs } from "@/index";
 import { ValueObject } from "@/index";
 
@@ -49,66 +52,40 @@ const CualitativeFields = ({
                 ? fieldsMapping[index].formLabel
                 : "defaultName"
             }
-            className=" w-10/12 text-left"
+            className=" w-full text-left"
             render={({ field }) => (
-              <Select
-                defaultValue={String(field.value)}
-                onValueChange={(value) => {
-                  field.onChange(value);
-                  // const a = item.find((item: any) => item.id === value)?.value  as number
-                  // console.log(a)
-                  setCualitativeValues((prevValues: ValueObject[]) => {
-                    const newValue = item.find(
-                      (item) => String(item.id) === value,
-                    )?.value as number;
-                    const fieldToUpdate = fieldsMapping[index]
-                      ? fieldsMapping[index].name
-                      : "defaultName";
-
-                    // Buscar si ya existe un objeto con el mismo 'field'
-                    const existingIndex = prevValues.findIndex(
-                      (obj) => obj.field === fieldToUpdate,
-                    );
-
-                    if (existingIndex !== -1) {
-                      // Si existe, crea una copia del arreglo y actualiza solo el valor de ese objeto
-                      const updatedValues = [...prevValues];
-                      updatedValues[existingIndex] = {
-                        ...updatedValues[existingIndex],
-                        value: newValue,
-                      };
-                      return updatedValues;
-                    } else {
-                      // Si no existe, añade un nuevo objeto al arreglo
-                      return [
-                        ...prevValues,
-                        { field: fieldToUpdate, value: newValue },
-                      ];
-                    }
-                  });
-                }}
-              >
-                <SelectTrigger>
-                  <SelectValue
-                    placeholder={
-                      fieldsMapping[index]
-                        ? fieldsMapping[index].formLabel
-                        : field.value
-                    }
-                  />
-                </SelectTrigger>
-                <SelectContent>
+              
+                <div className="w-full flex flex-col gap-3 ml-6">
                   {item.map((item) => (
-                    <SelectItem
-                      className="hover:bg-primary/20"
+                    <div className="flex items-center gap-3">
+
+<Checkbox
                       key={item.id}
-                      value={String(item.id)}
-                    >
-                      {item.item}
-                    </SelectItem>
+                      checked={field.value?.includes(item.id)}
+                      
+                      onCheckedChange={(checked) => {
+                        const iDunno = (checked: boolean) => {
+                          if (checked) {
+                            setCualitativeValues((prev:number) => prev + item.value);
+                            field.onChange([...field.value, item.id]);
+                          } else {
+                            setCualitativeValues((prev: number) => prev - item.value);
+                            field.onChange(field.value?.filter((value: any) => value !== item.id));
+                          }
+                        }
+                        
+
+                        return iDunno(checked as boolean);
+                      }}
+                    />
+                      <span className="text-grey-light/90"> {item.item}</span>
+                        
+                    </div>
+                    
+                    
                   ))}
-                </SelectContent>
-              </Select>
+                </div>
+              
             )}
           />
         );

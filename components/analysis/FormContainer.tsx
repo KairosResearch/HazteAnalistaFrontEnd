@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { AnalisysCatalogs } from "@/index";
 import AnalysisForm from "@/components/analysis/AnalysisForm";
 import { handleGetSingleAnalisys } from "@/actions/analisysActions";
+import { useAverages } from "@/hooks/useAnalisys";
 // import {AnalisysResponse} from '@/index'
 
 type FormContainerProps = {
@@ -15,6 +16,7 @@ type FormContainerProps = {
 };
 
 const FormContainer = ({ type, mode, data }: FormContainerProps) => {
+  const { setCuantitativePromedio, setCaulitativePromedio } = useAverages();
   const initialState = 0;
   // filteredCualitative: {
   //     id_usuario:0,
@@ -40,6 +42,7 @@ const FormContainer = ({ type, mode, data }: FormContainerProps) => {
   // Lo mismo aquí
 
   const [initialValues, setInitialValues] = useState<any>(initialState);
+
   useEffect(() => {
     async function fetchDataAnalysis() {
       if (mode === "edit") {
@@ -49,11 +52,15 @@ const FormContainer = ({ type, mode, data }: FormContainerProps) => {
         console.log("recien", response);
         if (response) {
           setInitialValues(response);
+          setCuantitativePromedio(response.filteredCuantitative.promedio);
+          setCaulitativePromedio(response.filteredCualitative.promedio);
         } else {
           // Considera manejar el caso en que la respuesta no es lo que esperas
           console.error("No se pudieron obtener los datos del análisis");
         }
       } else {
+        setCuantitativePromedio(0);
+        setCaulitativePromedio(0); 
         setInitialValues(initialState);
       }
     }

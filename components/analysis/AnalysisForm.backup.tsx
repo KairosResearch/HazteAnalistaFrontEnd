@@ -32,6 +32,7 @@ import { debounce, promedioCalculator } from "@/utils/index";
 //Types:
 import { ValueObject, AnalisysCatalogs, AnalisysResponse } from "@/index";
 
+import { set } from "zod";
 import Loading from "../shared/Loading";
 interface AnalysisFormProps {
   type: "cual" | "cuant";
@@ -47,12 +48,12 @@ const AnalysisForm = ({
   data,
   initialValues,
 }: AnalysisFormProps) => {
-  const [cualitativeValues, setCualitativeValues] = useState<number>(0);
+  const [cualitativeValues, setCualitativeValues] = useState<ValueObject[]>([]);
 
   // const [successCualitative, setSuccessCualitative] = useState(false);
   const { setCaulitativePromedio, cualitativePromedio } = useAverages();
-  const [cuantitativeValues, setCuantitativeValues] = useState<number>(
-    0
+  const [cuantitativeValues, setCuantitativeValues] = useState<ValueObject[]>(
+    [],
   );
   // const [successCuantitative, setSuccessCuantitative] = useState(false);
   const { setCuantitativePromedio, cuantitativePromedio } = useAverages();
@@ -67,52 +68,51 @@ const AnalysisForm = ({
     mode === "edit" && a && b
       ? type === "cual"
         ? {
-            alianzas: a.id_alianzas,
-            auditorias: a.id_auditoria,
-            equipo: a.id_integrantes_equipo,
-            financeCual: a.id_financiamiento,
-            whitepaper: a.id_whitepapaers,
-            roadmap: a.id_roadmap,
-            comunidad: a.id_comunidad,
-            casosUso: a.id_caso_uso,
-            tokenomics: [0],
-            onChain: [0],
-            finance: [0],
-            exchange: [0],
+            alianzas: String(a?.id_alianzas),
+            auditorias: String(a?.id_auditoria),
+            equipo: String(a?.id_integrantes_equipo),
+            financeCual: String(a?.id_financiamiento),
+            whitepaper: String(a?.id_whitepapaers),
+            roadmap: String(a?.id_roadmap),
+            comunidad: String(a?.id_comunidad),
+            casosUso: String(a?.id_caso_uso),
+            tokenomics: "0",
+            onChain: "0",
+            finance: "0",
+            exchange: "0",
           }
         : {
-            tokenomics: b.id_tokenomic,
-            onChain: b.id_movimientosOnChain,
-            finance: b.id_financiamitos,
-            exchange: b.id_financiamitos,
+            tokenomics: String(b?.id_tokenomic),
+            onChain: String(b?.id_movimientosOnChain),
+            finance: String(b?.id_financiamitos),
+            exchange: String(b?.id_metricasExchage),
           }
-          //If mode is add
       : type === "cual"
         ? {
-            alianzas: [1],
-            auditorias: [],
-            equipo: [],
-            financeCual: [],
-            whitepaper: [2],
-            roadmap: [],
-            comunidad: [],
-            casosUso: [],
-            tokenomics: [],
-            onChain: [],
-            finance: [],
-            exchange: [],
+            alianzas: "0",
+            auditorias: "0",
+            equipo: "0",
+            financeCual: "0",
+            whitepaper: "0",
+            roadmap: "0",
+            comunidad: "0",
+            casosUso: "0",
+            tokenomics: "0",
+            onChain: "0",
+            finance: "0",
+            exchange: "0",
           }
         : {
-            tokenomics: [1, 2, 3],
-            onChain: [],
-            finance: [],
-            exchange: [],
+            tokenomics: "0",
+            onChain: "0",
+            finance: "0",
+            exchange: "0",
           };
 
-  // useEffect(() => {
-  //   setCaulitativePromedio(a?.promedio ?? 0);
-  //   setCuantitativePromedio(b?.promedio ?? 0);
-  // }, []);
+  useEffect(() => {
+    setCaulitativePromedio(a?.promedio ?? 0);
+    setCuantitativePromedio(b?.promedio ?? 0);
+  }, []);
   //Defining the form
   const form = useForm({
     defaultValues: initialValuesForm,
@@ -121,40 +121,45 @@ const AnalysisForm = ({
   //Para calcular promedio de cualitativos
   useEffect(() => {
     const debouncedFunction = debounce(() => {
-      if (cualitativeValues> 0) {
-        
+      if (cualitativeValues.length > 0) {
+        // Extraer solo los valores numéricos de la propiedad 'value' de cada objeto
+        const valoresNumericos = cualitativeValues.map(
+          (objeto) => objeto.value,
+        );
 
-        
-        setCaulitativePromedio(cualitativeValues*2);
-        
+        console.log("Values to calculate", valoresNumericos);
+        const promedio = promedioCalculator(valoresNumericos);
+        setCaulitativePromedio(promedio);
       }
-    }, 500);
+    }, 900);
 
     if (cualitativeValues) {
       debouncedFunction();
     }
-    console.log("Cualitative Values", cualitativeValues);
-    return () => debouncedFunction.cancel();
-  
-  }, [cualitativeValues]);
 
+    return () => debouncedFunction.cancel();
+  }, [cualitativeValues]);
 
   //Para calcular promedio de cuantitativos
   useEffect(() => {
     const debouncedFunction = debounce(() => {
-      if (cuantitativeValues > 0) {
-        
+      if (cuantitativeValues.length > 0) {
+        // Extraer solo los valores numéricos de la propiedad 'value' de cada objeto
+        const valoresNumericos = cuantitativeValues.map(
+          (objeto) => objeto.value,
+        );
 
-        setCuantitativePromedio(cuantitativeValues*2)
+        console.log("Values to calculate", valoresNumericos);
+        const promedio = promedioCalculator(valoresNumericos);
+        setCuantitativePromedio(promedio);
       }
-    }, 500);
+    }, 900);
 
     if (cuantitativeValues) {
       debouncedFunction();
     }
 
     return () => debouncedFunction.cancel();
-    
   }, [cuantitativeValues]);
 
   // Submit handler
@@ -210,14 +215,14 @@ const AnalysisForm = ({
     //backend Values para cualitativo
     if (type === "cual") {
       const backendValues = {
-        idCasoUso: values.casosUso,
-        idIntegrantesEquipo: values.equipo,
-        idAuditoria: values.auditorias,
-        idRoadmap: values.roadmap,
-        idComunidad: values.comunidad,
-        idFinanciamiento: values.financeCual,
-        idWhitepapaers: values.whitepaper,
-        idAlianzas: values.alianzas,
+        idCasoUso: Number(values.casosUso),
+        idIntegrantesEquipo: Number(values.equipo),
+        idAuditoria: Number(values.auditorias),
+        idRoadmap: Number(values.roadmap),
+        idComunidad: Number(values.comunidad),
+        idFinanciamiento: Number(values.financeCual),
+        idWhitepapaers: Number(values.whitepaper),
+        idAlianzas: Number(values.alianzas),
         promedio: cualitativePromedio,
       };
       console.log("Backend Values", backendValues);
@@ -225,10 +230,10 @@ const AnalysisForm = ({
       submitHandler(backendValues);
     } else {
       const backendValues = {
-        idTokenomic: values.tokenomics,
-        idMovimientosOnChain: values.onChain,
-        idMetricasExchange: values.exchange,
-        idFinanciamiento: values.finance,
+        idTokenomic: Number(values.tokenomics),
+        idMovimientosOnChain: Number(values.onChain),
+        idMetricasExchange: Number(values.exchange),
+        idFinanciamiento: Number(values.finance),
         promedio: cuantitativePromedio,
       };
       console.log("Backend Values", backendValues);

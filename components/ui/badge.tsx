@@ -24,7 +24,7 @@ const badgeVariants = cva(
         decisionWatchlist: "border-transparent rounded bg-decisionWatchlist/50",
         desicionLeave: "border-transparent rounded bg-desicionLeave/50",
         desicionInvest: "border-transparent rounded bg-desicionInvest/50",
-        range: "text-foreground bg-primary rounded-sm",
+        range: "text-foreground bg-background text-foreground rounded-sm",
         sectorAndExchange: "bg-primary rounded  text-primary-foreground",
         binance: `bg-binance text-[#1E1F24]`,
         coinbase: `bg-coinbase`,
@@ -58,7 +58,7 @@ function Badge({ className, variant, color, ...props }: BadgeProps) {
   const colorClass = colorMap[color as keyof typeof colorMap] || colorMap.blue;
   return (
     <div
-      className={cn(badgeVariants({ variant }), className, "text-background")}
+      className={cn(badgeVariants({ variant }), className, variant  === 'range' ? "text-foreground": "text-background")}
       {...props}
     >
       {(variant === "fourE" || variant === "range") && (

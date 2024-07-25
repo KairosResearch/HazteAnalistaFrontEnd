@@ -10,7 +10,7 @@ import { X } from "lucide-react";
 import DialogItem from "@/components/dashboard/form/DialogItem";
 
 import { DialogInfoProps, InfoTabsProps, ProyectsInfo } from "@/index";
-import InfoTabs from "./InfoTabs";
+import InfoTabs from "../InfoTabs";
 import { getProyectById } from "@/services/backend/proyectsInfo";
 import EditProjectButton from "@/components/dashboard/EditProjectButton";
 
@@ -69,7 +69,7 @@ const DialogInfo = ({
               ></X>
             </DialogHeader>
 
-            {info != null && <InfoTabs info={info} />}
+            {info != null && <InfoTabs info={info}  hasAnalisis={selectedRow.hasAnalisis}/>}
           </>
         )}
       </DialogContent>

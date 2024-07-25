@@ -8,17 +8,18 @@ const ShowAvarages = () => {
   //Change the promedio (avg) everytime cuantitative and cualitative averages update, this will trigger the useEffect
 
   useEffect(() => {
-    setPromedio(cuantitativePromedio + cualitativePromedio);
+    setPromedio((cuantitativePromedio + cualitativePromedio)/2);
+    console.log("promedio", promedio);
   }, [cuantitativePromedio, cualitativePromedio]);
   return (
-    <div className="sticky top-[-1px] z-20 mt-10 bg-dark-black/95 text-primary-foreground/70 w-full rounded flex flex-col text-sm  p-1 px-2">
-      <div>
-        <h2>Promedio del proyecto: {promedio}%</h2>
+    <div className="fixed md:sticky md:top-[-1px] top-12 right-9  z-20 mt-10 bg-dark-black/95 text-primary-foreground/70 w-[12%] md:w-full rounded flex flex-col text-sm  p-1 px-2">
+      <div className="">
+        <h2 className="mt-0"><span className="hidden md:inline">Promedio del proyecto:</span> <span className="">{promedio}%</span> </h2>
       </div>
-      <div>
+      <div className="hidden md:block">
         <h2>Promedio cualitativo: {cualitativePromedio}%</h2>
       </div>
-      <div>
+      <div className="hidden md:block">
         <h2>Promedio del cuantitativo: {cuantitativePromedio}%</h2>
       </div>
     </div>

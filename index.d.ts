@@ -62,6 +62,7 @@ interface TableData {
   idExchange: number;
   precioEntrada: number;
   price: number;
+  hasAnalisis: 0 | 1;
 }
 
 //Changes comparing to -> TableData
@@ -189,6 +190,7 @@ interface DialogInfoProps {
   isDialogOpen: boolean;
   close: () => void;
   selectedRow: {
+    id_proyectoInicial: number;
     id_proyecto: number;
     proyecto: string;
     ticker: string;
@@ -198,6 +200,7 @@ interface DialogInfoProps {
     sectores: number[];
     idExchange: number;
     precioEntrada: number;
+    hasAnalisis: 0 | 1;
   } | null;
   catalogos: CatalogosType[][];
   projectsList:
@@ -230,6 +233,8 @@ interface ProyectsInfo {
 
 interface InfoTabsProps {
   info: ProyectsInfo;
+
+  hasAnalisis: 0 | 1;
 }
 
 interface LessonPortadaProps {
@@ -248,25 +253,25 @@ interface LessonProps {
   html_leccion: string;
 }
 interface AnalisysInitialvaluesCual {
-  id_usuario: number;
-  id_proyecto: number;
-  id_caso_uso: number;
-  id_integrantes_equipo: number;
-  id_auditoria: number;
-  id_roadmap: number;
-  id_comunidad: number;
-  id_financiamiento: number;
-  id_whitepapaers: number;
-  id_alianzas: number;
+  id_usuario: number[];
+  id_proyecto: number[];
+  id_caso_uso: number[];
+  id_integrantes_equipo: number[];
+  id_auditoria: number[];
+  id_roadmap: number[];
+  id_comunidad: number[];
+  id_financiamiento: number[];
+  id_whitepapaers: number[];
+  id_alianzas: number[];
   promedio: number;
 }
 interface AnalisysInitialvaluesCuant {
-  id_usuario: number;
-  id_proyecto: number;
-  id_tokenomic: number;
-  id_movimientosOnChain: number;
-  id_metricasExchage: number;
-  id_financiamitos: number;
+  id_usuario: number[];
+  id_proyecto: number[];
+  id_tokenomic: number[];
+  id_movimientosOnChain: number[];
+  id_metricasExchage: number[];
+  id_financiamitos: number[];
   promedio: number;
 }
 interface AnalisysResponse {

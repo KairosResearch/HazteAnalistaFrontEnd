@@ -89,19 +89,35 @@ const ListProjects = () => {
               </Badge>
             </div>
 
-            <div className="flex gap-4 ">
-              <Link
-                href={`/analysis/${project.proyecto}/edit`}
-                onClick={() => setProjectId(project.id_proyectoInicial)}
-              >
-                <p className=" underline text-gray-200">Editar</p>
-              </Link>
-              <Link
-                href={`/analysis/${project.proyecto}/add`}
-                onClick={() => setProjectId(project.id_proyectoInicial)}
-              >
-                <p className=" underline text-gray-200">Realizar análisis</p>
-              </Link>
+            <div className="flex gap-1 md:gap-4 ">
+              {
+                project.hasAnalisis === 1 ? (
+                <>
+                  <Badge variant={"range"} color="green"><span className="hidden md:inline">Analizado</span></Badge>
+                   <Link
+                    href={`/analysis/${project.proyecto}/edit`}
+                    onClick={() => setProjectId(project.id_proyectoInicial)}
+                  >
+                    <p className=" underline text-gray-200">Editar</p>
+                  </Link>
+                </>
+                 
+                ) : (
+                  <>
+                  <Badge variant={"range"} color="red"><span className="hidden md:inline">Sin analizar</span></Badge>
+                    <Link
+                      href={`/analysis/${project.proyecto}/add`}
+                      onClick={() => setProjectId(project.id_proyectoInicial)}
+                    >
+                      <p className=" underline text-gray-200">Realizar análisis</p>
+                    </Link>
+                  </>
+                  
+                )
+
+              }
+              
+              
             </div>
           </div>
           <CardContent>

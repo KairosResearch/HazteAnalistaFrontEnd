@@ -10,7 +10,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import DashboardHeader from "./DashboardHeader";
-import DialogInfo from "./DialogInfo";
+import DialogInfo from "./info/DialogInfo";
 import { Checkbox } from "../ui/checkbox";
 
 import { Badge } from "../ui/badge";
