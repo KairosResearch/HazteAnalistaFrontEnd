@@ -51,10 +51,10 @@ const CualitativeFields = ({
           render={({ field }) => (
             <div className="w-full flex flex-col gap-3 ml-6">
             {item.map((item) => (
-              <div className="flex items-center gap-3">
+              <div  key={item.id} className="flex items-center gap-3">
 
 <Checkbox
-                key={item.id}
+               
                 checked={field.value?.includes(item.id)}
                 
                 onCheckedChange={(checked) => {
