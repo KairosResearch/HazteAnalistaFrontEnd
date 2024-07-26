@@ -19,7 +19,7 @@ export const getProyectNumbers = async (symbol: string) => {
         "X-CMC_PRO_API_KEY": "a3d40011-8f49-4c61-8707-62b34bee12ea",
       },
       next: {
-        revalidate: 180,
+        revalidate: 2180,
       },
     });
     const resData = await response.json();

@@ -7,6 +7,7 @@ import Image from "next/image";
 import { InfoTabsProps } from "@/index";
 import { useRouter } from "next/navigation";
 import AnalizysSection from "./info/AnalizysSection";
+import TextEditor from "./info/TextEditor";
 
 const InfoTabs = ({ info, hasAnalisis }: InfoTabsProps) => {
   
@@ -21,6 +22,7 @@ const InfoTabs = ({ info, hasAnalisis }: InfoTabsProps) => {
         <TabsTrigger value="links">Links</TabsTrigger>
         <TabsTrigger value="finance">Financiamiento</TabsTrigger>
         <TabsTrigger value="analyzis">Analisis</TabsTrigger>
+        <TabsTrigger value="notes">Notas</TabsTrigger>
       </TabsList>
       <div className="border-t border-grey-light"></div>
       <TabsContent className="min-h-[250px]" value="description">
@@ -147,6 +149,16 @@ const InfoTabs = ({ info, hasAnalisis }: InfoTabsProps) => {
         info={info}
         hasAnalisis={hasAnalisis}
       />
+      </TabsContent>
+      <TabsContent className="min-h-[250px]" value="notes">
+        <h2 className="text-xl md:text-2xl font-bold mb-3">Notas</h2>
+        <div
+          className="border rounded-sm p-2
+                     bg-primary-foreground/80 text-dark-grey
+                     w-[96%] mx-auto "
+        >
+          <TextEditor />
+        </div>
       </TabsContent>
       
     </Tabs>
