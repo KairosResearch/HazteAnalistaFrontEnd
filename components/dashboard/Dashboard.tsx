@@ -35,17 +35,52 @@ import { tableDataDefault } from "@/lib/data";
 import { TableData } from "@/index";
 import { DashboardProps } from "@/index";
 import { handleGetProyects } from "@/actions/proyectActions";
+
+//hooks
+import { useProjects } from "@/hooks/useProjects";
 import { useDialogItem } from "@/hooks/useDialogs";
 import DialogItem from "./form/DialogItem";
 
 const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
+  const [tableData, setTableData] = useState<TableData[]>([]);
+  const [guzma, setGuzma] = useState<number | null>(null);
+  
   const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.localStorage.getItem("guzma") !== null) {
+      setGuzma(Number(window.localStorage.getItem("guzma")));
+    }
+  }, []);
+
+  const { data: projects, isLoading } = useProjects(guzma ?? 0);
+  
+  useEffect(() => {
+    if (guzma !== null) {
+      setLoading(isLoading);
+      setTableData(projects as TableData[]);
+    }
+    const takenProjectsSet = new Set(tableData?.map((pr) => pr.proyecto));
+          // Filtrar projectList para incluir solo proyectos no tomados
+          const availableProjects =
+            projectsList?.filter((pr) => !takenProjectsSet.has(pr.proyecto)) ||
+            [];
+          setAvaliableProjects(availableProjects);
+  }, [guzma, isLoading, projects]);
+  useEffect(() => {
+    if (guzma !== null) {
+      setLoading(isLoading);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [guzma, isLoading]);
+
+
+
 
   const { userTableData } = useUserTableData();
 
   const { setIsOpen } = useDialogItem();
 
-  const [tableData, setTableData] = useState<TableData[]>([]);
+  
 
   const [prToDelete, setPrToDelete] = useState<number[]>([]);
 
@@ -57,38 +92,52 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedRow, setSelectedRow] = useState<any>(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      if (
-        typeof window !== undefined &&
-        window.localStorage.getItem("guzma") !== null
-      ) {
-        const guzma = Number(window.localStorage.getItem("guzma"));
-        console.log("guzma", guzma);
-        // console.log('userid', userId)
-        const data = (await handleGetProyects(guzma ?? 0)) as
-          | TableData[]
-          | string;
-        if (typeof data === "string") {
-          setTableData([]);
-        } else {
-          // Crear un conjunto con los nombres de los proyectos ya tomados
-          const takenProjectsSet = new Set(data?.map((pr) => pr.proyecto));
-          // Filtrar projectList para incluir solo proyectos no tomados
-          const availableProjects =
-            projectsList?.filter((pr) => !takenProjectsSet.has(pr.proyecto)) ||
-            [];
-          setAvaliableProjects(availableProjects);
 
-          setTableData(data || []);
-        }
-      }
-      setLoading(false);
-    };
-    fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userTableData]);
+
+
+
+
+
+
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     setLoading(true);
+  //     if (
+  //       typeof window !== undefined &&
+  //       window.localStorage.getItem("guzma") !== null
+  //     ) {
+  //       const guzma = Number(window.localStorage.getItem("guzma"));
+  //       console.log("guzma", guzma);
+  //       // console.log('userid', userId)
+  //       const data = (await handleGetProyects(guzma ?? 0)) as
+  //         | TableData[]
+  //         | string;
+  //       if (typeof data === "string") {
+  //         setTableData([]);
+  //       } else {
+  //         // Crear un conjunto con los nombres de los proyectos ya tomados
+  //         const takenProjectsSet = new Set(data?.map((pr) => pr.proyecto));
+  //         // Filtrar projectList para incluir solo proyectos no tomados
+  //         const availableProjects =
+  //           projectsList?.filter((pr) => !takenProjectsSet.has(pr.proyecto)) ||
+  //           [];
+  //         setAvaliableProjects(availableProjects);
+
+  //         setTableData(data || []);
+  //       }
+  //     }
+  //     setLoading(false);
+  //   };
+  //   fetchData();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [userTableData]);
+
+
+
+
+
+
 
   const sectores = catalogos[3];
 

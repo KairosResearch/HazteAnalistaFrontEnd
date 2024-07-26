@@ -8,44 +8,34 @@ import { Badge } from "@/components/ui/badge";
 import Loading from "../shared/Loading";
 import SkeletonListItem from "../shared/skeletons/SkeletonListItem";
 import { useProjectId } from "@/hooks/useAnalisys";
+import { useProjects } from "@/hooks/useProjects";
 
 const ListProjects = () => {
   const [projectsSaved, setProjectsSaved] = useState<TableData[]>([]);
   const [loading, setLoading] = useState(false);
   const { setProjectId } = useProjectId();
+  const [guzma, setGuzma] = useState<number | null>(null);
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.localStorage.getItem("guzma") !== null) {
+      setGuzma(Number(window.localStorage.getItem("guzma")));
+    }
+  }, []);
+
+  const { data: projects, isLoading } = useProjects(guzma ?? 0);
 
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      if (
-        typeof window !== undefined &&
-        window.localStorage.getItem("guzma") !== null
-      ) {
-        const guzma = Number(window.localStorage.getItem("guzma"));
-        console.log("guzma", guzma);
-        // console.log('userid', userId)
-        const data = (await handleGetProyects(guzma ?? 0)) as
-          | TableData[]
-          | string;
-        if (typeof data === "string") {
-          setProjectsSaved([]);
-        } else {
-          // // Crear un conjunto con los nombres de los proyectos ya tomados
-          // const takenProjectsSet = new Set(data?.map((pr) => pr.proyecto));
-          // // Filtrar projectList para incluir solo proyectos no tomados
-          // const availableProjects =
-          //   projectsList?.filter((pr) => !takenProjectsSet.has(pr.proyecto)) ||
-          //   [];
-          // setAvaliableProjects(availableProjects);
-
-          setProjectsSaved(data);
-        }
-      }
-      setLoading(false);
-    };
-    fetchData();
+    if (guzma !== null) {
+      setProjectsSaved(projects as TableData[]);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [guzma, projects]);
+
+  useEffect(() => {
+    if (guzma !== null) {
+      setLoading(isLoading);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [guzma, isLoading]);
 
   return (
     <div className="grid gap-4">

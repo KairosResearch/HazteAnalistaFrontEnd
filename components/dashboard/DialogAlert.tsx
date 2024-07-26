@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, {useState, useEffect} from "react";
 //types:
 import { DialogAlertProps } from "@/index";
 
@@ -21,12 +21,19 @@ import { Button } from "@/components/ui/button";
 import { handleDeleteProyect } from "@/actions/proyectActions";
 import { TableHead } from "@/components/ui/table";
 import Image from "next/image";
+import { useProjects } from "@/hooks/useProjects";
 
 const DialogAlert = ({ prToDelete, clean }: DialogAlertProps) => {
   //to modify the global state
   const { setUserTableData } = useUserTableData();
-
+  const [guzma, setGuzma] = useState<number | null>(null);
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.localStorage.getItem("guzma") !== null) {
+      setGuzma(Number(window.localStorage.getItem("guzma")));
+    }
+  }, []);
   const [count, setCount] = React.useState(0);
+  const { mutate } = useProjects(guzma ?? 0);
   // const [isOpen, setIsOpen] = React.useState(false);
   // const [error, setError] = React.useState("");
   // const [loading, setLoading] = React.useState(false);
@@ -45,9 +52,10 @@ const DialogAlert = ({ prToDelete, clean }: DialogAlertProps) => {
       if (deleted.error) {
         alert("Error al eliminar el proyecto");
       } else {
-        setCount(count + 1);
-        console.log(count);
-        setUserTableData(["Cambio" + count]);
+        // setCount(count + 1);
+        // console.log(count);
+        // setUserTableData(["Cambio" + count]);
+        mutate()
         clean();
       }
     }
