@@ -1,15 +1,21 @@
 "use client";
+//Imports for the component
+//React
 import React, { useEffect } from "react";
+//Values and utilities
 // import { getLastElement } from "@/utils/lessons/ultimoElemento";
 import { AllModules, LessonPortadaProps, LessonProps } from "@/index";
 // import {
 //   getLastElement,
 //   lessonsCompletedArray,
 // } from "@/utils/lessons/lessonsUtils";
-import LessonsCard from "./LessonsCard";
+//Services API
 import { getLastLesson } from "@/services/backend/lessons";
+//Components
 import { Separator } from "../ui/separator";
 import SkeletonCard from "../shared/skeletons/SkeletonCard";
+import LessonsCard from "./LessonsCard";
+//Hooks
 import { useLessons } from "@/hooks/useLessons";
 import { useUserGuzma } from "@/hooks/useUserData";
 

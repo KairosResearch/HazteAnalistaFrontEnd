@@ -1,6 +1,21 @@
 "use client";
+//Imports for the component
+//React
 import React, { useEffect, useState, Suspense } from "react";
 import { LOW, MID, LARGE } from "@/lib/constants";
+//components
+import DialogInfo from "./info/DialogInfo";
+import DashboardHeader from "./DashboardHeader";
+import SkeletonTable from "../shared/skeletons/SkeletonTable";
+import DialogItem from "./form/DialogItem";
+//Values and utilities
+import { TableData } from "@/index";
+import { DashboardProps } from "@/index";
+import { handleGetProyects } from "@/actions/proyectActions";
+import { tableDataDefault } from "@/lib/data";
+//Calculous
+import { rangeDesigner } from "@/utils";
+import { rendimientoCalculator } from "@/utils";
 import {
   Table,
   TableBody,
@@ -9,34 +24,22 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import DashboardHeader from "./DashboardHeader";
-import DialogInfo from "./info/DialogInfo";
-import { Checkbox } from "../ui/checkbox";
-
-import { Badge } from "../ui/badge";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
-import SkeletonTable from "../shared/skeletons/SkeletonTable";
-
-//Calculous
-import { rangeDesigner } from "@/utils";
-import { rendimientoCalculator } from "@/utils";
-
-//Hook de useUserData
-// import { useUserData } from '@/hooks/useUserData';
-import { useUserTableData } from "@/hooks/useUserData";
-import { tableDataDefault } from "@/lib/data";
-
-import { TableData } from "@/index";
-import { DashboardProps } from "@/index";
-import { handleGetProyects } from "@/actions/proyectActions";
+//Ui needed
+import { Checkbox } from "../ui/checkbox";
+import { Badge } from "../ui/badge";
+//Hooks
 import { useDialogItem } from "@/hooks/useDialogs";
-import DialogItem from "./form/DialogItem";
+import { useUserTableData } from "@/hooks/useUserData";
+// import { useUserData } from '@/hooks/useUserData';
+
+
+
 
 const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
   const [loading, setLoading] = useState(false);

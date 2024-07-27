@@ -1,12 +1,18 @@
 "use client";
+//Imports for the component
+//React
 import React, { useEffect, useState } from "react";
+//Next
+import Link from "next/link";
 import { TableData } from "@/index";
 import { handleGetProyects } from "@/actions/proyectActions";
+//Ui needed
 import { Card, CardContent } from "../ui/card";
-import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
+//components
 import Loading from "../shared/Loading";
 import SkeletonListItem from "../shared/skeletons/SkeletonListItem";
+//Hooks
 import { useProjectId } from "@/hooks/useAnalisys";
 
 const ListProjects = () => {

@@ -1,4 +1,6 @@
 "use client";
+//Imports for the component
+//React
 import React, { useEffect, useState } from "react";
 import { AnalisysCatalogs } from "@/index";
 import AnalysisForm from "@/components/analysis/AnalysisForm";
