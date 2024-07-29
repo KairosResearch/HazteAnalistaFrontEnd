@@ -9,10 +9,13 @@ import { useRouter } from "next/navigation";
 import AnalizysSection from "./info/AnalizysSection";
 import TextEditor from "./info/TextEditor";
 
-const InfoTabs = ({ info, hasAnalisis }: InfoTabsProps) => {
-  
-
-  
+const InfoTabs = ({
+  info,
+  tieneAnalisisCualitativo,
+  tieneAnalisisCuantitavivo,
+  id_analisis_cualitativo,
+  id_analisis_cuantitativo,
+}: InfoTabsProps) => {
   return (
     <Tabs defaultValue="description">
       <TabsList className="pl-0 md:pl-1">
@@ -143,12 +146,13 @@ const InfoTabs = ({ info, hasAnalisis }: InfoTabsProps) => {
         </section>
       </TabsContent>
       <TabsContent className="min-h-[250px]" value="analyzis">
-
-      
-      <AnalizysSection 
-        info={info}
-        hasAnalisis={hasAnalisis}
-      />
+        <AnalizysSection
+          info={info}
+          tieneAnalisisCualitativo={tieneAnalisisCualitativo}
+          tieneAnalisisCuantitavivo={tieneAnalisisCuantitavivo}
+          id_analisis_cualitativo={id_analisis_cualitativo}
+          id_analisis_cuantitativo={id_analisis_cuantitativo}
+        />
       </TabsContent>
       <TabsContent className="min-h-[250px]" value="notes">
         <h2 className="text-xl md:text-2xl font-bold mb-3">Notas</h2>
@@ -160,7 +164,6 @@ const InfoTabs = ({ info, hasAnalisis }: InfoTabsProps) => {
           <TextEditor />
         </div>
       </TabsContent>
-      
     </Tabs>
   );
 };

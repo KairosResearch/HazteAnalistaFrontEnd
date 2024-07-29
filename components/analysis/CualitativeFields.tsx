@@ -15,7 +15,7 @@ import { AnalisysCatalogs } from "@/index";
 import { ValueObject } from "@/index";
 
 interface CualitativeFieldsProps {
-  mode: "edit" | "add";
+  mode: "add" | "edit-both" | "edit-cual" | "edit-cuant";
   data: AnalisysCatalogs;
   setCualitativeValues: (value: any) => void;
 }

@@ -81,11 +81,11 @@ const ListProjects = () => {
 
             <div className="flex gap-1 md:gap-4 ">
               {
-                project.hasAnalisis === 1 ? (
+                project.tieneAnalisisCualitativo || project.tieneAnalisisCuantitavivo ? (
                 <>
                   <Badge variant={"range"} color="green"><span className="hidden md:inline">Analizado</span></Badge>
                    <Link
-                    href={`/analysis/${project.proyecto}/edit`}
+                    href={`/analysis/${project.proyecto}/edit/${project.id_analisis_cualitativo}/${project.id_analisis_cuantitavivo}`}
                     onClick={() => setProjectId(project.id_proyectoInicial)}
                   >
                     <p className=" underline text-gray-200">Editar</p>
@@ -96,7 +96,7 @@ const ListProjects = () => {
                   <>
                   <Badge variant={"range"} color="red"><span className="hidden md:inline">Sin analizar</span></Badge>
                     <Link
-                      href={`/analysis/${project.proyecto}/add`}
+                      href={`/analysis/${project.proyecto}/add/0/0`}
                       onClick={() => setProjectId(project.id_proyectoInicial)}
                     >
                       <p className=" underline text-gray-200">Realizar análisis</p>

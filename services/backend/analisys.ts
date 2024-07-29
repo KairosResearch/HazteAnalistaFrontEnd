@@ -2,10 +2,10 @@
 import { AUTH_URL } from "./urls";
 
 //Get
-export const getSingleAnalisysCualitative = async (id: number, pr: number) => {
+export const getSingleAnalisysCualitative = async (id: number) => {
   try {
     const response = await fetch(
-      `${AUTH_URL}getAnalisisCualitativo/${id}/${pr}/`,
+      `${AUTH_URL}getAnalisisCualitativo/${id}`,
       {
         method: "GET",
         headers: {
@@ -15,15 +15,15 @@ export const getSingleAnalisysCualitative = async (id: number, pr: number) => {
     );
     const data = await response.json();
 
-    return data[0];
+    return data;
   } catch (err) {
     console.error(err);
   }
 };
-export const getSingleAnalisysCuantitative = async (id: number, pr: number) => {
+export const getSingleAnalisysCuantitative = async (id: number) => {
   try {
     const response = await fetch(
-      `${AUTH_URL}getAnalisisCuantitativo/${id}/${pr}/`,
+      `${AUTH_URL}getAnalisisCuantitativo/${id}`,
       {
         method: "GET",
         headers: {
@@ -33,7 +33,7 @@ export const getSingleAnalisysCuantitative = async (id: number, pr: number) => {
     );
     const data = await response.json();
 
-    return data[0];
+    return data;
   } catch (err) {
     console.error(err);
   }

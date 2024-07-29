@@ -10,14 +10,14 @@ import {
 import { AnalisysResponse } from "..";
 
 export const handleGetSingleAnalisys = async (
-  guzma: number,
-  projectId: number,
+  idCuant: number,
+  idCual: number,
 ) => {
-  const allCualitative = await getSingleAnalisysCualitative(guzma, projectId);
-  console.log("All Cualitative", allCualitative);
-
-  const allCuantitative = await getSingleAnalisysCuantitative(guzma, projectId);
-
+  const allCualitative = await getSingleAnalisysCualitative(idCual);
+  
+  console.log(idCuant)
+  const allCuantitative = await getSingleAnalisysCuantitative(idCuant);
+  console.log("All Cualitative", allCuantitative);
   return {
     filteredCualitative: allCualitative,
     filteredCuantitative: allCuantitative,

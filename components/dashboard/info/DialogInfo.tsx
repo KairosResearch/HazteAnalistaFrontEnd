@@ -69,7 +69,11 @@ const DialogInfo = ({
               ></X>
             </DialogHeader>
 
-            {info != null && <InfoTabs info={info}  hasAnalisis={selectedRow.hasAnalisis}/>}
+            {info != null && <InfoTabs info={info}  tieneAnalisisCualitativo={selectedRow.tieneAnalisisCualitativo}
+              tieneAnalisisCuantitavivo={selectedRow.tieneAnalisisCuantitavivo}
+              id_analisis_cualitativo={selectedRow.id_analisis_cualitativo}
+              id_analisis_cuantitativo={selectedRow.id_analisis_cuantitativo}
+            />}
           </>
         )}
       </DialogContent>

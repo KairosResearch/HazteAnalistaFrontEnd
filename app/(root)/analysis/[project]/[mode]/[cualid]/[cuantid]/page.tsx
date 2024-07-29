@@ -24,6 +24,8 @@ interface pageProps {
   params: {
     project: string;
     mode: "add" | "edit";
+    cualid: string;
+    cuantid: string;
   };
 }
 
@@ -46,7 +48,7 @@ const page = async ({ params }: pageProps) => {
     getExchanges(),
   ]);
 
-  const mode = params.mode;
+  const mode = params.mode === 'edit' ? params.cualid === '0' ? "edit-cuant" : params.cuantid === '0' ? "edit-cual" : "edit-both" : "add";
   console.log(mode);
   return (
     <>
@@ -75,6 +77,8 @@ const page = async ({ params }: pageProps) => {
               type="cual"
               data={dropdownNeedsCualitative}
               mode={mode}
+              cualId={Number(params.cualid)}
+              cuantId={null}
             />
           </CardContent>
         </Card>
@@ -90,6 +94,8 @@ const page = async ({ params }: pageProps) => {
               type="cuant"
               data={dropdownNeedsCuantitative}
               mode={mode}
+              cuantId={Number(params.cuantid)}
+              cualId={null}
             />
           </CardContent>
         </Card>

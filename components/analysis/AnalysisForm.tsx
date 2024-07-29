@@ -35,7 +35,7 @@ import { ValueObject, AnalisysCatalogs, AnalisysResponse } from "@/index";
 import Loading from "../shared/Loading";
 interface AnalysisFormProps {
   type: "cual" | "cuant";
-  mode: "add" | "edit";
+  mode: "add" | "edit-both" | "edit-cual" | "edit-cuant";
 
   data: AnalisysCatalogs;
   initialValues: AnalisysResponse | null;
@@ -51,9 +51,7 @@ const AnalysisForm = ({
 
   // const [successCualitative, setSuccessCualitative] = useState(false);
   const { setCaulitativePromedio, cualitativePromedio } = useAverages();
-  const [cuantitativeValues, setCuantitativeValues] = useState<number>(
-    0
-  );
+  const [cuantitativeValues, setCuantitativeValues] = useState<number>(0);
   // const [successCuantitative, setSuccessCuantitative] = useState(false);
   const { setCuantitativePromedio, cuantitativePromedio } = useAverages();
   const [success, setSuccess] = useState(false);
@@ -64,36 +62,38 @@ const AnalysisForm = ({
   const b = initialValues?.filteredCuantitative;
 
   const initialValuesForm =
-    mode === "edit" && a && b
+    (mode === "edit-both" || mode === "edit-cual" || mode === "edit-cuant") &&
+    a &&
+    b
       ? type === "cual"
         ? {
-            alianzas: a.id_alianzas,
-            auditorias: a.id_auditoria,
-            equipo: a.id_integrantes_equipo,
-            financeCual: a.id_financiamiento,
-            whitepaper: a.id_whitepapaers,
-            roadmap: a.id_roadmap,
-            comunidad: a.id_comunidad,
-            casosUso: a.id_caso_uso,
+            alianzas: a.alianzas,
+            auditorias: a.auditoria,
+            equipo: a.integrantesEquipo,
+            financeCual: a.financiamiento,
+            whitepaper: a.whitepapaer,
+            roadmap: a.roadmap,
+            comunidad: a.comunidad,
+            casosUso: a.caso_uso,
             tokenomics: [0],
             onChain: [0],
             finance: [0],
             exchange: [0],
           }
         : {
-            tokenomics: b.id_tokenomic,
-            onChain: b.id_movimientosOnChain,
-            finance: b.id_financiamitos,
-            exchange: b.id_financiamitos,
+            tokenomics: b.tokenomics,
+            onChain: b.onchains,
+            finance: b.financiamiento,
+            exchange: b.metricasExchange,
           }
-          //If mode is add
-      : type === "cual"
+      : //If mode is add
+        type === "cual"
         ? {
-            alianzas: [1],
+            alianzas: [],
             auditorias: [],
             equipo: [],
             financeCual: [],
-            whitepaper: [2],
+            whitepaper: [],
             roadmap: [],
             comunidad: [],
             casosUso: [],
@@ -103,7 +103,7 @@ const AnalysisForm = ({
             exchange: [],
           }
         : {
-            tokenomics: [1, 2, 3],
+            tokenomics: [],
             onChain: [],
             finance: [],
             exchange: [],
@@ -121,12 +121,8 @@ const AnalysisForm = ({
   //Para calcular promedio de cualitativos
   useEffect(() => {
     const debouncedFunction = debounce(() => {
-      if (cualitativeValues> 0) {
-        
-
-        
-        setCaulitativePromedio(cualitativeValues*2);
-        
+      if (cualitativeValues > 0) {
+        setCaulitativePromedio(cualitativeValues * 2);
       }
     }, 500);
 
@@ -135,17 +131,13 @@ const AnalysisForm = ({
     }
     console.log("Cualitative Values", cualitativeValues);
     return () => debouncedFunction.cancel();
-  
   }, [cualitativeValues]);
-
 
   //Para calcular promedio de cuantitativos
   useEffect(() => {
     const debouncedFunction = debounce(() => {
       if (cuantitativeValues > 0) {
-        
-
-        setCuantitativePromedio(cuantitativeValues*2)
+        setCuantitativePromedio(cuantitativeValues * 2);
       }
     }, 500);
 
@@ -154,7 +146,6 @@ const AnalysisForm = ({
     }
 
     return () => debouncedFunction.cancel();
-    
   }, [cuantitativeValues]);
 
   // Submit handler
@@ -169,24 +160,89 @@ const AnalysisForm = ({
         const projectId = Number(localStorage.getItem("projectId"));
         if (mode === "add") {
           console.log("Creando con estos values: ", values);
-          // const response = await handleCreateAnalisys(
-          //   values,
-          //   guzma,
-          //   projectId,
-          //   type,
-          // );
-          // console.log("Response", response);
-          // if (response) {
-          //   // Primero, mostrar el mensaje de éxito
-          //   setSuccess(true);
-          //   // Luego, después de 1 segundo, ocultar el mensaje
-          //   setTimeout(() => {
-          //     setSuccess(false);
-          //   }, 3000); // Ajusta este tiempo según sea necesario
-          // }
+          const response = await handleCreateAnalisys(
+            values,
+            guzma,
+            projectId,
+            type,
+          );
+          console.log("Response", response);
+          if (response) {
+            // Primero, mostrar el mensaje de éxito
+            setSuccess(true);
+            // Luego, después de 1 segundo, ocultar el mensaje
+            setTimeout(() => {
+              setSuccess(false);
+            }, 3000); // Ajusta este tiempo según sea necesario
+          }
           setIsLoading(false);
+        } else if (mode === "edit-cual") {
+          if (type === "cuant") {
+            const response = await handleCreateAnalisys(
+              values,
+              guzma,
+              projectId,
+              type,
+            );
+            if (response) {
+              // Primero, mostrar el mensaje de éxito
+              setSuccess(true);
+              // Luego, después de 1 segundo, ocultar el mensaje
+              setTimeout(() => {
+                setSuccess(false);
+              }, 3000); // Ajusta este tiempo según sea necesario
+            }
+          } else {
+            const response = await handleUpdateAnalisys(
+              values,
+              guzma,
+              projectId,
+              type,
+            );
+            if (response) {
+              // Primero, mostrar el mensaje de éxito
+              setSuccess(true);
+              // Luego, después de 1 segundo, ocultar el mensaje
+              setTimeout(() => {
+                setSuccess(false);
+              }, 3000); // Ajusta este tiempo según sea necesario
+            }
+          }
+        } else if (mode === "edit-cuant") {
+          if (type === "cual") {
+            const response = await handleCreateAnalisys(
+              values,
+              guzma,
+              projectId,
+              type,
+            );
+            if (response) {
+              // Primero, mostrar el mensaje de éxito
+              setSuccess(true);
+              // Luego, después de 1 segundo, ocultar el mensaje
+              setTimeout(() => {
+                setSuccess(false);
+              }, 3000); // Ajusta este tiempo según sea necesario
+            }
+          } else {
+            const response = await handleUpdateAnalisys(
+              values,
+              guzma,
+              projectId,
+              type,
+            );
+            if (response) {
+              // Primero, mostrar el mensaje de éxito
+              setSuccess(true);
+              // Luego, después de 1 segundo, ocultar el mensaje
+              setTimeout(() => {
+                setSuccess(false);
+              }, 3000); // Ajusta este tiempo según sea necesario
+            }
+          }
         } else {
-          console.log("Editando con estos values: ", values);
+          
+
           const response = await handleUpdateAnalisys(
             values,
             guzma,
@@ -218,7 +274,7 @@ const AnalysisForm = ({
         idFinanciamiento: values.financeCual,
         idWhitepapaers: values.whitepaper,
         idAlianzas: values.alianzas,
-        promedio: cualitativePromedio,
+        suma: cualitativePromedio,
       };
       console.log("Backend Values", backendValues);
 
@@ -229,7 +285,7 @@ const AnalysisForm = ({
         idMovimientosOnChain: values.onChain,
         idMetricasExchange: values.exchange,
         idFinanciamiento: values.finance,
-        promedio: cuantitativePromedio,
+        suma: cuantitativePromedio,
       };
       console.log("Backend Values", backendValues);
       submitHandler(backendValues);
