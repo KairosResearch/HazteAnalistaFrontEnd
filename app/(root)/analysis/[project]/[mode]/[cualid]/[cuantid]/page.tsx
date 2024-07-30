@@ -78,7 +78,7 @@ const page = async ({ params }: pageProps) => {
               data={dropdownNeedsCualitative}
               mode={mode}
               cualId={Number(params.cualid)}
-              cuantId={null}
+              cuantId={Number(params.cuantid)}
             />
           </CardContent>
         </Card>
@@ -95,7 +95,7 @@ const page = async ({ params }: pageProps) => {
               data={dropdownNeedsCuantitative}
               mode={mode}
               cuantId={Number(params.cuantid)}
-              cualId={null}
+              cualId={Number(params.cualid)}
             />
           </CardContent>
         </Card>

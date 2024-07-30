@@ -24,7 +24,7 @@ const AnalizysSection = ({
       console.log(tieneAnalisisCualitativo, tieneAnalisisCuantitavivo);
       if (tieneAnalisisCuantitavivo || tieneAnalisisCualitativo) {
 
-        const response = await handleGetSingleAnalisys(id_analisis_cuantitativo, id_analisis_cualitativo);
+        const response = await handleGetSingleAnalisys(id_analisis_cualitativo, id_analisis_cuantitativo);
         console.log("recien", response);
         if (response) {
           if(tieneAnalisisCuantitavivo){

@@ -66,7 +66,7 @@ interface TableData {
   tieneAnalisisCualitativo: boolean;
   tieneAnalisisCuantitavivo: boolean
   id_analisis_cualitativo: number ;
-  id_analisis_cuantitavivo: number ;
+  id_analisis_cuantitativo: number ;
 }
 
 //Changes comparing to -> TableData

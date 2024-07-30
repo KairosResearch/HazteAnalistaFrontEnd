@@ -39,6 +39,8 @@ interface AnalysisFormProps {
 
   data: AnalisysCatalogs;
   initialValues: AnalisysResponse | null;
+  cualId: number | null;
+  cuantId: number| null;
 }
 
 const AnalysisForm = ({
@@ -46,14 +48,16 @@ const AnalysisForm = ({
   mode,
   data,
   initialValues,
+  cuantId, 
+  cualId
 }: AnalysisFormProps) => {
-  const [cualitativeValues, setCualitativeValues] = useState<number>(0);
+ 
 
-  // const [successCualitative, setSuccessCualitative] = useState(false);
   const { setCaulitativePromedio, cualitativePromedio } = useAverages();
-  const [cuantitativeValues, setCuantitativeValues] = useState<number>(0);
-  // const [successCuantitative, setSuccessCuantitative] = useState(false);
+  const [cualitativeValues, setCualitativeValues] = useState<number>(cualitativePromedio/2);
+  
   const { setCuantitativePromedio, cuantitativePromedio } = useAverages();
+  const [cuantitativeValues, setCuantitativeValues] = useState<number>(cuantitativePromedio/2);
   const [success, setSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -198,6 +202,7 @@ const AnalysisForm = ({
               guzma,
               projectId,
               type,
+              cualId??0
             );
             if (response) {
               // Primero, mostrar el mensaje de éxito
@@ -230,6 +235,7 @@ const AnalysisForm = ({
               guzma,
               projectId,
               type,
+              cuantId??0
             );
             if (response) {
               // Primero, mostrar el mensaje de éxito
@@ -241,6 +247,9 @@ const AnalysisForm = ({
             }
           }
         } else {
+          console.log(cuantId)
+          const analisysId = type === "cual" ? cualId : cuantId;
+          console.log("analisis: ", analisysId);
           
 
           const response = await handleUpdateAnalisys(
@@ -248,6 +257,7 @@ const AnalysisForm = ({
             guzma,
             projectId,
             type,
+            analisysId??0
           );
           console.log("Response", response);
           if (response) {

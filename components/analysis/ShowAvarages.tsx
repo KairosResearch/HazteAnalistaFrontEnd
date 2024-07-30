@@ -1,10 +1,17 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useDebugValue, useEffect, useState } from "react";
 import { useAverages } from "@/hooks/useAnalisys";
 
 const ShowAvarages = () => {
-  const { cuantitativePromedio, cualitativePromedio } = useAverages();
+  const { setCaulitativePromedio, setCuantitativePromedio, cuantitativePromedio, cualitativePromedio } = useAverages();
   const [promedio, setPromedio] = useState<number>(0);
+
+  useEffect(() => {
+    setCuantitativePromedio(0);
+    setCaulitativePromedio(0);
+  }, []);
+
+
   //Change the promedio (avg) everytime cuantitative and cualitative averages update, this will trigger the useEffect
 
   useEffect(() => {

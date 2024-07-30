@@ -19,6 +19,8 @@ type FormContainerProps = {
 
 const FormContainer = ({ type, mode, data, cualId, cuantId }: FormContainerProps) => {
   const { setCuantitativePromedio, setCaulitativePromedio } = useAverages();
+  const [cualAnalisisId, setCualAnalisisId] = useState<number | null>(0);
+  const [cuantAnalisisId, setCuantAnalisisId] = useState<number | null>(0);
   const initialState = 0;
  
 
@@ -27,25 +29,28 @@ const FormContainer = ({ type, mode, data, cualId, cuantId }: FormContainerProps
   useEffect(() => {
     async function fetchDataAnalysis() {
       if (mode === "edit-both" || mode === "edit-cual" || mode === "edit-cuant") {
-        console.log("Numero que necesito:", cuantId)
-        if(cuantId !== 0 && cuantId !== null){
+
+        console.log(cualId, cuantId);
+       
 
           const response = await handleGetSingleAnalisys(cualId??0, cuantId??0);
-          console.log("recien", response);
+          
           if (response) {
             if (mode === "edit-cual") {
               setInitialValues({
                 filteredCualitative: response.filteredCualitative,
                 filteredCuantitative: {
-                  tokenomics: [0],
-                  onChain: [0],
-                  finance: [0],
-                  exchange: [0],
+                  tokenomics: [],
+                  onChain: [],
+                  finance: [],
+                  exchange: [],
                 },
               });
-              setCuantitativePromedio(response.filteredCuantitative.suma[0]);
+              
+              setCaulitativePromedio(response.filteredCualitative.suma[0]);
+              setCuantitativePromedio(0);
+             
             } else if (mode === "edit-cuant") {
-              console.log("Cuantitativo", response.filteredCuantitative);
               setInitialValues({
                 filteredCualitative: {
                   alianzas: [],
@@ -53,19 +58,27 @@ const FormContainer = ({ type, mode, data, cualId, cuantId }: FormContainerProps
                   integrantesEquipo: [],
                   financiamiento: [],
                   whitepapaer: [],
+                  roadmap: [],
+                  comunidad: [],
+                  caso_uso: [],
                 },
                 filteredCuantitative: response.filteredCuantitative,
               });
-              setCaulitativePromedio(response.filteredCualitative.suma[0]);
+              setCuantitativePromedio(response.filteredCuantitative.suma[0]);
+              setCaulitativePromedio(0);
             } else if (mode === "edit-both") {
               setInitialValues(response);
-              setCuantitativePromedio(response.filteredCuantitative.suma[0]);
-              setCaulitativePromedio(response.filteredCualitative.suma[0]);
+              const cuantSum = response.filteredCuantitative.suma[0];
+              const cualSum = response.filteredCualitative.suma[0];
+              console.log("Cuantitativo", cuantSum);
+              console.log("Cualitativo", cualSum);
+              setCuantitativePromedio(cuantSum);
+              setCaulitativePromedio(cualSum);
             }
           } else {
             console.error("No se pudieron obtener los datos del análisis");
           }
-        }
+        
       } else {
         setCuantitativePromedio(0);
         setCaulitativePromedio(0); 
@@ -74,6 +87,8 @@ const FormContainer = ({ type, mode, data, cualId, cuantId }: FormContainerProps
     }
 
     fetchDataAnalysis();
+    setCuantAnalisisId(cuantId??0);
+    setCualAnalisisId(cualId??0);
   }, [mode, cuantId, cualId]);
 
   console.log(mode, initialValues);
@@ -87,17 +102,21 @@ const FormContainer = ({ type, mode, data, cualId, cuantId }: FormContainerProps
               type={type}
               mode={mode}
               initialValues={initialValues}
+              cualId={cualAnalisisId}
+              cuantId={cuantAnalisisId}
             />
           }
         </>
       )}
-      {(mode === "edit-both" || mode === "edit-cual" || mode === "edit-cuant") && initialValues === 0 && <h1>loading...</h1>}
+      {/* {(mode === "edit-both" || mode === "edit-cual" || mode === "edit-cuant") && initialValues === 0 && <h1>loading...</h1>} */}
       {mode === "add" && (
         <AnalysisForm
           data={data}
           type={type}
           mode={mode}
           initialValues={null}
+          cualId={cualAnalisisId}
+          cuantId={cuantAnalisisId}
         />
       )}
     </div>

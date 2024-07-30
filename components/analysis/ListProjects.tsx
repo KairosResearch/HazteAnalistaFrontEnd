@@ -85,7 +85,7 @@ const ListProjects = () => {
                 <>
                   <Badge variant={"range"} color="green"><span className="hidden md:inline">Analizado</span></Badge>
                    <Link
-                    href={`/analysis/${project.proyecto}/edit/${project.id_analisis_cualitativo}/${project.id_analisis_cuantitavivo}`}
+                    href={`/analysis/${project.proyecto}/edit/${project.id_analisis_cualitativo}/${project.id_analisis_cuantitativo}`}
                     onClick={() => setProjectId(project.id_proyectoInicial)}
                   >
                     <p className=" underline text-gray-200">Editar</p>
