@@ -51,13 +51,17 @@ const AnalysisForm = ({
   cuantId, 
   cualId
 }: AnalysisFormProps) => {
+
  
 
   const { setCaulitativePromedio, cualitativePromedio } = useAverages();
-  const [cualitativeValues, setCualitativeValues] = useState<number>(cualitativePromedio/2);
+  const initialPromedioCual = mode === "add" ? 0 : cualitativePromedio/2;
+  const [cualitativeValues, setCualitativeValues] = useState<number>(initialPromedioCual);
   
   const { setCuantitativePromedio, cuantitativePromedio } = useAverages();
-  const [cuantitativeValues, setCuantitativeValues] = useState<number>(cuantitativePromedio/2);
+  const initialPromedioCuant = mode === "add" ? 0 : cuantitativePromedio/2;
+  const [cuantitativeValues, setCuantitativeValues] = useState<number>(initialPromedioCuant);
+  
   const [success, setSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -86,9 +90,9 @@ const AnalysisForm = ({
           }
         : {
             tokenomics: b.tokenomics,
-            onChain: b.onchains,
-            finance: b.financiamiento,
-            exchange: b.metricasExchange,
+            onChain: b.onChain,
+            finance: b.finance,
+            exchange: b.exchange,
           }
       : //If mode is add
         type === "cual"

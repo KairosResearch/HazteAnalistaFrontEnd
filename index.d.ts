@@ -297,9 +297,9 @@ interface AnalisysFromGetCualitative {
 }
 
 interface AnalisysFromGetCuantitative {
-  financiamiento: number[];
-  metricasExchange: number[];
-  onchains: number[];
+  finance: number[];
+  exchange: number[];
+  onChain: number[];
   tokenomics: number[];
   suma : number[];
 }

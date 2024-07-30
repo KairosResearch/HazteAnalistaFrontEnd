@@ -25,9 +25,12 @@ const FormContainer = ({ type, mode, data, cualId, cuantId }: FormContainerProps
  
 
   const [initialValues, setInitialValues] = useState<any>(initialState);
+ 
 
   useEffect(() => {
+    
     async function fetchDataAnalysis() {
+      
       if (mode === "edit-both" || mode === "edit-cual" || mode === "edit-cuant") {
 
         console.log(cualId, cuantId);
@@ -80,8 +83,7 @@ const FormContainer = ({ type, mode, data, cualId, cuantId }: FormContainerProps
           }
         
       } else {
-        setCuantitativePromedio(0);
-        setCaulitativePromedio(0); 
+         
         setInitialValues(initialState);
       }
     }
