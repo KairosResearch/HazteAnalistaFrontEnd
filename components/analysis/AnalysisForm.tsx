@@ -10,6 +10,7 @@ import { useDialogItem, useDialogInstructions } from "@/hooks/useDialogs";
 import { useAverages } from "@/hooks/useAnalisys";
 import { useProjectId } from "@/hooks/useAnalisys";
 
+import Link from "next/link";
 //Server actions for both adding and updating
 import {
   handleCreateAnalisys,
@@ -181,7 +182,7 @@ const AnalysisForm = ({
             // Luego, después de 1 segundo, ocultar el mensaje
             setTimeout(() => {
               setSuccess(false);
-            }, 3000);
+            }, 2500);
             setIsLoading(false); // Ajusta este tiempo según sea necesario
           }
           setIsLoading(false);
@@ -199,7 +200,7 @@ const AnalysisForm = ({
               // Luego, después de 1 segundo, ocultar el mensaje
               setTimeout(() => {
                 setSuccess(false);
-              }, 3000);
+              }, 2500);
               setIsLoading(false); // Ajusta este tiempo según sea necesario
             }
           } else {
@@ -216,7 +217,7 @@ const AnalysisForm = ({
               // Luego, después de 1 segundo, ocultar el mensaje
               setTimeout(() => {
                 setSuccess(false);
-              }, 3000);
+              }, 2500);
               setIsLoading(false); // Ajusta este tiempo según sea necesario
             }
           }
@@ -234,7 +235,7 @@ const AnalysisForm = ({
               // Luego, después de 1 segundo, ocultar el mensaje
               setTimeout(() => {
                 setSuccess(false);
-              }, 3000); 
+              }, 2500); 
               setIsLoading(false);// Ajusta este tiempo según sea necesario
             }
           } else {
@@ -251,7 +252,7 @@ const AnalysisForm = ({
               // Luego, después de 1 segundo, ocultar el mensaje
               setTimeout(() => {
                 setSuccess(false);
-              }, 3000); 
+              }, 2500); 
               setIsLoading(false);// Ajusta este tiempo según sea necesario
             }
           }
@@ -275,7 +276,7 @@ const AnalysisForm = ({
             // Luego, después de 1 segundo, ocultar el mensaje
             setTimeout(() => {
               setSuccess(false);
-            }, 3000);
+            }, 2500);
             setIsLoading(false); // Ajusta este tiempo según sea necesario
           }
           
@@ -317,11 +318,14 @@ const AnalysisForm = ({
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <div
-          className={`z-50 fixed bottom-5 right-5 bg-primary text-white py-2 px-4 rounded-lg shadow-lg
-            transition-opacity duration-1000 ${success ? "opacity-100" : "opacity-0"}`}
+          className={`z-50 fixed bottom-16 right-5 bg-primary text-white py-2 px-4 rounded-lg shadow-lg
+            transition-opacity duration-2500 ${success ? "opacity-100" : "opacity-0"}`}
           onAnimationEnd={() => setSuccess(false)}
         >
           Subido exitosamente!
+          <Link href="/dashboard" className="ml-4">
+            <span className="text-foreground underline"> Dashboard</span>
+          </Link>
         </div>
 
         <div className="grid gap-4">
@@ -339,9 +343,9 @@ const AnalysisForm = ({
             />
           )}
         </div>
-
+        {isLoading && <Loading />}
         <Button type="submit" className="w-3/12 float-right  mx-auto mt-4">
-          {isLoading && <Loading />}
+          
           {mode === "add" ? "Enviar" : "Actualizar"}
         </Button>
       </form>

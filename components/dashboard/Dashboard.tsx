@@ -44,6 +44,7 @@ import DialogItem from "./form/DialogItem";
 const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
   const [tableData, setTableData] = useState<TableData[]>([]);
   const [guzma, setGuzma] = useState<number | null>(null);
+  const [availableProjects, setAvaliableProjects] = useState(projectsList);
   
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -58,13 +59,16 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
     if (guzma !== null) {
       setLoading(isLoading);
       setTableData(projects as TableData[]);
-    }
-    const takenProjectsSet = new Set(tableData?.map((pr) => pr.proyecto));
+      if(typeof projects !== 'string') {
+      const takenProjectsSet = new Set(projects?.map((pr) => pr.proyecto));
+      console.log('takenProjectsSet', takenProjectsSet)
           // Filtrar projectList para incluir solo proyectos no tomados
           const availableProjects =
             projectsList?.filter((pr) => !takenProjectsSet.has(pr.proyecto)) ||
             [];
           setAvaliableProjects(availableProjects);
+    }}
+    
   }, [guzma, isLoading, projects]);
   useEffect(() => {
     if (guzma !== null) {
@@ -86,7 +90,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
 
   //State to handle the projectList so that user might only add a project
   //that hasn't been added yet
-  const [availableProjects, setAvaliableProjects] = useState(projectsList);
+ 
 
   //State for Dialog info about the projects
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -196,7 +200,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                 className=" divide-green-dark hover:bg-primary/10 cursor-pointer"
                 key={data.id_proyecto}
               >
-                <TableCell className="border-2 border-green-dark sticky left-[-1px] bg-dark-grey/95 z-10">
+                <TableCell className="border-2 border-r-0 border-green-dark sticky left-[-1px] bg-dark-grey/95 z-10">
                   <Checkbox
                     checked={prToDelete.includes(data.id_proyecto)}
                     onCheckedChange={(checked) => {
@@ -387,6 +391,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
 
                 {/******Si ATH**** */}
                 <TableCell
+                className="flex justify-center align-middle"
                   onClick={() => {
                     setSelectedRow(data);
                     setIsDialogOpen(true);

@@ -22,6 +22,8 @@ const InfoTabs = ({
   useEffect(() => {
     if (nota) {
       setEditNotaOpen(false);
+    } else {
+      setEditNotaOpen(true);
     }
   }, [nota]);
 
@@ -165,7 +167,8 @@ const InfoTabs = ({
         />
       </TabsContent>
       <TabsContent className="min-h-[250px]" value="notes">
-        <h2 className="text-xl md:text-2xl font-bold mb-3">Notas</h2>
+        <h2 className="text-xl md:text-2xl font-bold">Nota de proyecto:</h2>
+        <span className="text-xs text-gray-300 mb-3 ">Al crear/editar tu nota, vuelve a seleccionar el proyecto para ver los cambios*</span>
         {(!editNotaOpen && nota ) && (
           <div className="flex gap-4">
             
@@ -183,11 +186,17 @@ const InfoTabs = ({
             </Button>
             
           </div>
-            
-
-            
            
           )}
+          {/* {
+            !nota && (
+              <Button
+                onClick={() => setEditNotaOpen(true)}
+              >
+                Agregar nota
+              </Button>
+            )
+          } */}
           {editNotaOpen && (
             <div
             className="border rounded-sm p-2
@@ -195,6 +204,7 @@ const InfoTabs = ({
                        w-[96%] mx-auto "
           >
             <TextEditor
+              closeEditor={() => setEditNotaOpen(false)}
               initialValue={nota}
               id={info.id} 
             />
