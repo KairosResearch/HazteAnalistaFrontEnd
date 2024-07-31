@@ -1,13 +1,13 @@
-import React from "react";
+import React , {useEffect, useState} from "react";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import Image from "next/image";
 import { InfoTabsProps } from "@/index";
-import { useRouter } from "next/navigation";
-import AnalizysSection from "./info/AnalizysSection";
-import TextEditor from "./info/TextEditor";
+import AnalizysSection from "./AnalizysSection";
+import TextEditor from "./TextEditor";
 
 const InfoTabs = ({
   info,
@@ -15,7 +15,16 @@ const InfoTabs = ({
   tieneAnalisisCuantitavivo,
   id_analisis_cualitativo,
   id_analisis_cuantitativo,
+  nota
 }: InfoTabsProps) => {
+
+  const [editNotaOpen, setEditNotaOpen] = useState<boolean>(false);
+  useEffect(() => {
+    if (nota) {
+      setEditNotaOpen(false);
+    }
+  }, [nota]);
+
   return (
     <Tabs defaultValue="description">
       <TabsList className="pl-0 md:pl-1">
@@ -152,17 +161,48 @@ const InfoTabs = ({
           tieneAnalisisCuantitavivo={tieneAnalisisCuantitavivo}
           id_analisis_cualitativo={id_analisis_cualitativo}
           id_analisis_cuantitativo={id_analisis_cuantitativo}
+          nota={null}
         />
       </TabsContent>
       <TabsContent className="min-h-[250px]" value="notes">
         <h2 className="text-xl md:text-2xl font-bold mb-3">Notas</h2>
-        <div
-          className="border rounded-sm p-2
-                     bg-primary-foreground/80 text-dark-grey
-                     w-[96%] mx-auto "
-        >
-          <TextEditor />
-        </div>
+        {(!editNotaOpen && nota ) && (
+          <div className="flex gap-4">
+            
+
+            <div
+              className="border rounded-sm p-2
+               bg-yellow-200 text-dark-grey
+               w-[70%] mx-auto shadow-lg"
+               dangerouslySetInnerHTML={{ __html: nota }}
+            />
+            <Button
+              onClick={() => setEditNotaOpen(true)}
+            >
+              Editar nota   
+            </Button>
+            
+          </div>
+            
+
+            
+           
+          )}
+          {editNotaOpen && (
+            <div
+            className="border rounded-sm p-2
+                       bg-primary-foreground/80 text-dark-grey
+                       w-[96%] mx-auto "
+          >
+            <TextEditor
+              initialValue={nota}
+              id={info.id} 
+            />
+            
+          </div>
+          )
+          }
+        
       </TabsContent>
     </Tabs>
   );

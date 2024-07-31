@@ -208,6 +208,7 @@ interface DialogInfoProps {
     tieneAnalisisCuantitavivo: boolean;
     id_analisis_cualitativo: number ;
     id_analisis_cuantitativo: number ;
+    nota: string | null;
   } | null;
   catalogos: CatalogosType[][];
   projectsList:
@@ -244,6 +245,7 @@ interface InfoTabsProps {
   tieneAnalisisCuantitavivo: boolean;
   id_analisis_cualitativo: number ;
   id_analisis_cuantitativo: number ;
+  nota: string | null;
 }
 
 interface LessonPortadaProps {
@@ -297,9 +299,9 @@ interface AnalisysFromGetCualitative {
 }
 
 interface AnalisysFromGetCuantitative {
-  finance: number[];
-  exchange: number[];
-  onChain: number[];
+  financiamiento: number[];
+  metricasExchange: number[];
+  onchains: number[];
   tokenomics: number[];
   suma : number[];
 }
@@ -307,6 +309,16 @@ interface AnalisysFromGetCuantitative {
 interface AnalisysResponse {
   filteredCualitative: AnalisysFromGetCualitative;
   filteredCuantitative: AnalisysFromGetCuantitative;
+}
+
+interface AnalisysInitialValues {
+  filteredCualitative: AnalisysFromGetCualitative;
+  filteredCuantitative: {
+    tokenomics: number[]
+    onChain: number[]
+    finance: number[]
+    exchange: number[]
+  }
 }
 interface AllModules {
   "Módulo 1": LessonProps[];

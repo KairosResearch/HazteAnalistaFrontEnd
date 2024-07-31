@@ -30,7 +30,7 @@ import { Input } from "@/components/ui/input";
 import { debounce, promedioCalculator } from "@/utils/index";
 
 //Types:
-import { ValueObject, AnalisysCatalogs, AnalisysResponse } from "@/index";
+import { ValueObject, AnalisysCatalogs, AnalisysInitialValues } from "@/index";
 
 import Loading from "../shared/Loading";
 interface AnalysisFormProps {
@@ -38,7 +38,7 @@ interface AnalysisFormProps {
   mode: "add" | "edit-both" | "edit-cual" | "edit-cuant";
 
   data: AnalisysCatalogs;
-  initialValues: AnalisysResponse | null;
+  initialValues: AnalisysInitialValues | null;
   cualId: number | null;
   cuantId: number| null;
 }
@@ -181,7 +181,8 @@ const AnalysisForm = ({
             // Luego, después de 1 segundo, ocultar el mensaje
             setTimeout(() => {
               setSuccess(false);
-            }, 3000); // Ajusta este tiempo según sea necesario
+            }, 3000);
+            setIsLoading(false); // Ajusta este tiempo según sea necesario
           }
           setIsLoading(false);
         } else if (mode === "edit-cual") {
@@ -198,7 +199,8 @@ const AnalysisForm = ({
               // Luego, después de 1 segundo, ocultar el mensaje
               setTimeout(() => {
                 setSuccess(false);
-              }, 3000); // Ajusta este tiempo según sea necesario
+              }, 3000);
+              setIsLoading(false); // Ajusta este tiempo según sea necesario
             }
           } else {
             const response = await handleUpdateAnalisys(
@@ -214,7 +216,8 @@ const AnalysisForm = ({
               // Luego, después de 1 segundo, ocultar el mensaje
               setTimeout(() => {
                 setSuccess(false);
-              }, 3000); // Ajusta este tiempo según sea necesario
+              }, 3000);
+              setIsLoading(false); // Ajusta este tiempo según sea necesario
             }
           }
         } else if (mode === "edit-cuant") {
@@ -231,7 +234,8 @@ const AnalysisForm = ({
               // Luego, después de 1 segundo, ocultar el mensaje
               setTimeout(() => {
                 setSuccess(false);
-              }, 3000); // Ajusta este tiempo según sea necesario
+              }, 3000); 
+              setIsLoading(false);// Ajusta este tiempo según sea necesario
             }
           } else {
             const response = await handleUpdateAnalisys(
@@ -247,7 +251,8 @@ const AnalysisForm = ({
               // Luego, después de 1 segundo, ocultar el mensaje
               setTimeout(() => {
                 setSuccess(false);
-              }, 3000); // Ajusta este tiempo según sea necesario
+              }, 3000); 
+              setIsLoading(false);// Ajusta este tiempo según sea necesario
             }
           }
         } else {
@@ -270,11 +275,13 @@ const AnalysisForm = ({
             // Luego, después de 1 segundo, ocultar el mensaje
             setTimeout(() => {
               setSuccess(false);
-            }, 3000); // Ajusta este tiempo según sea necesario
+            }, 3000);
+            setIsLoading(false); // Ajusta este tiempo según sea necesario
           }
-          setIsLoading(false);
+          
         }
       }
+     
     }
 
     //backend Values para cualitativo
