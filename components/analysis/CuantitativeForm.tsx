@@ -12,12 +12,11 @@ import {
 import { Button } from "../ui/button";
 import { Checkbox } from "../ui/checkbox";
 
-
 import { AnalisysCatalogs } from "@/index";
 import { ValueObject } from "@/index";
 
 interface CualitativeFieldsProps {
-  mode: "edit" | "add";
+  mode: "add" | "edit-both" | "edit-cual" | "edit-cuant";
   data: AnalisysCatalogs;
   setCuantitativeValues: (value: any) => void;
 }
@@ -50,37 +49,37 @@ const CualitativeFields = ({
           className=" w-10/12 text-left"
           render={({ field }) => (
             <div className="w-full flex flex-col gap-3 ml-6">
-            {item.map((item) => (
-              <div className="flex items-center gap-3">
+              {item.map((item) => (
+                <div key={item.id} className="flex items-center gap-3">
+                  <Checkbox
+                    checked={field.value?.includes(item.id)}
+                    onCheckedChange={(checked) => {
+                      const iDunno = (checked: boolean) => {
+                        if (checked) {
+                          setCuantitativeValues(
+                            (prev: number) => prev + item.value,
+                          );
+                          field.onChange([...field.value, item.id]);
+                        } else {
+                          setCuantitativeValues(
+                            (prev: number) => prev - item.value,
+                          );
+                          field.onChange(
+                            field.value?.filter(
+                              (value: any) => value !== item.id,
+                            ),
+                          );
+                        }
+                      };
 
-<Checkbox
-                key={item.id}
-                checked={field.value?.includes(item.id)}
-                
-                onCheckedChange={(checked) => {
-                  const iDunno = (checked: boolean) => {
-                    if (checked) {
-                      setCuantitativeValues((prev:number) => prev + item.value);
-                      field.onChange([...field.value, item.id]);
-                    } else {
-                      setCuantitativeValues((prev: number) => prev - item.value);
-                      field.onChange(field.value?.filter((value: any) => value !== item.id));
-                    }
-                  }
-                  
-
-                  return iDunno(checked as boolean);
-                }}
-              />
-                <span className="text-grey-light/90"> {item.item}</span>
-                  
-              </div>
-              
-              
-            ))}
-          </div>
-        
-      )}
+                      return iDunno(checked as boolean);
+                    }}
+                  />
+                  <span className="text-grey-light/90"> {item.item}</span>
+                </div>
+              ))}
+            </div>
+          )}
         />
       ))}
     </>

@@ -35,60 +35,113 @@ import { tableDataDefault } from "@/lib/data";
 import { TableData } from "@/index";
 import { DashboardProps } from "@/index";
 import { handleGetProyects } from "@/actions/proyectActions";
+
+//hooks
+import { useProjects } from "@/hooks/useProjects";
 import { useDialogItem } from "@/hooks/useDialogs";
 import DialogItem from "./form/DialogItem";
 
 const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
-  const [loading, setLoading] = useState(false);
-
-  const { userTableData } = useUserTableData();
-
-  const { setIsOpen } = useDialogItem();
-
   const [tableData, setTableData] = useState<TableData[]>([]);
-
-  const [prToDelete, setPrToDelete] = useState<number[]>([]);
-
-  //State to handle the projectList so that user might only add a project
-  //that hasn't been added yet
+  const [guzma, setGuzma] = useState<number | null>(null);
   const [availableProjects, setAvaliableProjects] = useState(projectsList);
-
-  //State for Dialog info about the projects
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [selectedRow, setSelectedRow] = useState<any>(null);
-
+  
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      if (
-        typeof window !== undefined &&
-        window.localStorage.getItem("guzma") !== null
-      ) {
-        const guzma = Number(window.localStorage.getItem("guzma"));
-        console.log("guzma", guzma);
-        // console.log('userid', userId)
-        const data = (await handleGetProyects(guzma ?? 0)) as
-          | TableData[]
-          | string;
-        if (typeof data === "string") {
-          setTableData([]);
-        } else {
-          // Crear un conjunto con los nombres de los proyectos ya tomados
-          const takenProjectsSet = new Set(data?.map((pr) => pr.proyecto));
+    if (typeof window !== 'undefined' && window.localStorage.getItem("guzma") !== null) {
+      setGuzma(Number(window.localStorage.getItem("guzma")));
+    }
+  }, []);
+
+  const { data: projects, isLoading } = useProjects(guzma ?? 0);
+  
+  useEffect(() => {
+    if (guzma !== null) {
+      setLoading(isLoading);
+      setTableData(projects as TableData[]);
+      if(typeof projects !== 'string') {
+      const takenProjectsSet = new Set(projects?.map((pr) => pr.proyecto));
+      console.log('takenProjectsSet', takenProjectsSet)
           // Filtrar projectList para incluir solo proyectos no tomados
           const availableProjects =
             projectsList?.filter((pr) => !takenProjectsSet.has(pr.proyecto)) ||
             [];
           setAvaliableProjects(availableProjects);
-
-          setTableData(data || []);
-        }
-      }
-      setLoading(false);
-    };
-    fetchData();
+    }}
+    
+  }, [guzma, isLoading, projects]);
+  useEffect(() => {
+    if (guzma !== null) {
+      setLoading(isLoading);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userTableData]);
+  }, [guzma, isLoading]);
+
+
+
+
+  const { userTableData } = useUserTableData();
+
+  const { setIsOpen } = useDialogItem();
+
+  
+
+  const [prToDelete, setPrToDelete] = useState<number[]>([]);
+
+  //State to handle the projectList so that user might only add a project
+  //that hasn't been added yet
+ 
+
+  //State for Dialog info about the projects
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [selectedRow, setSelectedRow] = useState<any>(null);
+
+
+
+
+
+
+
+
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     setLoading(true);
+  //     if (
+  //       typeof window !== undefined &&
+  //       window.localStorage.getItem("guzma") !== null
+  //     ) {
+  //       const guzma = Number(window.localStorage.getItem("guzma"));
+  //       console.log("guzma", guzma);
+  //       // console.log('userid', userId)
+  //       const data = (await handleGetProyects(guzma ?? 0)) as
+  //         | TableData[]
+  //         | string;
+  //       if (typeof data === "string") {
+  //         setTableData([]);
+  //       } else {
+  //         // Crear un conjunto con los nombres de los proyectos ya tomados
+  //         const takenProjectsSet = new Set(data?.map((pr) => pr.proyecto));
+  //         // Filtrar projectList para incluir solo proyectos no tomados
+  //         const availableProjects =
+  //           projectsList?.filter((pr) => !takenProjectsSet.has(pr.proyecto)) ||
+  //           [];
+  //         setAvaliableProjects(availableProjects);
+
+  //         setTableData(data || []);
+  //       }
+  //     }
+  //     setLoading(false);
+  //   };
+  //   fetchData();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [userTableData]);
+
+
+
+
+
+
 
   const sectores = catalogos[3];
 
@@ -147,7 +200,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                 className=" divide-green-dark hover:bg-primary/10 cursor-pointer"
                 key={data.id_proyecto}
               >
-                <TableCell className="border-2 border-green-dark sticky left-[-1px] bg-dark-grey/95 z-10">
+                <TableCell className="border-2 border-r-0 border-green-dark sticky left-[-1px] bg-dark-grey/95 z-10">
                   <Checkbox
                     checked={prToDelete.includes(data.id_proyecto)}
                     onCheckedChange={(checked) => {
@@ -338,6 +391,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
 
                 {/******Si ATH**** */}
                 <TableCell
+                className="flex justify-center align-middle"
                   onClick={() => {
                     setSelectedRow(data);
                     setIsDialogOpen(true);

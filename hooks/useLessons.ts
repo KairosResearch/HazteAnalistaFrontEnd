@@ -1,7 +1,7 @@
 import useSWR from "swr";
 import { getLessonsByUser } from "../services/backend/lessons";
 import { useMemo } from "react";
-import { AnyARecord } from "dns";
+
 
 // Funciones puras fuera del hook
 const calculateCurrentModuleId = (lastLesson: any) => {

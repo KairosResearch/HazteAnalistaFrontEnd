@@ -1,17 +1,32 @@
-import React from "react";
+import React , {useEffect, useState} from "react";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import Image from "next/image";
 import { InfoTabsProps } from "@/index";
-import { useRouter } from "next/navigation";
-import AnalizysSection from "./info/AnalizysSection";
+import AnalizysSection from "./AnalizysSection";
+import TextEditor from "./TextEditor";
 
-const InfoTabs = ({ info, hasAnalisis }: InfoTabsProps) => {
-  
+const InfoTabs = ({
+  info,
+  tieneAnalisisCualitativo,
+  tieneAnalisisCuantitavivo,
+  id_analisis_cualitativo,
+  id_analisis_cuantitativo,
+  nota
+}: InfoTabsProps) => {
 
-  
+  const [editNotaOpen, setEditNotaOpen] = useState<boolean>(false);
+  useEffect(() => {
+    if (nota) {
+      setEditNotaOpen(false);
+    } else {
+      setEditNotaOpen(true);
+    }
+  }, [nota]);
+
   return (
     <Tabs defaultValue="description">
       <TabsList className="pl-0 md:pl-1">
@@ -21,6 +36,7 @@ const InfoTabs = ({ info, hasAnalisis }: InfoTabsProps) => {
         <TabsTrigger value="links">Links</TabsTrigger>
         <TabsTrigger value="finance">Financiamiento</TabsTrigger>
         <TabsTrigger value="analyzis">Analisis</TabsTrigger>
+        <TabsTrigger value="notes">Notas</TabsTrigger>
       </TabsList>
       <div className="border-t border-grey-light"></div>
       <TabsContent className="min-h-[250px]" value="description">
@@ -141,14 +157,63 @@ const InfoTabs = ({ info, hasAnalisis }: InfoTabsProps) => {
         </section>
       </TabsContent>
       <TabsContent className="min-h-[250px]" value="analyzis">
-
-      
-      <AnalizysSection 
-        info={info}
-        hasAnalisis={hasAnalisis}
-      />
+        <AnalizysSection
+          info={info}
+          tieneAnalisisCualitativo={tieneAnalisisCualitativo}
+          tieneAnalisisCuantitavivo={tieneAnalisisCuantitavivo}
+          id_analisis_cualitativo={id_analisis_cualitativo}
+          id_analisis_cuantitativo={id_analisis_cuantitativo}
+          nota={null}
+        />
       </TabsContent>
-      
+      <TabsContent className="min-h-[250px]" value="notes">
+        <h2 className="text-xl md:text-2xl font-bold">Nota de proyecto:</h2>
+        <span className="text-xs text-gray-300 mb-3 ">Al crear/editar tu nota, vuelve a seleccionar el proyecto para ver los cambios*</span>
+        {(!editNotaOpen && nota ) && (
+          <div className="flex gap-4">
+            
+
+            <div
+              className="border rounded-sm p-2
+               bg-yellow-200 text-dark-grey
+               w-[70%] mx-auto shadow-lg"
+               dangerouslySetInnerHTML={{ __html: nota }}
+            />
+            <Button
+              onClick={() => setEditNotaOpen(true)}
+            >
+              Editar nota   
+            </Button>
+            
+          </div>
+           
+          )}
+          {/* {
+            !nota && (
+              <Button
+                onClick={() => setEditNotaOpen(true)}
+              >
+                Agregar nota
+              </Button>
+            )
+          } */}
+          {editNotaOpen && (
+            <div
+            className="border rounded-sm p-2
+                       bg-primary-foreground/80 text-dark-grey
+                       w-[96%] mx-auto "
+          >
+            <TextEditor
+              closeEditor={() => setEditNotaOpen(false)}
+              initialValue={nota}
+              id={info.id} 
+            />
+            
+          </div>
+          )
+          }
+        
+      </TabsContent>
     </Tabs>
   );
 };

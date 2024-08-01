@@ -10,6 +10,7 @@ import { useDialogItem, useDialogInstructions } from "@/hooks/useDialogs";
 import { useAverages } from "@/hooks/useAnalisys";
 import { useProjectId } from "@/hooks/useAnalisys";
 
+import Link from "next/link";
 //Server actions for both adding and updating
 import {
   handleCreateAnalisys,
@@ -30,15 +31,17 @@ import { Input } from "@/components/ui/input";
 import { debounce, promedioCalculator } from "@/utils/index";
 
 //Types:
-import { ValueObject, AnalisysCatalogs, AnalisysResponse } from "@/index";
+import { ValueObject, AnalisysCatalogs, AnalisysInitialValues } from "@/index";
 
 import Loading from "../shared/Loading";
 interface AnalysisFormProps {
   type: "cual" | "cuant";
-  mode: "add" | "edit";
+  mode: "add" | "edit-both" | "edit-cual" | "edit-cuant";
 
   data: AnalisysCatalogs;
-  initialValues: AnalisysResponse | null;
+  initialValues: AnalisysInitialValues | null;
+  cualId: number | null;
+  cuantId: number| null;
 }
 
 const AnalysisForm = ({
@@ -46,16 +49,20 @@ const AnalysisForm = ({
   mode,
   data,
   initialValues,
+  cuantId, 
+  cualId
 }: AnalysisFormProps) => {
-  const [cualitativeValues, setCualitativeValues] = useState<number>(0);
 
-  // const [successCualitative, setSuccessCualitative] = useState(false);
+ 
+
   const { setCaulitativePromedio, cualitativePromedio } = useAverages();
-  const [cuantitativeValues, setCuantitativeValues] = useState<number>(
-    0
-  );
-  // const [successCuantitative, setSuccessCuantitative] = useState(false);
+  const initialPromedioCual = mode === "add" ? 0 : cualitativePromedio/2;
+  const [cualitativeValues, setCualitativeValues] = useState<number>(initialPromedioCual);
+  
   const { setCuantitativePromedio, cuantitativePromedio } = useAverages();
+  const initialPromedioCuant = mode === "add" ? 0 : cuantitativePromedio/2;
+  const [cuantitativeValues, setCuantitativeValues] = useState<number>(initialPromedioCuant);
+  
   const [success, setSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -64,36 +71,38 @@ const AnalysisForm = ({
   const b = initialValues?.filteredCuantitative;
 
   const initialValuesForm =
-    mode === "edit" && a && b
+    (mode === "edit-both" || mode === "edit-cual" || mode === "edit-cuant") &&
+    a &&
+    b
       ? type === "cual"
         ? {
-            alianzas: a.id_alianzas,
-            auditorias: a.id_auditoria,
-            equipo: a.id_integrantes_equipo,
-            financeCual: a.id_financiamiento,
-            whitepaper: a.id_whitepapaers,
-            roadmap: a.id_roadmap,
-            comunidad: a.id_comunidad,
-            casosUso: a.id_caso_uso,
+            alianzas: a.alianzas,
+            auditorias: a.auditoria,
+            equipo: a.integrantesEquipo,
+            financeCual: a.financiamiento,
+            whitepaper: a.whitepapaer,
+            roadmap: a.roadmap,
+            comunidad: a.comunidad,
+            casosUso: a.caso_uso,
             tokenomics: [0],
             onChain: [0],
             finance: [0],
             exchange: [0],
           }
         : {
-            tokenomics: b.id_tokenomic,
-            onChain: b.id_movimientosOnChain,
-            finance: b.id_financiamitos,
-            exchange: b.id_financiamitos,
+            tokenomics: b.tokenomics,
+            onChain: b.onChain,
+            finance: b.finance,
+            exchange: b.exchange,
           }
-          //If mode is add
-      : type === "cual"
+      : //If mode is add
+        type === "cual"
         ? {
-            alianzas: [1],
+            alianzas: [],
             auditorias: [],
             equipo: [],
             financeCual: [],
-            whitepaper: [2],
+            whitepaper: [],
             roadmap: [],
             comunidad: [],
             casosUso: [],
@@ -103,7 +112,7 @@ const AnalysisForm = ({
             exchange: [],
           }
         : {
-            tokenomics: [1, 2, 3],
+            tokenomics: [],
             onChain: [],
             finance: [],
             exchange: [],
@@ -121,12 +130,8 @@ const AnalysisForm = ({
   //Para calcular promedio de cualitativos
   useEffect(() => {
     const debouncedFunction = debounce(() => {
-      if (cualitativeValues> 0) {
-        
-
-        
-        setCaulitativePromedio(cualitativeValues*2);
-        
+      if (cualitativeValues > 0) {
+        setCaulitativePromedio(cualitativeValues * 2);
       }
     }, 500);
 
@@ -135,17 +140,13 @@ const AnalysisForm = ({
     }
     console.log("Cualitative Values", cualitativeValues);
     return () => debouncedFunction.cancel();
-  
   }, [cualitativeValues]);
-
 
   //Para calcular promedio de cuantitativos
   useEffect(() => {
     const debouncedFunction = debounce(() => {
       if (cuantitativeValues > 0) {
-        
-
-        setCuantitativePromedio(cuantitativeValues*2)
+        setCuantitativePromedio(cuantitativeValues * 2);
       }
     }, 500);
 
@@ -154,7 +155,6 @@ const AnalysisForm = ({
     }
 
     return () => debouncedFunction.cancel();
-    
   }, [cuantitativeValues]);
 
   // Submit handler
@@ -169,25 +169,7 @@ const AnalysisForm = ({
         const projectId = Number(localStorage.getItem("projectId"));
         if (mode === "add") {
           console.log("Creando con estos values: ", values);
-          // const response = await handleCreateAnalisys(
-          //   values,
-          //   guzma,
-          //   projectId,
-          //   type,
-          // );
-          // console.log("Response", response);
-          // if (response) {
-          //   // Primero, mostrar el mensaje de éxito
-          //   setSuccess(true);
-          //   // Luego, después de 1 segundo, ocultar el mensaje
-          //   setTimeout(() => {
-          //     setSuccess(false);
-          //   }, 3000); // Ajusta este tiempo según sea necesario
-          // }
-          setIsLoading(false);
-        } else {
-          console.log("Editando con estos values: ", values);
-          const response = await handleUpdateAnalisys(
+          const response = await handleCreateAnalisys(
             values,
             guzma,
             projectId,
@@ -200,11 +182,107 @@ const AnalysisForm = ({
             // Luego, después de 1 segundo, ocultar el mensaje
             setTimeout(() => {
               setSuccess(false);
-            }, 3000); // Ajusta este tiempo según sea necesario
+            }, 2500);
+            setIsLoading(false); // Ajusta este tiempo según sea necesario
           }
           setIsLoading(false);
+        } else if (mode === "edit-cual") {
+          if (type === "cuant") {
+            const response = await handleCreateAnalisys(
+              values,
+              guzma,
+              projectId,
+              type,
+            );
+            if (response) {
+              // Primero, mostrar el mensaje de éxito
+              setSuccess(true);
+              // Luego, después de 1 segundo, ocultar el mensaje
+              setTimeout(() => {
+                setSuccess(false);
+              }, 2500);
+              setIsLoading(false); // Ajusta este tiempo según sea necesario
+            }
+          } else {
+            const response = await handleUpdateAnalisys(
+              values,
+              guzma,
+              projectId,
+              type,
+              cualId??0
+            );
+            if (response) {
+              // Primero, mostrar el mensaje de éxito
+              setSuccess(true);
+              // Luego, después de 1 segundo, ocultar el mensaje
+              setTimeout(() => {
+                setSuccess(false);
+              }, 2500);
+              setIsLoading(false); // Ajusta este tiempo según sea necesario
+            }
+          }
+        } else if (mode === "edit-cuant") {
+          if (type === "cual") {
+            const response = await handleCreateAnalisys(
+              values,
+              guzma,
+              projectId,
+              type,
+            );
+            if (response) {
+              // Primero, mostrar el mensaje de éxito
+              setSuccess(true);
+              // Luego, después de 1 segundo, ocultar el mensaje
+              setTimeout(() => {
+                setSuccess(false);
+              }, 2500); 
+              setIsLoading(false);// Ajusta este tiempo según sea necesario
+            }
+          } else {
+            const response = await handleUpdateAnalisys(
+              values,
+              guzma,
+              projectId,
+              type,
+              cuantId??0
+            );
+            if (response) {
+              // Primero, mostrar el mensaje de éxito
+              setSuccess(true);
+              // Luego, después de 1 segundo, ocultar el mensaje
+              setTimeout(() => {
+                setSuccess(false);
+              }, 2500); 
+              setIsLoading(false);// Ajusta este tiempo según sea necesario
+            }
+          }
+        } else {
+          console.log(cuantId)
+          const analisysId = type === "cual" ? cualId : cuantId;
+          console.log("analisis: ", analisysId);
+          
+
+          const response = await handleUpdateAnalisys(
+            values,
+            guzma,
+            projectId,
+            type,
+            analisysId??0
+          );
+          console.log("Response", response);
+          if (response) {
+            // Primero, mostrar el mensaje de éxito
+            setSuccess(true);
+            // Luego, después de 1 segundo, ocultar el mensaje
+            setTimeout(() => {
+              setSuccess(false);
+            }, 2500);
+            setIsLoading(false); // Ajusta este tiempo según sea necesario
+          }
+          
         }
       }
+     
     }
 
     //backend Values para cualitativo
@@ -218,7 +296,7 @@ const AnalysisForm = ({
         idFinanciamiento: values.financeCual,
         idWhitepapaers: values.whitepaper,
         idAlianzas: values.alianzas,
-        promedio: cualitativePromedio,
+        suma: cualitativePromedio,
       };
       console.log("Backend Values", backendValues);
 
@@ -229,7 +307,7 @@ const AnalysisForm = ({
         idMovimientosOnChain: values.onChain,
         idMetricasExchange: values.exchange,
         idFinanciamiento: values.finance,
-        promedio: cuantitativePromedio,
+        suma: cuantitativePromedio,
       };
       console.log("Backend Values", backendValues);
       submitHandler(backendValues);
@@ -240,11 +318,14 @@ const AnalysisForm = ({
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <div
-          className={`z-50 fixed bottom-5 right-5 bg-primary text-white py-2 px-4 rounded-lg shadow-lg
-            transition-opacity duration-1000 ${success ? "opacity-100" : "opacity-0"}`}
+          className={`z-50 fixed bottom-16 right-5 bg-primary text-white py-2 px-4 rounded-lg shadow-lg
+            transition-opacity duration-2500 ${success ? "opacity-100" : "opacity-0"}`}
           onAnimationEnd={() => setSuccess(false)}
         >
           Subido exitosamente!
+          <Link href="/dashboard" className="ml-4">
+            <span className="text-foreground underline"> Dashboard</span>
+          </Link>
         </div>
 
         <div className="grid gap-4">
@@ -262,9 +343,9 @@ const AnalysisForm = ({
             />
           )}
         </div>
-
+        {isLoading && <Loading />}
         <Button type="submit" className="w-3/12 float-right  mx-auto mt-4">
-          {isLoading && <Loading />}
+          
           {mode === "add" ? "Enviar" : "Actualizar"}
         </Button>
       </form>

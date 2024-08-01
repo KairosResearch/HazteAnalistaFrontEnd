@@ -15,7 +15,7 @@ import { AnalisysCatalogs } from "@/index";
 import { ValueObject } from "@/index";
 
 interface CualitativeFieldsProps {
-  mode: "edit" | "add";
+  mode: "add" | "edit-both" | "edit-cual" | "edit-cuant";
   data: AnalisysCatalogs;
   setCualitativeValues: (value: any) => void;
 }
@@ -57,10 +57,10 @@ const CualitativeFields = ({
               
                 <div className="w-full flex flex-col gap-3 ml-6">
                   {item.map((item) => (
-                    <div className="flex items-center gap-3">
+                    <div key={item.id} className="flex items-center gap-3">
 
 <Checkbox
-                      key={item.id}
+                      
                       checked={field.value?.includes(item.id)}
                       
                       onCheckedChange={(checked) => {

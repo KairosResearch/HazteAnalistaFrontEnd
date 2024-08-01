@@ -7,6 +7,7 @@ import React, { useState, useEffect } from "react";
 import { useUserTableData } from "@/hooks/useUserData";
 import { useDialogItem, useDialogInstructions } from "@/hooks/useDialogs";
 import { useTabsState } from "@/hooks/useTabs";
+import { useProjects } from "@/hooks/useProjects";
 
 //Types:
 import { BackendValues, CatalogosType, DashboardDataFormProps } from "@/index";
@@ -51,6 +52,16 @@ const DashboardDataForm = ({
   const decision = catalogos[1] as CatalogosType[];
   const exchange = catalogos[2] as CatalogosType[];
   const sector = catalogos[3] as CatalogosType[];
+  const [guzma, setGuzma] = useState<number | null>(null);
+
+  
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.localStorage.getItem("guzma") !== null) {
+      setGuzma(Number(window.localStorage.getItem("guzma")));
+    }
+  }, []);
+  const {  mutate } = useProjects(guzma ?? 0);
 
   //States for the right use of the form
   //Counter so that everytime the submit is correct, it changes the value of
@@ -199,8 +210,9 @@ const DashboardDataForm = ({
           }
           //If the data is sent correctly, we show a success message
           else {
-            setCount(count + 1);
-            setUserTableData(["Dato añadido" + count]);
+            // setCount(count + 1);
+            // setUserTableData(["Dato añadido" + count]);
+            mutate();
             setSubmitted(true);
             //Close the dialog
             setTimeout(() => {
@@ -242,12 +254,13 @@ const DashboardDataForm = ({
       const newData = await handleUpdateProyect(backendValuesUpdate);
 
       if (newData) {
-        setCount(count + 1);
-        setUserTableData(["Cambio de datos" + count]);
+        // setCount(count + 1);
+        // setUserTableData(["Cambio de datos" + count]);
+        mutate();
         setSubmitted(true);
         setTimeout(() => {
           setIsOpen(false);
-        }, 1000);
+        }, 700);
       }
     }
   }

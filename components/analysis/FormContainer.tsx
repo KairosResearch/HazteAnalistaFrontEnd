@@ -8,87 +8,137 @@ import { useAverages } from "@/hooks/useAnalisys";
 
 type FormContainerProps = {
   type: "cual" | "cuant";
-  mode: "add" | "edit";
+  mode: "add" | "edit-both" | "edit-cual" | "edit-cuant";
   // data?: BackendValues;
   // catalogos: CatalogosType;
   // mode: "add" | "edit";
   data: AnalisysCatalogs;
+  cualId: number | null;
+  cuantId: number | null;
 };
 
-const FormContainer = ({ type, mode, data }: FormContainerProps) => {
+const FormContainer = ({
+  type,
+  mode,
+  data,
+  cualId,
+  cuantId,
+}: FormContainerProps) => {
   const { setCuantitativePromedio, setCaulitativePromedio } = useAverages();
+  const [cualAnalisisId, setCualAnalisisId] = useState<number | null>(0);
+  const [cuantAnalisisId, setCuantAnalisisId] = useState<number | null>(0);
   const initialState = 0;
-  // filteredCualitative: {
-  //     id_usuario:0,
-  //     id_proyecto:0,
-  //     id_caso_uso:0,
-  //     id_integrantes_equipo:0,
-  //     id_auditoria:0,
-  //     id_roadmap:0,
-  //     id_comunidad:0,
-  //     id_financiamiento:0,
-  //     id_whitepapaers:0,
-  //     id_alianzas:0,
-  //     promedio:0,
-  // }, // Asegúrate de que este valor inicial coincida con la estructura esperada de AnalisysInitialvalues
-  // filteredCuantitative: {
-  //     id_usuario:0,
-  //     id_proyecto:0,
-  //     id_tokenomic:0,
-  //     id_movimientosOnChain:0,
-  //     id_metricasExchage:0,
-  //     id_financiamitos:0,
-  //     promedio:0,
-  // Lo mismo aquí
 
   const [initialValues, setInitialValues] = useState<any>(initialState);
 
   useEffect(() => {
     async function fetchDataAnalysis() {
-      if (mode === "edit") {
-        const guzma = Number(window.localStorage.getItem("guzma"));
-        const projectId = Number(localStorage.getItem("projectId"));
-        const response = await handleGetSingleAnalisys(guzma, projectId);
-        console.log("recien", response);
+      if (
+        mode === "edit-both" ||
+        mode === "edit-cual" ||
+        mode === "edit-cuant"
+      ) {
+        console.log(cualId, cuantId);
+
+        const response = await handleGetSingleAnalisys(
+          cualId ?? 0,
+          cuantId ?? 0,
+        );
+
         if (response) {
-          setInitialValues(response);
-          setCuantitativePromedio(response.filteredCuantitative.promedio);
-          setCaulitativePromedio(response.filteredCualitative.promedio);
+          if (mode === "edit-cual") {
+            setInitialValues({
+              filteredCualitative: response.filteredCualitative,
+              filteredCuantitative: {
+                tokenomics: [],
+                onChain: [],
+                finance: [],
+                exchange: [],
+              },
+            });
+
+            setCaulitativePromedio(response.filteredCualitative.suma[0]);
+            setCuantitativePromedio(0);
+          } else if (mode === "edit-cuant") {
+            setInitialValues({
+              filteredCualitative: {
+                alianzas: [],
+                auditoria: [],
+                integrantesEquipo: [],
+                financiamiento: [],
+                whitepapaer: [],
+                roadmap: [],
+                comunidad: [],
+                caso_uso: [],
+              },
+              filteredCuantitative: {
+                tokenomics: response.filteredCuantitative.tokenomics,
+                onChain: response.filteredCuantitative.onchains,
+                finance: response.filteredCuantitative.financiamiento,
+                exchange: response.filteredCuantitative.metricasExchange,
+              },
+            });
+            setCuantitativePromedio(response.filteredCuantitative.suma[0]);
+            setCaulitativePromedio(0);
+          } else if (mode === "edit-both") {
+            setInitialValues({
+              filteredCualitative: response.filteredCualitative,
+              filteredCuantitative: {
+                tokenomics: response.filteredCuantitative.tokenomics,
+                onChain: response.filteredCuantitative.onchains,
+                finance: response.filteredCuantitative.financiamiento,
+                exchange: response.filteredCuantitative.metricasExchange,
+              },
+            });
+            const cuantSum = response.filteredCuantitative.suma[0];
+            const cualSum = response.filteredCualitative.suma[0];
+            console.log("Cuantitativo", cuantSum);
+            console.log("Cualitativo", cualSum);
+            setCuantitativePromedio(cuantSum);
+            setCaulitativePromedio(cualSum);
+          }
         } else {
-          // Considera manejar el caso en que la respuesta no es lo que esperas
           console.error("No se pudieron obtener los datos del análisis");
         }
       } else {
-        setCuantitativePromedio(0);
-        setCaulitativePromedio(0); 
         setInitialValues(initialState);
       }
     }
 
     fetchDataAnalysis();
-  }, [mode]);
+    setCuantAnalisisId(cuantId ?? 0);
+    setCualAnalisisId(cualId ?? 0);
+  }, [mode, cuantId, cualId]);
 
+  console.log(mode, initialValues);
   return (
     <div>
-      {mode === "edit" && initialValues != 0 && (
-        <>
-          {
-            <AnalysisForm
-              data={data}
-              type={type}
-              mode={mode}
-              initialValues={initialValues}
-            />
-          }
-        </>
-      )}
-      {mode === "edit" && initialValues === 0 && <h1>loading...</h1>}
+      {(mode === "edit-both" ||
+        mode === "edit-cual" ||
+        mode === "edit-cuant") &&
+        initialValues != 0 && (
+          <>
+            {
+              <AnalysisForm
+                data={data}
+                type={type}
+                mode={mode}
+                initialValues={initialValues}
+                cualId={cualAnalisisId}
+                cuantId={cuantAnalisisId}
+              />
+            }
+          </>
+        )}
+      {/* {(mode === "edit-both" || mode === "edit-cual" || mode === "edit-cuant") && initialValues === 0 && <h1>loading...</h1>} */}
       {mode === "add" && (
         <AnalysisForm
           data={data}
           type={type}
           mode={mode}
           initialValues={null}
+          cualId={cualAnalisisId}
+          cuantId={cuantAnalisisId}
         />
       )}
     </div>
