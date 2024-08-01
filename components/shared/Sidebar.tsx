@@ -23,6 +23,16 @@ const Sidebar = () => {
                 Dashboard
               </Link>
 
+              <Link className="sidebar-nav_element" href="/portfolio">
+                <Image
+                  src="/icons/navigation/wallet-fill.svg"
+                  alt="wallet"
+                  height={25}
+                  width={25}
+                />
+                Portafolio
+              </Link>
+
               <Link href="/lessons" className="sidebar-nav_element">
                 <Image
                   src="/lessons.svg"
@@ -42,6 +52,8 @@ const Sidebar = () => {
                 />
                 Analisis Profundo
               </Link>
+
+              
 
               {/* <Link 
                             className='sidebar-nav_element'

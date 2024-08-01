@@ -59,6 +59,15 @@ const Navbar = () => {
                     />
                     Home
                   </Link>
+                  <Link className="header-nav_text" href="/dashboard">
+                    <Image
+                      src="/icons/navigation/wallet-fill.svg"
+                      alt="Kairos"
+                      width={20}
+                      height={20}
+                    />
+                    Portafolio
+                  </Link>
 
                   <Link className="header-nav_text" href="/lessons">
                     <Image
@@ -78,31 +87,7 @@ const Navbar = () => {
                     />
                     Analisis Profundo
                   </Link>
-                  {/* 
-                              <Link className='header-nav_text'
-                                href='/tools'
-                              >
-                                    <Image 
-                                      src='/tools-fill.svg'
-                                      alt='Kairos'
-                                      width={20}
-                                      height={20}
-                                    />
-                                    Herramientas
-                              </Link>
-                              
-                              <Link className='header-nav_text'
-                                href="/data-on-chain"
-                              >
-                                    <Image 
-                                      src='/data-on-chain.svg'
-                                      alt='Kairos'
-                                      width={20}
-                                      height={20}
-                                    />
-
-                                      Data On Chain
-                              </Link> */}
+               
                 </ul>
               </nav>
             </SheetContent>
