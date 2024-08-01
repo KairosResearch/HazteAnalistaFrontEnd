@@ -1,6 +1,6 @@
 "use client";
 // Inspired by react-hot-toast library
-//Imports for the component
+//Imports for the component.
 //React
 import * as React from "react";
 //Components

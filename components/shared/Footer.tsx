@@ -1,4 +1,4 @@
-//Imports for the component
+//Imports for the component.
 //Next
 import Link from "next/link";
 //React

@@ -1,6 +1,6 @@
 "use client";
 
-//Imports for the component
+//Imports for the component.
 //React
 import React, { useState, useEffect } from "react";
 //Hooks
@@ -31,7 +31,7 @@ import { debounce, promedioCalculator } from "@/utils/index";
 
 //Types:
 import { ValueObject, AnalisysCatalogs, AnalisysResponse } from "@/index";
-
+//Components 
 import Loading from "../shared/Loading";
 interface AnalysisFormProps {
   type: "cual" | "cuant";

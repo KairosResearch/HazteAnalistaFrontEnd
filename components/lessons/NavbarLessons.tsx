@@ -1,7 +1,11 @@
 "use client";
+//Imports for the component.
+//React
 import React, { useEffect } from "react";
+//Next
 import Link from "next/link";
 import Image from "next/image";
+//Values and utilities
 import {
   saveLessonAction,
   setLastLessonAction,

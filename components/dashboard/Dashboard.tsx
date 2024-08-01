@@ -1,5 +1,5 @@
 "use client";
-//Imports for the component
+//Imports for the component.
 //React
 import React, { useEffect, useState, Suspense } from "react";
 import { LOW, MID, LARGE } from "@/lib/constants";
@@ -37,9 +37,6 @@ import { Badge } from "../ui/badge";
 import { useDialogItem } from "@/hooks/useDialogs";
 import { useUserTableData } from "@/hooks/useUserData";
 // import { useUserData } from '@/hooks/useUserData';
-
-
-
 
 const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
   const [loading, setLoading] = useState(false);

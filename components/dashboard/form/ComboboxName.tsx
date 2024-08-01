@@ -1,8 +1,9 @@
 "use client";
-
+//Imports for the component.
+//React
 import * as React from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
-
+//values and utilities
 import { cn } from "@/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,6 +19,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+//Hooks
 import { useTabsState } from "@/hooks/useTabs";
 
 interface ComboboxDemoProps {

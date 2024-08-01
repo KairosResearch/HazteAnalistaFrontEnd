@@ -1,6 +1,11 @@
+//Imports for the component.
+//React
 import React from "react";
+//Input
 import { Input } from "@/components/ui/input";
+//customField
 import { CustomField } from "@/components/shared/CustomField";
+
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -9,8 +14,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+//UI needed
 import { Checkbox } from "../ui/checkbox";
 import { Button } from "../ui/button";
+//types
 import { AnalisysCatalogs } from "@/index";
 import { ValueObject } from "@/index";
 

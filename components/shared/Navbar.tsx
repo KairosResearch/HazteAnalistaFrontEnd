@@ -1,6 +1,10 @@
+//Imports for the component
+//React.
 import React from "react";
+//Next
 import Link from "next/link";
-//UI comps
+import Image from "next/image";
+//Values and utilities
 import {
   Sheet,
   SheetContent,
@@ -8,7 +12,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import Image from "next/image";
 import PopoverForm from "../auth/PopoverForm";
 
 const Navbar = () => {

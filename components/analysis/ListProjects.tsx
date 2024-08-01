@@ -1,5 +1,5 @@
 "use client";
-//Imports for the component
+//Imports for the component.
 //React
 import React, { useEffect, useState } from "react";
 //Next

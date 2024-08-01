@@ -1,5 +1,8 @@
+//Imports for the component.
+//React
 import React from "react";
 import { CustomField } from "../../shared/CustomField";
+//Input
 import { Input } from "../../ui/input";
 
 interface EditablePrecioProps {

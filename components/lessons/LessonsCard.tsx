@@ -1,6 +1,10 @@
+//Imports for the component.
+//React
 import React from "react";
+//Next
 import Link from "next/link";
 import Image from "next/image";
+//Components
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "../ui/badge";
 

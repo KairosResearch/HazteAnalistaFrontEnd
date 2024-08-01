@@ -1,5 +1,7 @@
+//Imports for the component.
+//React
 import * as React from "react";
-
+//Values and utilities
 import { cn } from "@/utils";
 
 const Card = React.forwardRef<

@@ -1,8 +1,14 @@
+//Imports for the component.
+//React
 import React from "react";
-import { TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import Image from "next/image";
-import { tableHeaders } from "@/utils";
+//components
 import DialogAlert from "./DialogAlert";
+import { TableHead, TableHeader, TableRow } from "@/components/ui/table";
+//Next
+import Image from "next/image";
+//Values and utilities
+import { tableHeaders } from "@/utils";
+
 
 type DashboardHeaderProps = {
   prToDelete: number[];

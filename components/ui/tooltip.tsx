@@ -1,5 +1,5 @@
 "use client";
-//Imports for the component
+//Imports for the component.
 //React
 import * as React from "react";
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";

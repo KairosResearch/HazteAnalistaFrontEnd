@@ -1,6 +1,6 @@
 "use client";
 
-//Imports for the component
+//Imports for the component.
 //React
 import React, { useState, useEffect } from "react";
 //Hooks
@@ -21,7 +21,7 @@ import {
 import { useForm } from "react-hook-form";
 import { Form } from "@/components/ui/form";
 
-//UI needed
+//Components
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 

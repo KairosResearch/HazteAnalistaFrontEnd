@@ -1,11 +1,14 @@
 "use client";
+//Imports for the component.
+//React
 import React from "react";
-//types:
-import { DialogAlertProps } from "@/index";
-
-//Hooks:
+//Next
+import Image from "next/image";
+//Hooks
 import { useUserTableData } from "@/hooks/useUserData";
-
+//values and utilities
+import { DialogAlertProps } from "@/index";
+import { handleDeleteProyect } from "@/actions/proyectActions";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -17,10 +20,10 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+//Components
 import { Button } from "@/components/ui/button";
-import { handleDeleteProyect } from "@/actions/proyectActions";
 import { TableHead } from "@/components/ui/table";
-import Image from "next/image";
+
 
 const DialogAlert = ({ prToDelete, clean }: DialogAlertProps) => {
   //to modify the global state

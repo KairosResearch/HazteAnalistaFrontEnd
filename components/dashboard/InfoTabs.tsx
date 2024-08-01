@@ -1,11 +1,15 @@
+//Imports for the component.
+//React
 import React from "react";
-
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
+//Next
 import Link from "next/link";
 import Image from "next/image";
-import { InfoTabsProps } from "@/index";
 import { useRouter } from "next/navigation";
+//Components
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Badge } from "@/components/ui/badge";
+//Values and utilities
+import { InfoTabsProps } from "@/index";
 import AnalizysSection from "./info/AnalizysSection";
 
 const InfoTabs = ({ info, hasAnalisis }: InfoTabsProps) => {
