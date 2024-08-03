@@ -400,7 +400,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                   {rendimientoCalculator(
                     data.precioEntrada,
                     data.price,
-                  ).toFixed(2)}{" "}
+                  ).toLocaleString('en-US')}{" "}
                   %
                 </TableCell>
 

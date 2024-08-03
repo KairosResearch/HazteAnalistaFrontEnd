@@ -126,7 +126,7 @@ const InfoTabs = ({
         <h2 className="text-xl md:text-2xl font-bold mb-3">
           Financiamiento{" "}
           {info.financiamiento && info.financiamiento != 0 ? (
-            <span>| $ {info.financiamiento}</span>
+            <span>| $  {info.financiamiento.toLocaleString('en-US')}</span>
           ) : (
             <span>| N/A</span>
           )}

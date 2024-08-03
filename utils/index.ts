@@ -33,16 +33,19 @@ export const siAthCalculator = (precioEntrada: number, precioAth: number) => {
 
 export const rangeDesigner = (marketCap: number) => {
   if (marketCap <= 99999999) {
-    //99.999.999
+    // Less than or equal to 99,999,999
     return POP;
   }
   if (marketCap >= 100000000 && marketCap <= 999999999) {
+    // Between 100,000,000 and 999,999,999
     return LOW;
   }
   if (marketCap >= 1000000000 && marketCap <= 9999999999) {
+    // Between 1,000,000,000 and 9,999,999,999
     return MID;
   }
   if (marketCap >= 10000000000) {
+    // Greater than or equal to 10,000,000,000
     return LARGE;
   }
 };
@@ -52,7 +55,8 @@ export const rendimientoCalculator = (
   precioEntrada: number,
   precioActual: number,
 ) => {
-  return (precioActual / precioEntrada - 1) * 100;
+  const rendimiento = (precioActual / precioEntrada - 1) * 100;
+  return parseFloat(rendimiento.toFixed(2));
 };
 
 export const promedioCalculator = (values: number[]) => {
