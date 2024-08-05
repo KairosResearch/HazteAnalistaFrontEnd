@@ -69,6 +69,10 @@ interface TableData {
   id_analisis_cuantitativo: number ;
 }
 
+interface ProjectsDataWithAnalisis extends TableData {
+  respuestaSegundoFetch: AnalisysResponse;
+}
+
 //Changes comparing to -> TableData
 //the id's from the catalogs are now strings
 //because they have to be strings in the form,

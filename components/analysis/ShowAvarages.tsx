@@ -19,7 +19,7 @@ const ShowAvarages = () => {
     console.log("promedio", promedio);
   }, [cuantitativePromedio, cualitativePromedio]);
   return (
-    <div className="fixed md:sticky md:top-[-1px] top-12 right-9  z-20 mt-10 bg-dark-black/95 text-primary-foreground/70 w-[12%] md:w-full rounded flex flex-col text-sm  p-1 px-2">
+    <div className="fixed md:sticky md:top-[-1px] h-32 md:h-auto w-1/4  z-20  bg-dark-black/95 text-primary-foreground/70 top-28 right-[-1px] md:w-full rounded flex flex-col text-sm  p-1 px-2">
       <div className="">
         <h2 className="mt-0"><span className="hidden md:inline">Promedio del proyecto:</span> <span className="">{promedio}%</span> </h2>
       </div>

@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { TableData } from "@/index";
+import { TableData, ProjectsDataWithAnalisis } from "@/index";
 import { handleGetProyects } from "@/actions/proyectActions";
 import { Card, CardContent } from "../ui/card";
 import Link from "next/link";
@@ -10,8 +10,9 @@ import SkeletonListItem from "../shared/skeletons/SkeletonListItem";
 import { useProjectId } from "@/hooks/useAnalisys";
 import { useProjects } from "@/hooks/useProjects";
 
+
 const ListProjects = () => {
-  const [projectsSaved, setProjectsSaved] = useState<TableData[]>([]);
+  const [projectsSaved, setProjectsSaved] = useState<ProjectsDataWithAnalisis[]>([]);
   const [loading, setLoading] = useState(false);
   const { setProjectId } = useProjectId();
   const [guzma, setGuzma] = useState<number | null>(null);
@@ -21,21 +22,21 @@ const ListProjects = () => {
     }
   }, []);
 
-  const { data: projects, isLoading } = useProjects(guzma ?? 0);
+  const { dataWithAnalisys: projects, isAnalysisLoading } = useProjects(guzma ?? 0);
 
   useEffect(() => {
     if (guzma !== null) {
-      setProjectsSaved(projects as TableData[]);
+      setProjectsSaved(projects as ProjectsDataWithAnalisis[]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [guzma, projects]);
 
   useEffect(() => {
     if (guzma !== null) {
-      setLoading(isLoading);
+      setLoading(isAnalysisLoading);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [guzma, isLoading]);
+  }, [guzma, isAnalysisLoading]);
 
   return (
     <div className="grid gap-4">
@@ -90,6 +91,7 @@ const ListProjects = () => {
                   >
                     <p className=" underline text-gray-200">Editar</p>
                   </Link>
+                  
                 </>
                  
                 ) : (
@@ -111,11 +113,26 @@ const ListProjects = () => {
             </div>
           </div>
           <CardContent>
+          {
+                project.tieneAnalisisCualitativo || project.tieneAnalisisCuantitavivo ? (
+                  <div>
+                  <p>
+                    Progreso del analizis:{(project.respuestaSegundoFetch.filteredCualitative.suma[0] + project.respuestaSegundoFetch.filteredCuantitative.suma[0]) /2} %
+                  </p>
+                  <p>
+                    Progreso del analisis cualitativo: {project.respuestaSegundoFetch.filteredCualitative.suma} %
+                  </p>
+                  <p>
+                      Progreso del analisis cuantitativo: {project.respuestaSegundoFetch.filteredCuantitative.suma} %
+                  </p>
+                </div>
+                ): null}
+            
             <p className="text-pretty text-primary-foreground/85">
-              Market Cap: $ {project.market_cap}
+              Market Cap: $ {project.market_cap.toLocaleString()}
             </p>
             <p className="text-pretty text-primary-foreground/85">
-              Precio actual: $ {project.price}
+              Precio actual: $ {project.price.toLocaleString()}
             </p>
           </CardContent>
         </Card>

@@ -110,7 +110,7 @@ const FormContainer = ({
     setCualAnalisisId(cualId ?? 0);
   }, [mode, cuantId, cualId]);
 
-  console.log(mode, initialValues);
+
   return (
     <div>
       {(mode === "edit-both" ||

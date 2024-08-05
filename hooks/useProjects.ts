@@ -1,17 +1,35 @@
 // hooks/useProjects.ts
 import useSWR from "swr";
 import {handleGetProyects} from "../actions/proyectActions";
+import { handleGetSingleAnalisys } from "@/actions/analisysActions";
 import { useMemo } from "react";
+import { ProjectsDataWithAnalisis } from "..";
 
 export const useProjects = (userId: number) => {
     const { data, error, mutate } = useSWR(['getProjects', userId], () => handleGetProyects(userId));
 
-//   const projects = useMemo(() => data || [], [data]);
+    const { data: analysisData, error: analysisError } = useSWR(
+      Array.isArray(data) ? ['getAnalysis', data] : null,
+      async () => {
+        if (!Array.isArray(data)) return [];
+  
+        const projectsWithAnalisys = await Promise.all(
+          data.map(async (project: any) => {
+            const analysis = await handleGetSingleAnalisys(project.id_analisis_cualitativo, project.id_analisis_cuantitativo);
+            return { ...project, respuestaSegundoFetch: analysis };
+          })
+        );
+        return projectsWithAnalisys as ProjectsDataWithAnalisis[];
+      }
+    );
 
-  return {
-    data,
-    isLoading: !error && !data,
-    isError: error,
-    mutate, // This function can be used to revalidate the data manually
-  };
+    return {
+      data,
+      dataWithAnalisys: analysisData,
+      isLoading: !error && !data,
+      isAnalysisLoading: !analysisError && !analysisData,
+      isError: error,
+      isAnalysisError: analysisError,
+      mutate, // This function can be used to revalidate the data manually
+    };
 };
