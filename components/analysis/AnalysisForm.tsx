@@ -360,7 +360,7 @@ const AnalysisForm = ({
         </div>
         {isLoading && <Loading />}
         <Button type="submit"
-          variant={mode === "add" ? "outline" : "default"}
+          variant={"default"}
           size={'sm'}
         className={` 
              w-4/12 md:w-2/12 fixed right-[-50px] z-30 md:right-[4.5rem]  2xl:right-36 justify-start md:justify-center mx-auto mt-4 text-left
