@@ -6,6 +6,7 @@ import React, { useState, useEffect } from "react";
 //Hooks
 import { useUserTableData } from "@/hooks/useUserData";
 import { useDialogItem, useDialogInstructions } from "@/hooks/useDialogs";
+import { useProjects } from "@/hooks/useProjects";
 //import { useTabsState } from "@/hooks/useTabs";
 import { useAverages } from "@/hooks/useAnalisys";
 import { useProjectId } from "@/hooks/useAnalisys";
@@ -56,6 +57,9 @@ const AnalysisForm = ({
   cuantId, 
   cualId
 }: AnalysisFormProps) => {
+
+  const [guzma, setGuzma] = useState<number | null>(null);
+
 
  const [buttonCual, setButtonCual] = useState(false);
  const [buttonCuant, setButtonCuant] = useState(false);
@@ -156,7 +160,13 @@ const AnalysisForm = ({
     return () => debouncedFunction.cancel();
   }, [cuantitativeValues]);
 
-  
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.localStorage.getItem("guzma") !== null) {
+      setGuzma(Number(window.localStorage.getItem("guzma")));
+    }
+  }, []);
+
+  const { mutateAnalysis } = useProjects(guzma ?? 0);
 
   // Submit handler
   async function onSubmit(values: any) {
@@ -181,6 +191,7 @@ const AnalysisForm = ({
           if (response) {
             // Primero, mostrar el mensaje de éxito
             setSuccess(true);
+            mutateAnalysis();
             if(type === "cual"){
               setButtonCual(true);
             }

@@ -22,7 +22,12 @@ const ListProjects = () => {
     }
   }, []);
 
-  const { dataWithAnalisys: projects, isAnalysisLoading } = useProjects(guzma ?? 0);
+  const { setNeedAnalysis, dataWithAnalisys: projects, isAnalysisLoading } = useProjects(guzma ?? 0);
+
+  useEffect(() => {
+   setNeedAnalysis(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (guzma !== null) {

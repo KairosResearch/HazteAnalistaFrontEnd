@@ -1,4 +1,5 @@
 // hooks/useProjects.ts
+import { useState } from "react";
 import useSWR from "swr";
 import {handleGetProyects} from "../actions/proyectActions";
 import { handleGetSingleAnalisys } from "@/actions/analisysActions";
@@ -6,9 +7,13 @@ import { useMemo } from "react";
 import { ProjectsDataWithAnalisis } from "..";
 
 export const useProjects = (userId: number) => {
+
+  // Estado para controlar si necesitas el análisis
+  const [needAnalysis, setNeedAnalysis] = useState(false);
+
     const { data, error, mutate } = useSWR(['getProjects', userId], () => handleGetProyects(userId));
 
-    const { data: analysisData, error: analysisError } = useSWR(
+    const { data: analysisData, error: analysisError, mutate: mutateAnalysis } = useSWR(needAnalysis &&
       Array.isArray(data) ? ['getAnalysis', data] : null,
       async () => {
         if (!Array.isArray(data)) return [];
@@ -31,5 +36,7 @@ export const useProjects = (userId: number) => {
       isError: error,
       isAnalysisError: analysisError,
       mutate, // This function can be used to revalidate the data manually
+      mutateAnalysis, 
+      setNeedAnalysis
     };
 };
