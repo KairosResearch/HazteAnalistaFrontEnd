@@ -284,7 +284,7 @@ const DashboardDataForm = ({
           <>
             <div className="mx-auto w-4/5 mt-6 hidden md:block">
               <p className="bg-green-200 p-2 text-center text-green-700">
-                Proyecto enviado!
+                ¡Proyecto enviado!
               </p>
             </div>
           </>
@@ -478,7 +478,7 @@ const DashboardDataForm = ({
           <>
             <div className="mx-auto w-4/5 mt-6 block md:hidden">
               <p className="bg-green-200 p-2 text-center text-green-700">
-                Proyecto enviado!
+                ¡Proyecto enviado!
               </p>
             </div>
           </>

@@ -85,7 +85,7 @@ const Navbar = () => {
                       height={20}
                       width={20}
                     />
-                    Analisis Profundo
+                    Análisis Profundo
                   </Link>
                
                 </ul>

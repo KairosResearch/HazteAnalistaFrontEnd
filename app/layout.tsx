@@ -9,8 +9,8 @@ import { SWRProvider } from "@/providers/SwrProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Kairos | Hazte Analista",
-  description: "Plataforma de análisis de proyectos de inversión web3",
+  title: "Kairos Research | Hazte Analista",
+  description: "Plataforma de análisis de proyectos web3",
   icons: ["/kairos-main.svg"],
 };
 
