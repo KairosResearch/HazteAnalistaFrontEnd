@@ -6,6 +6,7 @@ import React, { useState, useEffect } from "react";
 //Hooks
 import { useUserTableData } from "@/hooks/useUserData";
 import { useDialogItem, useDialogInstructions } from "@/hooks/useDialogs";
+import { useProjects } from "@/hooks/useProjects";
 //import { useTabsState } from "@/hooks/useTabs";
 import { useAverages } from "@/hooks/useAnalisys";
 import { useProjectId } from "@/hooks/useAnalisys";
@@ -22,10 +23,13 @@ import CuantitativeFields from "./CuantitativeForm";
 //Shadcn staff for forms
 import { useForm } from "react-hook-form";
 import { Form } from "@/components/ui/form";
+import { Dialog, DialogHeader, DialogContent } from "@/components/ui/dialog";
 
 //UI needed
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { ArrowUp } from "lucide-react";
+import { EditIcon } from "lucide-react";
 
 //Values and utils
 import { debounce, promedioCalculator } from "@/utils/index";
@@ -34,6 +38,7 @@ import { debounce, promedioCalculator } from "@/utils/index";
 import { ValueObject, AnalisysCatalogs, AnalisysInitialValues } from "@/index";
 
 import Loading from "../shared/Loading";
+
 interface AnalysisFormProps {
   type: "cual" | "cuant";
   mode: "add" | "edit-both" | "edit-cual" | "edit-cuant";
@@ -53,7 +58,11 @@ const AnalysisForm = ({
   cualId
 }: AnalysisFormProps) => {
 
- 
+  const [guzma, setGuzma] = useState<number | null>(null);
+
+
+ const [buttonCual, setButtonCual] = useState(false);
+ const [buttonCuant, setButtonCuant] = useState(false);
 
   const { setCaulitativePromedio, cualitativePromedio } = useAverages();
   const initialPromedioCual = mode === "add" ? 0 : cualitativePromedio/2;
@@ -64,6 +73,7 @@ const AnalysisForm = ({
   const [cuantitativeValues, setCuantitativeValues] = useState<number>(initialPromedioCuant);
   
   const [success, setSuccess] = useState(false);
+  const [bigSuccess, setBigSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   //For the initial values
@@ -96,8 +106,7 @@ const AnalysisForm = ({
             exchange: b.exchange,
           }
       : //If mode is add
-        type === "cual"
-        ? {
+        {
             alianzas: [],
             auditorias: [],
             equipo: [],
@@ -110,13 +119,7 @@ const AnalysisForm = ({
             onChain: [],
             finance: [],
             exchange: [],
-          }
-        : {
-            tokenomics: [],
-            onChain: [],
-            finance: [],
-            exchange: [],
-          };
+        }
 
   // useEffect(() => {
   //   setCaulitativePromedio(a?.promedio ?? 0);
@@ -157,6 +160,14 @@ const AnalysisForm = ({
     return () => debouncedFunction.cancel();
   }, [cuantitativeValues]);
 
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.localStorage.getItem("guzma") !== null) {
+      setGuzma(Number(window.localStorage.getItem("guzma")));
+    }
+  }, []);
+
+  const { mutateAnalysis } = useProjects(guzma ?? 0);
+
   // Submit handler
   async function onSubmit(values: any) {
     setIsLoading(true);
@@ -168,24 +179,33 @@ const AnalysisForm = ({
         const guzma = Number(window.localStorage.getItem("guzma"));
         const projectId = Number(localStorage.getItem("projectId"));
         if (mode === "add") {
+
           console.log("Creando con estos values: ", values);
           const response = await handleCreateAnalisys(
             values,
             guzma,
             projectId,
-            type,
+            type
           );
           console.log("Response", response);
           if (response) {
             // Primero, mostrar el mensaje de éxito
             setSuccess(true);
+            mutateAnalysis();
+            if(type === "cual"){
+              setButtonCual(true);
+            }
+            if(type === "cuant"){
+              setButtonCuant(true);
+            }
             // Luego, después de 1 segundo, ocultar el mensaje
             setTimeout(() => {
               setSuccess(false);
             }, 2500);
             setIsLoading(false); // Ajusta este tiempo según sea necesario
           }
-          setIsLoading(false);
+          // setIsLoading(false);
+        
         } else if (mode === "edit-cual") {
           if (type === "cuant") {
             const response = await handleCreateAnalisys(
@@ -256,7 +276,8 @@ const AnalysisForm = ({
               setIsLoading(false);// Ajusta este tiempo según sea necesario
             }
           }
-        } else {
+        } 
+        else {
           console.log(cuantId)
           const analisysId = type === "cual" ? cualId : cuantId;
           console.log("análisis: ", analisysId);
@@ -286,7 +307,9 @@ const AnalysisForm = ({
     }
 
     //backend Values para cualitativo
+   {
     if (type === "cual") {
+      console.log('llego aca?')
       const backendValues = {
         idCasoUso: values.casosUso,
         idIntegrantesEquipo: values.equipo,
@@ -311,25 +334,28 @@ const AnalysisForm = ({
       };
       console.log("Backend Values", backendValues);
       submitHandler(backendValues);
-    }
+    }}
   }
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
+        
+        
+
+
         <div
-          className={`z-50 fixed bottom-16 right-5 bg-primary text-white py-2 px-4 rounded-lg shadow-lg
+          className={`z-50 fixed bottom-16 xl:bottom-28 right-5 bg-primary text-white py-2 px-4 rounded-lg shadow-lg
             transition-opacity duration-2500 ${success ? "opacity-100" : "opacity-0"}`}
           onAnimationEnd={() => setSuccess(false)}
         >
           Subido exitosamente!
-          <Link href="/dashboard" className="ml-4">
-            <span className="text-foreground underline"> Dashboard</span>
-          </Link>
+          
         </div>
 
         <div className="grid gap-4">
-          {type === "cual" ? (
+          {
+          type === "cual" ? (
             <CualitativeFields
               mode={mode}
               data={data}
@@ -340,13 +366,34 @@ const AnalysisForm = ({
               mode={mode}
               data={data}
               setCuantitativeValues={setCuantitativeValues}
-            />
-          )}
+            />)}
+          
         </div>
         {isLoading && <Loading />}
-        <Button type="submit" className="w-3/12 float-right  mx-auto mt-4">
+        <Button type="submit"
+          variant={"default"}
+          size={'sm'}
+        className={` 
+             w-4/12 md:w-2/12 fixed right-[-50px] z-30 md:right-[4.5rem]  2xl:right-36 justify-start md:justify-center mx-auto mt-4 text-left
+          ${ type === 'cual' && 'top-[8.35rem] md:top-[5.5rem]'} 
+          ${type === 'cuant' && 'top-44 md:top-32 md:z-30' }
+          ${(type === 'cuant' && buttonCuant) && 'hidden'}
+          ${(type === 'cual' && buttonCual) && 'hidden'}
+          `}
           
-          {mode === "add" ? "Enviar" : "Actualizar"}
+          >
+            {
+              mode === "add" &&
+              <ArrowUp />
+            }
+
+            {
+              mode ===  "edit-both" && 
+              <EditIcon />
+            }
+          
+          { type === 'cuant' ? 'Cuantitativo' : 'Cualitativo'
+          }
         </Button>
       </form>
     </Form>

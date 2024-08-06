@@ -37,6 +37,7 @@ const LeftSideForm = ({
   prInfo,
   rendimiento,
 }: LeftSideForm) => {
+  const formattedRendimiento = rendimiento.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   return (
     <div className="">
       <div className="nombreblock">
@@ -81,8 +82,9 @@ const LeftSideForm = ({
 
         {/**Si Ath */}
         <div className="calcblock flex flex-col gap-4 md:gap-7 ">
+          
           <FormNumbers
-            values={`${rendimiento} %`}
+            values={`${formattedRendimiento} %`}
             title="Rendimiento"
             image="siAth"
           />

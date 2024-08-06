@@ -21,7 +21,7 @@ interface CualitativeFieldsProps {
   setCuantitativeValues: (value: any) => void;
 }
 
-const CualitativeFields = ({
+const CuantitativeFields = ({
   mode,
   data,
   setCuantitativeValues,
@@ -32,6 +32,7 @@ const CualitativeFields = ({
     { name: "finance", formLabel: "Finanzas" },
     { name: "exchange", formLabel: "Exchanges" },
   ];
+
   return (
     <>
       {data.map((item, index: number) => (
@@ -86,4 +87,4 @@ const CualitativeFields = ({
   );
 };
 
-export default CualitativeFields;
+export default CuantitativeFields;

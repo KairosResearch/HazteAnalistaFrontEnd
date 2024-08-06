@@ -3,8 +3,10 @@ import Chart from '@/components/portfolio/PieChartComponent'
 import PortfolioInfo from '@/components/portfolio/PortfolioInfo'
 import TokensInfo from '@/components/portfolio/TokensInfo'
 import { Card } from '@/components/ui/card'
+import { getBalances } from '@/services/backend/balances'
 
-const page = () => {
+const page =  () => {
+   
   return (
     <div>
         <section id="tokens">
