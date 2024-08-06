@@ -19,7 +19,7 @@ const Footer = () => {
                     target="_blank"
                     href="https://www.kairosresearch.xyz/insights"
                   >
-                    Todos los analisis
+                    Todos los análisis
                   </Link>
                 </li>
               </ul>

@@ -25,7 +25,7 @@ export const handleRegister = async (
     //         return false;
     //     }
     // }
-    // //Sí mmando un error el servidor, recibimos el status como string
+    // //Sí mando un error el servidor, recibimos el status como string
     // else {
     //     return data as string | undefined;
     // }

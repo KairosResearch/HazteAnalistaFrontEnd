@@ -50,7 +50,7 @@ const Sidebar = () => {
                   height={25}
                   width={25}
                 />
-                Analisis Profundo
+                Análisis Profundo
               </Link>
 
               

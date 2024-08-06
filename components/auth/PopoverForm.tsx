@@ -79,7 +79,7 @@ const PopoverForm = ({ usage }: PopoverFormProps) => {
                   className="w-2/5 "
                   onClick={onLogout}
                 >
-                  Cerrar sesion
+                  Cerrar sesión
                 </Button>
               </div>
             </div>

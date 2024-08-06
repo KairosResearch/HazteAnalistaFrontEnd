@@ -153,14 +153,14 @@ export const instructionsSteps = [
   },
   {
     id: 4,
-    title: "Acá encontrarás el token del proyecto que seleccionaste.",
+    title: "Aquí encontrarás el token del proyecto que seleccionaste.",
     description: "(Al igual que en tu dashboard)",
     img: "/evaluar.svg",
   },
   {
     id: 5,
     title:
-      "Acá encontrarás la capitalización de mercado que tiene el proyecto que seleccionaste.",
+      "Aquí encontrarás la capitalización de mercado que tiene el proyecto que seleccionaste.",
     description: "(Al igual que en tu dashboard)",
     img: "/encontrar.svg",
   },
@@ -174,20 +174,20 @@ export const instructionsSteps = [
     id: 7,
     title: " \n ",
     description:
-      "En relación a tu precio de entrada y el precio actual del token se calcula el rendimiento que ha tenido en tu portafolio",
+      "En relación a tu precio de entrada y el precio actual del token se calcula el rendimiento que ha tenido tu portafolio",
     img: "/encontrar.svg",
   },
   {
     id: 8,
     title: "¡Metodología 4E!.",
     description:
-      "En Kairos Research creamos un método de estudio llamado “4E” para analizar proyectos, con el objetivo guiarte hacia oportunidades de inversión informadas y sostenibles en el cambiante universo de las criptomonedas.",
+      "En Kairos Research creamos un método de estudio llamado “4E” para analizar proyectos, con el objetivo de guiarte hacia oportunidades de inversión informadas y sostenibles en el cambiante universo de las criptomonedas.",
   },
   {
     id: 8,
     title: "¡Metodología 4E!",
     description:
-      "En Kairos Research creamos un método de estudio llamado “4E” para analizar proyectos, con el objetivo guiarte hacia oportunidades de inversión informadas y sostenibles en el cambiante universo de las criptomonedas.",
+      "En Kairos Research creamos un método de estudio llamado “4E” para analizar proyectos, con el objetivo de guiarte hacia oportunidades de inversión informadas y sostenibles en el cambiante universo de las criptomonedas.",
   },
   {
     id: 9,
@@ -209,14 +209,14 @@ export const instructionsSteps = [
   },
   {
     id: 12,
-    title: "¡Ya casi está agregado!",
-    description: "Ahora solo añadelo a tu dashboard de seguimiento.",
+    title: "¡Ya casi está!",
+    description: "Ahora solo añádelo a tu dashboard de seguimiento.",
   },
   {
     id: 13,
     title: "¡Has agregado un proyecto exitosamente!",
     description:
-      "Da click en el proyecto y descubirás más información sobre el.",
+      "Da click en el proyecto y descubrirás más información sobre él.",
   },
 ];
 

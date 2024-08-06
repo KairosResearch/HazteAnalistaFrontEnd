@@ -46,10 +46,10 @@ const CurrentLesson = () => {
         />
       ) : (
         <p>
-          O, sí no has empezado, puedes comenzar a leer nuestras lecciones dando
+          O, si no has empezado, puedes comenzar a leer nuestras lecciones dando
           click {""}
           <Link className="underline" href={"lessons/1"}>
-            acá
+            Aquí
           </Link>
         </p>
       )}
