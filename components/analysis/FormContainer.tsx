@@ -3,13 +3,12 @@
 //React
 import React, { useEffect, useState } from "react";
 //Values and utils
-import { AnalisysCatalogs } from "@/index";
+import { AnalysisCatalogs } from "@/index";
 //Components
 import AnalysisForm from "@/components/analysis/AnalysisForm";
 //Actions
-import { handleGetSingleAnalisys } from "@/actions/analisysActions";
-//Hooks
-import { useAverages } from "@/hooks/useAnalisys";
+import { handleGetSingleAnalysis } from "@/actions/analisysActions";
+import { useAverages } from "@/hooks/useAnalysis";
 // import {AnalisysResponse} from '@/index'
 
 type FormContainerProps = {
@@ -18,7 +17,7 @@ type FormContainerProps = {
   // data?: BackendValues;
   // catalogos: CatalogosType;
   // mode: "add" | "edit";
-  data: AnalisysCatalogs;
+  data: AnalysisCatalogs;
   cualId: number | null;
   cuantId: number | null;
 };
@@ -46,7 +45,7 @@ const FormContainer = ({
       ) {
         console.log(cualId, cuantId);
 
-        const response = await handleGetSingleAnalisys(
+        const response = await handleGetSingleAnalysis(
           cualId ?? 0,
           cuantId ?? 0,
         );

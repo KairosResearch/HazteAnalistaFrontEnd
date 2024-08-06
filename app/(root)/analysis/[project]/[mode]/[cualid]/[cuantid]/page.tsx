@@ -15,8 +15,8 @@ import {
   getTokenomics,
   getUseCases,
   getWhitepaper,
-} from "@/services/backend/analisys";
-import { AnalisysCatalogs } from "@/index";
+} from "@/services/backend/analysis";
+import { AnalysisCatalogs } from "@/index";
 import FormContainer from "@/components/analysis/FormContainer";
 import Link from "next/link";
 
@@ -31,7 +31,7 @@ interface pageProps {
 
 const page = async ({ params }: pageProps) => {
   const projectName = decodeURIComponent(params.project);
-  const dropdownNeedsCualitative: AnalisysCatalogs = await Promise.all([
+  const dropdownNeedsCualitative: AnalysisCatalogs = await Promise.all([
     getAlianza(),
     getAuditorias(),
     getUseCases(),
@@ -41,7 +41,7 @@ const page = async ({ params }: pageProps) => {
     getRoadmap(),
     getWhitepaper(),
   ]);
-  const dropdownNeedsCuantitative: AnalisysCatalogs = await Promise.all([
+  const dropdownNeedsCuantitative: AnalysisCatalogs = await Promise.all([
     getTokenomics(),
     getOnChain(),
     getFinanceCuant(),

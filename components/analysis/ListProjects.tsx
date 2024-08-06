@@ -13,8 +13,7 @@ import { Badge } from "@/components/ui/badge";
 //components
 import Loading from "../shared/Loading";
 import SkeletonListItem from "../shared/skeletons/SkeletonListItem";
-//Hooks
-import { useProjectId } from "@/hooks/useAnalisys";
+import { useProjectId } from "@/hooks/useAnalysis";
 import { useProjects } from "@/hooks/useProjects";
 
 

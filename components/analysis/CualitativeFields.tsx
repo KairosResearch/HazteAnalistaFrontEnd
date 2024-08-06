@@ -18,12 +18,12 @@ import {
 import { Checkbox } from "../ui/checkbox";
 import { Button } from "../ui/button";
 //types
-import { AnalisysCatalogs } from "@/index";
+import { AnalysisCatalogs } from "@/index";
 import { ValueObject } from "@/index";
 
 interface CualitativeFieldsProps {
   mode: "add" | "edit-both" | "edit-cual" | "edit-cuant";
-  data: AnalisysCatalogs;
+  data: AnalysisCatalogs;
   setCualitativeValues: (value: any) => void;
 }
 

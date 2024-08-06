@@ -2,7 +2,7 @@
 import { useState } from "react";
 import useSWR from "swr";
 import {handleGetProyects} from "../actions/proyectActions";
-import { handleGetSingleAnalisys } from "@/actions/analisysActions";
+import { handleGetSingleAnalysis } from "@/actions/analisysActions";
 import { useMemo } from "react";
 import { ProjectsDataWithAnalisis } from "..";
 
@@ -20,7 +20,7 @@ export const useProjects = (userId: number) => {
   
         const projectsWithAnalisys = await Promise.all(
           data.map(async (project: any) => {
-            const analysis = await handleGetSingleAnalisys(project.id_analisis_cualitativo, project.id_analisis_cuantitativo);
+            const analysis = await handleGetSingleAnalysis(project.id_analisis_cualitativo, project.id_analisis_cuantitativo);
             return { ...project, respuestaSegundoFetch: analysis };
           })
         );
