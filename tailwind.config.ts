@@ -176,7 +176,7 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("tailwind-scrollbar"), require('daisyui'),],
+  plugins: [require("tailwindcss-animate"), require("tailwind-scrollbar")],
   corePlugins: {
     position: true,
   },

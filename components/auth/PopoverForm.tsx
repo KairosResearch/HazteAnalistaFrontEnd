@@ -33,8 +33,7 @@ const PopoverForm = ({ usage }: PopoverFormProps) => {
   //     createCookieUserId(Number(window.localStorage.getItem("guzma")));
   //     createCookiesWallets(window.localStorage.getItem("wallet"), window.localStorage.getItem("chainType"));
   //   }
-    
-  // } , [usage]);
+  // } , []);
 
   const router = useRouter();
   const { user, logout } = usePrivy();

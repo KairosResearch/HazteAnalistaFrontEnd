@@ -145,6 +145,10 @@
   .search-field {
     @apply border-0 bg-transparent text-dark-black w-full placeholder:text-dark-400 h-[50px] p-16-medium focus-visible:ring-offset-0 p-3 focus-visible:ring-transparent !important;
   }
+
+  .stat{
+    @apply inline-grid grid-cols-1 gap-4 px-1.5 
+  }
 }
 /*Styles for the lessons*/
 

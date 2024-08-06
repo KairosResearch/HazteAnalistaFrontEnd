@@ -9,6 +9,18 @@ interface AveragesProps {
   setCaulitativePromedio: (newState: number) => void;
 }
 
+interface Balances {
+    logo: string;
+    simbolo: string;
+    balance: number;
+
+}
+
+interface BalanceResponse {
+  Balances: Balances[];
+  TotalBalance: number;
+  
+}
 
 interface TabsHookProps {
   isReadyNextTab: boolean;
