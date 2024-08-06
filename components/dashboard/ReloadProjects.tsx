@@ -1,6 +1,10 @@
 "use client";
+//Imports for the component.
+//React
 import React, { useState } from "react";
+//Next
 import Image from "next/image";
+//Hooks
 import { useUserTableData } from "@/hooks/useUserData";
 
 const ReloadProjects = () => {

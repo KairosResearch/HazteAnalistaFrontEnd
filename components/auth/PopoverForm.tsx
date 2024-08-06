@@ -1,22 +1,26 @@
 "use client";
+//Imports for the component.
+//React
 import React, { useEffect } from "react";
+//components
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
-import { usePrivy } from "@privy-io/react-auth";
-import { useLogout } from "@privy-io/react-auth";
-
-import { useRouter } from "next/navigation";
-
 import SearcherResults from "../shared/SearcherResults";
 import LinkAccounts from "../shared/LinkAccounts";
 import { createCookieUserId, deleteCookieUserId, createCookiesWallets } from "@/utils/auth/cookies";
+//Ui needed
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+
+//Values and utils
+import { usePrivy } from "@privy-io/react-auth";
+import { useLogout } from "@privy-io/react-auth";
+//Next
+import { useRouter } from "next/navigation";
 
 interface PopoverFormProps {
   usage: "searcher" | "userinfo";

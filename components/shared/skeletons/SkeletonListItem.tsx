@@ -1,4 +1,7 @@
+//Imports for the component.
+//React
 import React from "react";
+//components
 import { Skeleton } from "@/components/ui/skeleton";
 
 const SkeletonListItem = () => {

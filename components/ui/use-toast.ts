@@ -1,8 +1,9 @@
 "use client";
-
 // Inspired by react-hot-toast library
+//Imports for the component.
+//React
 import * as React from "react";
-
+//Components
 import type { ToastActionElement, ToastProps } from "@/components/ui/toast";
 
 const TOAST_LIMIT = 1;

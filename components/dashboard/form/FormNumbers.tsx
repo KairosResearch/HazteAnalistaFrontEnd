@@ -1,7 +1,13 @@
+//Imports for the component.
+//React
 import React from "react";
+//Next
 import Image from "next/image";
+//Values and utilities
 import { iconsFormLeftSide as icons } from "@/utils/index";
+//Components
 import { FormLabel } from "@/components/ui/form";
+//Hooks
 import { useDialogInstructions } from "@/hooks/useDialogs";
 
 interface FormNumbersProps {

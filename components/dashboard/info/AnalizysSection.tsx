@@ -1,11 +1,17 @@
+//Imports for the component.
+//React
 import React, { useEffect, useState } from 'react'
+//Next
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
+import Link from 'next/link'
+//Components
 import { TabsContent } from '@/components/ui/tabs'
 import { Button } from '@/components/ui/button'
+//Hooks
 import { useProjectId } from "@/hooks/useAnalisys";
-import Image from 'next/image'
+//Values and utilities
 import  {InfoTabsProps} from '@/index'
-import Link from 'next/link'
 import { handleGetSingleAnalisys } from '@/actions/analisysActions';
 
 

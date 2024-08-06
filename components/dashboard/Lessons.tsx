@@ -1,10 +1,11 @@
 "use client";
+//Imports for the component.
+//React
 import React, { Suspense, useEffect } from "react";
-
-//Context (menu)
+//context(menú), also react
 import { useStateContext } from "@/contexts/ContextProvider";
 
-//Components
+//Values and utilities
 import {
   Carousel,
   CarouselContent,
@@ -12,17 +13,18 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import LessonsCard from "@/components/lessons/LessonsCard";
-import Loading from "../shared/Loading";
-import SkeletonCard from "../shared/skeletons/SkeletonCard";
-//Data
-//import { lessons } from "@/lib/data";
 import { AllModules, LessonPortadaProps, LessonProps } from "@/index";
 // import {
 //   getLastElement,
 //   lessonsCompletedArray,
 // } from "@/utils/lessons/lessonsUtils";
-
+//Components
+import LessonsCard from "@/components/lessons/LessonsCard";
+import Loading from "../shared/Loading";
+import SkeletonCard from "../shared/skeletons/SkeletonCard";
+//Data
+//import { lessons } from "@/lib/data";
+//Hooks
 import { useLessons } from "@/hooks/useLessons";
 import { useUserGuzma } from "@/hooks/useUserData";
 

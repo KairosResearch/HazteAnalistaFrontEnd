@@ -1,18 +1,23 @@
+//Imports for the component.
+//React
 import React, { useState, useEffect } from "react";
+import { X } from "lucide-react";
+//Components
+import EditProjectButton from "@/components/dashboard/EditProjectButton";
+import DialogItem from "@/components/dashboard/form/DialogItem";
+import InfoTabs from "./InfoTabs";
+//Values and utilities
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { X } from "lucide-react";
-
-import DialogItem from "@/components/dashboard/form/DialogItem";
-
 import { DialogInfoProps, InfoTabsProps, ProyectsInfo } from "@/index";
-import InfoTabs from "./InfoTabs";
+
+//Services API
 import { getProyectById } from "@/services/backend/proyectsInfo";
-import EditProjectButton from "@/components/dashboard/EditProjectButton";
+
 
 const DialogInfo = ({
   isDialogOpen,

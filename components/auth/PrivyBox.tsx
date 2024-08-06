@@ -1,9 +1,13 @@
 "use client";
-
+//Imports for the component.
+//React
 import React from "react";
 import { usePrivy } from "@privy-io/react-auth";
+//Ui needed
 import { Button } from "@/components/ui/button";
+//Hooks
 import { useAuthLoadingStatus } from "@/hooks/useLoading";
+//components
 import Loading from "../shared/Loading";
 
 const PrivyBox = () => {

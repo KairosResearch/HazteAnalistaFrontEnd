@@ -1,13 +1,20 @@
-import React , {useEffect, useState} from "react";
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+
+//Imports for the component.
+//React
+import React, {useEffect, useState}from "react";
+//Next
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+//Components
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import TextEditor from "./TextEditor";
+//Values and utilities
 import { InfoTabsProps } from "@/index";
 import AnalizysSection from "./AnalizysSection";
-import TextEditor from "./TextEditor";
 
 const InfoTabs = ({
   info,

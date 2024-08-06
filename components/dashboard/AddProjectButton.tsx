@@ -1,5 +1,8 @@
 "use client";
+//Imports for the component.
+//React
 import React from "react";
+//Hooks
 import { useDialogItem } from "@/hooks/useDialogs";
 
 const AddProjectButton = () => {

@@ -1,12 +1,19 @@
 "use client";
+//Imports for the component.
+//React
 import React, { useEffect, useState } from "react";
 import { TableData, ProjectsDataWithAnalisis } from "@/index";
-import { handleGetProyects } from "@/actions/proyectActions";
-import { Card, CardContent } from "../ui/card";
+//Next
 import Link from "next/link";
+
+import { handleGetProyects } from "@/actions/proyectActions";
+//Ui needed
+import { Card, CardContent } from "../ui/card";
 import { Badge } from "@/components/ui/badge";
+//components
 import Loading from "../shared/Loading";
 import SkeletonListItem from "../shared/skeletons/SkeletonListItem";
+//Hooks
 import { useProjectId } from "@/hooks/useAnalisys";
 import { useProjects } from "@/hooks/useProjects";
 

@@ -1,6 +1,6 @@
 "use client";
 
-//Imports for the component
+//Imports for the component.
 //React
 import React, { useState, useEffect } from "react";
 //Hooks

@@ -1,6 +1,8 @@
+//Imports for the component.
+//React
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-
+//Values and utilities
 import { cn } from "@/utils";
 
 const colorMap = {

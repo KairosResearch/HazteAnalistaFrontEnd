@@ -1,6 +1,15 @@
+//Imports for the component.
+//React
 import React from "react";
+//components
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { CustomField } from "../../shared/CustomField";
+import EditablePrecio from "./EditablePrecio";
+import { Checkbox } from "@/components/ui/checkbox";
+//Ui needed
+import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu";
+//Values and utilities
 import {
   Select,
   SelectContent,
@@ -8,11 +17,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../ui/select";
-import EditablePrecio from "./EditablePrecio";
-
-import { Checkbox } from "@/components/ui/checkbox";
-
-import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -21,7 +25,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu";
 
 type Checked = DropdownMenuCheckboxItemProps["checked"];
 

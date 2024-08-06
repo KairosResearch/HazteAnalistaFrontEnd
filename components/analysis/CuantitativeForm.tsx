@@ -1,19 +1,18 @@
+//Imports for the component.
+//React
 import React from "react";
+//components
 import { Input } from "@/components/ui/input";
 import { CustomField } from "@/components/shared/CustomField";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+
+//Ui neded
 import { Button } from "../ui/button";
 import { Checkbox } from "../ui/checkbox";
-
+//Values and utils
 import { AnalisysCatalogs } from "@/index";
 import { ValueObject } from "@/index";
+
+
 
 interface CualitativeFieldsProps {
   mode: "add" | "edit-both" | "edit-cual" | "edit-cuant";
