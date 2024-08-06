@@ -8,14 +8,14 @@ import { useUserTableData } from "@/hooks/useUserData";
 import { useDialogItem, useDialogInstructions } from "@/hooks/useDialogs";
 import { useProjects } from "@/hooks/useProjects";
 //import { useTabsState } from "@/hooks/useTabs";
-import { useAverages } from "@/hooks/useAnalisys";
-import { useProjectId } from "@/hooks/useAnalisys";
+import { useAverages } from "@/hooks/useAnalysis";
+import { useProjectId } from "@/hooks/useAnalysis";
 
 import Link from "next/link";
 //Server actions for both adding and updating
 import {
-  handleCreateAnalisys,
-  handleUpdateAnalisys,
+  handleCreateAnalysis,
+  handleUpdateAnalysis,
 } from "@/actions/analisysActions";
 import CualitativeFields from "./CualitativeFields";
 import CuantitativeFields from "./CuantitativeForm";
@@ -35,7 +35,7 @@ import { EditIcon } from "lucide-react";
 import { debounce, promedioCalculator } from "@/utils/index";
 
 //Types:
-import { ValueObject, AnalisysCatalogs, AnalisysInitialValues } from "@/index";
+import { ValueObject, AnalysisCatalogs, AnalysisInitialValues } from "@/index";
 
 import Loading from "../shared/Loading";
 
@@ -43,8 +43,8 @@ interface AnalysisFormProps {
   type: "cual" | "cuant";
   mode: "add" | "edit-both" | "edit-cual" | "edit-cuant";
 
-  data: AnalisysCatalogs;
-  initialValues: AnalisysInitialValues | null;
+  data: AnalysisCatalogs;
+  initialValues: AnalysisInitialValues | null;
   cualId: number | null;
   cuantId: number| null;
 }
@@ -181,7 +181,7 @@ const AnalysisForm = ({
         if (mode === "add") {
 
           console.log("Creando con estos values: ", values);
-          const response = await handleCreateAnalisys(
+          const response = await handleCreateAnalysis(
             values,
             guzma,
             projectId,
@@ -208,7 +208,7 @@ const AnalysisForm = ({
         
         } else if (mode === "edit-cual") {
           if (type === "cuant") {
-            const response = await handleCreateAnalisys(
+            const response = await handleCreateAnalysis(
               values,
               guzma,
               projectId,
@@ -224,7 +224,7 @@ const AnalysisForm = ({
               setIsLoading(false); // Ajusta este tiempo según sea necesario
             }
           } else {
-            const response = await handleUpdateAnalisys(
+            const response = await handleUpdateAnalysis(
               values,
               guzma,
               projectId,
@@ -243,7 +243,7 @@ const AnalysisForm = ({
           }
         } else if (mode === "edit-cuant") {
           if (type === "cual") {
-            const response = await handleCreateAnalisys(
+            const response = await handleCreateAnalysis(
               values,
               guzma,
               projectId,
@@ -259,7 +259,7 @@ const AnalysisForm = ({
               setIsLoading(false);// Ajusta este tiempo según sea necesario
             }
           } else {
-            const response = await handleUpdateAnalisys(
+            const response = await handleUpdateAnalysis(
               values,
               guzma,
               projectId,
@@ -279,16 +279,16 @@ const AnalysisForm = ({
         } 
         else {
           console.log(cuantId)
-          const analisysId = type === "cual" ? cualId : cuantId;
-          console.log("análisis: ", analisysId);
+          const analysisId = type === "cual" ? cualId : cuantId;
+          console.log("análisis: ", analysisId);
           
 
-          const response = await handleUpdateAnalisys(
+          const response = await handleUpdateAnalysis(
             values,
             guzma,
             projectId,
             type,
-            analisysId??0
+            analysisId??0
           );
           console.log("Response", response);
           if (response) {

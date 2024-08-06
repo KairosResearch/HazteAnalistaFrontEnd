@@ -4,28 +4,28 @@ import {
   postAnalisisCuantitativo,
   updateAnalisisCualitativo,
   updateAnalisisCuantitativo,
-  getSingleAnalisysCualitative,
-  getSingleAnalisysCuantitative,
-} from "@/services/backend/analisys";
-import { AnalisysResponse } from "..";
+  getSingleAnalysisCualitative,
+  getSingleAnalysisCuantitative,
+} from "@/services/backend/analysis";
+import { AnalysisResponse } from "..";
 
-export const handleGetSingleAnalisys = async (
+export const handleGetSingleAnalysis = async (
   idCual: number,
   idCuant: number
   
 ) => {
-  const allCualitative = await getSingleAnalisysCualitative(idCual);
+  const allCualitative = await getSingleAnalysisCualitative(idCual);
   
   console.log(idCuant)
-  const allCuantitative = await getSingleAnalisysCuantitative(idCuant);
+  const allCuantitative = await getSingleAnalysisCuantitative(idCuant);
   console.log("All Cuantitative", allCuantitative);
   return {
     filteredCualitative: allCualitative,
     filteredCuantitative: allCuantitative,
-  } as AnalisysResponse;
+  } as AnalysisResponse;
 };
 
-export const handleCreateAnalisys = async (
+export const handleCreateAnalysis = async (
   data: any,
   guzma: number,
   projectId: number,
@@ -40,28 +40,28 @@ export const handleCreateAnalisys = async (
   console.log(type);
   if (type === "cual") {
     const res = await postAnalisisCualitativo(requestBody);
-    if (res.message === "Análisis Cualitativo guardado exitosamente!") {
+    if (res.message === "Analisis Cualitativo guardado exitosamente!") {
       return true;
     }
   } else {
     const res = await postAnalisisCuantitativo(requestBody);
-    if (res.message === "Análisis Cuantitativo guardado exitosamente!") {
+    if (res.message === "Analisis Cuantitativo guardado exitosamente!") {
       return true;
     }
   }
 };
 
-export const handleUpdateAnalisys = async (
+export const handleUpdateAnalysis = async (
   data: any,
   guzma: number,
   projectId: number,
   type: string,
-  analisysId: number,
+  analysisId: number,
 ) => {
   const requestBody = {
     idUsuario: guzma,
     idProyecto: projectId,
-    idAnalisis: analisysId,
+    idAnalisis: analysisId,
     ...data,
   };
   console.log("Request Body", requestBody);

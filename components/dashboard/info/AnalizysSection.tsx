@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { TabsContent } from '@/components/ui/tabs'
 import { Button } from '@/components/ui/button'
-import { useProjectId } from "@/hooks/useAnalisys";
+import { useProjectId } from "@/hooks/useAnalysis";
 import Image from 'next/image'
 import  {InfoTabsProps} from '@/index'
 import Link from 'next/link'

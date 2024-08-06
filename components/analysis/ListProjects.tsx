@@ -7,7 +7,7 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import Loading from "../shared/Loading";
 import SkeletonListItem from "../shared/skeletons/SkeletonListItem";
-import { useProjectId } from "@/hooks/useAnalisys";
+import { useProjectId } from "@/hooks/useAnalysis";
 import { useProjects } from "@/hooks/useProjects";
 
 

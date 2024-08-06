@@ -1,6 +1,6 @@
 "use client";
 import React, { useDebugValue, useEffect, useState } from "react";
-import { useAverages } from "@/hooks/useAnalisys";
+import { useAverages } from "@/hooks/useAnalysis";
 
 const ShowAvarages = () => {
   const { setCaulitativePromedio, setCuantitativePromedio, cuantitativePromedio, cualitativePromedio } = useAverages();

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { AnalisysCatalogs } from "@/index";
 import AnalysisForm from "@/components/analysis/AnalysisForm";
 import { handleGetSingleAnalisys } from "@/actions/analisysActions";
-import { useAverages } from "@/hooks/useAnalisys";
+import { useAverages } from "@/hooks/useAnalysis";
 // import {AnalisysResponse} from '@/index'
 
 type FormContainerProps = {
