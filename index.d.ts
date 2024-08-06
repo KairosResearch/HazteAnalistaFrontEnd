@@ -35,7 +35,7 @@ interface ValueObject {
   field: string;
   value: number;
 }
-export type AnalisysCatalogs = {
+export type AnalysisCatalogs = {
   id: number;
   item: string;
   value: number;
@@ -70,7 +70,7 @@ interface TableData {
 }
 
 interface ProjectsDataWithAnalisis extends TableData {
-  respuestaSegundoFetch: AnalisysResponse;
+  respuestaSegundoFetch: AnalysisResponse;
 }
 
 //Changes comparing to -> TableData
@@ -290,7 +290,7 @@ interface LessonProps {
 //   suma: number;
 // }
 
-interface AnalisysFromGetCualitative {
+interface AnalysisFromGetCualitative {
   alianzas: number[];
   auditoria: number[];
   caso_uso: number[];
@@ -302,7 +302,7 @@ interface AnalisysFromGetCualitative {
   suma : number[];
 }
 
-interface AnalisysFromGetCuantitative {
+interface AnalysisFromGetCuantitative {
   financiamiento: number[];
   metricasExchange: number[];
   onchains: number[];
@@ -310,13 +310,13 @@ interface AnalisysFromGetCuantitative {
   suma : number[];
 }
 
-interface AnalisysResponse {
-  filteredCualitative: AnalisysFromGetCualitative;
-  filteredCuantitative: AnalisysFromGetCuantitative;
+interface AnalysisResponse {
+  filteredCualitative: AnalysisFromGetCualitative;
+  filteredCuantitative: AnalysisFromGetCuantitative;
 }
 
-interface AnalisysInitialValues {
-  filteredCualitative: AnalisysFromGetCualitative;
+interface AnalysisInitialValues {
+  filteredCualitative: AnalysisFromGetCualitative;
   filteredCuantitative: {
     tokenomics: number[]
     onChain: number[]

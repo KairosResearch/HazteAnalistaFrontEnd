@@ -9,10 +9,10 @@ import Link from 'next/link'
 import { TabsContent } from '@/components/ui/tabs'
 import { Button } from '@/components/ui/button'
 //Hooks
-import { useProjectId } from "@/hooks/useAnalisys";
+import { useProjectId } from "@/hooks/useAnalysis";
 //Values and utilities
 import  {InfoTabsProps} from '@/index'
-import { handleGetSingleAnalisys } from '@/actions/analisysActions';
+import { handleGetSingleAnalysis } from '@/actions/analisysActions';
 
 
 
@@ -30,7 +30,7 @@ const AnalizysSection = ({
       console.log(tieneAnalisisCualitativo, tieneAnalisisCuantitavivo);
       if (tieneAnalisisCuantitavivo || tieneAnalisisCualitativo) {
 
-        const response = await handleGetSingleAnalisys(id_analisis_cualitativo, id_analisis_cuantitativo);
+        const response = await handleGetSingleAnalysis(id_analisis_cualitativo, id_analisis_cuantitativo);
         console.log("recien", response);
         if (response) {
           if(tieneAnalisisCuantitavivo){

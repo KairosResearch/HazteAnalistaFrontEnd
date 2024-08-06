@@ -8,8 +8,12 @@ import { AnalisysCatalogs } from "@/index";
 import AnalysisForm from "@/components/analysis/AnalysisForm";
 //Actions
 import { handleGetSingleAnalisys } from "@/actions/analisysActions";
+<<<<<<< HEAD
 //Hooks
 import { useAverages } from "@/hooks/useAnalisys";
+=======
+import { useAverages } from "@/hooks/useAnalysis";
+>>>>>>> dev
 // import {AnalisysResponse} from '@/index'
 
 type FormContainerProps = {

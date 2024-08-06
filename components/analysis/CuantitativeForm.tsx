@@ -9,14 +9,14 @@ import { CustomField } from "@/components/shared/CustomField";
 import { Button } from "../ui/button";
 import { Checkbox } from "../ui/checkbox";
 //Values and utils
-import { AnalisysCatalogs } from "@/index";
+import { AnalysisCatalogs } from "@/index";
 import { ValueObject } from "@/index";
 
 
 
 interface CualitativeFieldsProps {
   mode: "add" | "edit-both" | "edit-cual" | "edit-cuant";
-  data: AnalisysCatalogs;
+  data: AnalysisCatalogs;
   setCuantitativeValues: (value: any) => void;
 }
 
