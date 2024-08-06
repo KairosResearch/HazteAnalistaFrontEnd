@@ -1,5 +1,6 @@
 import React from 'react'
 import { CardContent } from '../ui/card'
+import TotalBalance from './TotalBalance'
 
 const PortfolioInfo = () => {
   return (
@@ -9,8 +10,10 @@ const PortfolioInfo = () => {
                
 
                 <div className="stat py-1 rounded-md bg-black" >
-                    <div className="stat-title">New Users</div>
-                    <div className="stat-value text-lg lg:text-2xl ">4,200</div>
+                    <div className="stat-title">Total activos en tu wallet</div>
+                    <div className="stat-value text-lg lg:text-2xl ">
+                        <TotalBalance />    
+                    </div>
                     <div className="stat-desc">↗︎ 400 (22%)</div>
                 </div>
 

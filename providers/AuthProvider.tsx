@@ -39,6 +39,10 @@ function PrivyProviderWrapper({ children }: { children: React.ReactNode }) {
               } else {
                 if (typeof window !== "undefined" && data !== null) {
                   window.localStorage.setItem("guzma", data.toString());
+                  if(user.wallet?.address){
+                    window.localStorage.setItem("wallet", user.wallet.address);
+                    window.localStorage.setItem("chainType", user.wallet.chainType);
+                  }
                 }
                 setIsOpenInstr(true);
                 router.push("/dashboard");
@@ -52,6 +56,10 @@ function PrivyProviderWrapper({ children }: { children: React.ReactNode }) {
               } else {
                 if (typeof window !== "undefined" && data !== null) {
                   window.localStorage.setItem("guzma", data.toString());
+                  if(user.wallet?.address){
+                    window.localStorage.setItem("wallet", user.wallet.address);
+                    window.localStorage.setItem("chainType", user.wallet.chainType);
+                  }
                 }
                 console.log("Id del usuario en el login: ", data);
                 router.push("/dashboard");

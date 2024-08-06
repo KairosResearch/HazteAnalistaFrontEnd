@@ -16,7 +16,7 @@ import { useRouter } from "next/navigation";
 
 import SearcherResults from "../shared/SearcherResults";
 import LinkAccounts from "../shared/LinkAccounts";
-import { createCookieUserId, deleteCookieUserId } from "@/utils/auth/cookies";
+import { createCookieUserId, deleteCookieUserId, createCookiesWallets } from "@/utils/auth/cookies";
 
 interface PopoverFormProps {
   usage: "searcher" | "userinfo";
@@ -24,11 +24,13 @@ interface PopoverFormProps {
 
 const PopoverForm = ({ usage }: PopoverFormProps) => {
   //Setting the guzma value from localStorage to a global state
-  useEffect(() => {
-    if (typeof window !== "undefined" && window.localStorage.getItem("guzma") !== null) {
-      createCookieUserId(Number(window.localStorage.getItem("guzma")));
-    }
-  } , []);
+  // useEffect(() => {
+  //   if (typeof window !== "undefined" && window.localStorage.getItem("guzma") !== null && window.localStorage.getItem("wallet") !== undefined && window.localStorage.getItem("chainType") !== undefined) {
+  //     createCookieUserId(Number(window.localStorage.getItem("guzma")));
+  //     createCookiesWallets(window.localStorage.getItem("wallet"), window.localStorage.getItem("chainType"));
+  //   }
+    
+  // } , [usage]);
 
   const router = useRouter();
   const { user, logout } = usePrivy();
