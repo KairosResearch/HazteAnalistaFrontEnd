@@ -17,7 +17,7 @@ const AnalizysSection = ({
   const { setProjectId } = useProjectId();
   const [cuantitativeTotal, setCuantitativeTotal] = useState(0);
   const [cualitativeTotal, setCualitativeTotal] = useState(0);
-  // console.log('Este proyecto tiene analisis?', hasAnalisis)
+  // console.log('¿Este proyecto tiene análisis?', hasAnalisis)
   useEffect(() => {
     //Bringing the project analisys
     async function fetchDataAnalysis() {

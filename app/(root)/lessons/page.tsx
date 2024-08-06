@@ -14,7 +14,7 @@ const page = async () => {
         <CurrentLesson />
       </section>
 
-      <h1 className="text-2xl px-3">Nuestros modulos de aprendizaje</h1>
+      <h1 className="text-2xl px-3">Nuestros módulos de aprendizaje</h1>
       <section className="w-11/12 mt-10 md:w-[90%] md:grid  mx-auto flex flex-col gap-6">
         <CurrentModule allModules={allModules} />
       </section>

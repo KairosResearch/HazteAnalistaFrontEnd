@@ -1,6 +1,6 @@
 //Constants for the calculations of range of market caps
 export const POP = "Micro Caps";
-export const LOW = "Small Caps";
+export const LOW = "Low Caps";
 export const MID = "Mid Caps";
 export const LARGE = "Large Caps";
 export const BLUE = "Blue Chips";

@@ -280,7 +280,7 @@ const AnalysisForm = ({
         else {
           console.log(cuantId)
           const analisysId = type === "cual" ? cualId : cuantId;
-          console.log("analisis: ", analisysId);
+          console.log("análisis: ", analisysId);
           
 
           const response = await handleUpdateAnalisys(

@@ -40,12 +40,12 @@ export const handleCreateAnalisys = async (
   console.log(type);
   if (type === "cual") {
     const res = await postAnalisisCualitativo(requestBody);
-    if (res.message === "Analisis Cualitativo guardado exitosamente!") {
+    if (res.message === "Análisis Cualitativo guardado exitosamente!") {
       return true;
     }
   } else {
     const res = await postAnalisisCuantitativo(requestBody);
-    if (res.message === "Analisis Cuantitativo guardado exitosamente!") {
+    if (res.message === "Análisis Cuantitativo guardado exitosamente!") {
       return true;
     }
   }
