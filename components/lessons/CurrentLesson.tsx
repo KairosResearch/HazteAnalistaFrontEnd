@@ -1,13 +1,20 @@
 "use client";
+//Imports for the component.
+//React
 import React, { useEffect } from "react";
+//Next
+import Link from "next/link";
+//Values and utilities
 import { buscarLesson } from "@/utils/lessons/buscarLesson";
 import LessonsCard from "./LessonsCard";
 // import { getLastElement } from "@/utils/lessons/lessonsUtils";
 import { LessonPortadaProps, LessonProps } from "@/index";
 import { getGuzmaValue } from "@/utils/values";
+//services API
 import { getLastLesson } from "@/services/backend/lessons";
-import Link from "next/link";
+//Components
 import SkeletonCard from "../shared/skeletons/SkeletonCard";
+//Hooks
 import { useUserGuzma } from "@/hooks/useUserData";
 
 const CurrentLesson = () => {

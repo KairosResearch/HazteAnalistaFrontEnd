@@ -1,8 +1,12 @@
 "use client";
+//Imports for the component.
+//React
 import React from "react";
+import { useLinkAccount } from "@privy-io/react-auth";
+//ui neded
 // import { Button } from '../ui/button';
 
-import { useLinkAccount } from "@privy-io/react-auth";
+
 
 const LinkAccounts = () => {
   const { linkEmail, linkWallet, linkDiscord, linkGithub, linkGoogle } =

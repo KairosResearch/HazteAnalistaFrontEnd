@@ -1,4 +1,7 @@
+//Imports for the component.
+//React
 import React from "react";
+//Components
 import { TableCell, TableRow } from "@/components/ui/table";
 import { Skeleton } from "@/components/ui/skeleton";
 

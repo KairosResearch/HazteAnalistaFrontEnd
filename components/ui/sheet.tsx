@@ -1,10 +1,11 @@
 "use client";
-
+//Imports for the component.
+//React
 import * as React from "react";
+import { X } from "lucide-react";
 import * as SheetPrimitive from "@radix-ui/react-dialog";
 import { cva, type VariantProps } from "class-variance-authority";
-import { X } from "lucide-react";
-
+//Values and utilities
 import { cn } from "@/utils";
 
 const Sheet = SheetPrimitive.Root;

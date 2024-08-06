@@ -1,6 +1,6 @@
 "use client";
 
-//Imports for the component
+//Imports for the component.
 //React
 import React, { useState, useEffect } from "react";
 //Hooks
@@ -10,7 +10,7 @@ import { useDialogItem, useDialogInstructions } from "@/hooks/useDialogs";
 import { useAverages } from "@/hooks/useAnalisys";
 import { useProjectId } from "@/hooks/useAnalisys";
 
-//Server actions for both adding and updating
+////Values and utilities-- Server actions for both adding and updating
 import {
   handleCreateAnalisys,
   handleUpdateAnalisys,

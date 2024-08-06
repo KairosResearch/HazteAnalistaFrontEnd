@@ -1,5 +1,8 @@
 "use client";
-import React, { useDebugValue, useEffect, useState } from "react";
+//Imports for the component.
+//React
+import React, { useEffect, useState } from "react";
+//Hooks
 import { useAverages } from "@/hooks/useAnalisys";
 
 const ShowAvarages = () => {

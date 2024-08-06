@@ -1,9 +1,13 @@
 "use client";
+//Imports for the component.
+//React
 import React, { useEffect } from "react";
-
 import { X } from "lucide-react";
+//Components
 import { Button } from "../ui/button";
+//Values and utilities
 import { instructionsSteps } from "@/utils";
+//Hooks
 import { useDialogInstructions, useDialogItem } from "@/hooks/useDialogs";
 
 const DialogInstructions = () => {

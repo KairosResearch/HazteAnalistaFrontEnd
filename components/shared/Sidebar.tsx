@@ -1,7 +1,10 @@
 "use client";
+//Imports for the component.
+//React
 import React, { useContext } from "react";
-import Link from "next/link";
 import { useStateContext } from "@/contexts/ContextProvider";
+//Next
+import Link from "next/link";
 import Image from "next/image";
 
 const Sidebar = () => {

@@ -1,7 +1,11 @@
+//Imports for the component.
+//React
 import React from "react";
+//Components
 import { CustomField } from "../../shared/CustomField";
-
+import FormNumbers from "./FormNumbers";
 import ComboboxName from "./ComboboxName";
+//Values and utilities
 // import {
 //   Select,
 //   SelectContent,
@@ -9,7 +13,7 @@ import ComboboxName from "./ComboboxName";
 //   SelectTrigger,
 //   SelectValue,
 // } from "../../ui/select";
-import FormNumbers from "./FormNumbers";
+
 
 interface LeftSideForm {
   type: "create" | "update" | null;

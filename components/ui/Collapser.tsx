@@ -1,6 +1,8 @@
 "use client";
+//Imports for the component.
+//React
 import React from "react";
-//Context (menu)
+//Context (menu), also react
 import { useStateContext } from "@/contexts/ContextProvider";
 
 const Collapser = () => {

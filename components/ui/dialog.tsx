@@ -1,11 +1,13 @@
 "use client";
-// import { useDialogInstructions } from "@/hooks/useDialogs";
-// const {isOpenInstr } = useDialogInstructions();
-
+//Imports for the component.
+//React
 import * as React from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
-
+//Hooks
+// import { useDialogInstructions } from "@/hooks/useDialogs";
+// const {isOpenInstr } = useDialogInstructions();
+//Values and utilities
 import { cn } from "@/utils";
 
 const Dialog = DialogPrimitive.Root;

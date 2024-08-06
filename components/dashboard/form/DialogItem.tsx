@@ -1,5 +1,10 @@
 "use client";
+//Imports for the component.
+//React
 import React, { useEffect, useState } from "react";
+import { X } from "lucide-react";
+//values and utilities
+import { DialogItemProps } from "@/index";
 import {
   Dialog,
   DialogClose,
@@ -9,12 +14,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+//Hooks
 import { useDialogItem, useDialogInstructions } from "@/hooks/useDialogs";
-
+//Components
 import DashboardDataForm from "@/components/dashboard/form/DashboardDataForm";
 
-import { DialogItemProps } from "@/index";
-import { X } from "lucide-react";
+
+
 
 const DialogItem = (props: DialogItemProps) => {
   const { isOpen, setIsOpen, mode } = useDialogItem();

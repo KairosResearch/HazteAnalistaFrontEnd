@@ -1,3 +1,5 @@
+//Imports for the component.
+//React
 import React from "react";
 
 const InputSearcher = () => {

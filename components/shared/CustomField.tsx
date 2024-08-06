@@ -1,7 +1,10 @@
+//Imports for the component.
+//React
 import React from "react";
-
+//Next 
+import Image from "next/image";
+//Values and utilities
 import { iconsForm } from "@/utils/index";
-
 import {
   FormField,
   FormItem,
@@ -9,9 +12,8 @@ import {
   FormMessage,
   FormLabel,
 } from "@/components/ui/form";
-import Image from "next/image";
 
-// import { formSchema } from "./DashboardDataForm";
+//import { formSchema } from "./DashboardDataForm";
 
 type CustomFieldProps = {
   render: (props: { field: any }) => React.ReactNode;
