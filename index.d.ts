@@ -15,6 +15,12 @@ interface Balances {
     balance: number;
 
 }
+interface BalancesInPie {
+  logo: string;
+  simbolo: string;
+  balance: number;
+  color: string
+}
 
 interface BalanceResponse {
   Balances: Balances[];

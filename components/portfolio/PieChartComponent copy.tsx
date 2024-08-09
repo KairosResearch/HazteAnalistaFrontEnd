@@ -1,10 +1,7 @@
-
-
-
 "use client"
 import  React, { useEffect } from "react"
 import { TrendingUp } from "lucide-react"
-import { Cell, Label, Pie, PieChart } from "recharts"
+import { Label, Pie, PieChart } from "recharts"
 import {
     Card,
     CardContent,
@@ -20,7 +17,7 @@ import {
     ChartTooltipContent,
   } from "@/components/ui/chart"
 import { usePortafolio } from "@/hooks/usePortafolio"
-import { Balances, BalancesInPie } from "@/index"
+import { Balances } from "@/index"
 
   // const chartData = [
   //   { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
@@ -30,25 +27,27 @@ import { Balances, BalancesInPie } from "@/index"
   //   { browser: "other", visitors: 190, fill: "var(--color-other)" },
   // ]
   const chartConfig = {
-    
+    visitors: {
+      label: "Distribución de tus balances",
+    },
     chrome: {
-      label: "USDC.e",
+      label: "Chrome",
       color: "hsl(var(--chart-1))",
     },
-    USDC: {
-      label: "USDC",
+    safari: {
+      label: "Safari",
       color: "hsl(var(--chart-2))",
     },
-    USDT: {
-      label: "USDT",
+    firefox: {
+      label: "Firefox",
       color: "hsl(var(--chart-3))",
     },
-    DAI: {
-      label: "DAI",
+    edge: {
+      label: "Edge",
       color: "hsl(var(--chart-4))",
     },
-    ARB: {
-      label: "ARB",
+    other: {
+      label: "Other",
       color: "hsl(var(--chart-5))",
     },
   } satisfies ChartConfig
@@ -58,7 +57,7 @@ const Chart = () => {
     
 
       const [address, setAddress] = React.useState('');
-      const [chartData,  setChartData] = React.useState<BalancesInPie[]>([]);
+      const [chartData,  setChartData] = React.useState<Balances[]>([]);
       const [loading, setLoading] = React.useState(false);
       React.useEffect(() => {
           const addr = window.localStorage.getItem('wallet');
@@ -78,42 +77,35 @@ const Chart = () => {
           }
       }, [isLoading]);
       useEffect(() => {
-        if (portafolio) {
-          const updatedBalances = portafolio.Balances.map((balance, index) => ({
-            ...balance,
-            color: `hsl(var(--chart-${index +1}))`, // Color dinámico basado en el índice
-          }));
-          setChartData(updatedBalances);
-          setLoading(false);
-        }
+          if(portafolio){
+              setChartData(portafolio.Balances);
+          }
       }, [portafolio]);
 
       const totalVisitors = React.useMemo(() => {
         return chartData.reduce((acc, curr) => acc + curr.balance, 0)
       }, [chartData])
 
+      // const chartConfig: ChartConfig = React.useMemo(() => {
+      //   if (chartData.length === 0) {
+      //     return {balances:{label: "Distribución de tus balances"}};
+      //   }
       
-  const chartConfig = React.useMemo(() => {
-    if (chartData.length === 0) {
-      return { balances: { label: "Distribución de tus balances" } };
-    }
+      //   return {
+      //     balances: {
+      //       label: "Distribución de tus balances",
+      //     },
+      //     ...chartData.reduce((acc, curr, index) => {
+      //       acc[curr.balance] = {
+      //         label: curr.simbolo,
+      //         color: `hsl(var(--chart-${index + 1}))`,
+      //       };
+      //       return acc;
+      //     }, {} as ChartConfig),
+      //   };
+      // }, [chartData]);
 
-    const balancesConfig = chartData.reduce((acc, curr) => {
-      acc[curr.simbolo] = {
-        label: curr.simbolo,
-        color: curr.color, // Usar el color ya asignado
-      };
-      return acc;
-    }, {} as Record<string, { label: string; color: string }>);
-
-    console.log('Chart Config:', balancesConfig); // Depuración
-
-    return {
-      balances: balancesConfig,
-    };
-  }, [chartData]);
-
-      if (loading) {
+      if (!chartConfig) {
         return <div>Loading...</div>;
       }
       console.log(chartData);
@@ -137,7 +129,7 @@ const Chart = () => {
         {/* Chart */}
         <ChartContainer
           config={chartConfig}
-          className="mx-auto aspect-square max-h-[350px]"
+          className="mx-auto aspect-square max-h-[250px]"
         >
           <PieChart>
             <ChartTooltip
@@ -146,14 +138,11 @@ const Chart = () => {
             />
             <Pie
               data={chartData}
-              dataKey="balance"
-              nameKey="simbolo"
+              dataKey="visitors"
+              nameKey="browser"
               innerRadius={60}
               strokeWidth={5}
             >
-               {chartData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={entry.color} />
-              ))}
               <Label
                 content={({ viewBox }) => {
                   if (viewBox && "cx" in viewBox && "cy" in viewBox) {
@@ -176,7 +165,7 @@ const Chart = () => {
                           y={(viewBox.cy || 0) + 24}
                           className="fill-muted-foreground"
                         >
-                          Activos
+                          Visitors
                         </tspan>
                       </text>
                     )

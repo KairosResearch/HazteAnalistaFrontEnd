@@ -62,7 +62,7 @@ const Navbar = () => {
                     />
                     Home
                   </Link>
-                  <Link className="header-nav_text" href="/dashboard">
+                  <Link className="header-nav_text" href="/portfolio">
                     <Image
                       src="/icons/navigation/wallet-fill.svg"
                       alt="Kairos"
@@ -89,6 +89,15 @@ const Navbar = () => {
                       width={20}
                     />
                     Análisis Profundo
+                  </Link>
+                  <Link className="header-nav_text" href="/compare-assets">
+                    <Image
+                      src="/icons/navigation/Comparativa.png"
+                      alt="tools"
+                      height={20}
+                      width={20}
+                    />
+                    Comparar assets
                   </Link>
                
                 </ul>
