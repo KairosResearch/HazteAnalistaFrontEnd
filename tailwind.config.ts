@@ -77,7 +77,7 @@ const config = {
         //   foreground: "hsl(var(--popover-foreground))",
         // },
         destructive: {
-          DEFAULT: "hsl(var(--destructive))",
+          DEFAULT: "#913F3B",
           foreground: "hsl(var(--destructive-foreground))",
         },
         card: {

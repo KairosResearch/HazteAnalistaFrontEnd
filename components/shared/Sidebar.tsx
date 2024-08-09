@@ -55,6 +55,15 @@ const Sidebar = () => {
                 />
                 Análisis Profundo
               </Link>
+              <Link className="sidebar-nav_element" href="/compare-assets">
+                <Image
+                  src="/icons/navigation/Comparativa.png"
+                  alt="tools"
+                  height={25}
+                  width={25}
+                />
+                Comparar assets
+              </Link>
 
               
 
