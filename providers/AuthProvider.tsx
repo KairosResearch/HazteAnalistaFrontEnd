@@ -58,7 +58,7 @@ function PrivyProviderWrapper({ children }: { children: React.ReactNode }) {
                 if (typeof window !== "undefined" && data !== null) {
                   window.localStorage.setItem("guzma", data.toString());
                   if(user.wallet?.address){
-                    window.localStorage.setItem("wallet", '0x50AE8F6BA2B368902dAeDE6283195EE4fEd7637A');
+                    window.localStorage.setItem("wallet", user.wallet.address);
                    
                   }
                 }
