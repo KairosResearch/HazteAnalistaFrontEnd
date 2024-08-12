@@ -6,11 +6,12 @@ import { BalanceResponse } from "..";
 
 export const usePortafolio = (address: string) => {
 
+
       const { data, error, isLoading, mutate } = useSWR(
         `getPortafolio/${address}`,
         () => getBalances(address),
       );
-     
+   
       const portafolio = useMemo(() => data as BalanceResponse, [data]);
 
 

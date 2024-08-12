@@ -32,7 +32,7 @@ const page =  () => {
             <Card className='grid grid-cols-1 lg:grid-cols-2 p-6 items-center'>
                 <Chart />
                 <CardContent className='flex lg:flex-col gap-16 text-lg lg:text-xl '>
-                    <section className='grid w-2/5 lg:w-full'>
+                    <section className='grid w-1/2 lg:w-full'>
                         <div className="stat    s gap-9 bg-background stats-vertical lg:stats-horizontal ">
                         
 
@@ -71,7 +71,9 @@ const page =  () => {
             <TableHeader className='bg-black'>
                 <TableRow>
                     <TableHead>Token</TableHead>
+                    <TableHead>Precio</TableHead>
                     <TableHead>Monto</TableHead>
+                    <TableHead>Valor en USD</TableHead>
                     
                 </TableRow>
             </TableHeader>

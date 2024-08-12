@@ -34,7 +34,8 @@ const PortfolioInfo = () => {
         }
     }, [portafolio]);
 
-    console.log('Tokens: ', tokensData);
+    
+   
   return (
     <>
     {
@@ -43,15 +44,15 @@ const PortfolioInfo = () => {
         {tokensData && tokensData.map((token, index) => (
 
             <div key={index} className='flex gap-4 bg-black p-2 rounded-md items-center'>
-                <div>
+                <div className='hidden sm:block'>
                     <Image src={token.logo} alt={token.simbolo} width={30} height={30} />
                 </div>
-                <div className='flex flex-col gap-4 items-start'>
+                <div className='flex flex-col gap-1 items-start'>
                     <h6 className='text-xs lg:text-md'>
                         {token.simbolo}
                     </h6>
-                    <p className=' p-0 m-0 text-md lg:text-xl font-extrabold'>
-                    $ {token.balance.toLocaleString()}
+                    <p className=' p-0 m-0 text-xs lg:text-xl font-extrabold'>
+                     {token.balanceCrypto.toLocaleString()}
                     </p>
                 </div>
             

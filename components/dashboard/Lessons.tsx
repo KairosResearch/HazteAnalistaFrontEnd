@@ -44,9 +44,9 @@ const Lessons = ({ allModules }: LessonsProps) => {
   useEffect(() => {
     const meCompota = async () => {
       // setLoading(true);
-      console.log("Holaa");
 
-      console.log(module);
+
+     
       if (allModules != undefined) {
         if (module === 2) {
           const moduleLesson = allModules["Módulo 2"];
@@ -67,7 +67,7 @@ const Lessons = ({ allModules }: LessonsProps) => {
     }
   }, [module]);
 
-  console.log(lessons);
+  
   return (
     <>
       {/* Carousel de lecciones */}

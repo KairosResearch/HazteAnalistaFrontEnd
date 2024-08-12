@@ -88,9 +88,9 @@ const Chart = () => {
         }
       }, [portafolio]);
 
-      const totalVisitors = React.useMemo(() => {
-        return chartData.reduce((acc, curr) => acc + curr.balance, 0)
-      }, [chartData])
+      // const totalVisitors = React.useMemo(() => {
+      //   return chartData.reduce((acc, curr) => acc + curr.balanceFiat, 0)
+      // }, [chartData])
 
       
   const chartConfig = React.useMemo(() => {
@@ -100,13 +100,13 @@ const Chart = () => {
 
     const balancesConfig = chartData.reduce((acc, curr) => {
       acc[curr.simbolo] = {
-        label: curr.simbolo,
+        label: `${curr.simbolo} $`,
         color: curr.color, // Usar el color ya asignado
       };
       return acc;
     }, {} as Record<string, { label: string; color: string }>);
 
-    console.log('Chart Config:', balancesConfig); // Depuración
+    
 
     return {
       balances: balancesConfig,
@@ -116,7 +116,7 @@ const Chart = () => {
       if (loading) {
         return <div>Loading...</div>;
       }
-      console.log(chartData);
+     
    return (
     <div>
       {
@@ -124,8 +124,8 @@ const Chart = () => {
         chartData.length === 0 && <div>
           No logramos acceder a ningun balance en tu portafolio. Esto puede ser porque:
           <ol>
-            <li>Debes estar logueado en la plataforma con una wallet</li>
-            <li>La wallet debe estar conectada a la red de arbitrum</li>
+            <li>- Debes estar logueado en la plataforma con una wallet</li>
+            <li>- La wallet debe estar conectada a la red de arbitrum</li>
             
           </ol>
         </div>
@@ -134,10 +134,11 @@ const Chart = () => {
         chartData && <>
       
       <CardContent className="flex-1 pb-0">
+        
         {/* Chart */}
         <ChartContainer
           config={chartConfig}
-          className="mx-auto aspect-square max-h-[350px]"
+          className="mx-auto aspect-square max-h-[330px]"
         >
           <PieChart>
             <ChartTooltip
@@ -146,15 +147,16 @@ const Chart = () => {
             />
             <Pie
               data={chartData}
-              dataKey="balance"
+              dataKey="balanceFiat"
               nameKey="simbolo"
-              innerRadius={60}
+              innerRadius={65}
               strokeWidth={5}
             >
                {chartData.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={entry.color} />
               ))}
               <Label
+              className="text-green-light"
                 content={({ viewBox }) => {
                   if (viewBox && "cx" in viewBox && "cy" in viewBox) {
                     return (
@@ -164,19 +166,19 @@ const Chart = () => {
                         textAnchor="middle"
                         dominantBaseline="middle"
                       >
-                        <tspan
+                        {/* <tspan
                           x={viewBox.cx}
                           y={viewBox.cy}
                           className="fill-foreground text-3xl font-bold"
                         >
                           {totalVisitors.toLocaleString()}
-                        </tspan>
+                        </tspan> */}
                         <tspan
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) + 24}
-                          className="fill-muted-foreground"
+                          className="text-green-light"
                         >
-                          Activos
+                          Activos en USD
                         </tspan>
                       </text>
                     )

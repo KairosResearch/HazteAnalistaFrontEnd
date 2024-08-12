@@ -25,8 +25,7 @@ export const useLessons = () => {
     const guzma = localStorage.getItem("guzma");
     if (guzma) {
       const id = parseInt(guzma);
-      console.log("Id de guzma en useLessons" + id);
-
+      
       const { data, error, isLoading } = useSWR(
         `getLecciones/${id}`,
         getLessonsByUser,
