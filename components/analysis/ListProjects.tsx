@@ -58,6 +58,13 @@ const ListProjects = () => {
           <SkeletonListItem />
         </div>
       )}
+      {
+        projectsSaved?.length === 0 && !loading && (
+          <div className="flex justify-center items-center h-64">
+            <h2 className="text-2xl text-gray-200">No tienes proyectos guardados</h2>
+          </div>
+        )
+      }
       {projectsSaved?.map((project) => (
         <Card className="p-4" key={project.id_proyecto}>
           <div className="flex flex-row justify-between items-center ">

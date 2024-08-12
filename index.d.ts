@@ -12,13 +12,16 @@ interface AveragesProps {
 interface Balances {
     logo: string;
     simbolo: string;
-    balance: number;
-
+    balanceFiat: number;
+    balanceCrypto: number;
+    valorUnitCrypto: number;
 }
 interface BalancesInPie {
   logo: string;
   simbolo: string;
-  balance: number;
+  balanceFiat: number;
+    balanceCrypto: number;
+    valorUnitCrypto: number;
   color: string
 }
 
