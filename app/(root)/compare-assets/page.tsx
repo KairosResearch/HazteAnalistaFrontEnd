@@ -1,19 +1,20 @@
 import React from 'react'
-import { Card, CardContent } from '@/components/ui/card'
-import Image from 'next/image'
-import { ChevronDown } from 'lucide-react'
-import { Progress } from "@/components/ui/progress"
-import ComboboxDemo from '@/components/dashboard/form/ComboboxName'
+
+
+
+// import { Progress } from "@/components/ui/progress"
+
 import { getProjectsList } from '@/services/backend/proyectsInfo'
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-  } from "@/components/ui/table";
+// import {
+//     Table,
+//     TableBody,
+//     TableCell,
+//     TableHead,
+//     TableHeader,
+//     TableRow,
+//   } from "@/components/ui/table";
 import SelectAssetsName from '@/components/compare-assets/SelectAssetsName'
+import ProgressBars from '@/components/compare-assets/ProgressBars'
 
 
 
@@ -32,89 +33,11 @@ const page = async () => {
                     projectsList={projectsList.proyectos}
                 />
             </div>
-            <h2 className='text-center text-lg font-light  text-grey-light'>
-                USDT con el market cap de ETH
-            </h2>
-            <div className='flex items-center w-3/5 mx-auto justify-between font-bold text-2xl'>
-            <Image
-                            src="https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png"
-                            alt="btc"
-                            width={40}
-                            height={40}
-                        />
-                <p>
-                $1,234,567,890.123
-                </p>
-                <p>
-                    (1.23 X)
-                </p>
-            </div>
-            <div className='w-4/5 mx-auto flex flex-col gap-1'>
-                <div className='flex justify-between items-center'>
-                    <div className='w-1/2'>
-                        <Progress variant="first" value={50} /> 
-                    </div>
-                    <div>
-                        <Image
-                                src="https://static.alchemyapi.io/images/assets/825.png"
-                                alt="usdt"
-                                width={20}
-                                height={20}
-                            />
-                    </div>
-                    <p className='text-green-dark'>
-                        $1,234,567,890.123
-                    </p>
-                   
-                    
-                
-                </div>
-                 
-                <div className='flex justify-between items-center'>
-                    <div className='w-1/2'>
-                        <Progress variant="last" value={20} /> 
-                    </div>
-                    <div>
-                        
-                    <Image
-                            src="https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png"
-                            alt="btc"
-                            width={20}
-                            height={20}
-                        />
-                    </div>
-                    <p className='text-destructive'>
-                        $1,234,567,890.123
-                    </p>
-                   
-                    
-                
-                </div>
-                <div className='flex justify-between items-center'>
-                    <div className='w-1/2'>
-                        <Progress variant="progress" value={35} /> 
-                    </div>
-                    <div>
-                        <span>
-                            progreso
-                        </span>
-                    </div>
-                    <p className='text-green-light'>
-                        $1,234,567,890.123
-                    </p>
-                   
-                    
-                
-                </div>
-                
-            </div>
 
-            <h2 className='text-center text-lg text-grey-light font-light mt-0'>
-            BTC está  1.23X por encima de ETH
-            </h2>
+            <ProgressBars />
 
         </section>
-        <section className='my-3 w-10/12 mx-auto'>
+        {/* <section className='my-3 w-10/12 mx-auto'>
             <Table>
                 <TableHeader className='bg-black'>
                     <TableRow>
@@ -196,7 +119,7 @@ const page = async () => {
                     </TableRow>
                 </TableBody>
             </Table>
-        </section>
+        </section> */}
     </div>
   )
 }

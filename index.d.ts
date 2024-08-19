@@ -52,6 +52,17 @@ interface AuthLoadingStatusProps {
   isLoading: boolean;
   setIsLoading: (newState: boolean) => void;
 }
+
+interface ComparativeInfoProps {
+  comparativeInfo: ComparativeInfo[];
+  setComparativeInfo: (newState: ComparativeInfo[]) => void;
+  token1: string;
+  setToken1: (newState: string) => void;
+  token2: string;
+  setToken2: (newState: string) => void;
+  loading: boolean;
+  setLoading: (newState: boolean) => void;
+}
 interface ValueObject {
   field: string;
   value: number;
@@ -349,4 +360,13 @@ interface AllModules {
   "Módulo 1": LessonProps[];
   "Módulo 2": LessonProps[];
   "Módulo 3": LessonProps[];
+}
+
+interface ComparativeInfo {
+      MakCapA:  number;
+      MakCapB: number;
+      ProyecPrecio: number;
+      NoX: number;
+      PorcentajeX: number;
+      Progreso: number;
 }

@@ -3,6 +3,9 @@ import React from 'react'
 import { Card, CardContent } from '@/components/ui/card'
 import Image from 'next/image'
 import ComboboxDemo from '@/components/dashboard/form/ComboboxName'
+import {getComparativeMarketCap} from '@/services/backend/comparativeMarketCap'
+import {useComparativeTokens} from '@/hooks/useComparative'
+import { set } from 'zod';
 
 interface SelectAssetsNameProps {
     projectsList: {
@@ -17,41 +20,67 @@ interface SelectAssetsNameProps {
 const SelectAssetsName = ({
     projectsList
 }: SelectAssetsNameProps) => {
-
-    const [field, setField] = React.useState({
+    
+    const {setComparativeInfo, setToken1, setToken2, setLoading} = useComparativeTokens()
+    
+    const field= {
         value: 0,
         onChange: (newValue: number) => {
-            setField((prev) => ({ ...prev, value: newValue }));
-            setLastTwoFields((prev) => {
-                const updatedFields = [...prev, newValue];
-                return updatedFields.length > 2 ? updatedFields.slice(-2) : updatedFields;
-            });
+           return
         },
-    });
+    };
 
-    const [lastTwoFields, setLastTwoFields] = React.useState<number[]>([]);
+
+    const [symbol, setSymbol] = React.useState<string>('');
+    const [lastTwoFields, setLastTwoFields] = React.useState<string[]>([]);
+
+     // Efecto para actualizar lastTwoFields cuando symbol cambie
+     React.useEffect(() => {
+        setLastTwoFields(prevFields => {
+            const newFields = [...prevFields, symbol];
+            return newFields.slice(-2); // Mantener solo los últimos dos valores
+        });
+    }, [symbol]);
 
     React.useEffect(() => {
-        if (lastTwoFields.length === 2) {
+        if (lastTwoFields.length === 2 && lastTwoFields[0] !== "" && lastTwoFields[1] !== "") {
+            setLoading(true);
+
+            const [token1, token2] = lastTwoFields;
+            setToken1(token1);
+            setToken2(token2);
+
             // Llamar al endpoint con los últimos dos valores
-            console.log('Llamando al endpoint con:', lastTwoFields);
-            // Aquí puedes hacer la llamada al endpoint
+            const fetchData = async () => {
+                try {
+                    const response = await getComparativeMarketCap(token1, token2);
+                    if(response){
+                        setComparativeInfo(response)
+                    }
+                    
+                    // Aquí puedes manejar los datos recibidos
+                } catch (error) {
+                    console.error('Fetch error:', error);
+                }
+            };
+            fetchData()
+            setLoading(false)
         }
     }, [lastTwoFields]);
 
-    console.log('Los campos seleccionados son:', field);
+    // console.log('Los campos seleccionados son:', field);
     console.log('Los últimos dos valores son:', lastTwoFields);
     
 
   return (
     <>
-<Card className='w-5/12 bg-grey-light/20'>
+            <Card className='w-5/12 bg-grey-light/20'>
                     <CardContent className='flex justify-between items-center w-full '>
 
                         <ComboboxDemo
                             projects={projectsList}
                             field={field}
-                            setSymbol={(sth: void) => {return}}
+                            setSymbol={setSymbol}
                             clearErrors={(name: string) => {return}}
                         />
                      
@@ -82,7 +111,7 @@ const SelectAssetsName = ({
                     <ComboboxDemo
                             projects={projectsList}
                             field={field}
-                            setSymbol={(sth: void) => {return}}
+                            setSymbol={setSymbol}
                             clearErrors={(name: string ) => {return}}
                         />
                         
