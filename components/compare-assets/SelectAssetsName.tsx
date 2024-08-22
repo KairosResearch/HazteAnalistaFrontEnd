@@ -21,7 +21,7 @@ const SelectAssetsName = ({
     projectsList
 }: SelectAssetsNameProps) => {
     
-    const {setComparativeInfo, setToken1, setToken2, setLoading} = useComparativeTokens()
+    const {setComparativeInfo, token1, token2, setLoading} = useComparativeTokens()
     
     const field= {
         value: 0,
@@ -32,23 +32,14 @@ const SelectAssetsName = ({
 
 
     const [symbol, setSymbol] = React.useState<string>('');
-    const [lastTwoFields, setLastTwoFields] = React.useState<string[]>([]);
+    // const [lastTwoFields, setLastTwoFields] = React.useState<string[]>([]);
 
      // Efecto para actualizar lastTwoFields cuando symbol cambie
-     React.useEffect(() => {
-        setLastTwoFields(prevFields => {
-            const newFields = [...prevFields, symbol];
-            return newFields.slice(-2); // Mantener solo los últimos dos valores
-        });
-    }, [symbol]);
+     
 
     React.useEffect(() => {
-        if (lastTwoFields.length === 2 && lastTwoFields[0] !== "" && lastTwoFields[1] !== "") {
+        if (token1 && token2) {
             setLoading(true);
-
-            const [token1, token2] = lastTwoFields;
-            setToken1(token1);
-            setToken2(token2);
 
             // Llamar al endpoint con los últimos dos valores
             const fetchData = async () => {
@@ -66,10 +57,9 @@ const SelectAssetsName = ({
             fetchData()
             setLoading(false)
         }
-    }, [lastTwoFields]);
+    }, [token1, token2]);
 
     // console.log('Los campos seleccionados son:', field);
-    console.log('Los últimos dos valores son:', lastTwoFields);
     
 
   return (
@@ -82,6 +72,7 @@ const SelectAssetsName = ({
                             field={field}
                             setSymbol={setSymbol}
                             clearErrors={(name: string) => {return}}
+                            comboSide={'left'}
                         />
                      
                         {/* <Image
@@ -113,6 +104,7 @@ const SelectAssetsName = ({
                             field={field}
                             setSymbol={setSymbol}
                             clearErrors={(name: string ) => {return}}
+                            comboSide={'right'}
                         />
                         
                         {/* <Image

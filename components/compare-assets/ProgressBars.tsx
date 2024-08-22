@@ -1,7 +1,7 @@
 'use client';
 import React, {useEffect, useState} from 'react'
-import { Progress } from "@/components/ui/progress"
-import Image from 'next/image'
+// import { Progress } from "@/components/ui/progress"
+// import Image from 'next/image'
 import { useComparativeTokens } from '@/hooks/useComparative';
 
 const ProgressBars = () => {
@@ -29,7 +29,7 @@ const ProgressBars = () => {
         {!loading && comparativeInfo.length != 0 && (
             <>
                 <h2 className='text-center text-lg font-light  text-grey-light'>
-                 Market cap de {token1} con el market cap de {token2}
+                 Averigua el precio de ${token1} si tuviera el market cap de ${token2}
             </h2>
             <div className='flex items-center w-3/5 mx-auto justify-between font-bold text-2xl'>
             {/* <Image
@@ -99,23 +99,35 @@ const ProgressBars = () => {
                     
                 
                 </div>
-                <div className='flex justify-between items-center'>
+                
+                <div className='flex justify-center items-center'>
+                        <p className='text-lg font-light  text-grey-light'>
+                            {
+                                lowerMarketCap === comparativeInfo[0].MakCapA ? 
+                                `Porcentaje del market cap de ${token1} para alcanzar el market cap de ${token2}`
+                                : `Porcentaje del market cap de ${token1} por encima del market cap de ${token2}`
+                            }
+                            :
+                        </p>
+                </div>
+                
+                <div className='flex justify-center gap-4 items-center'>
                     {/* <div className='w-1/2'>
                         <Progress variant="progress" value={35} /> 
                     </div> */}
                     <div>
                         <span>
-                        Progreso
+                            Porcentaje:
                         </span>
                     </div>
                     <p className='text-green-light'>
                         {comparativeInfo[0].Progreso.toFixed(2).toLocaleString()}%
                     </p>
-                   
-                    
-                
                 </div>
                 
+                <div>
+                    
+                </div>
             </div>
 
             

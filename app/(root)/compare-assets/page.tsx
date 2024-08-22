@@ -24,7 +24,7 @@ const page = async () => {
     <div>
         
         <h1>
-                Compara  el market cap de diferentes activos
+                Compara el market cap de dos diferentes activos
             </h1>
 
         <section className='flex flex-col gap-4 my-6 mx-auto w-7/12'>
