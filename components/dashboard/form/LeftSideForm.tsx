@@ -53,6 +53,7 @@ const LeftSideForm = ({
           render={({ field }) => (
             <>
               <ComboboxName
+              comboSide={null}
                 projects={projectsList}
                 field={field}
                 setSymbol={setSymbol}
