@@ -67,11 +67,17 @@ interface ValueObject {
   field: string;
   value: number;
 }
-export type AnalysisCatalogs = {
+interface AnalysisCatalogs {
   id: number;
   item: string;
   value: number;
-}[][];
+};
+
+export type BothCatalogos = {
+  dropdownNeedsCuantitative: AnalysisCatalogs[];
+  dropdownNeedsCualitative: AnalysisCatalogs[];
+};
+
 
 interface UserProps {
   id: number;

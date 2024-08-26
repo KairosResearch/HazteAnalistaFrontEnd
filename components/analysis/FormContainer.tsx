@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import { AnalysisCatalogs } from "@/index";
 //Components
 import AnalysisForm from "@/components/analysis/AnalysisForm";
+
 //Actions
 
 import { handleGetSingleAnalysis } from "@/actions/analisysActions";
@@ -13,21 +14,22 @@ import { handleGetSingleAnalysis } from "@/actions/analisysActions";
 //Hooks
 import { useAverages } from "@/hooks/useAnalysis";
 
-// import {AnalisysResponse} from '@/index'
+//types
+import {BothCatalogos} from '@/index'
 
 type FormContainerProps = {
-  type: "cual" | "cuant";
+  // type: "cual" | "cuant";
   mode: "add" | "edit-both" | "edit-cual" | "edit-cuant";
   // data?: BackendValues;
   // catalogos: CatalogosType;
   // mode: "add" | "edit";
-  data: AnalysisCatalogs;
+  data: any;
   cualId: number | null;
   cuantId: number | null;
 };
 
 const FormContainer = ({
-  type,
+  // type,
   mode,
   data,
   cualId,
@@ -121,7 +123,10 @@ const FormContainer = ({
 
 
   return (
-    <div>
+    <>
+
+
+
       {(mode === "edit-both" ||
         mode === "edit-cual" ||
         mode === "edit-cuant") &&
@@ -130,7 +135,6 @@ const FormContainer = ({
             {
               <AnalysisForm
                 data={data}
-                type={type}
                 mode={mode}
                 initialValues={initialValues}
                 cualId={cualAnalisisId}
@@ -143,14 +147,13 @@ const FormContainer = ({
       {mode === "add" && (
         <AnalysisForm
           data={data}
-          type={type}
           mode={mode}
           initialValues={null}
           cualId={cualAnalisisId}
           cuantId={cuantAnalisisId}
         />
       )}
-    </div>
+    </>
   );
 };
 

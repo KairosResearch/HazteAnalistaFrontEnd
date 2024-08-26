@@ -1,5 +1,4 @@
 import React from "react";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import AnalysisForm from "@/components/analysis/AnalysisForm";
 import ShowAverages from "@/components/analysis/ShowAvarages";
 import {
@@ -31,7 +30,7 @@ interface pageProps {
 
 const page = async ({ params }: pageProps) => {
   const projectName = decodeURIComponent(params.project);
-  const dropdownNeedsCualitative: AnalysisCatalogs = await Promise.all([
+  const dropdownNeedsCualitative: any = await Promise.all([
     getAlianza(),
     getAuditorias(),
     getUseCases(),
@@ -41,7 +40,7 @@ const page = async ({ params }: pageProps) => {
     getRoadmap(),
     getWhitepaper(),
   ]);
-  const dropdownNeedsCuantitative: AnalysisCatalogs = await Promise.all([
+  const dropdownNeedsCuantitative: any = await Promise.all([
     getTokenomics(),
     getOnChain(),
     getFinanceCuant(),
@@ -68,38 +67,15 @@ const page = async ({ params }: pageProps) => {
         </div>
       </header>
 
-      <section className="mb-8">
-        <Card className="bg-grey-light/15 py-4 px-2 border-primary-foreground/40">
-          <CardContent>
-            <h1 className="text-primary">Análisis cualitativo</h1>
-            <p>Aqui realizarás tu analísis cualitativo</p>
-            <FormContainer
-              type="cual"
-              data={dropdownNeedsCualitative}
-              mode={mode}
-              cualId={Number(params.cualid)}
-              cuantId={Number(params.cuantid)}
-            />
-          </CardContent>
-        </Card>
-      </section>
-
-      <section>
-        <Card className="bg-grey-light/15 py-4 px-2 border-primary-foreground/40">
-          <CardContent>
-            <h1 className="text-primary">Análisis cuantitativo</h1>
-            <p>Aqui realizarás tu analísis cuantitativo</p>
-
-            <FormContainer
-              type="cuant"
-              data={dropdownNeedsCuantitative}
-              mode={mode}
-              cuantId={Number(params.cuantid)}
-              cualId={Number(params.cualid)}
-            />
-          </CardContent>
-        </Card>
-      </section>
+    <FormContainer
+      data={[
+        dropdownNeedsCualitative,
+        dropdownNeedsCuantitative,
+      ]}
+      mode={mode}
+      cualId={Number(params.cualid)}
+      cuantId={Number(params.cuantid)}
+    />
 
       </div>
       

@@ -135,6 +135,7 @@ const Chart = () => {
       
       <CardContent className="flex-1 pb-0">
         
+        
         {/* Chart */}
         <ChartContainer
           config={chartConfig}
@@ -155,7 +156,7 @@ const Chart = () => {
                {chartData.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={entry.color} />
               ))}
-              <Label
+               <Label
               className="text-green-light"
                 content={({ viewBox }) => {
                   if (viewBox && "cx" in viewBox && "cy" in viewBox) {
@@ -166,17 +167,18 @@ const Chart = () => {
                         textAnchor="middle"
                         dominantBaseline="middle"
                       >
-                        {/* <tspan
+                        <tspan
                           x={viewBox.cx}
                           y={viewBox.cy}
                           className="fill-foreground text-3xl font-bold"
                         >
-                          {totalVisitors.toLocaleString()}
-                        </tspan> */}
+                          {portafolio.TotalBalance.toLocaleString()}
+                        </tspan> 
                         <tspan
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) + 24}
-                          className="text-green-light"
+                          className="text-green-light fill-foreground"
+                          
                         >
                           Activos en USD
                         </tspan>
@@ -184,7 +186,7 @@ const Chart = () => {
                     )
                   }
                 }}
-              />
+              /> 
             </Pie>
           </PieChart>
         </ChartContainer>

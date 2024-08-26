@@ -4,13 +4,12 @@
 //React
 import React, { useState, useEffect } from "react";
 //Hooks
-// import { useUserTableData } from "@/hooks/useUserData";
-// import { useDialogItem, useDialogInstructions } from "@/hooks/useDialogs";
+import { useUserTableData } from "@/hooks/useUserData";
+import { useDialogItem, useDialogInstructions } from "@/hooks/useDialogs";
 import { useProjects } from "@/hooks/useProjects";
 //import { useTabsState } from "@/hooks/useTabs";
 import { useAverages } from "@/hooks/useAnalysis";
-// import { useProjectId } from "@/hooks/useAnalysis";
-import { useRouter } from "next/navigation";
+import { useProjectId } from "@/hooks/useAnalysis";
 
 import Link from "next/link";
 //Server actions for both adding and updating
@@ -31,40 +30,35 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowUp } from "lucide-react";
 import { EditIcon } from "lucide-react";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-
 
 //Values and utils
-import { debounce } from "@/utils/index";
+import { debounce, promedioCalculator } from "@/utils/index";
 
 //Types:
-import { ValueObject, BothCatalogos, AnalysisCatalogs, AnalysisInitialValues } from "@/index";
+import { ValueObject, AnalysisCatalogs, AnalysisInitialValues } from "@/index";
 
 import Loading from "../shared/Loading";
 
 interface AnalysisFormProps {
-  // type: "cual" | "cuant";
+  type: "cual" | "cuant";
   mode: "add" | "edit-both" | "edit-cual" | "edit-cuant";
 
-  data: any; 
+  data: AnalysisCatalogs;
   initialValues: AnalysisInitialValues | null;
   cualId: number | null;
   cuantId: number| null;
 }
 
 const AnalysisForm = ({
-  // type,
+  type,
   mode,
   data,
   initialValues,
   cuantId, 
   cualId
 }: AnalysisFormProps) => {
-  const router = useRouter();
 
   const [guzma, setGuzma] = useState<number | null>(null);
-  const dataCualitative = data[0]
-  const dataCuantitative = data[1]
 
 
  const [buttonCual, setButtonCual] = useState(false);
@@ -79,7 +73,7 @@ const AnalysisForm = ({
   const [cuantitativeValues, setCuantitativeValues] = useState<number>(initialPromedioCuant);
   
   const [success, setSuccess] = useState(false);
-  // const [bigSuccess, setBigSuccess] = useState(false);
+  const [bigSuccess, setBigSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   //For the initial values
@@ -90,7 +84,8 @@ const AnalysisForm = ({
     (mode === "edit-both" || mode === "edit-cual" || mode === "edit-cuant") &&
     a &&
     b
-      ?  {
+      ? type === "cual"
+        ? {
             alianzas: a.alianzas,
             auditorias: a.auditoria,
             equipo: a.integrantesEquipo,
@@ -99,6 +94,12 @@ const AnalysisForm = ({
             roadmap: a.roadmap,
             comunidad: a.comunidad,
             casosUso: a.caso_uso,
+            tokenomics: [0],
+            onChain: [0],
+            finance: [0],
+            exchange: [0],
+          }
+        : {
             tokenomics: b.tokenomics,
             onChain: b.onChain,
             finance: b.finance,
@@ -170,28 +171,7 @@ const AnalysisForm = ({
   // Submit handler
   async function onSubmit(values: any) {
     setIsLoading(true);
-    const backendValuesCualitative = {
-      idCasoUso: values.casosUso,
-      idIntegrantesEquipo: values.equipo,
-      idAuditoria: values.auditorias,
-      idRoadmap: values.roadmap,
-      idComunidad: values.comunidad,
-      idFinanciamiento: values.financeCual,
-      idWhitepapaers: values.whitepaper,
-      idAlianzas: values.alianzas,
-      suma: cualitativePromedio,
-    };
-
-    console.log("Backend Values Cualitative", backendValuesCualitative);
-    //backend Values para cuantitativo
-    const backendValuesCuantitative = {
-      idTokenomic: values.tokenomics,
-      idMovimientosOnChain: values.onChain,
-      idMetricasExchange: values.exchange,
-      idFinanciamiento: values.finance,
-      suma: cuantitativePromedio,
-    };
-    console.log("Backend Values Cuantitative", backendValuesCuantitative);
+    async function submitHandler(values: any) {
       if (
         typeof window !== "undefined" &&
         window.localStorage.getItem("guzma") !== null
@@ -202,39 +182,113 @@ const AnalysisForm = ({
 
           console.log("Creando con estos values: ", values);
           const response = await handleCreateAnalysis(
-            backendValuesCualitative,
-            backendValuesCuantitative,
+            values,
             guzma,
             projectId,
+            type
+          );
+          console.log("Response", response);
+          if (response) {
+            // Primero, mostrar el mensaje de éxito
+            setSuccess(true);
+            mutateAnalysis();
+            if(type === "cual"){
+              setButtonCual(true);
+            }
+            if(type === "cuant"){
+              setButtonCuant(true);
+            }
+            // Luego, después de 1 segundo, ocultar el mensaje
+            setTimeout(() => {
+              setSuccess(false);
+            }, 2500);
+            setIsLoading(false); // Ajusta este tiempo según sea necesario
+          }
+          // setIsLoading(false);
+        
+        } else if (mode === "edit-cual") {
+          if (type === "cuant") {
+            const response = await handleCreateAnalysis(
+              values,
+              guzma,
+              projectId,
+              type,
             );
-            console.log("Response", response);
             if (response) {
               // Primero, mostrar el mensaje de éxito
               setSuccess(true);
-              mutateAnalysis();
-              
               // Luego, después de 1 segundo, ocultar el mensaje
               setTimeout(() => {
                 setSuccess(false);
-                router.push('/analysis');
               }, 2500);
-              setIsLoading(false);
-              
+              setIsLoading(false); // Ajusta este tiempo según sea necesario
+            }
+          } else {
+            const response = await handleUpdateAnalysis(
+              values,
+              guzma,
+              projectId,
+              type,
+              cualId??0
+            );
+            if (response) {
+              // Primero, mostrar el mensaje de éxito
+              setSuccess(true);
+              // Luego, después de 1 segundo, ocultar el mensaje
+              setTimeout(() => {
+                setSuccess(false);
+              }, 2500);
+              setIsLoading(false); // Ajusta este tiempo según sea necesario
             }
           }
+        } else if (mode === "edit-cuant") {
+          if (type === "cual") {
+            const response = await handleCreateAnalysis(
+              values,
+              guzma,
+              projectId,
+              type,
+            );
+            if (response) {
+              // Primero, mostrar el mensaje de éxito
+              setSuccess(true);
+              // Luego, después de 1 segundo, ocultar el mensaje
+              setTimeout(() => {
+                setSuccess(false);
+              }, 2500); 
+              setIsLoading(false);// Ajusta este tiempo según sea necesario
+            }
+          } else {
+            const response = await handleUpdateAnalysis(
+              values,
+              guzma,
+              projectId,
+              type,
+              cuantId??0
+            );
+            if (response) {
+              // Primero, mostrar el mensaje de éxito
+              setSuccess(true);
+              // Luego, después de 1 segundo, ocultar el mensaje
+              setTimeout(() => {
+                setSuccess(false);
+              }, 2500); 
+              setIsLoading(false);// Ajusta este tiempo según sea necesario
+            }
+          }
+        } 
         else {
           console.log(cuantId)
-          
-         
+          const analysisId = type === "cual" ? cualId : cuantId;
+          console.log("análisis: ", analysisId);
           
 
           const response = await handleUpdateAnalysis(
-            backendValuesCualitative,
-            backendValuesCuantitative,
+            values,
             guzma,
             projectId,
-            cualId??0,
-            cuantId??0
+            type,
+            analysisId??0
           );
           console.log("Response", response);
           if (response) {
@@ -243,19 +297,44 @@ const AnalysisForm = ({
             // Luego, después de 1 segundo, ocultar el mensaje
             setTimeout(() => {
               setSuccess(false);
-              router.push('/analysis')
             }, 2500);
-            setIsLoading(false);
-
-            ;
+            setIsLoading(false); // Ajusta este tiempo según sea necesario
           }
           
-        
+        }
+      }
+     
     }
 
-   
-     
-      }
+    //backend Values para cualitativo
+   {
+    if (type === "cual") {
+      console.log('llego aca?')
+      const backendValues = {
+        idCasoUso: values.casosUso,
+        idIntegrantesEquipo: values.equipo,
+        idAuditoria: values.auditorias,
+        idRoadmap: values.roadmap,
+        idComunidad: values.comunidad,
+        idFinanciamiento: values.financeCual,
+        idWhitepapaers: values.whitepaper,
+        idAlianzas: values.alianzas,
+        suma: cualitativePromedio,
+      };
+      console.log("Backend Values", backendValues);
+
+      submitHandler(backendValues);
+    } else {
+      const backendValues = {
+        idTokenomic: values.tokenomics,
+        idMovimientosOnChain: values.onChain,
+        idMetricasExchange: values.exchange,
+        idFinanciamiento: values.finance,
+        suma: cuantitativePromedio,
+      };
+      console.log("Backend Values", backendValues);
+      submitHandler(backendValues);
+    }}
   }
 
   return (
@@ -274,43 +353,32 @@ const AnalysisForm = ({
           
         </div>
 
-        <section className="mb-8">
-        <Card className="bg-grey-light/15 py-4 px-2 border-primary-foreground/40">
-          <CardContent>
-            <h1 className="text-primary">Análisis cualitativo</h1>
-            <p>Aqui realizarás tu analísis cualitativo</p>
+        <div className="grid gap-4">
+          {
+          type === "cual" ? (
             <CualitativeFields
               mode={mode}
-              data={dataCualitative}
+              data={data}
               setCualitativeValues={setCualitativeValues}
             />
-          </CardContent>
-        </Card>
-      </section>
-
-      <section>
-        <Card className="bg-grey-light/15 py-4 px-2 border-primary-foreground/40">
-          <CardContent>
-            <h1 className="text-primary">Análisis cuantitativo</h1>
-            <p>Aqui realizarás tu analísis cuantitativo</p>
-
+          ) : (
             <CuantitativeFields
               mode={mode}
-              data={dataCuantitative}
+              data={data}
               setCuantitativeValues={setCuantitativeValues}
-            />
-          </CardContent>
-        </Card>
-      </section>
-
-        
+            />)}
+          
+        </div>
         {isLoading && <Loading />}
         <Button type="submit"
           variant={"default"}
           size={'sm'}
         className={` 
-             w-2/12  fixed right-4  z-50 md:right-[4.5rem]  2xl:right-36 justify-center mx-auto mt-4 text-left top-40 md:top-32
-         
+             w-4/12 md:w-2/12 fixed right-[-50px] z-30 md:right-[4.5rem]  2xl:right-36 justify-start md:justify-center mx-auto mt-4 text-left
+          ${ type === 'cual' && 'top-[8.35rem] md:top-[5.5rem]'} 
+          ${type === 'cuant' && 'top-44 md:top-32 md:z-30' }
+          ${(type === 'cuant' && buttonCuant) && 'hidden'}
+          ${(type === 'cual' && buttonCual) && 'hidden'}
           `}
           
           >
@@ -323,10 +391,9 @@ const AnalysisForm = ({
               mode ===  "edit-both" && 
               <EditIcon />
             }
-          <span className="hidden md:inline">
-          Análizis
-          </span>
           
+          { type === 'cuant' ? 'Cuantitativo' : 'Cualitativo'
+          }
         </Button>
       </form>
     </Form>
