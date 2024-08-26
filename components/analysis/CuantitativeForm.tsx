@@ -16,7 +16,7 @@ import { ValueObject } from "@/index";
 
 interface CualitativeFieldsProps {
   mode: "add" | "edit-both" | "edit-cual" | "edit-cuant";
-  data: AnalysisCatalogs;
+  data: any;
   setCuantitativeValues: (value: any) => void;
 }
 
@@ -34,7 +34,7 @@ const CuantitativeFields = ({
 
   return (
     <>
-      {data.map((item, index: number) => (
+      {data.map((item: any, index: number) => (
         <CustomField
           key={index}
           type={mode}
@@ -49,7 +49,7 @@ const CuantitativeFields = ({
           className=" w-10/12 text-left"
           render={({ field }) => (
             <div className="w-full flex flex-col gap-3 ml-6">
-              {item.map((item) => (
+              {item.map((item: any) => (
                 <div key={item.id} className="flex items-center gap-3">
                   <Checkbox
                     checked={field.value?.includes(item.id)}

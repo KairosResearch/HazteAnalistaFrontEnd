@@ -115,7 +115,7 @@ const DashboardDataForm = ({
       const opa = newPrInfo?.data?.[symbol]?.quote?.USD;
       const market_cap = opa?.market_cap;
       const price = opa?.price;
-      price && setEditablePrecio(price.toString());
+      price && setEditablePrecio(price.toLocaleString());
 
       setPrInfo({
         market_cap,

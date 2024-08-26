@@ -57,7 +57,7 @@ const TokensInfo = () => {
                         </TableCell>
                         <TableCell>$ {token.valorUnitCrypto.toLocaleString()}</TableCell>
                         <TableCell>{token.balanceCrypto.toLocaleString()}</TableCell>
-                        <TableCell>{token.balanceFiat.toFixed(4).toLocaleString()}</TableCell>
+                        <TableCell>$ {token.balanceFiat.toFixed(3).toLocaleString()}</TableCell>
                         {/* <TableCell>{token.USDValue}</TableCell> */}
                     </TableRow>
                 )
