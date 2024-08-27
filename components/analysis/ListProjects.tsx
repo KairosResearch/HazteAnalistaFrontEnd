@@ -135,13 +135,13 @@ const ListProjects = () => {
                 project.tieneAnalisisCualitativo || project.tieneAnalisisCuantitavivo ? (
                   <div>
                   <p>
-                    Progreso del analizis:{(project.respuestaSegundoFetch.filteredCualitative.suma[0] + project.respuestaSegundoFetch.filteredCuantitative.suma[0]) /2} %
+                    Progreso del análisis:{(project.respuestaSegundoFetch.filteredCualitative.suma[0] + project.respuestaSegundoFetch.filteredCuantitative.suma[0]) /2} %
                   </p>
                   <p>
-                    Progreso del analisis cualitativo: {project.respuestaSegundoFetch.filteredCualitative.suma} %
+                    Progreso del análisis cualitativo: {project.respuestaSegundoFetch.filteredCualitative.suma} %
                   </p>
                   <p>
-                      Progreso del analisis cuantitativo: {project.respuestaSegundoFetch.filteredCuantitative.suma} %
+                      Progreso del análisis cuantitativo: {project.respuestaSegundoFetch.filteredCuantitative.suma} %
                   </p>
                 </div>
                 ): null}
