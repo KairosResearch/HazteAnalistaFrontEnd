@@ -121,7 +121,7 @@ const ProgressBars = () => {
                         </span>
                     </div>
                     <p className='text-green-light'>
-                        {comparativeInfo[0].Progreso.toFixed(2).toLocaleString()}%
+                        {((comparativeInfo[0].MakCapA / comparativeInfo[0].MakCapB) * 100).toFixed(2).toLocaleString()}%
                     </p>
                 </div>
                 
