@@ -71,8 +71,7 @@ const HomePage = async () => {
           {/* <InputSearcher /> */}
         </div>
         <p className="text-sm text-primary-foreground/90">
-          Inicia con las lecciones para apender a hacer un análisis de manera
-          profesional y convertirte en analista.
+        Inicia con las lecciones para aprender a hacer un análisis de manera profesional y convertirte en crypto researcher
         </p>
 
         <Lessons

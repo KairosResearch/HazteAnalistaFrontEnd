@@ -38,11 +38,11 @@ const InfoTabs = ({
     <Tabs defaultValue="description">
       <TabsList className="pl-0 md:pl-1">
         <TabsTrigger className="pl-0 " value="description">
-          Descripcion
+          Descripción
         </TabsTrigger>
         <TabsTrigger value="links">Links</TabsTrigger>
         <TabsTrigger value="finance">Financiamiento</TabsTrigger>
-        <TabsTrigger value="analyzis">Analisis</TabsTrigger>
+        <TabsTrigger value="analyzis">Análisis</TabsTrigger>
         <TabsTrigger value="notes">Notas</TabsTrigger>
       </TabsList>
       <div className="border-t border-grey-light"></div>
@@ -175,7 +175,7 @@ const InfoTabs = ({
       </TabsContent>
       <TabsContent className="min-h-[250px]" value="notes">
         <h2 className="text-xl md:text-2xl font-bold">Nota de proyecto:</h2>
-        <span className="text-xs text-gray-300 mb-3 ">Al crear/editar tu nota, vuelve a seleccionar el proyecto para ver los cambios*</span>
+        <span className="text-xs text-gray-300 mb-3 ">Al crear o editar tu nota, cierra y abre nuevamente el proyecto para ver los cambios*.</span>
         {(!editNotaOpen && nota ) && (
           <div className="flex gap-4">
             

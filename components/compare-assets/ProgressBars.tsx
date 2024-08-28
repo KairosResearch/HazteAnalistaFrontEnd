@@ -24,12 +24,12 @@ const ProgressBars = () => {
 
   return (
     <>
-        {comparativeInfo.length === 0 && <p>Selecciona dos activos para comparar</p>}
+        {/* {comparativeInfo.length === 0 && <p>Selecciona dos activos para comparar</p>} */}
         {loading && <p>Cargando...</p>}
         {!loading && comparativeInfo.length != 0 && (
             <>
                 <h2 className='text-center text-lg font-light  text-grey-light'>
-                 Averigua el precio de ${token1} si tuviera el market cap de ${token2}
+                ${token1} con  el market cap de ${token2}
             </h2>
             <div className='flex items-center w-3/5 mx-auto justify-between font-bold text-2xl'>
             {/* <Image
@@ -104,8 +104,8 @@ const ProgressBars = () => {
                         <p className='text-lg font-light  text-grey-light'>
                             {
                                 lowerMarketCap === comparativeInfo[0].MakCapA ? 
-                                `Porcentaje del market cap de ${token1} para alcanzar el market cap de ${token2}`
-                                : `Porcentaje del market cap de ${token1} por encima del market cap de ${token2}`
+                                `El market cap de  ${token1} por debajo del market cap de ${token2} por:`
+                                : `El market cap de  ${token1} por encima del market cap de ${token2} por:`
                             }
                             :
                         </p>

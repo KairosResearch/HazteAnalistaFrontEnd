@@ -43,7 +43,7 @@ const Sidebar = () => {
                   height={25}
                   width={25}
                 />
-                Metodología 4 E
+                Guía de Análisis 4E
               </Link>
 
               <Link className="sidebar-nav_element" href="/analysis">
@@ -53,7 +53,7 @@ const Sidebar = () => {
                   height={25}
                   width={25}
                 />
-                Análisis Profundo
+                Análisis Express
               </Link>
               <Link className="sidebar-nav_element" href="/compare-assets">
                 <Image

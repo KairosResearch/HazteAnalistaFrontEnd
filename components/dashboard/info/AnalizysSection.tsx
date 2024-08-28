@@ -76,7 +76,7 @@ const AnalizysSection = ({
                     width={20}
                     height={20}
                   />{" "}
-                  Promedio del proyecto:
+                  Progreso del proyecto:
                 </h2>
                 <div>
                   <p className="m-0 text-primary-foreground/90 text-xs">
@@ -84,9 +84,9 @@ const AnalizysSection = ({
                   </p>
                 </div>
                 <div className="pl-5">
-                  <span className={`text-gray-500`}>{
-
-                    (cuantitativeTotal+cualitativeTotal)/2
+                  <span className={`text-gray-500`}>{`
+                    ${(cuantitativeTotal+cualitativeTotal)/2} %
+                  `  
                   }</span>
                 </div>
               </div>
@@ -102,15 +102,15 @@ const AnalizysSection = ({
                     width={20}
                     height={20}
                   />{" "}
-                  Promedio cualitativo:
+                  Progreso cualitativo:
                 </h2>
                 <div>
                   <p className="m-0 text-primary-foreground/90 text-xs">
-                    Esto en base a tu configuracion
+                    Esto en base a tu configuración en la sección de cualitativos
                   </p>
                 </div>
                 <div className="pl-5">
-                  <span className={`text-gray-500`}>{cualitativeTotal}</span>
+                  <span className={`text-gray-500`}>{cualitativeTotal}%</span>
                 </div>
               </div>
 
@@ -123,15 +123,15 @@ const AnalizysSection = ({
                     width={20}
                     height={20}
                   />{" "}
-                  Promedio del proyecto:
+                  Progreso del proyecto:
                 </h2>
                 <div>
                   <p className="m-0 text-primary-foreground/90 text-xs">
-                    En base a tu configuracion en la seccion de cuantitativos
+                    En base a tu configuración en la sección de cuantitativos
                   </p>
                 </div>
                 <div className="pl-5">
-                  <span className={`text-gray-500`}>{cuantitativeTotal}</span>
+                  <span className={`text-gray-500`}>{cuantitativeTotal}%</span>
                 </div>
               </div>
               <div className="flex  justify-center ">

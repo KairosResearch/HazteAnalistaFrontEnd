@@ -53,10 +53,9 @@ const CurrentLesson = () => {
         />
       ) : (
         <p>
-          O, si no has empezado, puedes comenzar a leer nuestras lecciones dando
-          click {""}
+          Si aún no has comenzado, empieza a aprender cómo ser un analista de proyectos haciendo clic {""}
           <Link className="underline" href={"lessons/1"}>
-            Aquí
+            aquí
           </Link>
         </p>
       )}

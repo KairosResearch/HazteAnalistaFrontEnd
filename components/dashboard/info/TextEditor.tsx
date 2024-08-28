@@ -169,7 +169,7 @@ const TextEditor = ({id, initialValue, closeEditor}: TextEditorProps) => {
       <Button
         onClick={handleSendClick}
       >
-        Enviar 
+      Guardar
       </Button>
     </div>
   );

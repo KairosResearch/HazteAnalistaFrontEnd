@@ -52,6 +52,8 @@ const ComboboxDemo = ({
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
+        
+      
         <Button
           variant="outline"
           role="combobox"
@@ -61,13 +63,17 @@ const ComboboxDemo = ({
           {value
             ? projects.find((project) => String(project.proyecto) === value)
                 ?.proyecto
-            : "Tu proximo proyecto a invertir..."}
+            : comboSide === null ? "Elige tu próximo proyecto para investigar" 
+            : comboSide === "left" ? "Selecciona A"
+            : "Selecciona B"
+            }
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="p-0 w-full">
         <Command>
-          <CommandInput placeholder="Busca algun proyecto ..." />
+        
+          <CommandInput placeholder="" />
           <CommandList>
             <CommandEmpty>No se encontró proyecto.</CommandEmpty>
             <CommandGroup>

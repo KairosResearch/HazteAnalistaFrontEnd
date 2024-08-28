@@ -79,7 +79,7 @@ const Navbar = () => {
                       width={20}
                       height={20}
                     />
-                    Metodología 4E
+                    Guía de análisis 4E
                   </Link>
                   <Link className="header-nav_text" href="/analysis">
                     <Image
@@ -88,7 +88,7 @@ const Navbar = () => {
                       height={20}
                       width={20}
                     />
-                    Análisis Profundo
+                    Análisis Express
                   </Link>
                   <Link className="header-nav_text" href="/compare-assets">
                     <Image

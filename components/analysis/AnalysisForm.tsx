@@ -324,7 +324,7 @@ const AnalysisForm = ({
               <EditIcon />
             }
           <span className="hidden md:inline">
-          Análizis
+          Análisis
           </span>
           
         </Button>

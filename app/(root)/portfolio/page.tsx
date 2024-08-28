@@ -23,13 +23,14 @@ const page =  () => {
     <div>
         <section id="tokens" className='mb-9'>
             <h1>
-                ¿Como está distribuido tu portafolio?
+                ¿Cómo está distribuido tu portafolio?
             </h1>
 
             
                 <div>
                     <p>
-                        Aquí puedes ver como está distribuido tu portafolio en base a las categorías que has creado.
+                        {/* Aquí puedes ver como está distribuido tu portafolio en base a las categorías que has creado. */}
+                        Visualiza la distribución de tu portafolio aquí.
                     </p>
                 </div>
             <Card className='grid grid-cols-1 lg:grid-cols-2 p-6 items-center'>
