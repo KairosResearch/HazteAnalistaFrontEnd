@@ -1,8 +1,8 @@
 import useSWR from "swr";
 import { useMemo } from "react";
 
-import { getBalances } from "@/services/backend/balances";
-import { BalanceResponse } from "..";
+import { getBalances, getDefiPositions } from "@/services/backend/balances";
+import { BalanceResponse, DefiPositions } from "..";
 
 export const usePortafolio = (address: string) => {
 
@@ -22,4 +22,21 @@ export const usePortafolio = (address: string) => {
         mutate,
       };
 };
+
+export const useDefiPositions = (address: string) => {
+  const { data, error, isLoading, mutate } = useSWR(
+    `getDefiPositions/${address}`,
+    () => getDefiPositions(address),
+  );
+
+  const defiPositions = useMemo(() => data as DefiPositions, [data]);
+  console.log('defiPositions en useHook:', defiPositions);
+
+  return {
+    defiPositions,
+    isLoading,
+    isError: error,
+    mutate,
+  };
+}
 

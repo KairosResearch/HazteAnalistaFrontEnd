@@ -16,6 +16,7 @@ import {
 import Link from 'next/link'
 import Image from 'next/image'
 import {Badge }from '@/components/ui/badge'
+import DefiPosition from '@/components/portfolio/defi/DefiPosition'
 
 const page =  () => {
    
@@ -83,14 +84,16 @@ const page =  () => {
             </TableHeader>
             <TableBody>
                
-            <TokensInfo />
+                <TokensInfo />
+
             </TableBody>
         </Table>
         </section>
 
         <section>
+            {/* Loked */}
             <article>
-                <header className='flex justify-between items-center'>
+                {/* <header className='flex justify-between items-center'>
                     <div>
                         
                         <Link
@@ -103,7 +106,7 @@ const page =  () => {
                         <p>Balance:</p>
                         <span>$123.45</span>
                     </div>
-                </header>
+                </header> */}
                 <div className='bg-grey-light/10 relative'>
                     <Badge className='absolute left-[-10px] top-2'>
                         Bloqueo
@@ -118,28 +121,17 @@ const page =  () => {
             </TableHeader>
             <TableBody>
                
-            <TableRow >
-                        <TableCell>
-                            <div className='flex gap-4 items-center '>
-                                <Image alt="arbitrum" src='https://static.alchemyapi.io/images/assets/11841.png' width={40} height={40} />
-                                <span>
-                                   $ARB
-                                </span>
-                            </div>
-                            
-                        </TableCell>
-                        <TableCell>123 ARB</TableCell>
-                        <TableCell>$123.45 </TableCell>
-                        {/* <TableCell>{token.USDValue}</TableCell> */}
-                    </TableRow>
+        <DefiPosition mode='loked'/>
             </TableBody>
         </Table>
                 </div>
                 
             </article>
 
+            {/* Staking */}
+
             <article>
-                <header className='flex justify-between items-center'>
+                {/* <header className='flex justify-between items-center'>
                     <div>
                         
                         <Link
@@ -152,12 +144,12 @@ const page =  () => {
                         <p>Balance:</p>
                         <span>$123.45</span>
                     </div>
-                </header>
+                </header> */}
                 <div className='bg-grey-light/10 relative'>
                     <Badge 
                         variant={'Lending'}
                         className='absolute left-[-10px] top-2 rounded-sm'>
-                        Lending
+                        Staking
                     </Badge>
                 <Table className='mt-7'>
             <TableHeader >
@@ -168,21 +160,9 @@ const page =  () => {
                 </TableRow>
             </TableHeader>
             <TableBody>
-               
-            <TableRow >
-                        <TableCell>
-                            <div className='flex gap-4 items-center '>
-                                <Image alt="arbitrum" src='https://static.alchemyapi.io/images/assets/11841.png' width={40} height={40} />
-                                <span>
-                                   $ARB
-                                </span>
-                            </div>
-                            
-                        </TableCell>
-                        <TableCell>123 ARB</TableCell>
-                        <TableCell>$123.45 </TableCell>
-                        {/* <TableCell>{token.USDValue}</TableCell> */}
-                    </TableRow>
+                    
+                    <DefiPosition mode='staking' />
+            
             </TableBody>
         </Table>
                 </div>
@@ -190,7 +170,7 @@ const page =  () => {
             </article>
 
 
-            <article>
+            {/* <article>
                 <header className='flex justify-between items-center'>
                     <div>
                         
@@ -233,13 +213,13 @@ const page =  () => {
                         </TableCell>
                         <TableCell>123 ARB</TableCell>
                         <TableCell>$123.45 </TableCell>
-                        {/* <TableCell>{token.USDValue}</TableCell> */}
+                         <TableCell>{token.USDValue}</TableCell> 
                     </TableRow>
             </TableBody>
         </Table>
                 </div>
                 
-            </article>
+            </article> */}
         </section>
         
     </div>

@@ -1,3 +1,5 @@
+import { DefineEnv } from "next/dist/build/swc";
+
 export type CatalogosType = {
   value: number;
   label: string;
@@ -28,8 +30,23 @@ interface BalancesInPie {
 interface BalanceResponse {
   Balances: Balances[];
   TotalBalance: number;
-  
 }
+
+interface DefiPositionsBody {
+  name_protocol: string,
+  monto_loked: number,
+  simbolo: string,
+  fiat_value: number,
+  icon_url: {
+    url: string
+  }
+}
+
+interface DefiPositions {
+  loked: DefiPositionsBody[];
+  staked: DefiPositionsBody[]
+}
+
 
 interface TabsHookProps {
   isReadyNextTab: boolean;
