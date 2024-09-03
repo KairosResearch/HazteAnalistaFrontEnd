@@ -18,9 +18,9 @@ const Navbar = () => {
   //Añadir el de twitter y validar si es web 2 poner nombre completo, si es web 3 poner la direccion cortada
 
   return (
-    <header className="navbar fixed md:relative bg-black/90 md:bg-inherit md:z-0 z-50">
+    <header className="navbar fixed md:relative w-11/12 mx-auto flex justify-between bg-black/90 md:bg-inherit md:z-0 z-50">
       <div>
-        <Link className=" text-xl font-bold md:text-2xl" href="#">
+        <Link className=" text-xl font-bold md:text-2xl" href="/dashboard">
           <Image src="/kairos-main.svg" alt="Kairos" width={50} height={50} />
         </Link>
       </div>
@@ -47,22 +47,14 @@ const Navbar = () => {
               </svg>
             </SheetTrigger>
 
+            
             <SheetContent className="w-64">
               <SheetHeader>
                 <SheetTitle>Kairos</SheetTitle>
               </SheetHeader>
               <nav>
                 <ul className="header-nav_elements">
-                  <Link className="header-nav_text" href="/dashboard">
-                    <Image
-                      src="/icons/navigation/table-fill.svg"
-                      alt="Kairos"
-                      width={20}
-                      height={20}
-                    />
-                    Home
-                  </Link>
-                  <Link className="header-nav_text" href="/portfolio">
+                <Link className="header-nav_text" href="/portfolio">
                     <Image
                       src="/icons/navigation/wallet-fill.svg"
                       alt="Kairos"
@@ -71,16 +63,18 @@ const Navbar = () => {
                     />
                     Portafolio
                   </Link>
-
-                  <Link className="header-nav_text" href="/lessons">
+                  <Link className="header-nav_text" href="/dashboard">
                     <Image
-                      src="/lessons.svg"
+                      src="/icons/navigation/table-fill.svg"
                       alt="Kairos"
                       width={20}
                       height={20}
                     />
-                    Guía de análisis 4E
+                    Dashboard
                   </Link>
+                  
+
+                  
                   <Link className="header-nav_text" href="/analysis">
                     <Image
                       src="/tools-fill.svg"
@@ -98,6 +92,15 @@ const Navbar = () => {
                       width={20}
                     />
                     Comparar assets
+                  </Link>
+                  <Link className="header-nav_text" href="/lessons">
+                    <Image
+                      src="/lessons.svg"
+                      alt="Kairos"
+                      width={20}
+                      height={20}
+                    />
+                    Guía de análisis 4E
                   </Link>
                
                 </ul>

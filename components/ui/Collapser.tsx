@@ -9,7 +9,7 @@ const Collapser = () => {
   const { activeMenu, setActiveMenu } = useStateContext();
   return (
     <button
-      className="hidden lg:block fixed top-2 left-4 z-50 "
+      className="hidden lg:block fixed top-2 left-44 z-50 "
       onClick={() => setActiveMenu(!activeMenu)}
     >
       <svg

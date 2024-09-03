@@ -16,15 +16,7 @@ const Sidebar = () => {
         <aside className="sidebar ">
           <nav className="sidebar-nav">
             <ul className="sidebar-nav_elements">
-              <Link className="sidebar-nav_element" href="/dashboard">
-                <Image
-                  src="/icons/navigation/table-fill.svg"
-                  alt="Home"
-                  height={25}
-                  width={25}
-                />
-                Dashboard
-              </Link>
+              
 
               <Link className="sidebar-nav_element" href="/portfolio">
                 <Image
@@ -36,15 +28,17 @@ const Sidebar = () => {
                 Portafolio
               </Link>
 
-              <Link href="/lessons" className="sidebar-nav_element">
+              <Link className="sidebar-nav_element" href="/dashboard">
                 <Image
-                  src="/lessons.svg"
-                  alt="lessons"
+                  src="/icons/navigation/table-fill.svg"
+                  alt="Home"
                   height={25}
                   width={25}
                 />
-                Guía de Análisis 4E
+                Dashboard
               </Link>
+
+              
 
               <Link className="sidebar-nav_element" href="/analysis">
                 <Image
@@ -63,6 +57,16 @@ const Sidebar = () => {
                   width={25}
                 />
                 Comparar assets
+              </Link>
+
+              <Link href="/lessons" className="sidebar-nav_element">
+                <Image
+                  src="/lessons.svg"
+                  alt="lessons"
+                  height={25}
+                  width={25}
+                />
+                Guía de Análisis 4E
               </Link>
 
               

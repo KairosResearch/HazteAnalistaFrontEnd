@@ -178,7 +178,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                     No hay proyectos registrados.
                     <span
                       id="cta"
-                      className="block md:inline-block"
+                      className="block ml-5 md:inline-block rounded-sm p-3 bg-primary/65 text-muted hover:bg-primary/75 cursor-pointer"
                       onClick={() => setIsOpen(true)}
                     >
                       ¡Registra tu primer proyecto!

@@ -57,51 +57,68 @@ const PopoverForm = ({ usage }: PopoverFormProps) => {
   };
 
   return (
+
+    <>
+    <div>
+    {wallet ? (
+                      <h2 className="block mt-0">
+                        {(wallet?.length ?? 0 > 10)
+                          ? `${wallet?.substring(0, 5)}...${wallet?.substring(wallet?.length - 3)}`
+                          : wallet}
+                      </h2>
+                    ) : (
+                      <h2 className="block">{name}</h2>
+                    )}
+    </div>
+
     <Popover>
-      <PopoverTrigger asChild className="cursor-pointer">
-        <Avatar>
-          <AvatarImage src="/icons/profile/Perfil.png" />
-          <AvatarFallback></AvatarFallback>
-        </Avatar>
-      </PopoverTrigger>
-      <PopoverContent className="px-3 py-2">
-        {usage === "userinfo" && (
-          <div>
-            <div className="flex flex-col justify-center gap-3">
-              <div className="flex gap-1">
-                <h2 className="block">Hola, </h2>
-                {wallet ? (
-                  <h2 className="block">
-                    {(wallet?.length ?? 0 > 10)
-                      ? `${wallet?.substring(0, 5)}...${wallet?.substring(wallet?.length - 3)}`
-                      : wallet}
-                  </h2>
-                ) : (
-                  <h2 className="block">{name}</h2>
-                )}
-              </div>
+          <PopoverTrigger asChild className="cursor-pointer">
+            <Avatar>
+              <AvatarImage src="/icons/profile/Perfil.png" />
+              <AvatarFallback></AvatarFallback>
+            </Avatar>
+          </PopoverTrigger>
+          <PopoverContent className="px-3 py-2">
+            {usage === "userinfo" && (
+              <div>
+                <div className="flex flex-col justify-center gap-3">
+                  <div className="flex gap-1">
+                    <h2 className="block">Hola, </h2>
+                    {wallet ? (
+                      <h2 className="block">
+                        {(wallet?.length ?? 0 > 10)
+                          ? `${wallet?.substring(0, 5)}...${wallet?.substring(wallet?.length - 3)}`
+                          : wallet}
+                      </h2>
+                    ) : (
+                      <h2 className="block">{name}</h2>
+                    )}
+                  </div>
 
-              {/* <LinkAccounts /> */}
-              <p className="block">
-                Bienvenido a tu plataforma de mundo crypto!
-              </p>
-              <div className="flex justify-center mt-1 ">
-                <Button
-                  variant={"destructive"}
-                  size={"sm"}
-                  className="w-2/5 "
-                  onClick={onLogout}
-                >
-                  Cerrar sesión
-                </Button>
+                  {/* <LinkAccounts /> */}
+                  <p className="block">
+                    Bienvenido a tu plataforma de mundo crypto!
+                  </p>
+                  <div className="flex justify-center mt-1 ">
+                    <Button
+                      variant={"destructive"}
+                      size={"sm"}
+                      className="w-2/5 "
+                      onClick={onLogout}
+                    >
+                      Cerrar sesión
+                    </Button>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        )}
+            )}
 
-        {usage === "searcher" && <SearcherResults />}
-      </PopoverContent>
-    </Popover>
+            {usage === "searcher" && <SearcherResults />}
+          </PopoverContent>
+        </Popover>
+
+    </>
+
   );
 };
 

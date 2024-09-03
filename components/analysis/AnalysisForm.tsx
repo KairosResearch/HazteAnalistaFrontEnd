@@ -28,7 +28,7 @@ import { Dialog, DialogHeader, DialogContent } from "@/components/ui/dialog";
 
 //UI needed
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ArrowUp } from "lucide-react";
 import { EditIcon } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -38,7 +38,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { debounce } from "@/utils/index";
 
 //Types:
-import { ValueObject, BothCatalogos, AnalysisCatalogs, AnalysisInitialValues } from "@/index";
+import {  AnalysisInitialValues } from "@/index";
 
 import Loading from "../shared/Loading";
 
@@ -275,7 +275,17 @@ const AnalysisForm = ({
         </div>
 
         <section className="mb-8">
-        <Card className="bg-grey-light/15 py-4 px-2 border-primary-foreground/40">
+          <Tabs defaultValue="cualitative">
+            <TabsList>
+              <TabsTrigger className="rounded-sm mr-3 border-primary border" value="cualitative" >
+                Cualitativo
+              </TabsTrigger>
+              <TabsTrigger className="rounded-sm  border-primary border" value="cuantitative">
+                Cuantitativo
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value="cualitative">
+            <Card className="bg-grey-light/15 py-4 px-2 border-primary-foreground/40">
           <CardContent>
             <h1 className="text-primary">Análisis cualitativo</h1>
             <p>Aqui realizarás tu analísis cualitativo</p>
@@ -286,9 +296,8 @@ const AnalysisForm = ({
             />
           </CardContent>
         </Card>
-      </section>
-
-      <section>
+        </TabsContent>
+        <TabsContent value="cuantitative">
         <Card className="bg-grey-light/15 py-4 px-2 border-primary-foreground/40">
           <CardContent>
             <h1 className="text-primary">Análisis cuantitativo</h1>
@@ -301,7 +310,13 @@ const AnalysisForm = ({
             />
           </CardContent>
         </Card>
+        </TabsContent>
+          
+          </Tabs>
+        
       </section>
+
+            
 
         
         {isLoading && <Loading />}
@@ -324,7 +339,7 @@ const AnalysisForm = ({
               <EditIcon />
             }
           <span className="hidden md:inline">
-          Análisis
+          Guardar 
           </span>
           
         </Button>
