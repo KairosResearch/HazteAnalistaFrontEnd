@@ -185,13 +185,7 @@ export const instructionsSteps = [
     id: 8,
     title: "¡Metodología 4E!.",
     description:
-      "En Kairos Research creamos un método de estudio llamado “4E” para analizar proyectos, con el objetivo de guiarte hacia oportunidades de inversión informadas y sostenibles en el cambiante universo de las criptomonedas.",
-  },
-  {
-    id: 8,
-    title: "¡Metodología 4E!",
-    description:
-      "En Kairos Research creamos un método de estudio llamado “4E” para analizar proyectos, con el objetivo de guiarte hacia oportunidades de inversión informadas y sostenibles en el cambiante universo de las criptomonedas.",
+      "En Kairos Research creamos un método de estudio llamado “4E” para analizar proyectos, con el objetivo guiarte hacia oportunidades de inversión informadas y sostenibles en el cambiante universo de las criptomonedas. \n Encontrar → Descubrimiento y Filtración de Proyectos \n Estudiar → Análisis Fundamental, Técnico y en On-chain \n Ejecutar → Tomar Decisiones y Estrategias \n Evaluar → Comprender y Aprender",
   },
   {
     id: 9,
@@ -209,7 +203,7 @@ export const instructionsSteps = [
     id: 11,
     title: "¿A qué sector pertenece el proyecto?",
     description:
-      "Agrega el o los sectores en los que este proyecto se encuentra.",
+      "Agrega el o los sectores que te interesan del proyecto para investigar.",
   },
   {
     id: 12,

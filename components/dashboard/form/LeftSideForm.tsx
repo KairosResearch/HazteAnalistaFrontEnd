@@ -45,7 +45,7 @@ const LeftSideForm = ({
   return (
     <div className="">
       <div className="nombreblock">
-      <h2>Elige tu próximo proyecto para investigar</h2>
+      
         <CustomField
           type={type}
           name="nombre"

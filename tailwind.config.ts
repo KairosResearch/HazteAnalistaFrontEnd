@@ -39,7 +39,7 @@ const config = {
     },
     extend: {
       backgroundImage: {
-        "hero-pattern": "url('/backgrounds/bg-hero-login.jpg')",
+        "hero-pattern": "url('/backgrounds/login.png')",
         "footer-texture": "url('/img/footer-texture.png')",
         "page-texture": "url('/backgrounds/rombos.png')",
       },
