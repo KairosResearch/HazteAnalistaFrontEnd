@@ -24,43 +24,24 @@ type Props = {
 };
 
 const CurrentModule = ({ allModules }: Props) => {
-  //Guzma
-  const { userGuzma } = useUserGuzma();
-  const [modulesToRender, setModules] = React.useState<any[]>([]);
+  
+  const module1 = allModules && allModules["Módulo 1"];
+  const module2 = allModules && allModules["Módulo 2"];
+  const module3 = allModules && allModules["Módulo 3"];
+
+  const modulesToRender: LessonProps[][] = [module1 as LessonProps[] , module2 as LessonProps[], module3 as LessonProps[]]
+  
+
+  // const { userGuzma } = useUserGuzma();
   const [lessonsCompleted, setLessonsCompleted] = React.useState<any[]>([]);
   const [loading, setLoading] = React.useState<boolean>(false);
 
   //traer guzma de localstorage
 
-  const { module, completed, isLoading, isError } = useLessons();
+  const { completed, isLoading, isError } = useLessons();
 
   useEffect(() => {
-    const getModules = async () => {
-      if (module === undefined || module === null) {
-        return null;
-      } else {
-        if (allModules != undefined) {
-          if (module === 2) {
-            setModules([allModules["Módulo 1"], allModules["Módulo 2"]]);
-          } else if (module === 3) {
-            setModules([
-              allModules["Módulo 1"],
-              allModules["Módulo 2"],
-              allModules["Módulo 3"],
-            ]);
-          } else {
-            setModules([allModules["Módulo 1"]]);
-          }
-        }
-      }
-
-      // setLoading(true);
-
-      // const { currentModuleId } = (await getLastElement()) as {
-      //   currentModuleId: number;
-      // };
-    };
-    getModules();
+    
     if (completed !== undefined && completed !== null) {
       setLessonsCompleted(completed);
     }
@@ -70,7 +51,7 @@ const CurrentModule = ({ allModules }: Props) => {
     //   setLoading(false);
     // };
     // getLessonsCompleted();
-  }, [module]);
+  }, [completed]);
 
   console.log(isLoading);
 
@@ -97,7 +78,7 @@ const CurrentModule = ({ allModules }: Props) => {
         </div>
       )}
       {modulesToRender &&
-        modulesToRender.map((mod, i) => (
+        modulesToRender.map((mod:LessonProps[] , i: number) => (
           <div role="row" key={i}>
             <h1></h1>
             <Separator className="mb-6" />

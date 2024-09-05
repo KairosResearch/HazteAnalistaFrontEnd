@@ -1,13 +1,25 @@
 "use client";
 //Imports for the component.
 //React
-import React, { useContext } from "react";
+import React from "react";
 import { useStateContext } from "@/contexts/ContextProvider";
 //Next
 import Link from "next/link";
 import Image from "next/image";
 
-const Sidebar = () => {
+//Components
+import ModulesAccordion from "./ModulesAccordion";
+import {  LessonProps } from "@/index";
+
+type SidebarProps = {
+  module1: LessonProps[] | undefined
+    module2: LessonProps[] | undefined
+    module3: LessonProps[] | undefined
+}
+
+const Sidebar = ({
+   module1, module2, module3
+}: SidebarProps) => {
   const { activeMenu } = useStateContext();
   //2xl:w-72 xl:w-64 md:w-56
   return (
@@ -59,15 +71,13 @@ const Sidebar = () => {
                 Comparar assets
               </Link>
 
-              <Link href="/lessons" className="sidebar-nav_element">
-                <Image
-                  src="/lessons.svg"
-                  alt="lessons"
-                  height={25}
-                  width={25}
-                />
-                Guía de Análisis 4E
-              </Link>
+              
+
+              <ModulesAccordion 
+                module1={module1}
+                module2={module2}
+                module3={module3}
+              />
 
               
 

@@ -46,7 +46,7 @@ const config = {
       scrollbar: {
         thin: "10px",
         thumb: "#888",
-        track: "#f1f1f1",
+        track: "hsl(var(--background))",
       },
       colors: {
         ring: "hsl(var(--ring))",

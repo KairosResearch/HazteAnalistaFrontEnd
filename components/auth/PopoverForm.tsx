@@ -67,7 +67,7 @@ const PopoverForm = ({ usage }: PopoverFormProps) => {
                           : wallet}
                       </h2>
                     ) : (
-                      <h2 className="block">{name}</h2>
+                      <h2 className="block mt-0">{name}</h2>
                     )}
     </div>
 
