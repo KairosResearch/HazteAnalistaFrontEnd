@@ -99,52 +99,6 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
   const [selectedRow, setSelectedRow] = useState<any>(null);
 
 
-
-
-
-
-
-
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     setLoading(true);
-  //     if (
-  //       typeof window !== undefined &&
-  //       window.localStorage.getItem("guzma") !== null
-  //     ) {
-  //       const guzma = Number(window.localStorage.getItem("guzma"));
-  //       console.log("guzma", guzma);
-  //       // console.log('userid', userId)
-  //       const data = (await handleGetProyects(guzma ?? 0)) as
-  //         | TableData[]
-  //         | string;
-  //       if (typeof data === "string") {
-  //         setTableData([]);
-  //       } else {
-  //         // Crear un conjunto con los nombres de los proyectos ya tomados
-  //         const takenProjectsSet = new Set(data?.map((pr) => pr.proyecto));
-  //         // Filtrar projectList para incluir solo proyectos no tomados
-  //         const availableProjects =
-  //           projectsList?.filter((pr) => !takenProjectsSet.has(pr.proyecto)) ||
-  //           [];
-  //         setAvaliableProjects(availableProjects);
-
-  //         setTableData(data || []);
-  //       }
-  //     }
-  //     setLoading(false);
-  //   };
-  //   fetchData();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [userTableData]);
-
-
-
-
-
-
-
   const sectores = catalogos[3];
 
   const range = (marketCap: number) => {

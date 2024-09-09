@@ -13,6 +13,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import PopoverForm from "../auth/PopoverForm";
+import NotesButton from "./NotesButton";
 
 const Navbar = () => {
   //Añadir el de twitter y validar si es web 2 poner nombre completo, si es web 3 poner la direccion cortada
@@ -25,7 +26,11 @@ const Navbar = () => {
         </Link>
       </div>
 
+      
+
       <div className="flex gap-4 md:gap-8 flex-center">
+         <NotesButton />
+      
         <PopoverForm usage="userinfo" />
 
         <div className="lg:hidden">

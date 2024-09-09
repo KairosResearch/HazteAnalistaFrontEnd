@@ -128,7 +128,7 @@ const DialogInstructions = () => {
   return (
     <div>
       {isOpenInstr && (
-        <div className="fixed inset-0 z-50 bg-black bg-opacity-50 ">
+        <div className="fixed inset-0 z-50 bg-black bg-opacity-10 ">
           <div
             className={`
               ${

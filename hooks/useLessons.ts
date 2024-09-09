@@ -19,6 +19,7 @@ export const useLessons = () => {
     lessons: [],
     isLoading: true,
     isError: null,
+    mutate: undefined
   };
 
   if (typeof window !== "undefined") {

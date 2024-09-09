@@ -65,6 +65,13 @@ interface DialogInstrHookProps {
   defaultTab: "first-part" | "second-part";
   setDefaultTab: (tab: "first-part" | "second-part") => void;
 }
+
+interface DialogNotes {
+  isOpenNote: boolean;
+  setIsOpenNote: (newState: boolean) => void;
+  idProject: number;
+  setIdProject: (newProjectId: number) => void;
+}
 interface AuthLoadingStatusProps {
   isLoading: boolean;
   setIsLoading: (newState: boolean) => void;
@@ -322,28 +329,6 @@ interface LessonProps {
   html_portada: string;
   html_leccion: string;
 }
-// interface AnalisysInitialvaluesCual {
-//   id_usuario: number[];
-//   id_proyecto: number[];
-//   id_caso_uso: number[];
-//   id_integrantes_equipo: number[];
-//   id_auditoria: number[];
-//   id_roadmap: number[];
-//   id_comunidad: number[];
-//   id_financiamiento: number[];
-//   id_whitepapaers: number[];
-//   id_alianzas: number[];
-//   suma: number;
-// }
-// interface AnalisysInitialvaluesCuant {
-//   id_usuario: number[];
-//   id_proyecto: number[];
-//   id_tokenomic: number[];
-//   id_movimientosOnChain: number[];
-//   id_metricasExchage: number[];
-//   id_financiamitos: number[];
-//   suma: number;
-// }
 
 interface AnalysisFromGetCualitative {
   alianzas: number[];
@@ -385,6 +370,7 @@ interface AllModules {
   "Módulo 3": LessonProps[];
 }
 
+
 interface ComparativeInfo {
       MakCapA:  number;
       MakCapB: number;
@@ -392,4 +378,11 @@ interface ComparativeInfo {
       NoX: number;
       PorcentajeX: number;
       Progreso: number;
+}
+
+interface LeccionUser {
+    id_usuario: number;
+    id_leccion: number;
+    id_modulo: number;
+    siFinalizo: number;
 }

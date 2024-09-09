@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import TextEditor from "./TextEditor";
+import TextEditor from "../../shared/notes/TextEditor";
 //Values and utilities
 import { InfoTabsProps } from "@/index";
 import AnalizysSection from "./AnalizysSection";

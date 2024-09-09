@@ -63,7 +63,7 @@ const ComboboxDemo = ({
           {value
             ? projects.find((project) => String(project.proyecto) === value)
                 ?.proyecto
-            : comboSide === null ? "Elige tu próximo proyecto para investigar" 
+            : comboSide === null ? "Elige un proyecto" 
             : comboSide === "left" ? "Selecciona A"
             : "Selecciona B"
             }

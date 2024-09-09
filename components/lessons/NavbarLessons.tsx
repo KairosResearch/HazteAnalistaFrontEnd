@@ -40,7 +40,7 @@ const NavbarLessons = ({ numParam, modulo, leccion }: NavbarLessonsProps) => {
 
       if (modulo != undefined) {
         const saveLessonRead = await saveLessonAction(guzma, modulo, numParam);
-        if(saveLessonRead){
+        if(saveLessonRead && mutate){
           mutate();
         }
       }
