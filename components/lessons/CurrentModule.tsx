@@ -10,7 +10,7 @@ import { AllModules, LessonPortadaProps, LessonProps } from "@/index";
 //   lessonsCompletedArray,
 // } from "@/utils/lessons/lessonsUtils";
 //Services API
-import { getLastLesson } from "@/services/backend/lessons";
+// import { getLastLesson } from "@/services/backend/lessons";
 //Components
 import { Separator } from "../ui/separator";
 import SkeletonCard from "../shared/skeletons/SkeletonCard";
@@ -51,7 +51,7 @@ const CurrentModule = ({ allModules }: Props) => {
     //   setLoading(false);
     // };
     // getLessonsCompleted();
-  }, [completed]);
+  }, []);
 
   console.log(isLoading);
 

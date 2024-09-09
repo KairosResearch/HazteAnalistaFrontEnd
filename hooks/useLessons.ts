@@ -26,7 +26,7 @@ export const useLessons = () => {
     if (guzma) {
       const id = parseInt(guzma);
       
-      const { data, error, isLoading } = useSWR(
+      const { data, error, isLoading, mutate } = useSWR(
         `getLecciones/${id}`,
         getLessonsByUser,
       );
@@ -44,6 +44,7 @@ export const useLessons = () => {
         lessons: data,
         isLoading,
         isError: error,
+        mutate
       };
     }
   }

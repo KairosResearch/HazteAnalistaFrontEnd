@@ -11,6 +11,7 @@ import {
   setLastLessonAction,
 } from "@/actions/lessonsActions";
 import { getGuzmaValue } from "@/utils/values";
+import { useLessons } from "@/hooks/useLessons";
 
 interface NavbarLessonsProps {
   numParam: number;
@@ -19,6 +20,9 @@ interface NavbarLessonsProps {
 }
 
 const NavbarLessons = ({ numParam, modulo, leccion }: NavbarLessonsProps) => {
+
+  const {mutate} = useLessons();
+
   useEffect(() => {
     const setCurrentLesson = async () => {
       const guzma = await getGuzmaValue();
@@ -35,7 +39,10 @@ const NavbarLessons = ({ numParam, modulo, leccion }: NavbarLessonsProps) => {
       const guzma = Number(window.localStorage.getItem("guzma"));
 
       if (modulo != undefined) {
-        await saveLessonAction(guzma, modulo, numParam);
+        const saveLessonRead = await saveLessonAction(guzma, modulo, numParam);
+        if(saveLessonRead){
+          mutate();
+        }
       }
     } else {
       console.log("No hay usuario");
