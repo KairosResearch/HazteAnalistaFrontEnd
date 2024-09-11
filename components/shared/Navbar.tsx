@@ -13,9 +13,21 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import PopoverForm from "../auth/PopoverForm";
-import NotesButton from "./NotesButton";
+import NotesButton from "./notes/NotesButton";
+import ModulesAccordion from "./sidebar/ModulesAccordion";
+import { LessonProps } from "@/index";
 
-const Navbar = () => {
+type NavProps = {
+  module1: LessonProps[] | undefined
+    module2: LessonProps[] | undefined
+    module3: LessonProps[] | undefined
+}
+
+const Navbar = (
+  {
+    module1, module2, module3
+ }: NavProps
+) => {
   //Añadir el de twitter y validar si es web 2 poner nombre completo, si es web 3 poner la direccion cortada
 
   return (
@@ -98,15 +110,11 @@ const Navbar = () => {
                     />
                     Comparar assets
                   </Link>
-                  <Link className="header-nav_text" href="/lessons">
-                    <Image
-                      src="/lessons.svg"
-                      alt="Kairos"
-                      width={20}
-                      height={20}
-                    />
-                    Guía de análisis 4E
-                  </Link>
+                  <ModulesAccordion 
+                    module1={module1}
+                    module2={module2}
+                    module3={module3}
+                  />
                
                 </ul>
               </nav>

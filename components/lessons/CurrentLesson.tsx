@@ -15,10 +15,10 @@ import { getLastLesson } from "@/services/backend/lessons";
 //Components
 import SkeletonCard from "../shared/skeletons/SkeletonCard";
 //Hooks
-import { useUserGuzma } from "@/hooks/useUserData";
+// import { useUserGuzma } from "@/hooks/useUserData";
 
 const CurrentLesson = () => {
-  const { userGuzma } = useUserGuzma();
+  // const { userGuzma } = useUserGuzma();
   const [currentLesson, setCurrentLesson] = React.useState<LessonProps>();
   const [loading, setLoading] = React.useState<boolean>(false);
 
@@ -52,12 +52,21 @@ const CurrentLesson = () => {
           status={0}
         />
       ) : (
-        <p>
-          Si aún no has comenzado, empieza a aprender cómo ser un analista de proyectos haciendo clic {""}
-          <Link className="underline" href={"lessons/1"}>
-            aquí
-          </Link>
-        </p>
+        <>
+          <p>
+            Si aún no has comenzado, empieza a aprender cómo ser un analista de proyectos:
+           
+          </p>
+          <LessonsCard
+          lesson={JSON.parse('{\"id\":9,\"title\":\"Creando un m\étodo - Metodolog\ía 4E\",\"cover\":\"\\/lessonsMainPage\\/module2\\/lesson3.png\",\"modulo\":2}')}
+          lessonNumber={'Lección 3'}
+          link={`/lessons/${9}`}
+          status={0}
+        />
+
+        </>
+        
+        
       )}
     </>
   );

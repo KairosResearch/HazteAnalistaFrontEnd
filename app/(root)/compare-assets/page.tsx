@@ -28,7 +28,9 @@ const page = async () => {
                 Compara el market cap de dos diferentes activos
             </h1>
             <p>
-            Muestra el precio que tendría A si tuviera el market cap de B
+            Este apartado te permite comparar el valor de mercado {'('}market cap{')'} de dos criptomonedas o tokens. 
+            Además, te muestra cuál sería el precio del activo A si alcanzara el mismo valor de mercado que el activo B, 
+            facilitando una comparación entre su tamaño y potencial.B
             </p>
         </header>
         

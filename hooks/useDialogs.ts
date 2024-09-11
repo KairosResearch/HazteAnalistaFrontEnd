@@ -11,7 +11,7 @@ export const useDialogItem = create<DialogHookProps>((set) => ({
 }));
 
 export const useDialogInstructions = create<DialogInstrHookProps>((set) => ({
-  isOpenInstr: true,
+  isOpenInstr: false,
   setIsOpenInstr: (newState: boolean) => set({ isOpenInstr: newState }),
   defaultTab: "first-part",
   setDefaultTab(tab) {

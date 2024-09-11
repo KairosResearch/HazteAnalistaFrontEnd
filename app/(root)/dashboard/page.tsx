@@ -49,8 +49,10 @@ const HomePage = async () => {
           </div>
         </div>
         <p className="text-sm mb-4 text-primary-foreground/90">
-          Aquí podras registrar todos los proyectos que te llaman la atención o
-          en los que ya has invertido.
+          {/* Aquí podras registrar todos los proyectos que te llaman la atención o
+          en los que ya has invertido. */}
+          Este dashboard te permite registrar y organizar los proyectos de tu portafolio. 
+          Con la tabla interactiva puedes monitorear el desempeño de cada proyecto en tiempo real y sus puntos más relevantes.
         </p>
         {/* <div className="md:hidden">
               <ReloadProjects />

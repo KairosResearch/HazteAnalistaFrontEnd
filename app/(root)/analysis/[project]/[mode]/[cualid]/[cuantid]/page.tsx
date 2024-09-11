@@ -47,38 +47,41 @@ const page = async ({ params }: pageProps) => {
     getExchanges(),
   ]);
 
-  const mode = params.mode === 'edit' ? params.cualid === '0' ? "edit-cuant" : params.cuantid === '0' ? "edit-cual" : "edit-both" : "add";
+  const mode =
+    params.mode === "edit"
+      ? params.cualid === "0"
+        ? "edit-cuant"
+        : params.cuantid === "0"
+          ? "edit-cual"
+          : "edit-both"
+      : "add";
   console.log(mode);
   return (
     <>
       <ShowAverages />
       <div className="">
-      <header className="my-10  md:flex justify-between items-center">
-        <h1>
-          {mode === "add" ? "Realiza" : "Editemos"} tu análisis - {projectName}
-        </h1>
-        <div className="">
-          <Link href="/dashboard" className="mr-4">
-            <span className="text-primary underline">Dashboard</span>
-          </Link>
-          <Link href="/analysis">
-            <span className="text-primary underline">Página de análisis</span>
-          </Link>
-        </div>
-      </header>
+        <header className="my-10  md:flex justify-between items-center">
+          <h1>
+            {mode === "add" ? "Realiza" : "Editemos"} tu análisis -{" "}
+            {projectName}
+          </h1>
+          <div className="">
+            <Link href="/dashboard" className="mr-4">
+              <span className="text-primary underline">Dashboard</span>
+            </Link>
+            <Link href="/analysis">
+              <span className="text-primary underline">Página de análisis</span>
+            </Link>
+          </div>
+        </header>
 
-    <FormContainer
-      data={[
-        dropdownNeedsCualitative,
-        dropdownNeedsCuantitative,
-      ]}
-      mode={mode}
-      cualId={Number(params.cualid)}
-      cuantId={Number(params.cuantid)}
-    />
-
+        <FormContainer
+          data={[dropdownNeedsCualitative, dropdownNeedsCuantitative]}
+          mode={mode}
+          cualId={Number(params.cualid)}
+          cuantId={Number(params.cuantid)}
+        />
       </div>
-      
     </>
   );
 };

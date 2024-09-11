@@ -75,7 +75,7 @@ const NavbarLessons = ({ numParam, modulo, leccion }: NavbarLessonsProps) => {
       )}
 
       <h1 className="text-lg md:text-xl">
-        Modulo: {modulo} | {leccion}
+        Módulo: {modulo} | {leccion}
       </h1>
       {numParam === 15 ? (
         <div />

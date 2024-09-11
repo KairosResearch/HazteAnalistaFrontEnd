@@ -8,6 +8,7 @@ import {
     AccordionTrigger,
   } from "@/components/ui/accordion"
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area' 
+import { Clock } from 'lucide-react'
 
 //NextJS
 import Image from 'next/image'
@@ -61,8 +62,11 @@ const ModulesAccordion = ({
                 : null
             }
                 <Link className="hover:underline" href={`/lessons/${lesson.id}`}>
-                <span>
+                <span className='text-xs'>
                     {lesson.leccion}
+                </span>
+                <span className='block m-0 text-xs text-grey-light/60'>
+                    <Clock className="inline" size={10} /> 4 mins
                 </span>
                 </Link>
                 
@@ -94,11 +98,11 @@ const ModulesAccordion = ({
                 <AccordionContent className='pl-12'>
 
 
-                    <Accordion type="multiple" className="w-full">
+                    <Accordion defaultValue={['item-1']} type="multiple"  className="w-full">
                     <ScrollArea className='h-72 overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-dark-grey'>
                         <AccordionItem value="item-1">
                             <AccordionTrigger className='flex gap-3'>
-                                
+{/*                                 
                                 {
                                 module  > 1 ? 
                                 <Image
@@ -109,7 +113,7 @@ const ModulesAccordion = ({
                                     alt="Lección completada"
                                 />
                                 : null
-                            }
+                            } */}
                                 <span>Módulo 1</span>
                                 
                             
@@ -124,7 +128,7 @@ const ModulesAccordion = ({
                         </AccordionItem>
                         <AccordionItem value="item-2">
                             <AccordionTrigger className='flex gap-3'>
-                            {
+                            {/* {
                                 module  > 2? 
                                 <Image
                                     
@@ -134,7 +138,7 @@ const ModulesAccordion = ({
                                     alt="Lección completada"
                                 />
                                 : null
-                            }
+                            } */}
                                 Módulo 2
                             </AccordionTrigger>
                             <AccordionContent className='pl-2'>
@@ -145,7 +149,7 @@ const ModulesAccordion = ({
                         </AccordionItem>
                         <AccordionItem value="item-3">
                             <AccordionTrigger className='flex gap-3'>
-                            {
+                            {/* {
                                 completed.length == 14 ? 
                                 <Image
                                     
@@ -155,7 +159,7 @@ const ModulesAccordion = ({
                                     alt="Lección completada"
                                 />
                                 : null
-                            }
+                            } */}
                                 Módulo 3 
                             </AccordionTrigger>
                             <AccordionContent className='pl-2'>

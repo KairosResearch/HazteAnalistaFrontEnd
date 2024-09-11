@@ -31,7 +31,8 @@ const page =  () => {
                 <div>
                     <p>
                         {/* Aquí puedes ver como está distribuido tu portafolio en base a las categorías que has creado. */}
-                        Visualiza la distribución de tu portafolio aquí.
+                        n este apartado, podrás monitorear las posiciones y activos que tienes en tu cartera conectada a la aplicación. 
+                        Actualmente, esta visualización te permite el seguimiento dentro de la red de Arbitrum.
                     </p>
                 </div>
             <Card className='grid grid-cols-1 lg:grid-cols-2 p-6 items-center'>

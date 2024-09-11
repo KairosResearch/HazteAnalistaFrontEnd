@@ -16,7 +16,11 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
   const lessons = await getLessons();
   return (
     <main className="root">
-      <Navbar />
+      <Navbar 
+        module1={lessons && lessons["Módulo 1"]}
+        module2={lessons && lessons["Módulo 2"]}
+        module3={lessons && lessons["Módulo 3"]}
+      />
       <Collapser />
 
       <div className="root-container overflow-hidden md:flex">

@@ -4,12 +4,12 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu"
 import { useProjects } from '@/hooks/useProjects';
 import { useDialogsNotes } from '@/hooks/useDialogs';
+import DialogNotes from './DialogNotes';
 
 
 const NotesButton = () => {
@@ -26,14 +26,14 @@ const NotesButton = () => {
   return (
     <>
         <DropdownMenu>
-        <DropdownMenuTrigger>Nota</DropdownMenuTrigger>
+        <DropdownMenuTrigger>+ Nota</DropdownMenuTrigger>
         <DropdownMenuContent>
             {/* <DropdownMenuLabel></DropdownMenuLabel> */}
             <DropdownMenuSeparator />
            {
                 Array.isArray(data) && data.map((project) => {
                     return (
-                    <DropdownMenuItem key={project.id_proyecto} onClick={() => {
+                    <DropdownMenuItem className="cursor-pointer" key={project.id_proyecto} onClick={() => {
                         setIsOpenNote(true)
                         setIdProject(project.id_proyectoInicial)
                     }}>
@@ -43,6 +43,8 @@ const NotesButton = () => {
                 })
             }
         </DropdownMenuContent>
+        <DialogNotes />
+
         </DropdownMenu>
     </>
   )

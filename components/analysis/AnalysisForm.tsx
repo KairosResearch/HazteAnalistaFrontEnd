@@ -288,7 +288,7 @@ const AnalysisForm = ({
             <Card className="bg-grey-light/15 py-4 px-2 border-primary-foreground/40">
           <CardContent>
             <h1 className="text-primary">Análisis cualitativo</h1>
-            <p>Aqui realizarás tu analísis cualitativo</p>
+            <p>Aquí se valoran los aspectos que aportan valor o ventaja a cada proyecto, con el objetivo de identificar las mejores condiciones para su éxito.</p>
             <CualitativeFields
               mode={mode}
               data={dataCualitative}
@@ -301,7 +301,7 @@ const AnalysisForm = ({
         <Card className="bg-grey-light/15 py-4 px-2 border-primary-foreground/40">
           <CardContent>
             <h1 className="text-primary">Análisis cuantitativo</h1>
-            <p>Aqui realizarás tu analísis cuantitativo</p>
+            <p>Se evalúan métricas y datos que reflejan el desempeño del proyecto, determinando si cuenta con bases sólidas para su desarrollo a largo plazo.</p>
 
             <CuantitativeFields
               mode={mode}
