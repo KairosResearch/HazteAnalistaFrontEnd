@@ -129,6 +129,7 @@ interface TableData {
   tieneAnalisisCuantitavivo: boolean
   id_analisis_cualitativo: number ;
   id_analisis_cuantitativo: number ;
+  nota: string | null;
 }
 
 interface ProjectsDataWithAnalisis extends TableData {

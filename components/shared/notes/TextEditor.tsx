@@ -32,17 +32,26 @@ interface TextEditorProps {
 }
 
 const TextEditor = ({id, initialValue, closeEditor}: TextEditorProps) => {
-  const [guzma, setGuzma] = useState<number | null>(null);
 
-  useEffect(() => {
-    if (typeof window !== 'undefined' && window.localStorage.getItem("guzma") !== null) {
-      setGuzma(Number(window.localStorage.getItem("guzma")));
-    }
-  }, []);
-  const {  mutate } = useProjects(guzma ?? 0);
+  // const [valueInEditor, setValueInEditor] = useState<string | null>(null);
+
+  // useEffect(() => {
+  //   if (initialValue) {
+  //     setValueInEditor(initialValue);
+  //   }
+  // }, [initialValue]);
+  // const [guzma, setGuzma] = useState<number | null>(null);
+
+  // useEffect(() => {
+  //   if (typeof window !== 'undefined' && window.localStorage.getItem("guzma") !== null) {
+  //     setGuzma(Number(window.localStorage.getItem("guzma")));
+  //   }
+  // }, []);
+  // const {  mutate } = useProjects(guzma ?? 0);
 
 
   const [editorState, setEditorState] = useState(() => {
+    console.log('Valor inicial', initialValue);
     if (initialValue) {
       const blocksFromHTML = convertFromHTML(initialValue);
       const contentState = ContentState.createFromBlockArray(
@@ -116,10 +125,11 @@ const TextEditor = ({id, initialValue, closeEditor}: TextEditorProps) => {
       const guzma = localStorage.getItem('guzma');
       if(guzma){
         console.log('lLegando a subir nota');
-        const updatedNote = await handleUpdateNote(parseInt(guzma), html, id);
+        const updatedNote = await handleUpdateNote(parseInt(guzma),  id, html);
         if(updatedNote){
           setSuccess(true);
-          mutate();
+          // setValueInEditor(updatedNote[0].notas);
+          // mutate();
           // Después de 1 segundo, establecer success en false
           setTimeout(() => {
               setSuccess(false);

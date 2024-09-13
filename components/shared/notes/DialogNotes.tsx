@@ -10,9 +10,14 @@ import TextEditor from './TextEditor';
 // import TextEditor from './TextEditor';
 import { useDialogsNotes } from '@/hooks/useDialogs';
 import { X } from 'lucide-react';
-  
 
-const DialogNotes = () => {
+type DialogNotesProps = {
+  initialValue: string | null;
+  nombreProyecto: string | null
+}
+
+
+const DialogNotes = ({initialValue, nombreProyecto}: DialogNotesProps) => {
     const {setIsOpenNote, isOpenNote, idProject } = useDialogsNotes();
     
   return (
@@ -21,12 +26,12 @@ const DialogNotes = () => {
         
           <DialogContent>
               <DialogHeader >
-              <DialogTitle>Tu nota para: proyecto con id: {idProject}</DialogTitle>
+              <DialogTitle>Tu nota para: {nombreProyecto}</DialogTitle>
               <X className="absolute top-2 right-2 cursor-pointer hover:text-red-500" onClick={() => setIsOpenNote(false)}/>
               </DialogHeader>
               <TextEditor 
               id={idProject}
-              initialValue={'<p>Texto inicial</p>'}
+              initialValue={initialValue}
               closeEditor={() => setIsOpenNote(false)}
 
               />

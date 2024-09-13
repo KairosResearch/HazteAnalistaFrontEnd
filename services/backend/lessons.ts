@@ -9,7 +9,7 @@ export const getLessons = async (): Promise<AllModules | undefined> => {
       headers: {
         "Content-Type": "application/json",
       },
-      cache: "reload",
+      cache: "no-cache",
     });
 
     const data = await response.json();
