@@ -11,6 +11,7 @@ import { useProjects } from '@/hooks/useProjects';
 import { useDialogsNotes } from '@/hooks/useDialogs';
 import DialogNotes from './DialogNotes';
 import { TableData } from '@/index';
+import { DropdownMenuLabel } from '@radix-ui/react-dropdown-menu';
 
 
 const NotesButton = () => {
@@ -51,9 +52,14 @@ const NotesButton = () => {
                       />
       
         <DropdownMenu>
-        <DropdownMenuTrigger>+ Nota</DropdownMenuTrigger>
+        <DropdownMenuTrigger className='p-1 border sm:border-0 rounded'>
+          + <span className='hidden sm:inline'>Nota</span>
+        
+        </DropdownMenuTrigger>
         <DropdownMenuContent>
-            {/* <DropdownMenuLabel></DropdownMenuLabel> */}
+            <DropdownMenuLabel>
+              Notas a proyectos:
+            </DropdownMenuLabel>
             <DropdownMenuSeparator />
            {
                 Array.isArray(data) && data.map((project) => {

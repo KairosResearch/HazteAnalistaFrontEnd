@@ -31,7 +31,7 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
         />
 
         <div className="wrapper w-full flex flex-col justify-between relative overflow-auto overflow-y-hidden md:overflow-y-scroll bg-page-texture">
-          <div className={`md:w-full px-4 2xl:w-full `}>
+          <div className={`md:w-full px-2 md:px-4 2xl:w-full  `}>
             <div className="2xl:px-24 pl-1 my-20 md:my-8">{children}</div>
           </div>
           <Footer />

@@ -61,13 +61,13 @@ const PopoverForm = ({ usage }: PopoverFormProps) => {
     <>
     <div>
     {wallet ? (
-                      <h2 className="block mt-0">
+                      <h2 className="block mt-0 text-lg md:text-2xl">
                         {(wallet?.length ?? 0 > 10)
                           ? `${wallet?.substring(0, 5)}...${wallet?.substring(wallet?.length - 3)}`
                           : wallet}
                       </h2>
                     ) : (
-                      <h2 className="block mt-0">{name}</h2>
+                      <h2 className="block mt-0 text-lg md:text-2xl ">{name}</h2>
                     )}
     </div>
 

@@ -90,7 +90,7 @@ const ModulesAccordion = ({
                   width={25}
                 />
                 <Link href={'/lessons'}>
-                Guía de Análisis 4E
+                Hazte analista
                 </Link>  
                 
               
