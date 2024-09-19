@@ -66,7 +66,7 @@ const DialogAlert = ({ prToDelete, clean }: DialogAlertProps) => {
   return (
     <>
       <AlertDialog>
-        <TableHead className="sticky left-[-2px] top-0 border-x-2  bg-dark-grey z-20">
+        <TableHead className="sticky left-[-2px] top-0 border-x-2  z-20">
           {prToDelete.length > 0 && (
             <AlertDialogTrigger className="h-6 w-6">
               <Image

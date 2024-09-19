@@ -153,10 +153,10 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
           {tableData &&
             tableData.map((data) => (
               <TableRow
-                className=" divide-green-dark hover:bg-primary/10 cursor-pointer"
+                className=" dark:divide-green-dark hover:bg-primary/10 cursor-pointer"
                 key={data.id_proyecto}
               >
-                <TableCell className="border-2 border-r-0 border-green-dark sticky left-[-1px] bg-dark-grey/95 z-10">
+                <TableCell className="border-2 border-r-0 border-green-dark sticky left-[-1px] bg-darkerBackground/65 dark:bg-dark-grey/95 z-10">
                   <Checkbox
                     checked={prToDelete.includes(data.id_proyecto)}
                     onCheckedChange={(checked) => {
@@ -175,7 +175,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                     setSelectedRow(data);
                     setIsDialogOpen(true);
                   }}
-                  className="font-medium sticky left-[1.95rem] bg-dark-grey/95 z-10"
+                  className="font-medium sticky left-[1.95rem] bg-darkerBackground/65 dark:bg-dark-grey/95 z-10"
                 >
                   <p className="">{data.proyecto}</p>
                 </TableCell>

@@ -21,7 +21,7 @@ let greenDark = "#319383";
 let greyLight = "#d9d9d9";
 
 const config = {
-  darkMode: ["class"],
+  darkMode: "class",
   content: [
     "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
@@ -64,9 +64,13 @@ const config = {
         grey: {
           light: greyLight,
         },
+
+        //Light theme staff
+
+        darkerBackground: '#edecef',
         primary: {
-          DEFAULT: greenDark,
-          foreground: greyLight,
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",

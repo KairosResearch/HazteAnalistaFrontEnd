@@ -5,6 +5,7 @@ import "./globals.css";
 import PrivyProviderWrapper from "@/providers/AuthProvider";
 import { ContextProvider } from "@/contexts/ContextProvider";
 import { SWRProvider } from "@/providers/SwrProvider";
+import ThemeProviderApp from "@/providers/themeProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,14 +24,22 @@ export default function RootLayout({
     
     <html lang="en">
       <body className={inter.className}>
+      
+
+        
         <ContextProvider>
           <PrivyProviderWrapper>
           <SWRProvider>
+          <ThemeProviderApp
+            attribute="class"
+          >
             
               {children}
+              </ThemeProviderApp>
             </SWRProvider>
           </PrivyProviderWrapper>
         </ContextProvider>
+        
       </body>
     </html>
   

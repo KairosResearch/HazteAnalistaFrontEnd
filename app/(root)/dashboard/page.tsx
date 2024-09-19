@@ -48,7 +48,7 @@ const HomePage = async () => {
             <AddProjectButton />
           </div>
         </div>
-        <p className="text-sm mb-4 text-primary-foreground/90">
+        <p className="text-sm mb-4 ">
           {/* Aquí podras registrar todos los proyectos que te llaman la atención o
           en los que ya has invertido. */}
           Este dashboard te permite registrar y organizar los proyectos de tu portafolio. 
@@ -72,7 +72,7 @@ const HomePage = async () => {
           </h1>
           {/* <InputSearcher /> */}
         </div>
-        <p className="text-sm text-primary-foreground/90">
+        <p className="text-sm ">
         Inicia con las lecciones para aprender a hacer un análisis de manera profesional y convertirte en crypto researcher
         </p>
 

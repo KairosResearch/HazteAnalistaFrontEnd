@@ -16,6 +16,7 @@ import PopoverForm from "../auth/PopoverForm";
 import NotesButton from "./notes/NotesButton";
 import ModulesAccordion from "./sidebar/ModulesAccordion";
 import { LessonProps } from "@/index";
+import { ModeToggle } from "../ui/toggleMode";
 
 type NavProps = {
   module1: LessonProps[] | undefined
@@ -31,11 +32,16 @@ const Navbar = (
   //Añadir el de twitter y validar si es web 2 poner nombre completo, si es web 3 poner la direccion cortada
 
   return (
-    <header className="navbar fixed md:relative w-11/12 mx-auto flex justify-between bg-black/90 md:bg-inherit md:z-0 z-50">
+    <header className="navbar fixed md:relative w-11/12 mx-auto flex justify-between bg-card dark:bg-black/90 dark:md:bg-inherit md:z-0 z-50">
       <div>
         <Link className=" text-xl font-bold md:text-2xl" href="/dashboard">
-          <Image src="/kairos-main.svg" alt="Kairos" width={50} height={50} />
+          <Image className="dark:block hidden" src="/kairos-main.svg" alt="Kairos" width={50} height={50} />
+          <Image className="dark:hidden block" src="/kairos-logo-light.svg" alt="Kairos" width={50} height={50}></Image>
         </Link>
+      </div>
+
+      <div>
+        <ModeToggle />
       </div>
 
       
