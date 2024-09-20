@@ -22,28 +22,28 @@ const badgeVariants = cva(
     variants: {
       variant: {
         fourE:
-          "rounded-full border border-transparent bg-primary text-primary-foreground ",
-        decisionWatchlist: "border-transparent rounded bg-cyan-200",
-        desicionLeave: "border-transparent rounded bg-green-400",
-        desicionInvest: "border-transparent rounded bg-desicionInvest",
+          "rounded-full border border-transparent bg-primary text-primary-foreground text-background ",
+        decisionWatchlist: "border-transparent rounded bg-cyan-200 text-foreground",
+        desicionLeave: "border-transparent rounded bg-green-400 text-background ",
+        desicionInvest: "border-transparent rounded bg-desicionInvest text-background ",
         range: "text-foreground bg-background text-foreground rounded-sm",
-        sectorAndExchange: "bg-primary rounded  text-primary-foreground",
-        binance: `bg-binance text-[#1E1F24]`,
-        coinbase: `bg-coinbase`,
-        kraken: `bg-kraken`,
-        DAO: `bg-dao`,
-        Defi: `bg-defi`,
-        Blockchain: "bg-blockchain",
-        NFT: "bg-nft",
-        Gaming: "bg-gaming",
-        Metaverse: "bg-metaverso",
-        Lending: "bg-lending",
-        Web3: "bg-web3",
-        DEX: "bg-dex",
-        Staking: "bg-staking",
-        Oraculo: "bg-oraculo",
-        Marketplace: "bg-marketplace",
-        Ninguno: "bg-none",
+        sectorAndExchange: "bg-primary rounded  text-primary-foreground text-background ",
+        binance: `bg-binance text-[#1E1F24] text-background ` ,
+        coinbase: `text-background  bg-coinbase dark:text-foreground text-white`,
+        kraken: `text-background  bg-kraken`,
+        DAO: `text-background  bg-dao`,
+        Defi: `text-background  bg-defi`,
+        Blockchain: "text-background  bg-blockchain",
+        NFT: "text-background  bg-nft",
+        Gaming: "text-background  bg-gaming",
+        Metaverse: "text-background  bg-metaverso",
+        Lending: "text-background  bg-lending",
+        Web3: "text-background  bg-web3",
+        DEX: "text-background  bg-dex",
+        Staking: "text-background  bg-staking",
+        Oraculo: "text-background  bg-oraculo",
+        Marketplace: "text-background  bg-marketplace",
+        Ninguno: " bg-none text-black dark:text-white",
       },
     },
     defaultVariants: {
@@ -60,7 +60,7 @@ function Badge({ className, variant, color, ...props }: BadgeProps) {
   const colorClass = colorMap[color as keyof typeof colorMap] || colorMap.blue;
   return (
     <div
-      className={cn(badgeVariants({ variant }), className, (variant  === 'range' || variant === "coinbase") ? "text-foreground": "text-background")}
+      className={cn(badgeVariants({ variant }), className, (variant  === 'range') ? "text-foreground ": " ")}
       {...props}
     >
       {(variant === "fourE" || variant === "range") && (

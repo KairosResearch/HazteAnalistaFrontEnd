@@ -433,7 +433,7 @@ const DashboardDataForm = ({
                     </TabsContent>
                   </Tabs>
                   {/* for desktop */}
-                  <div className="hidden md:block md:w-2/5 md:px-5 md:border-r">
+                  <div className="hidden md:block md:w-2/5 md:px-5 md:border-r border-dark-grey dark:border-primary">
                     <LeftSideForm
                       type={type}
                       symbol={symbol}

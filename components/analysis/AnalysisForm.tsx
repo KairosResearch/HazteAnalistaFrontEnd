@@ -266,7 +266,7 @@ const AnalysisForm = ({
 
 
         <div
-          className={`z-50 fixed bottom-16 xl:bottom-28 right-5 bg-primary text-white py-2 px-4 rounded-lg shadow-lg
+          className={`z-50 fixed bottom-16 xl:bottom-28 right-5 bg-primary text-dark-black dark:text-white py-2 px-4 rounded-lg shadow-lg
             transition-opacity duration-2500 ${success ? "opacity-100" : "opacity-0"}`}
           onAnimationEnd={() => setSuccess(false)}
         >
@@ -324,7 +324,7 @@ const AnalysisForm = ({
           variant={"default"}
           size={'sm'}
         className={` 
-             w-2/12  fixed right-4  z-50 md:right-[4.5rem]  2xl:right-36 justify-center mx-auto mt-4 text-left top-40 md:top-32
+             w-2/12  fixed right-4 dark:bg-primary bg-background text-foreground z-50 md:right-[4.5rem]  2xl:right-36 justify-center mx-auto mt-4 text-left top-40 md:top-32
          
           `}
           

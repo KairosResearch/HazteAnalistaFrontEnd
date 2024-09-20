@@ -107,7 +107,7 @@ const ListProjects = () => {
                     href={`/analysis/${project.proyecto}/edit/${project.id_analisis_cualitativo}/${project.id_analisis_cuantitativo}`}
                     onClick={() => setProjectId(project.id_proyectoInicial)}
                   >
-                    <p className=" underline text-gray-200">Editar</p>
+                    <p className=" underline dark:text-gray-200">Editar</p>
                   </Link>
                   
                 </>
@@ -119,7 +119,7 @@ const ListProjects = () => {
                       href={`/analysis/${project.proyecto}/add/0/0`}
                       onClick={() => setProjectId(project.id_proyectoInicial)}
                     >
-                      <p className=" underline text-gray-200">Realizar análisis</p>
+                      <p className=" underline  dark:text-gray-200">Realizar análisis</p>
                     </Link>
                   </>
                   
@@ -146,10 +146,10 @@ const ListProjects = () => {
                 </div>
                 ): null}
             
-            <p className="text-pretty text-primary-foreground/85">
+            <p className="text-pretty text-foreground/85 dark:text-primary-foreground/85">
               Market Cap: $ {project.market_cap.toLocaleString()}
             </p>
-            <p className="text-pretty text-primary-foreground/85">
+            <p className="text-pretty text-foreground/85 dark:text-primary-foreground/85">
               Precio actual: $ {project.price.toLocaleString()}
             </p>
           </CardContent>

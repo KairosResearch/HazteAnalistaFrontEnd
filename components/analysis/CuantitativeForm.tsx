@@ -75,7 +75,7 @@ const CuantitativeFields = ({
                       return iDunno(checked as boolean);
                     }}
                   />
-                  <span className="text-grey-light/90"> {item.item}</span>
+                  <span className="text-foreground dark:text-grey-light/90"> {item.item}</span>
                 </div>
               ))}
             </div>
