@@ -28,7 +28,7 @@ const ProgressBars = () => {
         {loading && <p>Cargando...</p>}
         {!loading && comparativeInfo.length != 0 && (
             <>
-                <h2 className='text-center text-lg font-light  text-grey-light'>
+                <h2 className='text-center text-lg font-light  dark:text-grey-light'>
                 ${token1} con  el market cap de ${token2}
             </h2>
             <div className='flex items-center w-3/5 mx-auto justify-between font-bold text-2xl'>
@@ -101,13 +101,13 @@ const ProgressBars = () => {
                 </div>
                 
                 <div className='flex justify-center items-center'>
-                        <p className='text-lg font-light  text-grey-light'>
+                        <p className='text-lg font-light  dark:text-grey-light'>
                             {
                                 lowerMarketCap === comparativeInfo[0].MakCapA ? 
-                                `El market cap de  ${token1} por debajo del market cap de ${token2} por:`
-                                : `El market cap de  ${token1} por encima del market cap de ${token2} por:`
+                                `El market cap de $${token1} por debajo del market cap de $${token2} por:`
+                                : `El market cap de  $${token1} por encima del market cap de $${token2} por:`
                             }
-                            :
+                            
                         </p>
                 </div>
                 
@@ -120,7 +120,7 @@ const ProgressBars = () => {
                             Porcentaje:
                         </span>
                     </div>
-                    <p className='text-green-light'>
+                    <p className='text-green-light bg-primary dark:bg-transparent p-2 rounded-sm'>
                         {((comparativeInfo[0].MakCapA / comparativeInfo[0].MakCapB) * 100).toFixed(2).toLocaleString()}%
                     </p>
                 </div>

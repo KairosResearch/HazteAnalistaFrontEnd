@@ -84,7 +84,7 @@ const ModulesAccordion = ({
                 <AccordionTrigger className='sidebar-nav_element text-md'>
                
                 <Image
-                  src="/lessons.svg"
+                  src="/icons/navigation/book.png"
                   alt="lessons"
                   height={25}
                   width={25}

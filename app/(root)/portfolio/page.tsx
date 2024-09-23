@@ -4,6 +4,7 @@ import PortfolioInfo from '@/components/portfolio/PortfolioInfo'
 import TokensInfo from '@/components/portfolio/TokensInfo'
 import { Card, CardContent } from '@/components/ui/card'
 import { getBalances } from '@/services/backend/balances'
+import NetworkTabs from '@/components/portfolio/NetworkTabs'
 import {
     Table,
     TableBody,
@@ -22,39 +23,45 @@ const page =  () => {
    
   return (
     <div>
+        <section className=' my-5'>
+           <NetworkTabs />
+
+        </section>
+
         <section id="tokens" className='mb-9'>
-            <h1>
-                ¿Cómo está distribuido tu portafolio?
-            </h1>
+            
+            <Card className='p-6 bg-[#fff] dark:bg-transparent'>
+            
 
             
                 <div>
+                    <h1>
+                    ¿Cómo está distribuido tu portafolio?
+                </h1>
                     <p>
                         {/* Aquí puedes ver como está distribuido tu portafolio en base a las categorías que has creado. */}
-                        n este apartado, podrás monitorear las posiciones y activos que tienes en tu cartera conectada a la aplicación. 
+                        En este apartado, podrás monitorear las posiciones y activos que tienes en tu cartera conectada a la aplicación. 
                         Actualmente, esta visualización te permite el seguimiento dentro de la red de Arbitrum.
                     </p>
                 </div>
-            <Card className='grid grid-cols-1 lg:grid-cols-2 p-6 items-center'>
+                
+                <section  className='grid grid-cols-1 lg:grid-cols-2 p-6 items-center'>
                 <Chart />
+
                 <CardContent className='flex lg:flex-col gap-16 text-lg lg:text-xl '>
                     <section className='grid w-1/2 lg:w-full'>
-                        <div className="stat    s gap-9 bg-background stats-vertical lg:stats-horizontal ">
+                        
                         
 
-                            <div className="stat py-1 rounded-md bg-black" >
+                            <div className="stat py-1 rounded-md border border-foreground dark:border-0 bg-grey-light dark:bg-black" >
                                 <div className="text-sm lg:text-lg">Saldo total</div>
                                 <div className="text-xl lg:text-3xl font-extrabold">
                                     <TotalBalance />    
                                 </div>
                                 
-                            </div>
+                           
 
-                            {/* <div className="stat py-1 bg-black rounded-md" >
-                                <div className="stat-title">New Registers</div>
-                                <div className="stat-value text-lg lg:text-2xl ">1,200</div>
-                                <div className="stat-desc">↘︎ 90 (14%)</div>
-                            </div> */}
+                           
                         </div>
                     </section>
                     <section className='grid grid-cols-2 w-3/5 lg:w-full gap-4'>
@@ -63,7 +70,11 @@ const page =  () => {
 
                     </section>
         
-    </CardContent>
+                </CardContent>
+                </section>
+                
+               
+                
 
             </Card>
             
@@ -74,7 +85,7 @@ const page =  () => {
         </section>
         <section>
         <Table>
-            <TableHeader className='bg-black'>
+            <TableHeader className='bg-black text-white '>
                 <TableRow>
                     <TableHead>Token</TableHead>
                     <TableHead>Precio</TableHead>

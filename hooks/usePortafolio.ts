@@ -1,5 +1,7 @@
 import useSWR from "swr";
 import { useMemo } from "react";
+import { create } from "zustand";
+import {SelectNetworkProps } from "@/index";
 
 import { getBalances, getDefiPositions } from "@/services/backend/balances";
 import { BalanceResponse, DefiPositions } from "..";
@@ -39,4 +41,16 @@ export const useDefiPositions = (address: string) => {
     mutate,
   };
 }
+
+
+
+
+
+export const useSelectNetwork = create<SelectNetworkProps>((set) => ({
+  network: 'arbitrum',
+  setNetwork(newNetwork: string) {
+    set({ network: newNetwork });
+  }
+}));
+
 

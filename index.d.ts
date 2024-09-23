@@ -387,3 +387,9 @@ interface LeccionUser {
     id_modulo: number;
     siFinalizo: number;
 }
+interface SelectNetworkProps {
+  network: string;
+  setNetwork: (newAddress: string) => void;
+//   addresses: string[];
+//   setAddresses: (newAddresses: string[]) => void;
+}

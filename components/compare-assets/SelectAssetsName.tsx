@@ -92,6 +92,7 @@ const SelectAssetsName = ({
                     alt="compare"
                     width={40}
                     height={40}
+                    className='bg-primary p-2 rounded-full dark:bg-transparent'
                 >
 
                 </Image>

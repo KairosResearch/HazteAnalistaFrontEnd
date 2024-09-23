@@ -22,36 +22,7 @@ import {
 import { usePortafolio } from "@/hooks/usePortafolio"
 import { Balances, BalancesInPie } from "@/index"
 
-  // const chartData = [
-  //   { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
-  //   { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
-  //   { browser: "firefox", visitors: 287, fill: "var(--color-firefox)" },
-  //   { browser: "edge", visitors: 173, fill: "var(--color-edge)" },
-  //   { browser: "other", visitors: 190, fill: "var(--color-other)" },
-  // ]
-  const chartConfig = {
-    
-    chrome: {
-      label: "USDC.e",
-      color: "hsl(var(--chart-1))",
-    },
-    USDC: {
-      label: "USDC",
-      color: "hsl(var(--chart-2))",
-    },
-    USDT: {
-      label: "USDT",
-      color: "hsl(var(--chart-3))",
-    },
-    DAI: {
-      label: "DAI",
-      color: "hsl(var(--chart-4))",
-    },
-    ARB: {
-      label: "ARB",
-      color: "hsl(var(--chart-5))",
-    },
-  } satisfies ChartConfig
+ 
 
 const Chart = () => {
 

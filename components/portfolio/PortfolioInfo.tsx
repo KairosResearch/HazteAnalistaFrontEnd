@@ -5,8 +5,10 @@ import { usePortafolio } from '@/hooks/usePortafolio';
 import Image from 'next/image';
 import { Balances } from '@/index';
 import SkeletonTable from '../shared/skeletons/SkeletonTable';
+import { useSelectNetwork } from '@/hooks/usePortafolio';
 
 const PortfolioInfo = () => {
+    const {network} = useSelectNetwork();
 
 
     const [address, setAddress] = React.useState('');
@@ -41,9 +43,29 @@ const PortfolioInfo = () => {
     {
         loading && <SkeletonTable />
     }
-        {tokensData && tokensData.map((token, index) => (
 
-            <div key={index} className='flex gap-4 bg-black p-2 rounded-md items-center'>
+    <h2>{network}</h2>
+
+        {
+            network === "ethereum" && tokensData && tokensData.map((token, index) => (
+                <div key={index} className='flex gap-4 bg-grey-light border border-foreground dark:border-0 dark:bg-black p-2 rounded-md items-center'>
+                    <div className='hidden sm:block'>
+                        <Image src={token.logo} alt={token.simbolo} width={30} height={30} />
+                    </div>
+                    <div className='flex flex-col gap-1 items-start'>
+                        <h6 className='text-xs lg:text-md'>
+                            {token.simbolo}
+                        </h6>
+                        <p className=' p-0 m-0 text-xs lg:text-xl font-extrabold'>
+                            {token.balanceCrypto.toLocaleString()}
+                        </p>
+                    </div>
+                </div>
+            ))
+        }
+        {network === "arbitrum" && tokensData && tokensData.map((token, index) => (
+
+            <div key={index} className='flex gap-4 bg-grey-light border border-foreground dark:border-0 dark:bg-black p-2 rounded-md items-center'>
                 <div className='hidden sm:block'>
                     <Image src={token.logo} alt={token.simbolo} width={30} height={30} />
                 </div>
@@ -58,7 +80,24 @@ const PortfolioInfo = () => {
             
                 
             </div>
-        ))}
+            ))
+        }
+        {network === "scroll" && tokensData && tokensData.map((token, index) => (
+            <div key={index} className='flex gap-4 bg-grey-light border border-foreground dark:border-0 dark:bg-black p-2 rounded-md items-center'>
+                <div className='hidden sm:block'>
+                    <Image src={token.logo} alt={token.simbolo} width={30} height={30} />
+                </div>
+                <div className='flex flex-col gap-1 items-start'>
+                    <h6 className='text-xs lg:text-md'>
+                        {token.simbolo}
+                    </h6>
+                    <p className=' p-0 m-0 text-xs lg:text-xl font-extrabold'>
+                        {token.balanceCrypto.toLocaleString()}
+                    </p>
+                </div>
+            </div>
+        ))
+        }
         
     </>
   )

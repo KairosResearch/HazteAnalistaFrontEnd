@@ -72,7 +72,7 @@ const DialogAlert = ({ prToDelete, clean }: DialogAlertProps) => {
               <Image
                 width={50}
                 height={50}
-                src={"/icons/table/basura.png"}
+                src={"/icons/table/basurero.png"}
                 alt={"Eliminar proyectos"}
               />
             </AlertDialogTrigger>
