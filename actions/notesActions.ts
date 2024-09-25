@@ -10,9 +10,10 @@ export const handleUpdateNote = async (guzma: number, id: number, note: string )
             nota: note
         }
         console.log(body);
-        const r = await updateNote(body);
-        if (r) {
-            return r;
+        const res = await updateNote(body);
+        if (res) {
+            console.log(res)
+            return res[0].notas;
         }
     } catch (error) {
         console.error(error);

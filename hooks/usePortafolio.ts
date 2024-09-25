@@ -4,17 +4,16 @@ import { create } from "zustand";
 import {SelectNetworkProps } from "@/index";
 
 import { getBalances, getDefiPositions } from "@/services/backend/balances";
-import { BalanceResponse, DefiPositions } from "..";
+import { BalancesResponse, DefiPositions } from "..";
+import { handleGetBalances, handleGetPositions } from "@/actions/portfolioActions";
 
 export const usePortafolio = (address: string) => {
 
 
-      const { data, error, isLoading, mutate } = useSWR(
-        `getPortafolio/${address}`,
-        () => getBalances(address),
-      );
+      const { data, error, isLoading, mutate } = useSWR([`getPortafolio`, address], 
+        () => handleGetBalances(address));
    
-      const portafolio = useMemo(() => data as BalanceResponse, [data]);
+      const portafolio = useMemo(() => data as BalancesResponse, [data]);
 
 
       return {
@@ -26,13 +25,12 @@ export const usePortafolio = (address: string) => {
 };
 
 export const useDefiPositions = (address: string) => {
-  const { data, error, isLoading, mutate } = useSWR(
-    `getDefiPositions/${address}`,
-    () => getDefiPositions(address),
+  const { data, error, isLoading, mutate } = useSWR([`getDefiPositions/`, address],
+    () => handleGetPositions(address),
   );
 
   const defiPositions = useMemo(() => data as DefiPositions, [data]);
-  console.log('defiPositions en useHook:', defiPositions);
+  
 
   return {
     defiPositions,

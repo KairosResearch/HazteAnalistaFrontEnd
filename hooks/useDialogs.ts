@@ -26,5 +26,7 @@ export const useDialogsNotes = create<DialogNotes>((set) => ({
   idProject: 0,
   setIdProject(newProjectId) {
     set({ idProject: newProjectId });
-    }
+    },
+  initialValue: null,
+  setInitialValue: (newInitialValue: null |string) => set({initialValue: newInitialValue}) 
 }));

@@ -10,8 +10,12 @@ import {
 import { usePortafolio } from '@/hooks/usePortafolio'; 
 import SkeletonTable from '../shared/skeletons/SkeletonTable';
 import { Balances } from '@/index';
+import { useSelectNetwork } from '@/hooks/usePortafolio';
 
 const TokensInfo = () => {
+
+    const {network} = useSelectNetwork();
+
     const [address, setAddress] = React.useState('');
     const [tokensData, setTokensData] = React.useState<Balances[]>();
     const [loading, setLoading] = React.useState(false);
@@ -33,9 +37,20 @@ const TokensInfo = () => {
     }, [isLoading]);
     useEffect(() => {
         if(portafolio){
-            setTokensData(portafolio.Balances);
+            switch(network){
+                case 'ethereum':
+                    setTokensData(portafolio.ethereum.Balances);
+                    break;
+                case 'arbitrum':
+                    setTokensData(portafolio.arbitrum.Balances);
+                    break;
+                case 'scroll':
+                    setTokensData(portafolio.scroll.Balances);
+                    break;
+            }
         }
-    }, [portafolio]);
+    }, [portafolio, network]);
+
   return (
     <>
     {

@@ -32,7 +32,6 @@ const ModulesAccordion = ({
     module1, module2, module3
 }: ModulesAccordionProps) => {
     const {completed, module} = useLessons();
-    console.log('Array de lecciones completadas', completed)
     
     const render = (module: LessonProps[] | undefined) => {
         if (!module) {

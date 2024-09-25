@@ -30,7 +30,7 @@ const page =  () => {
 
         <section id="tokens" className='mb-9'>
             
-            <Card className='p-6 bg-[#fff] dark:bg-transparent'>
+            <Card className='p-6 bg-[#fff] dark:bg-transparent '>
             
 
             
@@ -41,7 +41,7 @@ const page =  () => {
                     <p>
                         {/* Aquí puedes ver como está distribuido tu portafolio en base a las categorías que has creado. */}
                         En este apartado, podrás monitorear las posiciones y activos que tienes en tu cartera conectada a la aplicación. 
-                        Actualmente, esta visualización te permite el seguimiento dentro de la red de Arbitrum.
+                        
                     </p>
                 </div>
                 
@@ -173,7 +173,7 @@ const page =  () => {
             </TableHeader>
             <TableBody>
                     
-                    <DefiPosition mode='staking' />
+                    <DefiPosition mode='staked' />
             
             </TableBody>
         </Table>
@@ -182,56 +182,6 @@ const page =  () => {
             </article>
 
 
-            {/* <article>
-                <header className='flex justify-between items-center'>
-                    <div>
-                        
-                        <Link
-                            href={`/dashobard`}
-                        >
-                        <h2 className='hover:underline mt-0'>Arbitrum</h2>
-                        </Link>
-                    </div>
-                    <div className='flex items-center gap-4'>
-                        <p>Balance:</p>
-                        <span>$123.45</span>
-                    </div>
-                </header>
-                <div className='bg-grey-light/10 relative'>
-                    <Badge 
-                        variant={'Staking'}
-                        className='absolute left-[-10px] top-2 rounded-sm'>
-                        Staking
-                    </Badge>
-                <Table className='mt-7'>
-            <TableHeader>
-                <TableRow>
-                    <TableHead>Pool</TableHead>
-                    <TableHead>Monto</TableHead>
-                    <TableHead>Valor en USD</TableHead>
-                </TableRow>
-            </TableHeader>
-            <TableBody>
-               
-            <TableRow >
-                        <TableCell>
-                            <div className='flex gap-4 items-center '>
-                                <Image alt="arbitrum" src='https://static.alchemyapi.io/images/assets/11841.png' width={40} height={40} />
-                                <span>
-                                   $ARB
-                                </span>
-                            </div>
-                            
-                        </TableCell>
-                        <TableCell>123 ARB</TableCell>
-                        <TableCell>$123.45 </TableCell>
-                         <TableCell>{token.USDValue}</TableCell> 
-                    </TableRow>
-            </TableBody>
-        </Table>
-                </div>
-                
-            </article> */}
         </section>
         
     </div>

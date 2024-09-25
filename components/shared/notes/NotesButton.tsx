@@ -15,7 +15,7 @@ import { DropdownMenuLabel } from '@radix-ui/react-dropdown-menu';
 
 
 const NotesButton = () => {
-    const {setIsOpenNote, setIdProject, idProject } = useDialogsNotes();
+    const {setIsOpenNote, setIdProject, setInitialValue } = useDialogsNotes();
     const [projectNoteChosen, setProjectNoteChosen] = useState<TableData | null>(null);
 
 
@@ -30,8 +30,7 @@ const NotesButton = () => {
 
     useEffect(() => {
       if (projectNoteChosen) {
-        console.log(projectNoteChosen.nota);
-
+        setInitialValue(projectNoteChosen.nota)
       }
     }, [projectNoteChosen]);
 
@@ -46,9 +45,7 @@ const NotesButton = () => {
     <>
 
    <DialogNotes 
-                      initialValue={projectNoteChosen && projectNoteChosen.nota}
                       nombreProyecto={projectNoteChosen && projectNoteChosen.proyecto}
-
                       />
       
         <DropdownMenu>
@@ -66,6 +63,7 @@ const NotesButton = () => {
                     return (
                     <>
                       <DropdownMenuItem className="cursor-pointer" key={project.id_proyecto} onClick={() => {
+                        console.log('Clicadi')
                         setIsOpenNote(true)
                         setIdProject(project.id_proyectoInicial)
                         setProjectNoteChosen(project)

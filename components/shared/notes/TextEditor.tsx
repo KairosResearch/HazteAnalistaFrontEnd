@@ -4,6 +4,7 @@ import { Bold, Italic, Underline } from "lucide-react"
 import 'draft-js/dist/Draft.css';
 import { Button } from '@/components/ui/button';
 import { stateToHTML } from 'draft-js-export-html';
+import { useDialogsNotes } from '@/hooks/useDialogs';
 
 import {
     ToggleGroup,
@@ -27,11 +28,15 @@ const customStyleMap = {
 
 interface TextEditorProps {
   id: number;
-  initialValue: string| null;
   closeEditor: () => void;
+  updateNote: (guzma: number, id:number, html: string) => void;
 }
 
-const TextEditor = ({id, initialValue, closeEditor}: TextEditorProps) => {
+const TextEditor = ({id, closeEditor, updateNote}: TextEditorProps) => {
+
+  const {initialValue} = useDialogsNotes();
+
+
 
   // const [valueInEditor, setValueInEditor] = useState<string | null>(null);
 
@@ -51,7 +56,7 @@ const TextEditor = ({id, initialValue, closeEditor}: TextEditorProps) => {
 
 
   const [editorState, setEditorState] = useState(() => {
-    console.log('Valor inicial', initialValue);
+    console.log('Montando componente de editor por primera vez');
     if (initialValue) {
       const blocksFromHTML = convertFromHTML(initialValue);
       const contentState = ContentState.createFromBlockArray(
@@ -63,19 +68,29 @@ const TextEditor = ({id, initialValue, closeEditor}: TextEditorProps) => {
       return EditorState.createEmpty();
     }
   });
-  const editor = useRef<Editor | null>(null);
-
-  const [success, setSuccess] = useState(false);
-
   const focusEditor = () => {
     if (editor.current) {
       editor.current.focus();
     }
   };
-
   useEffect(() => {
+    console.log('Valor inicial', initialValue);
+    if (initialValue) {
+      const blocksFromHTML = convertFromHTML(initialValue);
+      const contentState = ContentState.createFromBlockArray(
+        blocksFromHTML.contentBlocks,
+        blocksFromHTML.entityMap
+      );
+      EditorState.createWithContent(contentState)
+      
+    }
+    
     focusEditor();
-  }, []);
+  }, [initialValue]);
+
+  const editor = useRef<Editor | null>(null);
+
+
 
   const handleKeyCommand = (command: string, editorState: EditorState) => {
     const newState = RichUtils.handleKeyCommand(editorState, command);
@@ -125,17 +140,17 @@ const TextEditor = ({id, initialValue, closeEditor}: TextEditorProps) => {
       const guzma = localStorage.getItem('guzma');
       if(guzma){
         console.log('lLegando a subir nota');
-        const updatedNote = await handleUpdateNote(parseInt(guzma),  id, html);
-        if(updatedNote){
-          setSuccess(true);
-          // setValueInEditor(updatedNote[0].notas);
-          // mutate();
-          // Después de 1 segundo, establecer success en false
-          setTimeout(() => {
-              setSuccess(false);
-              closeEditor();
-          }, 1000);        
-        }
+        updateNote(Number(guzma), id, html);
+        // if(updatedNote){
+        //   setSuccess(true);
+        //   // setValueInEditor(updatedNote[0].notas);
+        //   // mutate();
+        //   // Después de 1 segundo, establecer success en false
+        //   setTimeout(() => {
+        //       setSuccess(false);
+        //       closeEditor();
+        //   }, 1000);        
+        // }
       }
 
 
@@ -143,11 +158,11 @@ const TextEditor = ({id, initialValue, closeEditor}: TextEditorProps) => {
 
   return (
     <div className='grid gap-9'>
-      {
+      {/* {
         success && <div className="fixed bottom-6 right-4 bg-green-500 text-white mx-4 z-50 px-4 py-2 rounded shadow-lg transition-opacity duration-1000">
         Actualizado!
     </div>
-      }
+      } */}
       <div className="flex gap-4">
       <ToggleGroup variant="outline" type="multiple">
       <ToggleGroupItem className='p-1 md:p-2' value="bold" aria-label="Toggle bold" onClick={onBoldClick}>

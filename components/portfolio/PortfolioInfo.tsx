@@ -32,9 +32,19 @@ const PortfolioInfo = () => {
     }, [isLoading]);
     useEffect(() => {
         if(portafolio){
-            setTokensData(portafolio.Balances);
+            switch(network){
+                case 'ethereum':
+                    setTokensData(portafolio.ethereum.Balances);
+                    break;
+                case 'arbitrum':
+                    setTokensData(portafolio.arbitrum.Balances);
+                    break;
+                case 'scroll':
+                    setTokensData(portafolio.scroll.Balances);
+                    break;
+            }
         }
-    }, [portafolio]);
+    }, [portafolio, network]);
 
     
    
@@ -44,10 +54,10 @@ const PortfolioInfo = () => {
         loading && <SkeletonTable />
     }
 
-    <h2>{network}</h2>
+    
 
         {
-            network === "ethereum" && tokensData && tokensData.map((token, index) => (
+            tokensData && tokensData.map((token, index) => (
                 <div key={index} className='flex gap-4 bg-grey-light border border-foreground dark:border-0 dark:bg-black p-2 rounded-md items-center'>
                     <div className='hidden sm:block'>
                         <Image src={token.logo} alt={token.simbolo} width={30} height={30} />
@@ -63,7 +73,7 @@ const PortfolioInfo = () => {
                 </div>
             ))
         }
-        {network === "arbitrum" && tokensData && tokensData.map((token, index) => (
+        {/* {network === "arbitrum" && tokensData && tokensData.map((token, index) => (
 
             <div key={index} className='flex gap-4 bg-grey-light border border-foreground dark:border-0 dark:bg-black p-2 rounded-md items-center'>
                 <div className='hidden sm:block'>
@@ -97,7 +107,7 @@ const PortfolioInfo = () => {
                 </div>
             </div>
         ))
-        }
+        } */}
         
     </>
   )

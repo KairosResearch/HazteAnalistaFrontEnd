@@ -8,15 +8,19 @@ import Image from 'next/image';
 import {useDefiPositions} from '@/hooks/usePortafolio'
 import { DefiPositionsBody } from '@/index';
 import SkeletonTable  from '../../shared/skeletons/SkeletonTable';
+import { useSelectNetwork } from '@/hooks/usePortafolio';
 
 type DefiPositionProps = {
-    mode: 'loked' | 'staking',
+    mode: 'loked' | 'staked',
     
 }
 
 const DefiPosition = (
   {mode}: DefiPositionProps
 ) => {
+
+  const {network} = useSelectNetwork();
+
   const [address, setAddress] = React.useState('');
 
   const [dataToRender, setDataToRender] = React.useState<DefiPositionsBody[]>();
@@ -35,10 +39,31 @@ const DefiPosition = (
     if(defiPositions){
       switch (mode) {
         case 'loked':
-            setDataToRender(defiPositions.loked);
+            switch(network){
+                case 'ethereum':
+                    console.log('ethereum locked:', defiPositions.lockedEthereum)
+                    setDataToRender(defiPositions.lockedEthereum);
+                    break;
+                case 'arbitrum':
+                    setDataToRender(defiPositions.lockedArbitrum);
+                    break;
+                case 'scroll':
+                    setDataToRender(defiPositions.lockedScroll);
+                    break;
+            }
             break;
         default:
-            setDataToRender(defiPositions.staked);
+            switch(network){
+                case 'ethereum':
+                    setDataToRender(defiPositions.stackedEthereum);
+                    break;
+                case 'arbitrum':
+                    setDataToRender(defiPositions.stackedArbitrum);
+                    break;
+                case 'scroll':
+                    setDataToRender(defiPositions.stackedScroll);
+                    break;
+            }
             break;
       }
     }
@@ -46,7 +71,7 @@ const DefiPosition = (
 }
 
 
-, [defiPositions]);
+, [defiPositions, network]);
 
 useEffect(() => {
   if(isLoading){

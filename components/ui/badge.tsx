@@ -23,7 +23,7 @@ const badgeVariants = cva(
       variant: {
         fourE:
           "rounded-full border border-transparent bg-primary text-primary-foreground text-background ",
-        decisionWatchlist: "border-transparent rounded bg-cyan-200 text-foreground",
+        decisionWatchlist: "border-transparent rounded bg-cyan-200 text-foreground dark:text-background ",
         desicionLeave: "border-transparent rounded bg-green-400 text-background ",
         desicionInvest: "border-transparent rounded bg-desicionInvest text-background ",
         range: "text-foreground bg-background text-foreground rounded-sm",

@@ -4,8 +4,11 @@ import React, {useEffect} from 'react'
 // import {getBalances} from '@/services/backend/balances'
 import { usePortafolio } from '@/hooks/usePortafolio';
 import Loading from '../shared/Loading';
+import { useSelectNetwork } from '@/hooks/usePortafolio'; 
 
 const TotalBalance = () => {
+    const {network} = useSelectNetwork();
+
     const [balance, setBalance] = React.useState(0);
     const [address, setAddress] = React.useState('');
     const [loading, setLoading] = React.useState(false);
@@ -28,9 +31,19 @@ const TotalBalance = () => {
 
     useEffect(() => {
         if(portafolio){
-            setBalance(portafolio.TotalBalance);
+            switch(network){
+                case 'ethereum':
+                    setBalance(portafolio.ethereum.TotalBalance);
+                    break;
+                case 'arbitrum':
+                    setBalance(portafolio.arbitrum.TotalBalance);
+                    break;
+                case 'scroll':
+                    setBalance(portafolio.scroll.TotalBalance);
+                    break;
+            }
         }
-    }, [portafolio]);
+    }, [portafolio, network]);
     
   return (
     <div>

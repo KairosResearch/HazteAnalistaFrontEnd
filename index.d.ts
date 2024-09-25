@@ -27,9 +27,10 @@ interface BalancesInPie {
   color: string
 }
 
-interface BalanceResponse {
-  Balances: Balances[];
-  TotalBalance: number;
+interface BalancesResponse  {
+  arbitrum: {Balances: Balances[], TotalBalance: number};
+  scroll:   {Balances: Balances[], TotalBalance: number};
+  ethereum: {Balances: Balances[], TotalBalance: number};
 }
 
 interface DefiPositionsBody {
@@ -43,8 +44,12 @@ interface DefiPositionsBody {
 }
 
 interface DefiPositions {
-  loked: DefiPositionsBody[];
-  staked: DefiPositionsBody[]
+  lockedArbitrum: DefiPositionsBody[];
+  stackedArbitrum:   DefiPositionsBody[];
+  stackedScroll: DefiPositionsBody[];
+  lockedScroll: DefiPositionsBody[];
+  lockedEthereum:   DefiPositionsBody[];
+  stackedEthereum: DefiPositionsBody[];
 }
 
 
@@ -71,6 +76,8 @@ interface DialogNotes {
   setIsOpenNote: (newState: boolean) => void;
   idProject: number;
   setIdProject: (newProjectId: number) => void;
+  initialValue: null | string;
+  setInitialValue: (newState: string| null) => void
 }
 interface AuthLoadingStatusProps {
   isLoading: boolean;

@@ -21,16 +21,26 @@ import {
   } from "@/components/ui/chart"
 import { usePortafolio } from "@/hooks/usePortafolio"
 import { Balances, BalancesInPie } from "@/index"
+import { useSelectNetwork } from "@/hooks/usePortafolio"
 
  
 
 const Chart = () => {
 
-    
+      const {network} = useSelectNetwork();  
 
       const [address, setAddress] = React.useState('');
       const [chartData,  setChartData] = React.useState<BalancesInPie[]>([]);
       const [loading, setLoading] = React.useState(false);
+
+      function colorAsigner (balances: Balances[]) {
+        const updatedBalancesObj = balances.map((balance, index) => ({
+          ...balance,
+          color: `hsl(var(--chart-${index+1 }))`, // Color dinámico basado en el índice
+        }));
+        return updatedBalancesObj;
+      }
+
       React.useEffect(() => {
           const addr = window.localStorage.getItem('wallet');
           if(typeof window !== 'undefined' && addr != null){
@@ -50,14 +60,19 @@ const Chart = () => {
       }, [isLoading]);
       useEffect(() => {
         if (portafolio) {
-          const updatedBalances = portafolio.Balances.map((balance, index) => ({
-            ...balance,
-            color: `hsl(var(--chart-${index +1}))`, // Color dinámico basado en el índice
-          }));
-          setChartData(updatedBalances);
-          setLoading(false);
+            switch (network) {
+                case 'ethereum':
+                    setChartData(colorAsigner(portafolio.ethereum.Balances));
+                    break;
+                case 'arbitrum':
+                    setChartData(colorAsigner(portafolio.arbitrum.Balances));
+                    break;
+                case 'scroll':
+                    setChartData(colorAsigner(portafolio.scroll.Balances));
+                    break;
+            }
         }
-      }, [portafolio]);
+      }, [portafolio, network]);
 
       // const totalVisitors = React.useMemo(() => {
       //   return chartData.reduce((acc, curr) => acc + curr.balanceFiat, 0)
@@ -143,7 +158,9 @@ const Chart = () => {
                           y={viewBox.cy}
                           className="fill-foreground text-3xl font-bold"
                         >
-                          {portafolio.TotalBalance.toLocaleString()}
+                          {network === 'ethereum' && portafolio.ethereum.TotalBalance.toLocaleString()}
+                          {network === 'arbitrum' && portafolio.arbitrum.TotalBalance.toLocaleString()}
+                          {network === 'scroll' && portafolio.scroll.TotalBalance.toLocaleString()}
                         </tspan> 
                         <tspan
                           x={viewBox.cx}
