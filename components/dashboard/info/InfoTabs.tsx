@@ -212,8 +212,9 @@ const InfoTabs = ({
           >
             <TextEditor
               closeEditor={() => setEditNotaOpen(false)}
-              initialValue={nota}
-              id={info.id} 
+              // initialValue={nota}
+              id={info.id}
+              updateNote={(guzma: number, id: number, html: string) => console.log('nota actualizada')}
             />
             
           </div>
