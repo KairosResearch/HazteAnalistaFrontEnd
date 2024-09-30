@@ -10,8 +10,9 @@ import { useRouter } from "next/navigation";
 //Components
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import TextEditor from "../../shared/notes/TextEditor";
+import NoteSection from "./NoteSection";
+// import { Button } from "@/components/ui/button";
+// import TextEditor from "../../shared/notes/TextEditor";
 //Values and utilities
 import { InfoTabsProps } from "@/index";
 import AnalizysSection from "./AnalizysSection";
@@ -178,52 +179,9 @@ const InfoTabs = ({
         />
       </TabsContent>
       <TabsContent className="min-h-[250px]" value="notes">
-        <h2 className="text-xl md:text-2xl font-bold">Nota de proyecto:</h2>
-        <span className="text-xs text-gray-300 mb-3 ">Al crear o editar tu nota, cierra y abre nuevamente el proyecto para ver los cambios*.</span>
-        {(!editNotaOpen && nota ) && (
-          <div className="flex gap-4">
-            
-
-            <div
-              className="border rounded-sm p-2
-               bg-yellow-200 text-dark-grey
-               w-[70%] mx-auto shadow-lg"
-               dangerouslySetInnerHTML={{ __html: nota }}
-            />
-            <Button
-              onClick={() => setEditNotaOpen(true)}
-            >
-              Editar nota   
-            </Button>
-            
-          </div>
-           
-          )}
-          {/* {
-            !nota && (
-              <Button
-                onClick={() => setEditNotaOpen(true)}
-              >
-                Agregar nota
-              </Button>
-            )
-          } */}
-          {editNotaOpen && (
-            <div
-            className="border rounded-sm p-2
-                       bg-primary-foreground/80 text-dark-grey
-                       w-[96%] mx-auto "
-          >
-            <TextEditor
-              closeEditor={() => setEditNotaOpen(false)}
-              // initialValue={nota}
-              id={info.id}
-              updateNote={(guzma: number, id: number, html: string) => console.log('nota actualizada')}
-            />
-            
-          </div>
-          )
-          }
+        <h2 className="text-xl md:text-2xl mb-7 font-bold">Nota de proyecto:</h2>
+        {/* <span className="text-xs text-gray-300 mb-3 ">Al crear o editar tu nota, cierra y abre nuevamente el proyecto para ver los cambios*.</span> */}
+          <NoteSection id={info.id} />
         
       </TabsContent>
     </Tabs>

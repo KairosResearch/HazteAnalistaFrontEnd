@@ -20,6 +20,11 @@ type DialogNotesProps = {
 const DialogNotes = ({ nombreProyecto}: DialogNotesProps) => {
     // const [initialValueEditor, setInitialValueEditor] = React.useState<string | null>(null);
     const {setIsOpenNote, isOpenNote, idProject, initialValue, setInitialValue } = useDialogsNotes();
+    const [success, setSuccess] = React.useState(false);
+
+    useEffect(() => {
+      setSuccess(false);
+    }, [isOpenNote])
     
 
     const updateNote = async (guzma: number, id:number, html: string) => {
@@ -27,6 +32,7 @@ const DialogNotes = ({ nombreProyecto}: DialogNotesProps) => {
       console.log('Nueva actializacons', updatedNote);
       if (updatedNote) {
         setInitialValue(updatedNote);
+        setSuccess(true);
       }
     }
     
@@ -46,6 +52,9 @@ const DialogNotes = ({ nombreProyecto}: DialogNotesProps) => {
                 updateNote={updateNote}
 
               />
+              {
+                success && <div className="text-green-500">Nota actualizada</div>
+              }
           </DialogContent>
         </Dialog>
     </>

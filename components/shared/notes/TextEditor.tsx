@@ -38,6 +38,7 @@ const TextEditor = ({id, closeEditor, updateNote}: TextEditorProps) => {
 
 
 
+
   // const [valueInEditor, setValueInEditor] = useState<string | null>(null);
 
   // useEffect(() => {
@@ -141,29 +142,21 @@ const TextEditor = ({id, closeEditor, updateNote}: TextEditorProps) => {
       if(guzma){
         console.log('lLegando a subir nota');
         updateNote(Number(guzma), id, html);
-        // if(updatedNote){
-        //   setSuccess(true);
-        //   // setValueInEditor(updatedNote[0].notas);
-        //   // mutate();
-        //   // Después de 1 segundo, establecer success en false
-        //   setTimeout(() => {
-        //       setSuccess(false);
-        //       closeEditor();
-        //   }, 1000);        
-        // }
+       
+          setTimeout(() => {
+              
+              closeEditor();
+          }, 3000);        
+        }
       }
 
 
-  };
+  ;
 
   return (
     <div className='grid gap-9'>
-      {/* {
-        success && <div className="fixed bottom-6 right-4 bg-green-500 text-white mx-4 z-50 px-4 py-2 rounded shadow-lg transition-opacity duration-1000">
-        Actualizado!
-    </div>
-      } */}
-      <div className="flex gap-4">
+    
+      <div className="flex gap-4 dark:text-white">
       <ToggleGroup variant="outline" type="multiple">
       <ToggleGroupItem className='p-1 md:p-2' value="bold" aria-label="Toggle bold" onClick={onBoldClick}>
         <Bold className="h-4 w-4" />  
@@ -180,9 +173,10 @@ const TextEditor = ({id, closeEditor, updateNote}: TextEditorProps) => {
         <button className='bg-green-200 h-6 w-8' onClick={onHighlightGreenClick}></button>
         <button className='bg-blue-300  h-6 w-8 ' onClick={onHighlightBlueClick}></button> */}
       </div>
-      <div onClick={focusEditor} className="border p-6 min-h-24 h-64 overflow-y-scroll cursor-text"
+      <div onClick={focusEditor} className="border p-6 min-h-24 h-64 overflow-y-scroll cursor-text dark:text-white"
       >
         <Editor
+        
           ref={editor}
           editorState={editorState}
           onChange={setEditorState}

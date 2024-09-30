@@ -157,9 +157,9 @@ const RightSideForm = ({
                       <Badge
                         variant={
                           decision.value === 2
-                            ? "decisionWatchlist"
+                            ? "decisionSeguimiento"
                             : decision.value === 3
-                              ? "desicionLeave"
+                              ? "desicionInvertir"
                               : "Ninguno"
                         }
                       >

@@ -12,6 +12,7 @@ import { useDialogsNotes } from '@/hooks/useDialogs';
 import DialogNotes from './DialogNotes';
 import { TableData } from '@/index';
 import { DropdownMenuLabel } from '@radix-ui/react-dropdown-menu';
+import { PencilIcon } from 'lucide-react';
 
 
 const NotesButton = () => {
@@ -62,12 +63,13 @@ const NotesButton = () => {
                 Array.isArray(data) && data.map((project) => {
                     return (
                     <>
-                      <DropdownMenuItem className="cursor-pointer" key={project.id_proyecto} onClick={() => {
+                      <DropdownMenuItem className="cursor-pointer flex gap-3" key={project.id_proyecto} onClick={() => {
                         console.log('Clicadi')
                         setIsOpenNote(true)
                         setIdProject(project.id_proyectoInicial)
                         setProjectNoteChosen(project)
                     }}>
+                      <PencilIcon className='h-[1.2rem] w-[1.2rem] '></PencilIcon>
                         {project.proyecto}
 
                         
