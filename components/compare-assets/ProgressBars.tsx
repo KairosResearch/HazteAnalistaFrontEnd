@@ -148,9 +148,7 @@ const ProgressBars = () => {
                         <Progress variant="progress" value={35} /> 
                     </div> */}
                     <div>
-                        <span>
-                            Porcentaje:
-                        </span>
+                       
                     </div>
                     <p className='text-green-light bg-primary dark:bg-transparent p-2 rounded-sm'>
                         {((comparativeInfo[0].MakCapA / comparativeInfo[0].MakCapB) * 100).toFixed(2).toLocaleString()}%
