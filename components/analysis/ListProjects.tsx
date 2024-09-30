@@ -69,7 +69,7 @@ const ListProjects = () => {
         <Card className="p-4" key={project.id_proyecto}>
           <div className="flex flex-row justify-between items-center ">
             <div className="flex gap-4 ">
-              <h2 className="text-2xl pt-0 mt-0 text-green-light">
+              <h2 className="text-2xl pt-0 mt-0 dark:text-green-light text-primary">
                 {project.proyecto}
               </h2>
               <Badge

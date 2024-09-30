@@ -51,7 +51,7 @@ const LessonsCard = ({
         <CardContent>
           <p className="text-sm line-clamp-1">{lesson.title}</p>
           <Badge>Módulo {lesson.modulo}</Badge>{" "}
-          <span className="text-xs text-primary-foreground/45 ml-2">
+          <span className="text-xs text-primary dark:text-primary-foreground/45 ml-2">
             {lessonNumber}
           </span>
         </CardContent>

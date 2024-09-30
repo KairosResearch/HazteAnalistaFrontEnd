@@ -17,17 +17,17 @@ const colorMap = {
 };
 
 const badgeVariants = cva(
-  "inline-flex items-center px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+  "inline-flex items-center px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded",
   {
     variants: {
       variant: {
         fourE:
-          "rounded-full border border-transparent bg-primary text-primary-foreground text-background ",
-        decisionWatchlist: "border-transparent rounded bg-cyan-200 text-foreground dark:text-background ",
-        desicionLeave: "border-transparent rounded bg-green-400 text-background ",
-        desicionInvest: "border-transparent rounded bg-desicionInvest text-background ",
-        range: "text-foreground bg-background text-foreground rounded-sm",
-        sectorAndExchange: "bg-primary rounded  text-primary-foreground text-background ",
+          "border border-transparent bg-primary text-primary-foreground text-background ",
+        decisionWatchlist: "border-transparent  bg-cyan-200 text-foreground dark:text-background ",
+        desicionLeave: "border-transparent  bg-green-400 text-background ",
+        desicionInvest: "border-transparent  bg-desicionInvest text-background ",
+        range: "text-foreground bg-background text-foreground",
+        sectorAndExchange: "bg-primary   text-primary-foreground text-background ",
         binance: `bg-binance text-[#1E1F24] text-background ` ,
         coinbase: `text-background  bg-coinbase dark:text-foreground text-white`,
         kraken: `text-background  bg-kraken`,
@@ -43,7 +43,7 @@ const badgeVariants = cva(
         Staking: "text-background  bg-staking",
         Oraculo: "text-background  bg-oraculo",
         Marketplace: "text-background  bg-marketplace",
-        Ninguno: " bg-none text-black dark:text-white",
+        Ninguno: " bg-none text-black ",
       },
     },
     defaultVariants: {

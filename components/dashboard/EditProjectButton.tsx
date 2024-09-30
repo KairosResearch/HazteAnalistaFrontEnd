@@ -16,13 +16,13 @@ const EditProjectButton = () => {
           setMode("edit");
           setIsOpen(!isOpen);
         }}
-        className="text-xs md:hidden mt-1 text-green-light"
+        className="text-xs md:hidden mt-1 dark:text-green-light text-primary font-bold"
       >
         Editar
       </span>
       <Button
         variant={"outline"}
-        className="text-green-light hidden md:inline "
+        className=" dark:text-green-light text-primary  font-bold hidden md:inline "
         onClick={() => {
           setMode("edit");
           setIsOpen(!isOpen);

@@ -13,13 +13,12 @@ const NetworkTabs = () => {
 
         <TabsList className="gap-5" defaultValue="arb">
             <TabsTrigger onClick={() => setNetwork('arbitrum')}
-             className={`border border-black/80 dark:border-foreground mr-4 rounded-sm text-2xl font-bold ${
-              network === 'arbitrum' ? 'dark:text-primary text-green-dark' : ''
+             className={`border border-black/80 dark:border-foreground mr-4 rounded-sm text-2xl font-bold 
              }`} value="arb">Arbitrum</TabsTrigger>
             <TabsTrigger onClick={() => setNetwork('ethereum')}className={`border border-black/80 dark:border-foreground mr-4 rounded-sm text-2xl font-bold 
-              ${network === 'ethereum' ? 'dark:text-primary text-green-dark' : ''}`} value="asja">Ethereum</TabsTrigger>
+              `} value="asja">Ethereum</TabsTrigger>
             <TabsTrigger onClick={() => setNetwork('scroll')}className={`border border-black/80 dark:border-foreground rounded-sm text-2xl font-bold 
-              ${network === 'scroll' ? 'dark:text-primary text-green-dark':'' }`} value="adja">Scroll</TabsTrigger>
+             `} value="adja">Scroll</TabsTrigger>
         </TabsList>
     </Tabs>
         {/* <Button variant={'outline'} size={"lg"} className='text-2xl bg-transparent text-primary font-bold dark:text-white'>Ethereum</Button>

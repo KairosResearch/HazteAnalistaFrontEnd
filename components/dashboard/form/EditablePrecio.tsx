@@ -30,6 +30,7 @@ const EditablePrecio = ({
               <div className="flex items-center gap-1 justify-stretch">
                 <span>$</span>
                 <Input
+                  className="border border-grey-light rounded-md "
                   {...field}
                   type="text"
                   pattern="^[0-9]+([,.][0-9]+){0,7}?$"

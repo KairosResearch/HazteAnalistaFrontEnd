@@ -50,19 +50,23 @@ const InfoTabs = ({
         <h2 className="text-xl md:text-2xl font-bold mb-3">Descripción</h2>
         <div
           className="border rounded-sm p-2
-                     bg-primary-foreground/80 text-dark-grey
+                     bg-primary-foreground/80 text-dark-grey dark:text-foreground
                      w-[96%] mx-auto "
         >
           <p>{info.descripcion}</p>
         </div>
       </TabsContent>
+
+
+      {/* -------Links ------ */}
+
       <TabsContent className="min-h-[250px]" value="links">
         <h2 className="text-xl md:text-2xl font-bold mb-3">Links</h2>
 
         <ul className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-5 items-center">
           {info.website && info.website != "N/A" && (
             <Link target="_blank" href={info.website}>
-              <li className="hover:bg-primary flex border rounded-md gap-4 py-1 px-4 items-center justify-center">
+              <li className="dark:hover:bg-primary hover:bg-darkerBackground flex border border-black dark:border-foreground rounded-md gap-4 py-1 px-4 items-center justify-center">
                 <Image
                   src="/icons/info/Web.png"
                   alt="Home"
@@ -76,7 +80,7 @@ const InfoTabs = ({
           {/* Documentacion */}
           {info.documentacion && info.documentacion != "N/A" && (
             <Link target="_blank" href={info.documentacion}>
-              <li className="hover:bg-primary flex border rounded-md gap-4 py-1 px-4 items-center justify-center">
+              <li className="dark:hover:bg-primary hover:bg-darkerBackground flex border border-black dark:border-foreground rounded-md gap-4 py-1 px-4 items-center justify-center">
                 <Image
                   src="/icons/info/Documento.png"
                   alt="Home"
@@ -90,7 +94,7 @@ const InfoTabs = ({
 
           {info.twitter && info.twitter != "N/A" && (
             <Link target="_blank" href={info.twitter}>
-              <li className="hover:bg-primary flex border rounded-md gap-4 py-1 px-4 items-center justify-center">
+              <li className="dark:hover:bg-primary hover:bg-darkerBackground flex border border-black dark:border-foreground rounded-md gap-4 py-1 px-4 items-center justify-center">
                 <Image
                   src="/icons/info/Twitter.png"
                   alt="Home"
@@ -103,7 +107,7 @@ const InfoTabs = ({
           )}
           {info.discord && info.discord != "N/A" && (
             <Link target="_blank" href={info.discord}>
-              <li className="hover:bg-primary flex border rounded-md gap-4 py-1 px-4 items-center justify-center">
+              <li className="dark:hover:bg-primary hover:bg-darkerBackground flex border border-black dark:border-foreground rounded-md gap-4 py-1 px-4 items-center justify-center">
                 <Image
                   src="/icons/info/Discord.png"
                   alt="Home"
@@ -116,7 +120,7 @@ const InfoTabs = ({
           )}
           {info.github && info.github != "N/A" && (
             <Link target="_blank" href={info.github}>
-              <li className="hover:bg-primary flex border rounded-md gap-4 py-1 px-4 7 items-center justify-center">
+              <li className="dark:hover:bg-primary hover:bg-darkerBackground flex border border-black dark:border-foreground rounded-md gap-4 py-1 px-4 7 items-center justify-center">
                 <Image
                   src="/icons/info/Github.png"
                   alt="Home"

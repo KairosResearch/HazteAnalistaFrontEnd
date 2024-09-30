@@ -153,10 +153,10 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
           {tableData &&
             tableData.map((data) => (
               <TableRow
-                className=" dark:divide-green-dark hover:bg-primary/10 cursor-pointer"
+                className=" dark:divide-green-dark dark:hover:bg-[#3B8A48]/10 hover:bg-[#1f1f1f]/10 cursor-pointer"
                 key={data.id_proyecto}
               >
-                <TableCell className="border-2 border-r-0 border-green-dark sticky left-[-1px] bg-darkerBackground/65 dark:bg-dark-grey/95 z-10">
+                <TableCell  className="border-2 border-r-0 sticky left-[-1px] bg-darkerBackground/95 dark:bg-dark-grey/95 z-10">
                   <Checkbox
                     checked={prToDelete.includes(data.id_proyecto)}
                     onCheckedChange={(checked) => {
@@ -170,18 +170,18 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                     }}
                   />
                 </TableCell>
-                <TableCell
+                <TableCell 
                   onClick={() => {
                     setSelectedRow(data);
                     setIsDialogOpen(true);
                   }}
-                  className="font-medium sticky left-[1.95rem] bg-darkerBackground/65 dark:bg-dark-grey/95 z-10"
+                  className="font-medium sticky left-[2rem]  bg-darkerBackground/95 dark:bg-dark-grey/95 z-10"
                 >
                   <p className="">{data.proyecto}</p>
                 </TableCell>
 
                 {/* Ticker */}
-                <TableCell
+                <TableCell 
                   onClick={() => {
                     setSelectedRow(data);
                     setIsDialogOpen(true);
@@ -191,7 +191,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                   {data.ticker}
                 </TableCell>
                 {/******Metodo 4E**** */}
-                <TableCell
+                <TableCell 
                   onClick={() => {
                     setSelectedRow(data);
                     setIsDialogOpen(true);
@@ -224,7 +224,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                 </TableCell>
 
                 {/******Decision**** */}
-                <TableCell
+                <TableCell 
                   onClick={() => {
                     setSelectedRow(data);
                     setIsDialogOpen(true);
@@ -248,7 +248,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                 </TableCell>
 
                 {/******Sector**** */}
-                <TableCell
+                <TableCell 
                   className=""
                   onClick={() => {
                     setSelectedRow(data);
@@ -296,7 +296,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                 </TableCell>
 
                 {/******Exchange**** */}
-                <TableCell
+                <TableCell 
                   onClick={() => {
                     setSelectedRow(data);
                     setIsDialogOpen(true);
@@ -324,7 +324,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                 </TableCell>
 
                 {/******precio entrada**** */}
-                <TableCell
+                <TableCell 
                   onClick={() => {
                     setSelectedRow(data);
                     setIsDialogOpen(true);
@@ -335,7 +335,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                 </TableCell>
 
                 {/****** precio actual**** */}
-                <TableCell
+                <TableCell 
                   onClick={() => {
                     setSelectedRow(data);
                     setIsDialogOpen(true);
@@ -346,8 +346,8 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                 </TableCell>
 
                 {/******Si ATH**** */}
-                <TableCell
-                className="flex justify-center align-middle"
+                <TableCell 
+                className="whitespace-nowrap"
                   onClick={() => {
                     setSelectedRow(data);
                     setIsDialogOpen(true);
@@ -361,7 +361,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                 </TableCell>
 
                 {/******Market Cap**** */}
-                <TableCell
+                <TableCell 
                   onClick={() => {
                     setSelectedRow(data);
                     setIsDialogOpen(true);
@@ -371,7 +371,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                   $ {data.market_cap.toLocaleString()}
                 </TableCell>
                 {/******Rango**** */}
-                <TableCell
+                <TableCell 
                   onClick={() => {
                     setSelectedRow(data);
                     setIsDialogOpen(true);
