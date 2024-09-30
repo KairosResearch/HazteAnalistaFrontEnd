@@ -3,9 +3,8 @@ import React from 'react'
 import { Card, CardContent } from '@/components/ui/card'
 import Image from 'next/image'
 import ComboboxDemo from '@/components/dashboard/form/ComboboxName'
-import {getComparativeMarketCap} from '@/services/backend/comparativeMarketCap'
 import {useComparativeTokens} from '@/hooks/useComparative'
-import { set } from 'zod';
+
 
 interface SelectAssetsNameProps {
     projectsList: {
@@ -21,8 +20,12 @@ const SelectAssetsName = ({
     projectsList
 }: SelectAssetsNameProps) => {
     
-    const {setComparativeInfo, token1, token2, setLoading} = useComparativeTokens()
+    const {token1, token2, setToken1, setToken2} = useComparativeTokens();    
+
+    //State to change the side of the combo boxes
+    const [changedPosition, setChangedPosition] = React.useState<boolean>(false);
     
+    //This field var does not affect anything, is just to avoid type errors
     const field= {
         value: 0,
         onChange: (newValue: number) => {
@@ -32,32 +35,9 @@ const SelectAssetsName = ({
 
 
     const [symbol, setSymbol] = React.useState<string>('');
-    // const [lastTwoFields, setLastTwoFields] = React.useState<string[]>([]);
 
-     // Efecto para actualizar lastTwoFields cuando symbol cambie
-     
-
-    React.useEffect(() => {
-        if (token1 && token2) {
-            setLoading(true);
-
-            // Llamar al endpoint con los últimos dos valores
-            const fetchData = async () => {
-                try {
-                    const response = await getComparativeMarketCap(token1, token2);
-                    if(response){
-                        setComparativeInfo(response)
-                    }
-                    
-                    // Aquí puedes manejar los datos recibidos
-                } catch (error) {
-                    console.error('Fetch error:', error);
-                }
-            };
-            fetchData()
-            setLoading(false)
-        }
-    }, [token1, token2]);
+    //Here we fetch the data from the backend
+    
 
     // console.log('Los campos seleccionados son:', field);
     
@@ -72,19 +52,10 @@ const SelectAssetsName = ({
                             field={field}
                             setSymbol={setSymbol}
                             clearErrors={(name: string) => {return}}
-                            comboSide={'left'}
+                            comboSide={changedPosition ? 'right' : 'left'}
                         />
                      
-                        {/* <Image
-                            src="https://static.alchemyapi.io/images/assets/825.png"
-                            alt="usdt"
-                            width={40}
-                            height={40}
-                        />
-
-                        
-                        USDT
-                        <ChevronDown size={24} /> */}
+                      
                     </CardContent>
                 </Card>
                 <Image
@@ -92,7 +63,12 @@ const SelectAssetsName = ({
                     alt="compare"
                     width={40}
                     height={40}
-                    className='bg-primary p-2 rounded-full dark:bg-transparent'
+                    className='cursor-pointer bg-primary p-2 rounded-full dark:bg-transparent'
+                    onClick={() => {
+                        setChangedPosition(!changedPosition);
+                        setToken1(token2)
+                        setToken2(token1)
+                    }}
                 >
 
                 </Image>
@@ -105,19 +81,11 @@ const SelectAssetsName = ({
                             field={field}
                             setSymbol={setSymbol}
                             clearErrors={(name: string ) => {return}}
-                            comboSide={'right'}
+                            comboSide={changedPosition ? 'left' : 'right'}
                         />
                         
-                        {/* <Image
-                            src="https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png"
-                            alt="btc"
-                            width={40}
-                            height={40}
-                        />
-
-                        
-                        ETH
-                        <ChevronDown size={24} /> */}
+                  
+                  
                     </CardContent>
                 </Card>
 

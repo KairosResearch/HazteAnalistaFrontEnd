@@ -53,7 +53,7 @@ const NavbarLessons = ({ numParam, modulo, leccion }: NavbarLessonsProps) => {
     <nav
       className={`fixed bottom-0 left-0
         md:sticky md:bottom-0 md:left-0  
-      md:top-0  h-12 bg-primary   flex items-center justify-between w-full
+      md:top-0  h-12 bg-primary text-background dark:text-foreground  flex items-center justify-between w-full
      md:px-4 px-2 py-2 
     `}
     >

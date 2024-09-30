@@ -153,7 +153,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
           {tableData &&
             tableData.map((data) => (
               <TableRow
-                className=" dark:divide-green-dark dark:hover:bg-[#3B8A48]/10 hover:bg-[#1f1f1f]/10 cursor-pointer"
+                className=" dark:divide-green-dark divide-foreground dark:hover:bg-[#3B8A48]/10 hover:bg-[#1f1f1f]/10 cursor-pointer"
                 key={data.id_proyecto}
               >
                 <TableCell  className="border-2 border-r-0 sticky left-[-1px] bg-darkerBackground/95 dark:bg-dark-grey/95 z-10">
@@ -233,9 +233,9 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                   <Badge
                     variant={
                       data.id_decision_proyecto === 2
-                        ? "decisionWatchlist"
+                        ? "decisionSeguimiento"
                         : data.id_decision_proyecto === 3
-                          ? "desicionLeave"
+                          ? "desicionInvertir"
                           : "Ninguno"
                     }
                   >
@@ -308,9 +308,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                         ? "binance"
                         : data.idExchange === 3
                           ? "coinbase"
-                          : data.idExchange === 4
-                            ? "kraken"
-                            : "decisionWatchlist"
+                          : "kraken"
                     }
                   >
                     {data.idExchange === 2

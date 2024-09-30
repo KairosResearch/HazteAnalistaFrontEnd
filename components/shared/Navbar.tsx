@@ -40,13 +40,14 @@ const Navbar = (
         </Link>
       </div>
 
-      <div>
-        <ModeToggle />
-      </div>
+      {/* <div>
+        
+      </div> */}
 
       
 
       <div className="flex gap-4 md:gap-8 flex-center">
+        <ModeToggle />
          <NotesButton />
       
         <PopoverForm usage="userinfo" />

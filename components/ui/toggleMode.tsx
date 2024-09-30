@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { MoonIcon, SunIcon } from "lucide-react"
+import { MoonIcon, SunIcon, MonitorIcon } from "lucide-react"
 import { useTheme } from "next-themes"
 
 import { Button } from "@/components/ui/button"
@@ -18,7 +18,6 @@ export function ModeToggle() {
 
   React.useEffect(() => setMounted(true), [])
 
-  console.log(theme)
 
 
 
@@ -34,14 +33,17 @@ export function ModeToggle() {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem onClick={() => setTheme("light")}>
-            Light
+          <DropdownMenuItem className="cursor-pointer flex gap-3 dark:hover:bg-[#3B8A48]/10 hover:bg-[#1f1f1f]/10 " onClick={() => setTheme("light")}>
+            <SunIcon className="h-[1.2rem] w-[1.2rem] mr-2" />
+            Claro
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setTheme("dark")}>
-            Dark
+          <DropdownMenuItem className="cursor-pointer flex gap-3 dark:hover:bg-[#3B8A48]/10 hover:bg-[#1f1f1f]/10 " onClick={() => setTheme("dark")}>
+            <MoonIcon className="h-[1.2rem] w-[1.2rem] mr-2" />
+            Oscuro
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setTheme("system")}>
-            System
+          <DropdownMenuItem className="cursor-pointer flex gap-3 dark:hover:bg-[#3B8A48]/10 hover:bg-[#1f1f1f]/10 " onClick={() => setTheme("system")}>
+            <MonitorIcon className="h-[1.2rem] w-[1.2rem] mr-2" />
+            Sistema
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

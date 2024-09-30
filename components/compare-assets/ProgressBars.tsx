@@ -3,11 +3,41 @@ import React, {useEffect, useState} from 'react'
 // import { Progress } from "@/components/ui/progress"
 // import Image from 'next/image'
 import { useComparativeTokens } from '@/hooks/useComparative';
+import { getComparativeMarketCap } from '@/services/backend/comparativeMarketCap';
+import { ComparativeInfo } from '@/index';
+import SkeletonComparative from '../shared/skeletons/SkeletonComparative';
 
 const ProgressBars = () => {
-    const {comparativeInfo, token1, token2, loading} = useComparativeTokens();
+    // const {comparativeInfo, token1, token2, loading} = useComparativeTokens();
+    const [comparativeInfo, setComparativeInfo] = useState<ComparativeInfo[]>([]);
+    const [loading, setLoading] = useState(false);
+    const { token1, token2} = useComparativeTokens();
     const [higherMarketCap, setHigherMarketCap] = useState(0);
     const [lowerMarketCap, setLowerMarketCap] = useState(0);
+
+    React.useEffect(() => {
+        if (token1 && token2) {
+            
+
+            // Llamar al endpoint con los últimos dos valores
+            const fetchData = async () => {
+                setLoading(true);
+                try {
+                    const response = await getComparativeMarketCap(token1, token2);
+                    if(response){
+                        setComparativeInfo(response)
+                    }
+                    
+                    // Aquí puedes manejar los datos recibidos
+                } catch (error) {
+                    console.error('Fetch error:', error);
+                }
+                setLoading(false)
+            };
+            fetchData()
+            
+        }
+    }, [token1, token2]);
 
     useEffect(() => {
         if (comparativeInfo.length != 0) {
@@ -22,10 +52,12 @@ const ProgressBars = () => {
         }
     }, [comparativeInfo]);
 
+    console.log('Esta loading?',loading)
+
   return (
     <>
         {/* {comparativeInfo.length === 0 && <p>Selecciona dos activos para comparar</p>} */}
-        {loading && <p>Cargando...</p>}
+        {loading && <SkeletonComparative />}    
         {!loading && comparativeInfo.length != 0 && (
             <>
                 <h2 className='text-center text-lg font-light  dark:text-grey-light'>
