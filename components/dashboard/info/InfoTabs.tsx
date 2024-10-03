@@ -95,6 +95,14 @@ const InfoTabs = ({
                   alt="Home"
                   height={20}
                   width={20}
+		  className="hidden dark:inline"
+                />
+<Image
+                  src="/dark/icons/info/documento.png"
+                  alt="Home"
+                  height={20}
+                  width={20}
+		  className="inline dark:hidden"
                 />
                 <span className="">Documentación </span>
               </li>
@@ -109,6 +117,14 @@ const InfoTabs = ({
                   alt="Home"
                   height={20}
                   width={20}
+		  className="dark:inline hidden"
+                />
+<Image
+                  src="/dark/icons/info/x.png"
+                  alt="Home"
+                  height={20}
+                  width={20}
+		  className="dark:hidden inline"
                 />
                 <span className="">Twitter </span>
               </li>
@@ -122,6 +138,14 @@ const InfoTabs = ({
                   alt="Home"
                   height={20}
                   width={20}
+		  className="dark:inline hidden"
+                />
+<Image
+                  src="/dark/icons/info/discord.png"
+                  alt="Home"
+                  height={20}
+                  width={20}
+		  className="inline dark:hidden"
                 />
                 <span className="">Discord </span>
               </li>
@@ -135,6 +159,14 @@ const InfoTabs = ({
                   alt="Home"
                   height={20}
                   width={20}
+		  className="dark:inline hidden"
+                />
+<Image
+                  src="/dark/icons/info/github.png"
+                  alt="Home"
+                  height={20}
+                  width={20}
+		  className="dark:hidden inline"
                 />
                 <span className=""> Github</span>
               </li>
