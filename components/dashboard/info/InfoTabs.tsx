@@ -73,6 +73,14 @@ const InfoTabs = ({
                   alt="Home"
                   height={20}
                   width={20}
+                  className="hidden dark:inline"
+                />
+                <Image
+                  src="/dark/icons/info/sitio-web.png"
+                  alt="Home"
+                  height={20}
+                  width={20}
+                  className="dark:hidden inline"
                 />
                 <span className="">Sitio web</span>
               </li>

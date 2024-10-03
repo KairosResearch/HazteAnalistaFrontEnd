@@ -83,29 +83,66 @@ export const defaultValuesDashboardForm = {
 
 //Icons for the form:
 export const iconsForm = [
-  { name: "nombre", alt: "nombre", icon: "/icons/table/Proyecto.png" },
-  { name: "ticket", alt: "ticker", icon: "/icons/table/Ticker.png" },
-  { name: "id4e", alt: "4e", icon: "/icons/table/4E.png" },
+  { name: "nombre", alt: "nombre", icon: "/icons/table/Proyecto.png", clasName:"dark:inline hidden"},
+  { name: "nombre", alt: "nombre", icon: "/dark/icons/form/proyecto-dark.png", clasName:"inline dark:hidden"},
+
+  // { name: "ticket", alt: "ticker", icon: "/icons/table/Ticker.png",clasName:"dark:inline hidden"},
+  // { name: "ticket", alt: "ticker", icon: "/dark/icons/form/Ticker.png",clasName:"dark:inline hidden"},
+
+
+  { name: "id4e", alt: "4e", icon: "/icons/table/4E.png", clasName:"dark:inline hidden" },
+  // { name: "id4e", alt: "4e", icon: "/dark/icons/form/4E.png", clasName:"dark:inline hidden" },
+
   {
     name: "id_decision_proyecto",
     alt: "decision",
     icon: "/icons/table/Decision.png",
+    clasName:"dark:inline hidden"
   },
-  { name: "idExchange", alt: "exchange", icon: "/icons/table/Exchange.png" },
-  { name: "idSector", alt: "sector", icon: "/icons/table/Sector.png" },
+  {
+    name: "id_decision_proyecto",
+    alt: "decision",
+    icon: "/dark/icons/form/decision.png",
+    clasName:"inline dark:hidden"
+  },
+
+
+  { name: "idExchange", alt: "exchange", icon: "/icons/table/Exchange.png", clasName:"dark:inline hidden"},
+  { name: "idExchange", alt: "exchange", icon: "/dark/icons/form/exchange-dark.png", clasName:"inline dark:hidden"},
+
+  // { name: "idSector", alt: "sector", icon: "/icons/table/Sector.png", clasName:"dark:inline hidden" },
+  // { name: "idSector", alt: "sector", icon: "/dark/icons/form/Sector.png", clasName:"dark:inline hidden" },
   {
     name: "precioEntrada",
     alt: "precio entrada",
     icon: "/icons/table/Precio.png",
+    clasName:"dark:inline hidden"
   },
+  {
+    name: "precioEntrada",
+    alt: "precio entrada",
+    icon: "/dark/icons/form/moneda.png",
+    clasName:"inline dark:hidden"
+  },
+
 ];
 export const iconsFormLeftSide = [
-  { name: "marketCap", alt: "market cap", icon: "/icons/table/cap.png" },
-  { name: "siAth", alt: "si ath", icon: "/icons/table/ATH.png" },
+  { name: "marketCap", alt: "market cap", icon: "/icons/table/cap.png" , clasName:"dark:inline hidden"},
+  { name: "marketCap", alt: "market cap", icon: "/dark/icons/info/sitio-web.png" , clasName:"inline dark:hidden"},
+
+  { name: "siAth", alt: "si ath", icon: "/icons/table/ATH.png", clasName:"dark:inline hidden"},
+  { name: "siAth", alt: "si ath", icon: "/dark/icons/form/rendimiento.png", clasName:"inline dark:hidden"},
   {
     name: "precioActual",
     alt: "precio actual",
     icon: "/icons/table/Precio.png",
+    clasName:"dark:inline hidden"
+  },
+  {
+    name: "precioActual",
+    alt: "precio actual",
+    icon: "/dark/icons/form/moneda.png",
+    clasName:"inline dark:hidden"
   },
 ];
 

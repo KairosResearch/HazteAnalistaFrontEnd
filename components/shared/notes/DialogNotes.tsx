@@ -19,7 +19,8 @@ type DialogNotesProps = {
 
 const DialogNotes = ({ nombreProyecto}: DialogNotesProps) => {
     // const [initialValueEditor, setInitialValueEditor] = React.useState<string | null>(null);
-    const {setIsOpenNote, isOpenNote, idProject, initialValue, setInitialValue } = useDialogsNotes();
+    const [nota, setNota] = React.useState<string | null>(null);
+    const {setIsOpenNote, isOpenNote, idProject } = useDialogsNotes();
     const [success, setSuccess] = React.useState(false);
 
     useEffect(() => {
@@ -31,7 +32,7 @@ const DialogNotes = ({ nombreProyecto}: DialogNotesProps) => {
       const updatedNote = await handleUpdateNote(guzma,  id, html);
       console.log('Nueva actializacons', updatedNote);
       if (updatedNote) {
-        setInitialValue(updatedNote);
+        setNota(updatedNote);
         setSuccess(true);
       }
     }
@@ -47,7 +48,7 @@ const DialogNotes = ({ nombreProyecto}: DialogNotesProps) => {
               </DialogHeader>
               <TextEditor 
                 id={idProject}
-                // initialValue={initialValue}
+                note={nota}
                 closeEditor={() => setIsOpenNote(false)}
                 updateNote={updateNote}
 

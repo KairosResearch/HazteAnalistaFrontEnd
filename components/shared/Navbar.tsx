@@ -79,43 +79,75 @@ const Navbar = (
               <nav>
                 <ul className="header-nav_elements">
                 <Link className="header-nav_text" href="/portfolio">
-                    <Image
-                      src="/icons/navigation/wallet-fill.svg"
-                      alt="Kairos"
-                      width={20}
-                      height={20}
-                    />
-                    Portafolio
+                <Image
+                  src="/icons/navigation/wallet-fill.svg"
+                  alt="wallet"
+                  height={25}
+                  width={25}
+                  className="dark:inline hidden "
+                />
+                <Image
+                  src="/dark/icons/navigation/wallet.png"
+                  alt="wallet"
+                  height={25}
+                  width={25}
+                  className="inline dark:hidden"
+                />
+                Portafolio
                   </Link>
                   <Link className="header-nav_text" href="/dashboard">
-                    <Image
-                      src="/icons/navigation/table-fill.svg"
-                      alt="Kairos"
-                      width={20}
-                      height={20}
-                    />
-                    Dashboard
+                  <Image
+                  src="/icons/navigation/table-fill.svg"
+                  alt="Home"
+                  height={25}
+                  width={25}
+                  className="dark:inline hidden"
+                />
+                <Image
+                  src="/dark/icons/navigation/dashboard.svg"
+                  alt="Home"
+                  height={25}
+                  width={25}
+                  className="inline dark:hidden"
+                />
+                Dashboard
                   </Link>
                   
 
                   
                   <Link className="header-nav_text" href="/analysis">
-                    <Image
-                      src="/tools-fill.svg"
-                      alt="tools"
-                      height={20}
-                      width={20}
-                    />
-                    Análisis Express
+                  <Image
+                  src="/tools-fill.svg"
+                  alt="tools"
+                  height={25}
+                  width={25}
+                  className="dark:inline hidden"
+                />
+                <Image
+                  src="/dark/icons/navigation/analisis.png"
+                  alt="tools"
+                  height={25}
+                  width={25}
+                  className="inline dark:hidden"
+                />
+                Análisis Express
                   </Link>
                   <Link className="header-nav_text" href="/compare-assets">
                     <Image
-                      src="/icons/navigation/Comparativa.png"
-                      alt="tools"
-                      height={20}
-                      width={20}
-                    />
-                    Comparar assets
+                    src="/icons/navigation/Comparativa.png"
+                    alt="tools"
+                    height={25}
+                    width={25}
+                    className="dark:inline hidden"
+                  />
+                  <Image
+                    src="/dark/icons/navigation/comparar.png"
+                    alt="tools"
+                    height={25}
+                    width={25}
+                    className="inline dark:hidden"
+                  />
+                  Comparar assets
                   </Link>
                   <ModulesAccordion 
                     module1={module1}

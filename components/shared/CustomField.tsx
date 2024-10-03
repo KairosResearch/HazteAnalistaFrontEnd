@@ -30,7 +30,7 @@ export const CustomField = ({
   className,
   type,
 }: CustomFieldProps) => {
-  const a = iconsForm.find((icon) => icon.name === name);
+  const iconsFiltered= iconsForm.filter((icon) => icon.name === name);
   return (
     <FormField
       name={name}
@@ -39,8 +39,10 @@ export const CustomField = ({
           {formLabel && (
             <FormLabel>
               <div className="flex gap-2 items-center  md:mb-0">
-                {a && (
-                  <Image src={a?.icon} alt={a?.alt} width={15} height={15} />
+                {iconsFiltered  && (
+                  iconsFiltered.map((a) =>
+                  <Image src={a?.icon} alt={a?.alt} width={15} height={15} className={a?.clasName} />
+                  )
                 )}
 
                 <h3 className="p-0 m-0">

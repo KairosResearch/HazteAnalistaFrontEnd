@@ -36,6 +36,14 @@ const Sidebar = ({
                   alt="wallet"
                   height={25}
                   width={25}
+                  className="dark:inline hidden "
+                />
+                <Image
+                  src="/dark/icons/navigation/wallet.png"
+                  alt="wallet"
+                  height={25}
+                  width={25}
+                  className="inline dark:hidden"
                 />
                 Portafolio
               </Link>
@@ -46,6 +54,14 @@ const Sidebar = ({
                   alt="Home"
                   height={25}
                   width={25}
+                  className="dark:inline hidden"
+                />
+                <Image
+                  src="/dark/icons/navigation/dashboard.svg"
+                  alt="Home"
+                  height={25}
+                  width={25}
+                  className="inline dark:hidden"
                 />
                 Dashboard
               </Link>
@@ -58,6 +74,14 @@ const Sidebar = ({
                   alt="tools"
                   height={25}
                   width={25}
+                  className="dark:inline hidden"
+                />
+                <Image
+                  src="/dark/icons/navigation/analisis.png"
+                  alt="tools"
+                  height={25}
+                  width={25}
+                  className="inline dark:hidden"
                 />
                 Análisis Express
               </Link>
@@ -67,6 +91,14 @@ const Sidebar = ({
                   alt="tools"
                   height={25}
                   width={25}
+                  className="dark:inline hidden"
+                />
+                <Image
+                  src="/dark/icons/navigation/comparar.png"
+                  alt="tools"
+                  height={25}
+                  width={25}
+                  className="inline dark:hidden"
                 />
                 Comparar assets
               </Link>

@@ -30,11 +30,12 @@ interface TextEditorProps {
   id: number;
   closeEditor: () => void;
   updateNote: (guzma: number, id:number, html: string) => void;
+  note: string | null;
 }
 
-const TextEditor = ({id, closeEditor, updateNote}: TextEditorProps) => {
+const TextEditor = ({id, closeEditor, updateNote, note}: TextEditorProps) => {
 
-  const {initialValue} = useDialogsNotes();
+  // const {initialValue} = useDialogsNotes();
 
 
 
@@ -58,8 +59,8 @@ const TextEditor = ({id, closeEditor, updateNote}: TextEditorProps) => {
 
   const [editorState, setEditorState] = useState(() => {
     console.log('Montando componente de editor por primera vez');
-    if (initialValue) {
-      const blocksFromHTML = convertFromHTML(initialValue);
+    if (note) {
+      const blocksFromHTML = convertFromHTML(note);
       const contentState = ContentState.createFromBlockArray(
         blocksFromHTML.contentBlocks,
         blocksFromHTML.entityMap
@@ -75,9 +76,9 @@ const TextEditor = ({id, closeEditor, updateNote}: TextEditorProps) => {
     }
   };
   useEffect(() => {
-    console.log('Valor inicial', initialValue);
-    if (initialValue) {
-      const blocksFromHTML = convertFromHTML(initialValue);
+    console.log('Valor inicial', note);
+    if (note) {
+      const blocksFromHTML = convertFromHTML(note);
       const contentState = ContentState.createFromBlockArray(
         blocksFromHTML.contentBlocks,
         blocksFromHTML.entityMap
@@ -87,7 +88,7 @@ const TextEditor = ({id, closeEditor, updateNote}: TextEditorProps) => {
     }
     
     focusEditor();
-  }, [initialValue]);
+  }, [note]);
 
   const editor = useRef<Editor | null>(null);
 

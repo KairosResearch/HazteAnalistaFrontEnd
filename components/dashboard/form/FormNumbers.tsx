@@ -18,19 +18,23 @@ interface FormNumbersProps {
 
 const FormNumbers = ({ values, title, image }: FormNumbersProps) => {
   const { isOpenInstr } = useDialogInstructions();
-  const icon = icons.find((icon) => icon.name === image);
-  const a = icon ? icon : { icon: "", alt: "" };
+  const iconsFiltered = icons.filter((icon) => icon.name === image);
 
   return (
     <div className="flex flex-col">
       <FormLabel className="flex items-center text-sm">
-        <Image
-          className="inline-block pr-1"
-          src={a.icon}
-          alt={a.alt}
-          width={20}
-          height={20}
-        />{" "}
+        {
+          iconsFiltered.map((a) => (
+            <Image
+              className={`inline-block pr-1 ${a.clasName}`} 
+              src={a.icon}
+              alt={a.alt}
+              width={20}
+              height={20}
+            />
+          ))
+        }
+        
         {title}:
       </FormLabel>
       <div>

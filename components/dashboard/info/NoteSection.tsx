@@ -44,19 +44,19 @@ const NoteSection = ({ id}: NoteSectionProps) => {
     }, [guzma])
  
     
-    useEffect(() => {
-        async function getNote() {
-            setLoading(true);
-            const note = await handleGetNote(guzma, id);
-            if(note) {
-                setNota(note);
-            } else {
-                setNota(null);
-            }
-            setLoading(false);
-        }
-        getNote();
-    }, [success])
+    // useEffect(() => {
+    //     async function getNote() {
+    //         setLoading(true);
+    //         const note = await handleGetNote(guzma, id);
+    //         if(note) {
+    //             setNota(note);
+    //         } else {
+    //             setNota(null);
+    //         }
+    //         setLoading(false);
+    //     }
+    //     getNote();
+    // }, [success])
 
 
     useEffect(() => {
@@ -68,7 +68,7 @@ const NoteSection = ({ id}: NoteSectionProps) => {
       const updatedNote = await handleUpdateNote(guzma,  id, html);
       console.log('Nueva actializacons', updatedNote);
       if (updatedNote) {
-        setInitialValue(updatedNote);
+        setNota(updatedNote);
         setSuccess(true);
         setTimeout(() => {
             setSuccess(false);
@@ -118,7 +118,7 @@ const NoteSection = ({ id}: NoteSectionProps) => {
           >
             <TextEditor
               closeEditor={() => setEditNotaOpen(false)}
-              // initialValue={nota}
+              note={nota}
               id={id}
               updateNote={updateNote}
             />

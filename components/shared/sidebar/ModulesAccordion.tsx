@@ -31,7 +31,7 @@ type ModulesAccordionProps = {
 const ModulesAccordion = ({
     module1, module2, module3
 }: ModulesAccordionProps) => {
-    const {completed, module} = useLessons();
+    const {completed} = useLessons();
     
     const render = (module: LessonProps[] | undefined) => {
         if (!module) {
@@ -64,7 +64,7 @@ const ModulesAccordion = ({
                 <span className='text-xs'>
                     {lesson.leccion}
                 </span>
-                <span className='block m-0 text-xs text-grey-light/60'>
+                <span className='block m-0 text-xs dark:text-grey-light/60'>
                     <Clock className="inline" size={10} /> 4 mins
                 </span>
                 </Link>
@@ -87,6 +87,14 @@ const ModulesAccordion = ({
                   alt="lessons"
                   height={25}
                   width={25}
+                  className="dark:inline hidden"
+                />
+                <Image
+                  src="/dark/icons/navigation/lecciones.png"
+                  alt="lessons"
+                  height={25}
+                  width={25}
+                  className='inline dark:hidden'
                 />
                 <Link href={'/lessons'}>
                 Hazte analista
