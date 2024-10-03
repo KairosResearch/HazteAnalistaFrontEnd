@@ -91,7 +91,7 @@ export const iconsForm = [
 
 
   { name: "id4e", alt: "4e", icon: "/icons/table/4E.png", clasName:"dark:inline hidden" },
-  // { name: "id4e", alt: "4e", icon: "/dark/icons/form/4E.png", clasName:"dark:inline hidden" },
+  { name: "id4e", alt: "4e", icon: "/dark/icons/form/4E.png", clasName:"inline dark:hidden" },
 
   {
     name: "id_decision_proyecto",
