@@ -40,8 +40,8 @@ export const CustomField = ({
             <FormLabel>
               <div className="flex gap-2 items-center  md:mb-0">
                 {iconsFiltered  && (
-                  iconsFiltered.map((a) =>
-                  <Image src={a?.icon} alt={a?.alt} width={15} height={15} className={a?.clasName} />
+                  iconsFiltered.map((a, index) =>
+                  <Image key={index} src={a?.icon} alt={a?.alt} width={15} height={15} className={a?.clasName} />
                   )
                 )}
 

@@ -142,6 +142,7 @@ const AnalysisForm = ({
     }
     console.log("Cualitative Values", cualitativeValues);
     return () => debouncedFunction.cancel();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cualitativeValues]);
 
   //Para calcular promedio de cuantitativos
@@ -157,6 +158,7 @@ const AnalysisForm = ({
     }
 
     return () => debouncedFunction.cancel();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cuantitativeValues]);
 
   useEffect(() => {

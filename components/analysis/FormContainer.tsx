@@ -119,6 +119,7 @@ const FormContainer = ({
     fetchDataAnalysis();
     setCuantAnalisisId(cuantId ?? 0);
     setCualAnalisisId(cualId ?? 0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mode, cuantId, cualId]);
 
 

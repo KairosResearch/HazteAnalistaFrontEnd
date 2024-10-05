@@ -51,6 +51,7 @@ const CurrentModule = ({ allModules }: Props) => {
     //   setLoading(false);
     // };
     // getLessonsCompleted();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   console.log(isLoading);

@@ -61,7 +61,7 @@ const Lessons = ({ allModules }: LessonsProps) => {
       // setLoading(false);
     };
     meCompota();
-    
+    //eslint-disable-next-line react-hooks/exhaustive-deps   
   }, [module]);
 
   

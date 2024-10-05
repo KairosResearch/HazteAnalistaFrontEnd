@@ -111,7 +111,7 @@ const Chart = () => {
           No logramos acceder a ningun balance en tu portafolio. Esto puede ser porque:
           <ol>
             <li>- Debes estar logueado en la plataforma con una wallet</li>
-            <li>- La wallet debe estar conectada a la red de arbitrum</li>
+            <li>- La wallet debe estar conectada a la red correspondiente</li>
             
           </ol>
         </div>

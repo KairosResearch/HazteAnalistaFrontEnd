@@ -41,6 +41,7 @@ const NoteSection = ({ id}: NoteSectionProps) => {
             
         }
         getNote();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [guzma])
  
     

@@ -120,7 +120,7 @@ const page =  () => {
                     </div>
                 </header> */}
                 <div className='bg-grey-light/10 relative'>
-                    <Badge className='absolute left-[-10px] top-2'>
+                    <Badge className='absolute left-[-10px] z-20 top-2'>
                         Bloqueo
                     </Badge>
                 <Table className='mt-7'>
@@ -160,7 +160,7 @@ const page =  () => {
                 <div className='bg-grey-light/10 relative'>
                     <Badge 
                         variant={'Lending'}
-                        className='absolute left-[-10px] top-2 rounded-sm'>
+                        className='absolute left-[-10px] z-20 top-2 rounded-sm'>
                         Staking
                     </Badge>
                 <Table className='mt-7'>

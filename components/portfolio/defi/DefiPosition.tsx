@@ -70,7 +70,7 @@ const DefiPosition = (
     console.log('defi Positions:', defiPositions)
 }
 
-
+// eslint-disable-next-line react-hooks/exhaustive-deps
 , [defiPositions, network]);
 
 useEffect(() => {
@@ -95,7 +95,9 @@ useEffect(() => {
               <TableRow key={index}>
                   <TableCell>
                       <div className='flex gap-4 items-center '>
-                          <Image alt="arbitrum" src={position.icon_url ? position.icon_url.url : '/kairos-main.svg'} width={30} height={30} />
+                            
+                            <Image className="dark:block hidden" src={position.icon_url ? position.icon_url.url : '/kairos-main.svg'} alt="Kairos" width={30} height={30} />
+                            <Image className="dark:hidden block" src={position.icon_url ? position.icon_url.url : '/kairos-logo-light.svg'} alt="Kairos" width={30} height={30}></Image>
                           <span>
                               {position.name_protocol}
                           </span>

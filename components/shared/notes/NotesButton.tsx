@@ -33,6 +33,7 @@ const NotesButton = () => {
       if (projectNoteChosen) {
         setInitialValue(projectNoteChosen.nota)
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [projectNoteChosen]);
 
     //Para pasar el inicial value al editor

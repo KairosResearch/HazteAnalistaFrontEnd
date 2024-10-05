@@ -33,7 +33,7 @@ const page = async () => {
             facilitando una comparación entre su tamaño y potencial.B
             </p> */}
             <p>
-                Calcula el precio de 'A' si tuviera el mismo market cap de 'B'
+                Calcula el precio de {"'"}A{"'"} si tuviera el mismo market cap de {"'"}B{"'"}
             </p>
         </header>
         

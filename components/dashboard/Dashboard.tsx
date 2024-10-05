@@ -70,7 +70,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
             [];
           setAvaliableProjects(availableProjects);
     }}
-    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [guzma, isLoading, projects]);
   useEffect(() => {
     if (guzma !== null) {
