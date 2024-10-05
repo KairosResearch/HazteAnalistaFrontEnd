@@ -123,10 +123,10 @@ const page =  () => {
                     <Badge className='absolute left-[-10px] z-20 top-2'>
                         Bloqueo
                     </Badge>
-                <Table className='mt-7'>
-            <TableHeader className=''>
+                <Table className=''>
+            <TableHeader  className='sticky top-0 left-0 bg-darkerBackground dark:bg-dark-black z-10 text-center'>
                 <TableRow>
-                    <TableHead>Pool</TableHead>
+                    <TableHead className=''>Pool</TableHead>
                     <TableHead>Monto</TableHead>
                     <TableHead>Valor en USD</TableHead>
                 </TableRow>
@@ -163,10 +163,10 @@ const page =  () => {
                         className='absolute left-[-10px] z-20 top-2 rounded-sm'>
                         Staking
                     </Badge>
-                <Table className='mt-7'>
-            <TableHeader >
+                <Table className=''>
+            <TableHeader className='sticky top-0 left-0 bg-darkerBackground dark:bg-dark-black z-10 text-center'  >
                 <TableRow>
-                    <TableHead>Pool</TableHead>
+                    <TableHead className='text-center'>Pool</TableHead>
                     <TableHead>Monto</TableHead>
                     <TableHead>Valor en USD</TableHead>
                 </TableRow>

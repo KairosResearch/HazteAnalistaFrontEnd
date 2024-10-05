@@ -13,15 +13,22 @@ import { X } from 'lucide-react';
 import { handleUpdateNote } from '@/actions/notesActions';
 
 type DialogNotesProps = {
-  nombreProyecto: string | null
+  nombreProyecto: string | null;
+  note: string | null;
 }
 
 
-const DialogNotes = ({ nombreProyecto}: DialogNotesProps) => {
+const DialogNotes = ({ nombreProyecto, note}: DialogNotesProps) => {
     // const [initialValueEditor, setInitialValueEditor] = React.useState<string | null>(null);
     const [nota, setNota] = React.useState<string | null>(null);
     const {setIsOpenNote, isOpenNote, idProject } = useDialogsNotes();
     const [success, setSuccess] = React.useState(false);
+
+    useEffect(() => {
+      if (note) {
+        setNota(note);
+      }
+    }, [note])
 
     useEffect(() => {
       setSuccess(false);

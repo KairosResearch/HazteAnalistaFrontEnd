@@ -48,6 +48,7 @@ const NotesButton = () => {
 
    <DialogNotes 
                       nombreProyecto={projectNoteChosen && projectNoteChosen.proyecto}
+                      note={projectNoteChosen && projectNoteChosen.nota}
                       />
       
         <DropdownMenu>
