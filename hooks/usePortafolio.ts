@@ -29,7 +29,7 @@ export const useDefiPositions = (address: string) => {
     () => handleGetPositions(address),
   );
 
-  const defiPositions = useMemo(() => data as DefiPositions, [data]);
+  const defiPositions = useMemo(() => data, [data]);
   
 
   return {

@@ -1,5 +1,6 @@
 'use server';
 import { getBalances, getDefiPositions } from "@/services/backend/balances";
+import { DefiPositions } from "..";
  
 
 
@@ -19,15 +20,13 @@ export const handleGetBalances = async (walletAddress: string) => {
 
 export const handleGetPositions = async (walletAddress: string) => {
     try {
-        const response = await getDefiPositions(walletAddress);
+        const response = await getDefiPositions(walletAddress) as DefiPositions;
         return {
-            lockedArbitrum: response.lokedArbitrum,
-            stackedArbitrum: response.stakedArbitrum,
-            stackedScroll: response.stakedScroll,
-            lockedScroll: response.lokedScroll,
-            lockedEthereum: response.lokedEthereum,
-            stackedEthereum: response.stakedEthereum
-        };
+            arbitrum: response.ArbPositions[0].original,
+            scroll:   response.ScrollPositions[0].original,
+            ethereum: response.EthereumPositions[0].original
+        }
+        ;
     } catch (error: any) {
         console.error(error.message);
     }

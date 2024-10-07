@@ -14,10 +14,7 @@ import {
     TableRow,
   } from "@/components/ui/table";
   import TotalBalance from '@/components/portfolio/TotalBalance'
-import Link from 'next/link'
-import Image from 'next/image'
-import {Badge }from '@/components/ui/badge'
-import DefiPosition from '@/components/portfolio/defi/DefiPosition'
+import DefiPositionsCategories from '@/components/portfolio/defi/DefiPositionsCategories'
 
 const page =  () => {
    
@@ -103,84 +100,8 @@ const page =  () => {
         </section>
 
         <section>
-            {/* Loked */}
-            <article>
-                {/* <header className='flex justify-between items-center'>
-                    <div>
-                        
-                        <Link
-                            href={`/dashobard`}
-                        >
-                        <h2 className='hover:underline mt-0'>Arbitrum</h2>
-                        </Link>
-                    </div>
-                    <div className='flex items-center gap-4'>
-                        <p>Balance:</p>
-                        <span>$123.45</span>
-                    </div>
-                </header> */}
-                <div className='bg-grey-light/10 relative'>
-                    <Badge className='absolute left-[-10px] z-20 top-2'>
-                        Bloqueo
-                    </Badge>
-                <Table className=''>
-            <TableHeader  className='sticky top-0 left-0 bg-darkerBackground dark:bg-dark-black z-10 text-center'>
-                <TableRow>
-                    <TableHead className=''>Pool</TableHead>
-                    <TableHead>Monto</TableHead>
-                    <TableHead>Valor en USD</TableHead>
-                </TableRow>
-            </TableHeader>
-            <TableBody>
-               
-        <DefiPosition mode='loked'/>
-            </TableBody>
-        </Table>
-                </div>
-                
-            </article>
-
-            {/* Staking */}
-
-            <article>
-                {/* <header className='flex justify-between items-center'>
-                    <div>
-                        
-                        <Link
-                            href={`/dashobard`}
-                        >
-                        <h2 className='hover:underline mt-0'>Arbitrum</h2>
-                        </Link>
-                    </div>
-                    <div className='flex items-center gap-4'>
-                        <p>Balance:</p>
-                        <span>$123.45</span>
-                    </div>
-                </header> */}
-                <div className='bg-grey-light/10 relative'>
-                    <Badge 
-                        variant={'Lending'}
-                        className='absolute left-[-10px] z-20 top-2 rounded-sm'>
-                        Staking
-                    </Badge>
-                <Table className=''>
-            <TableHeader className='sticky top-0 left-0 bg-darkerBackground dark:bg-dark-black z-10 text-center'  >
-                <TableRow>
-                    <TableHead className='text-center'>Pool</TableHead>
-                    <TableHead>Monto</TableHead>
-                    <TableHead>Valor en USD</TableHead>
-                </TableRow>
-            </TableHeader>
-            <TableBody>
-                    
-                    <DefiPosition mode='staked' />
             
-            </TableBody>
-        </Table>
-                </div>
-                
-            </article>
-
+            <DefiPositionsCategories />
 
         </section>
         

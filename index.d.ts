@@ -34,7 +34,9 @@ interface BalancesResponse  {
 }
 
 interface DefiPositionsBody {
+  position_name: string,
   name_protocol: string,
+  position_type: string,
   monto_loked: number,
   simbolo: string,
   fiat_value: number,
@@ -43,13 +45,35 @@ interface DefiPositionsBody {
   }
 }
 
+
+
+
+type EachPosition = {
+  [key: string]: {
+    EachPositionInside
+  }[]
+};
+
+export type EachPositionInside = {
+  positions: DefiPositionsBody;
+}
+
+export type EachNetwork = {
+  headers: {};
+  original: {
+    EachPosition: EachPosition;
+  };
+};
 interface DefiPositions {
-  lockedArbitrum: DefiPositionsBody[];
-  stackedArbitrum:   DefiPositionsBody[];
-  stackedScroll: DefiPositionsBody[];
-  lockedScroll: DefiPositionsBody[];
-  lockedEthereum:   DefiPositionsBody[];
-  stackedEthereum: DefiPositionsBody[];
+  // lockedArbitrum: DefiPositionsBody[];
+  // stackedArbitrum:   DefiPositionsBody[];
+  // stackedScroll: DefiPositionsBody[];
+  // lockedScroll: DefiPositionsBody[];
+  // lockedEthereum:   DefiPositionsBody[];
+  // stackedEthereum: DefiPositionsBody[];
+  ArbPositions: EachNetwork[];
+  ScrollPositions: EachNetwork[];
+  EthereumPositions: EachNetwork[];
 }
 
 
