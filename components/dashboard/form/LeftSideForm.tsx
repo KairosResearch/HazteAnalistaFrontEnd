@@ -45,6 +45,7 @@ const LeftSideForm = ({
   return (
     <div className="">
       <div className="nombreblock">
+      
         <CustomField
           type={type}
           name="nombre"
@@ -53,6 +54,7 @@ const LeftSideForm = ({
           render={({ field }) => (
             <>
               <ComboboxName
+              comboSide={null}
                 projects={projectsList}
                 field={field}
                 setSymbol={setSymbol}

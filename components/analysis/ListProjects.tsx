@@ -58,11 +58,18 @@ const ListProjects = () => {
           <SkeletonListItem />
         </div>
       )}
+      {
+        projectsSaved?.length === 0 && !loading && (
+          <div className="flex justify-center items-center h-64">
+            <h2 className="text-2xl text-gray-200">No tienes proyectos guardados</h2>
+          </div>
+        )
+      }
       {projectsSaved?.map((project) => (
         <Card className="p-4" key={project.id_proyecto}>
           <div className="flex flex-row justify-between items-center ">
             <div className="flex gap-4 ">
-              <h2 className="text-2xl pt-0 mt-0 text-green-light">
+              <h2 className="text-2xl pt-0 mt-0 dark:text-green-light text-green-dark">
                 {project.proyecto}
               </h2>
               <Badge
@@ -100,7 +107,7 @@ const ListProjects = () => {
                     href={`/analysis/${project.proyecto}/edit/${project.id_analisis_cualitativo}/${project.id_analisis_cuantitativo}`}
                     onClick={() => setProjectId(project.id_proyectoInicial)}
                   >
-                    <p className=" underline text-gray-200">Editar</p>
+                    <p className=" underline dark:text-gray-200">Editar</p>
                   </Link>
                   
                 </>
@@ -112,7 +119,7 @@ const ListProjects = () => {
                       href={`/analysis/${project.proyecto}/add/0/0`}
                       onClick={() => setProjectId(project.id_proyectoInicial)}
                     >
-                      <p className=" underline text-gray-200">Realizar análisis</p>
+                      <p className=" underline  dark:text-gray-200">Realizar análisis</p>
                     </Link>
                   </>
                   
@@ -128,21 +135,21 @@ const ListProjects = () => {
                 project.tieneAnalisisCualitativo || project.tieneAnalisisCuantitavivo ? (
                   <div>
                   <p>
-                    Progreso del analizis:{(project.respuestaSegundoFetch.filteredCualitative.suma[0] + project.respuestaSegundoFetch.filteredCuantitative.suma[0]) /2} %
+                    Progreso del análisis:{(project.respuestaSegundoFetch.filteredCualitative.suma[0] + project.respuestaSegundoFetch.filteredCuantitative.suma[0]) /2} %
                   </p>
                   <p>
-                    Progreso del analisis cualitativo: {project.respuestaSegundoFetch.filteredCualitative.suma} %
+                    Progreso del análisis cualitativo: {project.respuestaSegundoFetch.filteredCualitative.suma} %
                   </p>
                   <p>
-                      Progreso del analisis cuantitativo: {project.respuestaSegundoFetch.filteredCuantitative.suma} %
+                      Progreso del análisis cuantitativo: {project.respuestaSegundoFetch.filteredCuantitative.suma} %
                   </p>
                 </div>
                 ): null}
             
-            <p className="text-pretty text-primary-foreground/85">
+            <p className="text-pretty text-foreground/85 dark:text-primary-foreground/85">
               Market Cap: $ {project.market_cap.toLocaleString()}
             </p>
-            <p className="text-pretty text-primary-foreground/85">
+            <p className="text-pretty text-foreground/85 dark:text-primary-foreground/85">
               Precio actual: $ {project.price.toLocaleString()}
             </p>
           </CardContent>

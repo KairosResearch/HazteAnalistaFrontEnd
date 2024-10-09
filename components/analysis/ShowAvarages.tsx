@@ -9,6 +9,7 @@ const ShowAvarages = () => {
   useEffect(() => {
     setCuantitativePromedio(0);
     setCaulitativePromedio(0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
 
@@ -17,17 +18,18 @@ const ShowAvarages = () => {
   useEffect(() => {
     setPromedio((cuantitativePromedio + cualitativePromedio)/2);
     console.log("promedio", promedio);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cuantitativePromedio, cualitativePromedio]);
   return (
     <div className="fixed md:sticky md:top-[-1px] h-32 md:h-auto w-1/4  z-20  bg-dark-black/95 text-primary-foreground/70 top-28 right-[-1px] md:w-full rounded flex flex-col text-sm  p-1 px-2">
       <div className="">
-        <h2 className="mt-0"><span className="hidden md:inline">Promedio del proyecto:</span> <span className="">{promedio}%</span> </h2>
+        <h2 className="mt-0"><span className="hidden md:inline">Progreso del proyecto:</span> <span className="">{promedio}%</span> </h2>
       </div>
       <div className="hidden md:block">
-        <h2>Promedio cualitativo: {cualitativePromedio}%</h2>
+        <h2>Progreso cualitativo: {cualitativePromedio}%</h2>
       </div>
       <div className="hidden md:block">
-        <h2>Promedio del cuantitativo: {cuantitativePromedio}%</h2>
+        <h2>Progreso del cuantitativo: {cuantitativePromedio}%</h2>
       </div>
     </div>
   );

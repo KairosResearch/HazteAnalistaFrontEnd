@@ -132,7 +132,7 @@ const RightSideForm = ({
         <CustomField
           type={type}
           name="id_decision_proyecto"
-          formLabel="Decision"
+          formLabel="Decisión"
           className={`  w-full ${type === "update" ? "" : " mb-2 md:mb-0"}`}
           render={({ field }) => (
             <>
@@ -146,7 +146,7 @@ const RightSideForm = ({
                 <SelectTrigger
                   className={`${errors.id_decision_proyecto ? "border-red-500 text-red-500" : ""}`}
                 >
-                  <SelectValue placeholder="Decision sobre el proyecto" />
+                  <SelectValue placeholder="Decisión sobre el proyecto" />
                 </SelectTrigger>
                 <SelectContent>
                   {decision.map((decision) => (
@@ -157,9 +157,9 @@ const RightSideForm = ({
                       <Badge
                         variant={
                           decision.value === 2
-                            ? "decisionWatchlist"
+                            ? "decisionSeguimiento"
                             : decision.value === 3
-                              ? "desicionLeave"
+                              ? "desicionInvertir"
                               : "Ninguno"
                         }
                       >
@@ -171,7 +171,7 @@ const RightSideForm = ({
               </Select>
               {errors.id_decision_proyecto && (
                 <p className="text-red-500 text-sm mt-2">
-                  Decision es obligatorio
+                  Decisión es obligatorio
                 </p>
               )}
             </>

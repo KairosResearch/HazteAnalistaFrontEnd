@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/popover";
 //Hooks
 import { useTabsState } from "@/hooks/useTabs";
+import { useComparativeTokens } from "@/hooks/useComparative";
 
 interface ComboboxDemoProps {
   projects: {
@@ -32,6 +33,7 @@ interface ComboboxDemoProps {
   field: any;
   setSymbol: any;
   clearErrors: any;
+  comboSide: 'left' | 'right' | null;
 }
 
 const ComboboxDemo = ({
@@ -39,14 +41,19 @@ const ComboboxDemo = ({
   field,
   clearErrors,
   setSymbol,
+  comboSide
 }: ComboboxDemoProps) => {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
   const { isReadyNextTab, setIsReadyNextTab } = useTabsState();
+  const {setToken1, setToken2} = useComparativeTokens()
+ 
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
+        
+      
         <Button
           variant="outline"
           role="combobox"
@@ -56,13 +63,17 @@ const ComboboxDemo = ({
           {value
             ? projects.find((project) => String(project.proyecto) === value)
                 ?.proyecto
-            : "Tu proximo proyecto a invertir..."}
+            : comboSide === null ? "Elige un proyecto" 
+            : comboSide === "left" ? "Selecciona A"
+            : "Selecciona B"
+            }
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="p-0 w-full">
         <Command>
-          <CommandInput placeholder="Busca algun proyecto ..." />
+        
+          <CommandInput placeholder="" />
           <CommandList>
             <CommandEmpty>No se encontró proyecto.</CommandEmpty>
             <CommandGroup>
@@ -84,7 +95,14 @@ const ComboboxDemo = ({
                       const symbol = projectSelected?.symbol;
                       return symbol as string;
                     };
-                    setSymbol(foo());
+                    const ticker = foo();
+                    setSymbol(ticker);
+                    if (comboSide === "left") {
+                      setToken1(ticker);
+                    }
+                    if(comboSide === "right"){
+                      setToken2(ticker);
+                    }
 
                     setIsReadyNextTab(true);
                   }}

@@ -1,27 +1,56 @@
 'use client'
 
 import React, {useEffect} from 'react'
-import {getBalances} from '@/services/backend/balances'
+// import {getBalances} from '@/services/backend/balances'
+import { usePortafolio } from '@/hooks/usePortafolio';
+import Loading from '../shared/Loading';
+import { useSelectNetwork } from '@/hooks/usePortafolio'; 
 
 const TotalBalance = () => {
+    const {network} = useSelectNetwork();
+
     const [balance, setBalance] = React.useState(0);
+    const [address, setAddress] = React.useState('');
+    const [loading, setLoading] = React.useState(false);
     useEffect(() => {
-        // Fetch the data from the backend
-        async function fetchData() {
-            const addr = window.localStorage.getItem('wallet');
+        const addr = window.localStorage.getItem('wallet');
+        if(typeof window !== 'undefined' && addr != null){
+            setAddress(addr);
+        }
+    }, []);
 
-            if(typeof window != 'undefined' && addr != null){
-                const response = await getBalances('0x25681Ab599B4E2CEea31F8B498052c53FC2D74db');
+    const { portafolio, isLoading } = usePortafolio(address);
 
-                console.log(response);
-                setBalance(response.TotalBalance);
+    useEffect(() => {
+        if(isLoading){
+            setLoading(true);
+        } else {
+            setLoading(false);
+        }
+    }, [isLoading]);
+
+    useEffect(() => {
+        if(portafolio){
+            switch(network){
+                case 'ethereum':
+                    setBalance(portafolio.ethereum.TotalBalance);
+                    break;
+                case 'arbitrum':
+                    setBalance(portafolio.arbitrum.TotalBalance);
+                    break;
+                case 'scroll':
+                    setBalance(portafolio.scroll.TotalBalance);
+                    break;
             }
         }
-        fetchData();
-    }, []   )
+    }, [portafolio, network]);
+    
   return (
     <div>
-        $ {balance}
+        {
+            loading && <Loading />
+        }
+        $ {balance.toLocaleString()}
     </div>
   )
 }

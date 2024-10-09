@@ -115,7 +115,7 @@ const DashboardDataForm = ({
       const opa = newPrInfo?.data?.[symbol]?.quote?.USD;
       const market_cap = opa?.market_cap;
       const price = opa?.price;
-      price && setEditablePrecio(price.toString());
+      price && setEditablePrecio(price.toLocaleString());
 
       setPrInfo({
         market_cap,
@@ -433,7 +433,7 @@ const DashboardDataForm = ({
                     </TabsContent>
                   </Tabs>
                   {/* for desktop */}
-                  <div className="hidden md:block md:w-2/5 md:px-5 md:border-r">
+                  <div className="hidden md:block md:w-2/5 md:px-5 md:border-r border-dark-grey dark:border-foreground">
                     <LeftSideForm
                       type={type}
                       symbol={symbol}

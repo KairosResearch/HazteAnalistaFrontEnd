@@ -7,6 +7,7 @@ import { handleRegister } from "@/actions/register";
 // import { useUserData} from "@/hooks/useUserData"
 import { useDialogInstructions } from "@/hooks/useDialogs";
 import { useAuthLoadingStatus } from "@/hooks/useLoading";
+import { useWallets } from "@privy-io/react-auth";
 
 function PrivyProviderWrapper({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -41,7 +42,7 @@ function PrivyProviderWrapper({ children }: { children: React.ReactNode }) {
                   window.localStorage.setItem("guzma", data.toString());
                   if(user.wallet?.address){
                     window.localStorage.setItem("wallet", user.wallet.address);
-                    window.localStorage.setItem("chainType", user.wallet.chainType);
+                   
                   }
                 }
                 setIsOpenInstr(true);
@@ -58,10 +59,9 @@ function PrivyProviderWrapper({ children }: { children: React.ReactNode }) {
                   window.localStorage.setItem("guzma", data.toString());
                   if(user.wallet?.address){
                     window.localStorage.setItem("wallet", user.wallet.address);
-                    window.localStorage.setItem("chainType", user.wallet.chainType);
+                   
                   }
                 }
-                console.log("Id del usuario en el login: ", data);
                 router.push("/dashboard");
               }
             }

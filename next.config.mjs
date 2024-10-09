@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // ...existing configuration options...
+  images: {
+    domains: ['static.alchemyapi.io', 's2.coinmarketcap.com', 'cdn.zerion.io'],
+  },
 };
 
 export default nextConfig;

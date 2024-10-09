@@ -11,6 +11,7 @@ import {
   setLastLessonAction,
 } from "@/actions/lessonsActions";
 import { getGuzmaValue } from "@/utils/values";
+import { useLessons } from "@/hooks/useLessons";
 
 interface NavbarLessonsProps {
   numParam: number;
@@ -19,6 +20,9 @@ interface NavbarLessonsProps {
 }
 
 const NavbarLessons = ({ numParam, modulo, leccion }: NavbarLessonsProps) => {
+
+  const {mutate} = useLessons();
+
   useEffect(() => {
     const setCurrentLesson = async () => {
       const guzma = await getGuzmaValue();
@@ -35,7 +39,10 @@ const NavbarLessons = ({ numParam, modulo, leccion }: NavbarLessonsProps) => {
       const guzma = Number(window.localStorage.getItem("guzma"));
 
       if (modulo != undefined) {
-        await saveLessonAction(guzma, modulo, numParam);
+        const saveLessonRead = await saveLessonAction(guzma, modulo, numParam);
+        if(saveLessonRead && mutate){
+          mutate();
+        }
       }
     } else {
       console.log("No hay usuario");
@@ -46,7 +53,7 @@ const NavbarLessons = ({ numParam, modulo, leccion }: NavbarLessonsProps) => {
     <nav
       className={`fixed bottom-0 left-0
         md:sticky md:bottom-0 md:left-0  
-      md:top-0  h-12 bg-primary   flex items-center justify-between w-full
+      md:top-0  h-12 bg-primary text-background dark:text-foreground  flex items-center justify-between w-full
      md:px-4 px-2 py-2 
     `}
     >
@@ -68,7 +75,7 @@ const NavbarLessons = ({ numParam, modulo, leccion }: NavbarLessonsProps) => {
       )}
 
       <h1 className="text-lg md:text-xl">
-        Modulo: {modulo} | {leccion}
+        Módulo: {modulo} | {leccion}
       </h1>
       {numParam === 15 ? (
         <div />

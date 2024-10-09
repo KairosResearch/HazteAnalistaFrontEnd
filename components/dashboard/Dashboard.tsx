@@ -70,7 +70,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
             [];
           setAvaliableProjects(availableProjects);
     }}
-    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [guzma, isLoading, projects]);
   useEffect(() => {
     if (guzma !== null) {
@@ -97,52 +97,6 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
   //State for Dialog info about the projects
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedRow, setSelectedRow] = useState<any>(null);
-
-
-
-
-
-
-
-
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     setLoading(true);
-  //     if (
-  //       typeof window !== undefined &&
-  //       window.localStorage.getItem("guzma") !== null
-  //     ) {
-  //       const guzma = Number(window.localStorage.getItem("guzma"));
-  //       console.log("guzma", guzma);
-  //       // console.log('userid', userId)
-  //       const data = (await handleGetProyects(guzma ?? 0)) as
-  //         | TableData[]
-  //         | string;
-  //       if (typeof data === "string") {
-  //         setTableData([]);
-  //       } else {
-  //         // Crear un conjunto con los nombres de los proyectos ya tomados
-  //         const takenProjectsSet = new Set(data?.map((pr) => pr.proyecto));
-  //         // Filtrar projectList para incluir solo proyectos no tomados
-  //         const availableProjects =
-  //           projectsList?.filter((pr) => !takenProjectsSet.has(pr.proyecto)) ||
-  //           [];
-  //         setAvaliableProjects(availableProjects);
-
-  //         setTableData(data || []);
-  //       }
-  //     }
-  //     setLoading(false);
-  //   };
-  //   fetchData();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [userTableData]);
-
-
-
-
-
 
 
   const sectores = catalogos[3];
@@ -178,7 +132,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                     No hay proyectos registrados.
                     <span
                       id="cta"
-                      className="block md:inline-block"
+                      className="block ml-5 md:inline-block rounded-sm p-3 bg-primary/65 text-muted hover:bg-primary/75 cursor-pointer"
                       onClick={() => setIsOpen(true)}
                     >
                       ¡Registra tu primer proyecto!
@@ -199,10 +153,10 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
           {tableData &&
             tableData.map((data) => (
               <TableRow
-                className=" divide-green-dark hover:bg-primary/10 cursor-pointer"
+                className=" dark:divide-green-dark divide-foreground dark:hover:bg-[#3B8A48]/10 hover:bg-[#1f1f1f]/10 cursor-pointer"
                 key={data.id_proyecto}
               >
-                <TableCell className="border-2 border-r-0 border-green-dark sticky left-[-1px] bg-dark-grey/95 z-10">
+                <TableCell  className="border-2 border-r-0 sticky left-[-1px] bg-darkerBackground/95 dark:bg-dark-grey/95 z-10">
                   <Checkbox
                     checked={prToDelete.includes(data.id_proyecto)}
                     onCheckedChange={(checked) => {
@@ -216,18 +170,18 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                     }}
                   />
                 </TableCell>
-                <TableCell
+                <TableCell 
                   onClick={() => {
                     setSelectedRow(data);
                     setIsDialogOpen(true);
                   }}
-                  className="font-medium sticky left-[1.95rem] bg-dark-grey/95 z-10"
+                  className="font-medium sticky left-[2rem]  bg-darkerBackground/95 dark:bg-dark-grey/95 z-10"
                 >
                   <p className="">{data.proyecto}</p>
                 </TableCell>
 
                 {/* Ticker */}
-                <TableCell
+                <TableCell 
                   onClick={() => {
                     setSelectedRow(data);
                     setIsDialogOpen(true);
@@ -237,7 +191,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                   {data.ticker}
                 </TableCell>
                 {/******Metodo 4E**** */}
-                <TableCell
+                <TableCell 
                   onClick={() => {
                     setSelectedRow(data);
                     setIsDialogOpen(true);
@@ -270,7 +224,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                 </TableCell>
 
                 {/******Decision**** */}
-                <TableCell
+                <TableCell 
                   onClick={() => {
                     setSelectedRow(data);
                     setIsDialogOpen(true);
@@ -279,9 +233,9 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                   <Badge
                     variant={
                       data.id_decision_proyecto === 2
-                        ? "decisionWatchlist"
+                        ? "decisionSeguimiento"
                         : data.id_decision_proyecto === 3
-                          ? "desicionLeave"
+                          ? "desicionInvertir"
                           : "Ninguno"
                     }
                   >
@@ -294,7 +248,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                 </TableCell>
 
                 {/******Sector**** */}
-                <TableCell
+                <TableCell 
                   className=""
                   onClick={() => {
                     setSelectedRow(data);
@@ -342,7 +296,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                 </TableCell>
 
                 {/******Exchange**** */}
-                <TableCell
+                <TableCell 
                   onClick={() => {
                     setSelectedRow(data);
                     setIsDialogOpen(true);
@@ -354,9 +308,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                         ? "binance"
                         : data.idExchange === 3
                           ? "coinbase"
-                          : data.idExchange === 4
-                            ? "kraken"
-                            : "decisionWatchlist"
+                          : "kraken"
                     }
                   >
                     {data.idExchange === 2
@@ -370,7 +322,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                 </TableCell>
 
                 {/******precio entrada**** */}
-                <TableCell
+                <TableCell 
                   onClick={() => {
                     setSelectedRow(data);
                     setIsDialogOpen(true);
@@ -381,7 +333,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                 </TableCell>
 
                 {/****** precio actual**** */}
-                <TableCell
+                <TableCell 
                   onClick={() => {
                     setSelectedRow(data);
                     setIsDialogOpen(true);
@@ -392,8 +344,8 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                 </TableCell>
 
                 {/******Si ATH**** */}
-                <TableCell
-                className="flex justify-center align-middle"
+                <TableCell 
+                className="whitespace-nowrap"
                   onClick={() => {
                     setSelectedRow(data);
                     setIsDialogOpen(true);
@@ -407,7 +359,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                 </TableCell>
 
                 {/******Market Cap**** */}
-                <TableCell
+                <TableCell 
                   onClick={() => {
                     setSelectedRow(data);
                     setIsDialogOpen(true);
@@ -417,7 +369,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                   $ {data.market_cap.toLocaleString()}
                 </TableCell>
                 {/******Rango**** */}
-                <TableCell
+                <TableCell 
                   onClick={() => {
                     setSelectedRow(data);
                     setIsDialogOpen(true);

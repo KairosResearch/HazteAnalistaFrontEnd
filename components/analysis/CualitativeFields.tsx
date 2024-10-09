@@ -6,14 +6,6 @@ import { Input } from "@/components/ui/input";
 //customField
 import { CustomField } from "@/components/shared/CustomField";
 
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 //UI needed
 import { Checkbox } from "../ui/checkbox";
 import { Button } from "../ui/button";
@@ -23,7 +15,7 @@ import { ValueObject } from "@/index";
 
 interface CualitativeFieldsProps {
   mode: "add" | "edit-both" | "edit-cual" | "edit-cuant";
-  data: AnalysisCatalogs;
+  data: any;
   setCualitativeValues: (value: any) => void;
 }
 
@@ -46,7 +38,7 @@ const CualitativeFields = ({
 
   return (
     <>
-      {data.map((item, index: number) => {
+      {data.map((item: any, index: number) => {
         return (
           <CustomField
             key={index}
@@ -63,7 +55,7 @@ const CualitativeFields = ({
             render={({ field }) => (
               
                 <div className="w-full flex flex-col gap-3 ml-6">
-                  {item.map((item) => (
+                  {item.map((item: any) => (
                     <div key={item.id} className="flex items-center gap-3">
 
 <Checkbox
@@ -85,7 +77,7 @@ const CualitativeFields = ({
                         return iDunno(checked as boolean);
                       }}
                     />
-                      <span className="text-grey-light/90"> {item.item}</span>
+                      <span className="text-foreground dark:text-grey-light/90"> {item.item}</span>
                         
                     </div>
                     

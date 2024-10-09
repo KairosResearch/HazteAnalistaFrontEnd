@@ -4,6 +4,7 @@ import { Bold, Italic, Underline } from "lucide-react"
 import 'draft-js/dist/Draft.css';
 import { Button } from '@/components/ui/button';
 import { stateToHTML } from 'draft-js-export-html';
+import { useDialogsNotes } from '@/hooks/useDialogs';
 
 import {
     ToggleGroup,
@@ -27,24 +28,39 @@ const customStyleMap = {
 
 interface TextEditorProps {
   id: number;
-  initialValue: string| null;
   closeEditor: () => void;
+  updateNote: (guzma: number, id:number, html: string) => void;
+  note: string | null;
 }
 
-const TextEditor = ({id, initialValue, closeEditor}: TextEditorProps) => {
-  const [guzma, setGuzma] = useState<number | null>(null);
+const TextEditor = ({id, closeEditor, updateNote, note}: TextEditorProps) => {
 
-  useEffect(() => {
-    if (typeof window !== 'undefined' && window.localStorage.getItem("guzma") !== null) {
-      setGuzma(Number(window.localStorage.getItem("guzma")));
-    }
-  }, []);
-  const {  mutate } = useProjects(guzma ?? 0);
+  // const {initialValue} = useDialogsNotes();
+
+
+
+
+  // const [valueInEditor, setValueInEditor] = useState<string | null>(null);
+
+  // useEffect(() => {
+  //   if (initialValue) {
+  //     setValueInEditor(initialValue);
+  //   }
+  // }, [initialValue]);
+  // const [guzma, setGuzma] = useState<number | null>(null);
+
+  // useEffect(() => {
+  //   if (typeof window !== 'undefined' && window.localStorage.getItem("guzma") !== null) {
+  //     setGuzma(Number(window.localStorage.getItem("guzma")));
+  //   }
+  // }, []);
+  // const {  mutate } = useProjects(guzma ?? 0);
 
 
   const [editorState, setEditorState] = useState(() => {
-    if (initialValue) {
-      const blocksFromHTML = convertFromHTML(initialValue);
+    console.log('Montando componente de editor por primera vez');
+    if (note) {
+      const blocksFromHTML = convertFromHTML(note);
       const contentState = ContentState.createFromBlockArray(
         blocksFromHTML.contentBlocks,
         blocksFromHTML.entityMap
@@ -54,19 +70,29 @@ const TextEditor = ({id, initialValue, closeEditor}: TextEditorProps) => {
       return EditorState.createEmpty();
     }
   });
-  const editor = useRef<Editor | null>(null);
-
-  const [success, setSuccess] = useState(false);
-
   const focusEditor = () => {
     if (editor.current) {
       editor.current.focus();
     }
   };
-
   useEffect(() => {
+    console.log('Valor inicial', note);
+    if (note) {
+      const blocksFromHTML = convertFromHTML(note);
+      const contentState = ContentState.createFromBlockArray(
+        blocksFromHTML.contentBlocks,
+        blocksFromHTML.entityMap
+      );
+      EditorState.createWithContent(contentState)
+      
+    }
+    
     focusEditor();
-  }, []);
+  }, [note]);
+
+  const editor = useRef<Editor | null>(null);
+
+
 
   const handleKeyCommand = (command: string, editorState: EditorState) => {
     const newState = RichUtils.handleKeyCommand(editorState, command);
@@ -116,29 +142,22 @@ const TextEditor = ({id, initialValue, closeEditor}: TextEditorProps) => {
       const guzma = localStorage.getItem('guzma');
       if(guzma){
         console.log('lLegando a subir nota');
-        const updatedNote = await handleUpdateNote(parseInt(guzma), html, id);
-        if(updatedNote){
-          setSuccess(true);
-          mutate();
-          // Después de 1 segundo, establecer success en false
+        updateNote(Number(guzma), id, html);
+       
           setTimeout(() => {
-              setSuccess(false);
+              
               closeEditor();
-          }, 1000);        
+          }, 3000);        
         }
       }
 
 
-  };
+  ;
 
   return (
     <div className='grid gap-9'>
-      {
-        success && <div className="fixed bottom-6 right-4 bg-green-500 text-white mx-4 z-50 px-4 py-2 rounded shadow-lg transition-opacity duration-1000">
-        Actualizado!
-    </div>
-      }
-      <div className="flex gap-4">
+    
+      <div className="flex gap-4 dark:text-white">
       <ToggleGroup variant="outline" type="multiple">
       <ToggleGroupItem className='p-1 md:p-2' value="bold" aria-label="Toggle bold" onClick={onBoldClick}>
         <Bold className="h-4 w-4" />  
@@ -155,9 +174,10 @@ const TextEditor = ({id, initialValue, closeEditor}: TextEditorProps) => {
         <button className='bg-green-200 h-6 w-8' onClick={onHighlightGreenClick}></button>
         <button className='bg-blue-300  h-6 w-8 ' onClick={onHighlightBlueClick}></button> */}
       </div>
-      <div onClick={focusEditor} className="border p-6 min-h-24 h-64 overflow-y-scroll cursor-text"
+      <div onClick={focusEditor} className="border p-6 min-h-24 h-64 overflow-y-scroll cursor-text dark:text-white"
       >
         <Editor
+        
           ref={editor}
           editorState={editorState}
           onChange={setEditorState}
@@ -169,7 +189,7 @@ const TextEditor = ({id, initialValue, closeEditor}: TextEditorProps) => {
       <Button
         onClick={handleSendClick}
       >
-        Enviar 
+      Guardar
       </Button>
     </div>
   );

@@ -20,11 +20,18 @@ const page = async () => {
 
   return (
     <main>
-      <h1>Análisis express a profundidad:</h1>
+      {/* <h1>Análisis express a profundidad:</h1> */}
 
       <section className="px-1">
-        <h2>Tu lista de proyectos guardados:</h2>
-        <p>Analiza un proyecto de manera cuantitativa y cualitativa.</p>
+        <h1>Lista de tus proyectos analizados:</h1>
+        <p>
+          En este apartado podrás visualizar los proyectos registrados y
+          realizar análisis mediante nuestro checklist, conocido como análisis
+          express. Este proceso te permite asignar una puntuación rápida a tus
+          proyectos, evaluando tanto aspectos cualitativos como cuantitativos.
+          De esta forma, podrás valorar de manera eficiente los elementos clave
+          de cada proyecto.
+        </p>
         <section className="my-8">
           <ListProjects />
         </section>

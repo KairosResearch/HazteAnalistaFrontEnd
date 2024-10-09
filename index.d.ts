@@ -1,3 +1,5 @@
+import { DefineEnv } from "next/dist/build/swc";
+
 export type CatalogosType = {
   value: number;
   label: string;
@@ -7,6 +9,71 @@ interface AveragesProps {
   cualitativePromedio: number;
   setCuantitativePromedio: (newState: number) => void;
   setCaulitativePromedio: (newState: number) => void;
+}
+
+interface Balances {
+    logo: string;
+    simbolo: string;
+    balanceFiat: number;
+    balanceCrypto: number;
+    valorUnitCrypto: number;
+}
+interface BalancesInPie {
+  logo: string;
+  simbolo: string;
+  balanceFiat: number;
+    balanceCrypto: number;
+    valorUnitCrypto: number;
+  color: string
+}
+
+interface BalancesResponse  {
+  arbitrum: {Balances: Balances[], TotalBalance: number};
+  scroll:   {Balances: Balances[], TotalBalance: number};
+  ethereum: {Balances: Balances[], TotalBalance: number};
+}
+
+interface DefiPositionsBody {
+  position_name: string,
+  name_protocol: string,
+  position_type: string,
+  monto_loked: number,
+  simbolo: string,
+  fiat_value: number,
+  icon_url: {
+    url: string
+  }
+}
+
+
+
+
+type EachPosition = {
+  [key: string]: {
+    EachPositionInside
+  }[]
+};
+
+export type EachPositionInside = {
+  positions: DefiPositionsBody;
+}
+
+export type EachNetwork = {
+  headers: {};
+  original: {
+    EachPosition: EachPosition;
+  };
+};
+interface DefiPositions {
+  // lockedArbitrum: DefiPositionsBody[];
+  // stackedArbitrum:   DefiPositionsBody[];
+  // stackedScroll: DefiPositionsBody[];
+  // lockedScroll: DefiPositionsBody[];
+  // lockedEthereum:   DefiPositionsBody[];
+  // stackedEthereum: DefiPositionsBody[];
+  ArbPositions: EachNetwork[];
+  ScrollPositions: EachNetwork[];
+  EthereumPositions: EachNetwork[];
 }
 
 
@@ -27,19 +94,45 @@ interface DialogInstrHookProps {
   defaultTab: "first-part" | "second-part";
   setDefaultTab: (tab: "first-part" | "second-part") => void;
 }
+
+interface DialogNotes {
+  isOpenNote: boolean;
+  setIsOpenNote: (newState: boolean) => void;
+  idProject: number;
+  setIdProject: (newProjectId: number) => void;
+  initialValue: null | string;
+  setInitialValue: (newState: string| null) => void
+}
 interface AuthLoadingStatusProps {
   isLoading: boolean;
   setIsLoading: (newState: boolean) => void;
+}
+
+interface ComparativeInfoProps {
+  comparativeInfo: ComparativeInfo[];
+  setComparativeInfo: (newState: ComparativeInfo[]) => void;
+  token1: string;
+  setToken1: (newState: string) => void;
+  token2: string;
+  setToken2: (newState: string) => void;
+  loading: boolean;
+  setLoading: (newState: boolean) => void;
 }
 interface ValueObject {
   field: string;
   value: number;
 }
-export type AnalysisCatalogs = {
+interface AnalysisCatalogs {
   id: number;
   item: string;
   value: number;
-}[][];
+};
+
+export type BothCatalogos = {
+  dropdownNeedsCuantitative: AnalysisCatalogs[];
+  dropdownNeedsCualitative: AnalysisCatalogs[];
+};
+
 
 interface UserProps {
   id: number;
@@ -67,6 +160,7 @@ interface TableData {
   tieneAnalisisCuantitavivo: boolean
   id_analisis_cualitativo: number ;
   id_analisis_cuantitativo: number ;
+  nota: string | null;
 }
 
 interface ProjectsDataWithAnalisis extends TableData {
@@ -267,28 +361,6 @@ interface LessonProps {
   html_portada: string;
   html_leccion: string;
 }
-// interface AnalisysInitialvaluesCual {
-//   id_usuario: number[];
-//   id_proyecto: number[];
-//   id_caso_uso: number[];
-//   id_integrantes_equipo: number[];
-//   id_auditoria: number[];
-//   id_roadmap: number[];
-//   id_comunidad: number[];
-//   id_financiamiento: number[];
-//   id_whitepapaers: number[];
-//   id_alianzas: number[];
-//   suma: number;
-// }
-// interface AnalisysInitialvaluesCuant {
-//   id_usuario: number[];
-//   id_proyecto: number[];
-//   id_tokenomic: number[];
-//   id_movimientosOnChain: number[];
-//   id_metricasExchage: number[];
-//   id_financiamitos: number[];
-//   suma: number;
-// }
 
 interface AnalysisFromGetCualitative {
   alianzas: number[];
@@ -328,4 +400,27 @@ interface AllModules {
   "Módulo 1": LessonProps[];
   "Módulo 2": LessonProps[];
   "Módulo 3": LessonProps[];
+}
+
+
+interface ComparativeInfo {
+      MakCapA:  number;
+      MakCapB: number;
+      ProyecPrecio: number;
+      NoX: number;
+      PorcentajeX: number;
+      Progreso: number;
+}
+
+interface LeccionUser {
+    id_usuario: number;
+    id_leccion: number;
+    id_modulo: number;
+    siFinalizo: number;
+}
+interface SelectNetworkProps {
+  network: string;
+  setNetwork: (newAddress: string) => void;
+//   addresses: string[];
+//   setAddresses: (newAddresses: string[]) => void;
 }

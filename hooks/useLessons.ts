@@ -19,15 +19,15 @@ export const useLessons = () => {
     lessons: [],
     isLoading: true,
     isError: null,
+    mutate: undefined
   };
 
   if (typeof window !== "undefined") {
     const guzma = localStorage.getItem("guzma");
     if (guzma) {
       const id = parseInt(guzma);
-      console.log("Id de guzma en useLessons" + id);
-
-      const { data, error, isLoading } = useSWR(
+      
+      const { data, error, isLoading, mutate } = useSWR(
         `getLecciones/${id}`,
         getLessonsByUser,
       );
@@ -45,6 +45,7 @@ export const useLessons = () => {
         lessons: data,
         isLoading,
         isError: error,
+        mutate
       };
     }
   }

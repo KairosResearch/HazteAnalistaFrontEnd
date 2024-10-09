@@ -1,5 +1,5 @@
 "use server";
-import { AllModules, LessonProps } from "@/index";
+import { AllModules, LeccionUser, LessonProps } from "@/index";
 import { AUTH_URL } from "./urls";
 
 export const getLessons = async (): Promise<AllModules | undefined> => {
@@ -9,7 +9,7 @@ export const getLessons = async (): Promise<AllModules | undefined> => {
       headers: {
         "Content-Type": "application/json",
       },
-      cache: "reload",
+      cache: "no-cache",
     });
 
     const data = await response.json();
@@ -21,7 +21,7 @@ export const getLessons = async (): Promise<AllModules | undefined> => {
 
 //This function is the fetcher for the SWR useLessonsHook.
 //The key to that function is the url + the id of the user
-export const getLessonsByUser = async (route: string) => {
+export const getLessonsByUser = async (route: string): Promise<LeccionUser[] | undefined> => {
   try {
     const response = await fetch(`${AUTH_URL}${route}`, {
       method: "GET",

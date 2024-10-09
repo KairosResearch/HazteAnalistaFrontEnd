@@ -128,7 +128,7 @@ const DialogInstructions = () => {
   return (
     <div>
       {isOpenInstr && (
-        <div className="fixed inset-0 z-50 bg-black bg-opacity-50 ">
+        <div className="fixed inset-0 z-50 bg-black bg-opacity-10 ">
           <div
             className={`
               ${
@@ -155,21 +155,31 @@ const DialogInstructions = () => {
               <X size={20} />
             </button>
 
-            <div className="flex justify-between items-center">
-              <h2 className="text-lg font-semibold text-center">
-                <span>
+            <div className="">
+              <h2 className="text-lg font-semibold text-center mt-0">
+                
                   {instructionsSteps.find((item) => item.id === step)?.title}
-                </span>
+                
               </h2>
             </div>
             <div className="p-4">
               <p className="text-sm font-semibold text-center mb-4">
-                <span>
+                
                   {
                     instructionsSteps.find((item) => item.id === step)
-                      ?.description
+                      ?.description.split('\n').map((item, index) => (
+                        <>
+                          <span key={index}>
+                            {item}
+                            
+                          </span>
+                          <br />
+                          <br />
+                        </>
+                        
+                      ))
                   }
-                </span>
+                
               </p>
 
               <div className="flex items-center justify-between">

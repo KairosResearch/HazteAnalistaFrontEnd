@@ -11,7 +11,7 @@ const AddProjectButton = () => {
   return (
     <div
       className="hover:bg-card-foreground hover:text-card text-card-foreground rounded-lg px-4 text-sm font-bold
-                border border-input bg-background hover:cursor-pointer"
+                border dark:border-input border-foreground bg-background hover:cursor-pointer"
       onClick={() => {
         setIsOpen(!isOpen);
         setMode("add");

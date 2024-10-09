@@ -21,7 +21,7 @@ let greenDark = "#319383";
 let greyLight = "#d9d9d9";
 
 const config = {
-  darkMode: ["class"],
+  darkMode: "class",
   content: [
     "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
@@ -39,14 +39,14 @@ const config = {
     },
     extend: {
       backgroundImage: {
-        "hero-pattern": "url('/backgrounds/bg-hero-login.jpg')",
+        "hero-pattern": "url('/backgrounds/login.png')",
         "footer-texture": "url('/img/footer-texture.png')",
         "page-texture": "url('/backgrounds/rombos.png')",
       },
       scrollbar: {
         thin: "10px",
         thumb: "#888",
-        track: "#f1f1f1",
+        track: "hsl(var(--background))",
       },
       colors: {
         ring: "hsl(var(--ring))",
@@ -64,9 +64,13 @@ const config = {
         grey: {
           light: greyLight,
         },
+
+        //Light theme staff
+
+        darkerBackground: '#edecef',
         primary: {
-          DEFAULT: greenDark,
-          foreground: greyLight,
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -77,7 +81,7 @@ const config = {
         //   foreground: "hsl(var(--popover-foreground))",
         // },
         destructive: {
-          DEFAULT: "hsl(var(--destructive))",
+          DEFAULT: "#913F3B",
           foreground: "hsl(var(--destructive-foreground))",
         },
         card: {
@@ -176,7 +180,7 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("tailwind-scrollbar"), require('daisyui'),],
+  plugins: [require("tailwindcss-animate"), require("tailwind-scrollbar")],
   corePlugins: {
     position: true,
   },

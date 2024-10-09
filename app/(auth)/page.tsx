@@ -39,15 +39,15 @@ const Login = () => {
   // }
 
   return (
-    <div className="bg-[#2c2c2c] p-2 py-5 lg:p-10 rounded-lg shadow-md w-full">
-      <h2 className="text-3xl md:text-4xl xl:text-5xl font-bold mb-10 text-center">
+    <div className="dark:bg-[#2c2c2c] bg-[#D9D9D9] p-2 py-5 lg:p-10 rounded-lg shadow-md w-full">
+      <h2 className="text-3xl md:text-4xl xl:text-5xl  font-bold mb-10 text-center">
         Iniciar Sesión
       </h2>
       <div className="">
-        <p className="text-center text-white">
+        <p className="text-center dark:text-white text-primary">
           Bienvenido de nuevo a Kairos Research
         </p>
-        <p className="text-center text-white">Inicia sesión para continuar</p>
+        <p className="text-center dark:text-white text-primary">Inicia sesión para continuar</p>
       </div>
 
       <PrivyBox />

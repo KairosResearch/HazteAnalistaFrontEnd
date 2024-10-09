@@ -37,16 +37,15 @@ const Lessons = ({ allModules }: LessonsProps) => {
   const { activeMenu } = useStateContext();
   const [lessons, setLessons] = React.useState<LessonProps[]>([]);
   const [loading, setLoading] = React.useState<boolean>(false);
-  const [lessonsCompleted, setLessonsCompleted] = React.useState<any[]>([]);
 
-  const { module, completed, isLoading, isError } = useLessons();
+  const { module, completed, isLoading } = useLessons();
 
   useEffect(() => {
     const meCompota = async () => {
       // setLoading(true);
-      console.log("Holaa");
 
-      console.log(module);
+
+     
       if (allModules != undefined) {
         if (module === 2) {
           const moduleLesson = allModules["Módulo 2"];
@@ -62,31 +61,30 @@ const Lessons = ({ allModules }: LessonsProps) => {
       // setLoading(false);
     };
     meCompota();
-    if (completed !== undefined && completed !== null) {
-      setLessonsCompleted(completed);
-    }
+    //eslint-disable-next-line react-hooks/exhaustive-deps   
   }, [module]);
 
-  console.log(lessons);
+  
   return (
     <>
       {/* Carousel de lecciones */}
       <div
         className={` hidden md:flex 2xl:p-14 2xl:py-2 2xl:px-20 md:px-10 2xl:mt-9 mt-3 `}
       >
-        {isLoading && (
-          <div className="flex gap-3">
-            <SkeletonCard />
-            <SkeletonCard />
-            <SkeletonCard />
-          </div>
-        )}
+        
         <Carousel
           opts={{
             loop: true,
           }}
           // className={`w-full ${!activeMenu ? 'md:max-2xl:w-[90%]': ''} `}
         >
+          {isLoading && (
+          <div className="flex gap-3">
+            <SkeletonCard />
+            <SkeletonCard />
+            <SkeletonCard />
+          </div>
+        )}
           <CarouselPrevious></CarouselPrevious>
           <CarouselContent className={` flex items-stretch`}>
             {lessons.map((lesson) => {
@@ -105,7 +103,7 @@ const Lessons = ({ allModules }: LessonsProps) => {
                     lessonNumber={lesson.numero_leccion}
                     link={link}
                     status={
-                      lessonsCompleted.find((item) => item === portada.id)
+                      completed.find((item:number) => item === portada.id)
                         ? 1
                         : 0
                     }
@@ -138,7 +136,7 @@ const Lessons = ({ allModules }: LessonsProps) => {
               lessonNumber={lesson.numero_leccion}
               link={link}
               status={
-                lessonsCompleted.find((item) => item === portada.id) ? 1 : 0
+                completed.find((item: number) => item === portada.id) ? 1 : 0
               }
             />
           );

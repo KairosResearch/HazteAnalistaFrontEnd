@@ -26,56 +26,65 @@ export const handleGetSingleAnalysis = async (
 };
 
 export const handleCreateAnalysis = async (
-  data: any,
+  dataCualitative: any,
+  dataCuantitative: any,
   guzma: number,
   projectId: number,
-  type: string,
 ) => {
-  const requestBody = {
+  const requestBodyCualitative = {
     idUsuario: guzma,
     idProyecto: projectId,
-    ...data,
+    ...dataCualitative,
   };
-  console.log("Request Body", requestBody);
-  console.log(type);
-  if (type === "cual") {
-    const res = await postAnalisisCualitativo(requestBody);
-    if (res.message === "Analisis Cualitativo guardado exitosamente!") {
+  const requestBodyCuantitative = {
+    idUsuario: guzma,
+    idProyecto: projectId,
+    ...dataCuantitative,
+  };
+  // console.log("Request Body", requestBody);
+  // console.log(type);
+  // if (type === "cual") {
+    const [resCual, resCuant] = await Promise.all([
+      postAnalisisCualitativo(requestBodyCualitative),
+      postAnalisisCuantitativo(requestBodyCuantitative)
+  ]);
+  
+  if (resCual.message === "Analisis Cualitativo guardado exitosamente!" || resCuant.message === "Analisis Cuantitativo guardado exitosamente!") {
       return true;
-    }
-  } else {
-    const res = await postAnalisisCuantitativo(requestBody);
-    if (res.message === "Analisis Cuantitativo guardado exitosamente!") {
-      return true;
-    }
   }
+  
 };
 
 export const handleUpdateAnalysis = async (
-  data: any,
+  dataCualitative: any,
+  dataCuantitative: any,
   guzma: number,
   projectId: number,
-  type: string,
-  analysisId: number,
+  
+  analysisCualId: number,
+  analysisCuantId: number,
 ) => {
-  const requestBody = {
+  const requestBodyCualitative = {
     idUsuario: guzma,
     idProyecto: projectId,
-    idAnalisis: analysisId,
-    ...data,
+    idAnalisis: analysisCualId,
+    ...dataCualitative,
   };
-  console.log("Request Body", requestBody);
-  console.log(type);
-  if (type === "cual") {
-    const res = await updateAnalisisCualitativo(requestBody);
-    console.log(res);
-    if (res) {
-      return true;
+
+  const requestBodyCuantitative = {
+    idUsuario: guzma,
+    idProyecto: projectId,
+    idAnalisis: analysisCuantId,
+    ...dataCuantitative,
+  };
+  // console.log("Request Body", requestBody);
+  // console.log(type);
+    const [resCual, resCuant] = await Promise.all([
+      updateAnalisisCualitativo(requestBodyCualitative),
+      updateAnalisisCuantitativo(requestBodyCuantitative)
+    ]);
+
+    if (resCual || resCuant) {
+        return true;
     }
-  } else {
-    const res = await updateAnalisisCuantitativo(requestBody);
-    if (res) {
-      return true;
-    }
-  }
 };

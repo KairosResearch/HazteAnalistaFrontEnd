@@ -1,8 +1,8 @@
 'use server';
 
-import { updateNote } from "@/services/backend/notes";
+import { updateNote, getNote } from "@/services/backend/notes";
 
-export const handleUpdateNote = async (guzma: number, note: string, id: number) => {
+export const handleUpdateNote = async (guzma: number, id: number, note: string ) => {
     try {
         const body = {
             idUsuario: guzma,
@@ -10,9 +10,21 @@ export const handleUpdateNote = async (guzma: number, note: string, id: number) 
             nota: note
         }
         console.log(body);
-        const r = await updateNote(body);
-        if (r["Nota modificada correctamente¡"]) {
-            return true;
+        const res = await updateNote(body);
+        if (res) {
+            console.log(res)
+            return res[0].notas;
+        }
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export const handleGetNote = async (guzma: number, id: number) => {
+    try {
+        const res = await getNote(guzma, id);
+        if (res) {
+            return res[0].notas;
         }
     } catch (error) {
         console.error(error);
