@@ -34,6 +34,8 @@ interface ComboboxDemoProps {
   setSymbol: any;
   clearErrors: any;
   comboSide: 'left' | 'right' | null;
+  value: string;
+  setValue: (value: string) => void;
 }
 
 const ComboboxDemo = ({
@@ -41,10 +43,12 @@ const ComboboxDemo = ({
   field,
   clearErrors,
   setSymbol,
-  comboSide
+  comboSide,
+  value, 
+  setValue
 }: ComboboxDemoProps) => {
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("");
+  
   const { isReadyNextTab, setIsReadyNextTab } = useTabsState();
   const {setToken1, setToken2} = useComparativeTokens()
  

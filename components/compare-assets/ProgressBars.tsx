@@ -14,9 +14,13 @@ const ProgressBars = () => {
     const { token1, token2} = useComparativeTokens();
     const [higherMarketCap, setHigherMarketCap] = useState(0);
     const [lowerMarketCap, setLowerMarketCap] = useState(0);
+    const [sameToken, setSameToken] = useState(false);
 
     React.useEffect(() => {
-        if (token1 && token2) {
+        if (token1 && token2 && token1.trim() !== '' && token2.trim() !== '') {
+            if(token1 === token2){
+                setSameToken(true)
+            }
             
 
             // Llamar al endpoint con los últimos dos valores
@@ -56,7 +60,12 @@ const ProgressBars = () => {
 
   return (
     <>
-        {/* {comparativeInfo.length === 0 && <p>Selecciona dos activos para comparar</p>} */}
+        {sameToken && (
+            <h2 className='text-center text-red-500  dark:text-grey-light'>
+                No puedes comparar el mismo activo!
+            </h2>
+        )}
+
         {loading && <SkeletonComparative />}    
         {!loading && comparativeInfo.length != 0 && (
             <>
