@@ -16,13 +16,14 @@ const ProgressBars = () => {
     const [lowerMarketCap, setLowerMarketCap] = useState(0);
     const [sameToken, setSameToken] = useState(false);
 
+    //to reset the state when the component is unmounted
+    React.useEffect(() => {
+        setComparativeInfo([])
+        setSameToken(false)
+    }, [])
+
     React.useEffect(() => {
         if (token1 && token2 && token1.trim() !== '' && token2.trim() !== '') {
-            if(token1 === token2){
-                setSameToken(true)
-            }
-            
-
             // Llamar al endpoint con los últimos dos valores
             const fetchData = async () => {
                 setLoading(true);
@@ -38,7 +39,20 @@ const ProgressBars = () => {
                 }
                 setLoading(false)
             };
-            fetchData()
+            console.log('Token1:', token1)
+            console.log('Token2:', token2)
+            console.log('Llegando al useEffect que se actualiza cada vez que se cambia un token')
+            //Same token cant be compared
+            if(token1 === token2){
+                setSameToken(true)
+            } else {
+                setSameToken(false)
+                fetchData()
+            }
+            
+
+            
+           
             
         }
     }, [token1, token2]);
@@ -48,15 +62,15 @@ const ProgressBars = () => {
             const { MakCapA, MakCapB } = comparativeInfo[0];
             if (MakCapA > MakCapB) {
                 setHigherMarketCap(MakCapA);
-                setLowerMarketCap(MakCapB);
+                setLowerMarketCap(MakCapB??0);
             } else if (MakCapB > MakCapA) {
                 setHigherMarketCap(MakCapB);
-                setLowerMarketCap(MakCapA);
+                setLowerMarketCap(MakCapA??0);
             } 
         }
     }, [comparativeInfo]);
 
-    console.log('Esta loading?',loading)
+   
 
   return (
     <>
@@ -67,7 +81,7 @@ const ProgressBars = () => {
         )}
 
         {loading && <SkeletonComparative />}    
-        {!loading && comparativeInfo.length != 0 && (
+        {!sameToken && !loading && comparativeInfo.length != 0 && (
             <>
                 <h2 className='text-center text-lg font-light  dark:text-grey-light'>
                 ${token1} con  el market cap de ${token2}

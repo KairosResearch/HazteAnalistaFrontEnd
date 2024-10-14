@@ -56,15 +56,16 @@ const SelectAssetsName = ({
             <Card className='w-5/12 bg-grey-light/20'>
                     <CardContent className='flex justify-between items-center w-full '>
 
-                        <ComboboxDemo
-                            projects={projectsList}
-                            field={field}
-                            setSymbol={setSymbol}
-                            value={valueA}
-                            setValue={setValueA}
-                            clearErrors={(name: string) => {return}}
-                            comboSide={changedPosition ? 'right' : 'left'}
-                        />
+                    <ComboboxDemo
+                        projects={projectsList}
+                        field={field}
+                        setSymbol={setSymbol}
+                        value={changedPosition ? valueB : valueA}
+                        setValue={changedPosition ? setValueB : setValueA}
+                        clearErrors={(name: string) => { return; }}
+                        comboSide={'left'}
+                    />
+                        
                      
                       
                     </CardContent>
@@ -79,8 +80,8 @@ const SelectAssetsName = ({
                         setChangedPosition(!changedPosition);
                         setToken1(token2)
                         setToken2(token1)
-                        setValueA(valueB)
-                        setValueB(valueA)
+                        // setValueA(valueB)
+                        // setValueB(valueA)
                     }}
                 >
 
@@ -90,14 +91,14 @@ const SelectAssetsName = ({
                     <CardContent className='flex justify-between items-center w-full '>
 
                     <ComboboxDemo
-                            projects={projectsList}
-                            field={field}
-                            setSymbol={setSymbol}
-                            value={valueB}
-                            setValue={setValueB}
-                            clearErrors={(name: string ) => {return}}
-                            comboSide={changedPosition ? 'left' : 'right'}
-                        />
+                        projects={projectsList}
+                        field={field}
+                        setSymbol={setSymbol}
+                        value={changedPosition ? valueA : valueB}
+                        setValue={changedPosition ? setValueA : setValueB}
+                        clearErrors={(name: string) => { return; }}
+                        comboSide={'right'}
+                    />
                         
                   
                   

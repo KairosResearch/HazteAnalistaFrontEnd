@@ -3,8 +3,7 @@
 import { BASE_URL } from "./urls";
 export const getProyectNumbers = async (symbol: string) => {
   try {
-    console.log("Llegando a getProyectNumbers");
-    console.log("symbol", symbol);
+   
     const parameters = {
       symbol: symbol,
       convert: "USD",

@@ -51,6 +51,14 @@ const ComboboxDemo = ({
   
   const { isReadyNextTab, setIsReadyNextTab } = useTabsState();
   const {setToken1, setToken2} = useComparativeTokens()
+
+  if(comboSide === "left") {
+    console.log('valueA', value)
+  } else if(comboSide === "right") {
+    console.log('valueB', value)
+  } else {
+    console.log('comboSide is null')
+  }
  
 
   return (
@@ -102,11 +110,12 @@ const ComboboxDemo = ({
                     const ticker = foo();
                     setSymbol(ticker);
                     if (comboSide === "left") {
+                      console.log('Setting token1 on izquierda:', ticker)
                       setToken1(ticker);
-                    }
-                    if(comboSide === "right"){
+                    } else if(comboSide === "right"){
+                      console.log('Setting token2 on derecha:', ticker)
                       setToken2(ticker);
-                    }
+                    } else null;
 
                     setIsReadyNextTab(true);
                   }}
