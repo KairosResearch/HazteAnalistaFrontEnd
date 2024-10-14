@@ -26,6 +26,15 @@ interface BalancesInPie {
     valorUnitCrypto: number;
   color: string
 }
+interface BalancesDefi {
+  protocolName: string;
+  totalBalance: number;
+}
+interface BalancesDefiInPie {
+  protocolName: string;
+  totalBalance: number;
+  color: string;
+}
 
 interface BalancesResponse  {
   arbitrum: {Balances: Balances[], TotalBalance: number};
@@ -33,35 +42,12 @@ interface BalancesResponse  {
   ethereum: {Balances: Balances[], TotalBalance: number};
 }
 
-interface DefiPositionsBody {
-  position_name: string,
-  name_protocol: string,
-  position_type: string,
-  monto_loked: number,
-  simbolo: string,
-  fiat_value: number,
-  icon_url: {
-    url: string
-  }
-}
+// Positions Defi Types and interfaces
 
-
-
-
-type EachPosition = {
-  [key: string]: {
-    EachPositionInside
-  }[]
-};
-
-export type EachPositionInside = {
-  positions: DefiPositionsBody;
-}
-
-export type EachNetwork = {
+type EachNetwork = {
   headers: {};
   original: {
-    EachPosition: EachPosition;
+    protocol: Protocol[];
   };
 };
 interface DefiPositions {
@@ -76,6 +62,62 @@ interface DefiPositions {
   EthereumPositions: EachNetwork[];
 }
 
+export type EntriesFromResponseType = [string, Protocol[]];
+//Example of what the response looks like
+  //[
+  //  ['protocol1', [protocol1Item1, protocol1Item2]],
+  //  ['protocol2', [protocol2Item1, protocol2Item2]]
+  //]
+  interface DefiPositionsBody {
+    position_name: string,
+    name_protocol: string,
+    position_type: string,
+    monto_loked: number,
+    simbolo: string,
+    fiat_value: number | null,
+    icon_url: {
+      url: string
+    }
+  }
+  
+  
+  
+  interface Protocol  {
+    positions: DefiPositionsBody;
+  }
+
+  interface DefiPositionsResponsefromServerAction {
+    arbitrum: {
+      totalBalance: number;
+      totalBalanceArray: {
+        protocolName: string;
+        totalBalance: number;
+      }[];
+      
+      protocols: EntriesFromResponseType;
+    }
+    scroll: {
+      totalBalance: number;
+      totalBalanceArray: {
+        protocolName: string;
+        totalBalance: number;
+      }[];
+      
+      protocols: EntriesFromResponseType;
+    }
+    ethereum: {
+      totalBalance: number;
+      totalBalanceArray: {
+        protocolName: string;
+        totalBalance: number;
+      }[];
+      
+      protocols: EntriesFromResponseType;
+    }
+  }
+
+
+//---- Hooks props -- - -- - 
 
 interface TabsHookProps {
   isReadyNextTab: boolean;

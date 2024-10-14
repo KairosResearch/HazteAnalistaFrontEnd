@@ -11,13 +11,13 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { useDefiPositions, useSelectNetwork } from "@/hooks/usePortafolio";
 import SkeletonTable from "@/components/shared/skeletons/SkeletonTable";
-import { DefiPositionsBody, EachPositionInside } from "@/index";
+import { DefiPositionsBody,EachNetwork, EntriesFromResponseType, Protocol } from "@/index";
 
 const DefiPositionsCategories = () => {
   const [address, setAddress] = React.useState("");
-  const [arbPositions, setArbPositions] = React.useState<any>();
-  const [ethPositions, setEthPositions] = React.useState<any>();
-  const [scrollPositions, setScrollPositions] = React.useState<any>();
+  const [arbPositions, setArbPositions] = React.useState<EntriesFromResponseType[]>();
+  const [ethPositions, setEthPositions] = React.useState<EntriesFromResponseType[]>();
+  const [scrollPositions, setScrollPositions] = React.useState<EntriesFromResponseType[]>();
 
   const [loading, setLoading] = React.useState(false);
 
@@ -37,9 +37,9 @@ const DefiPositionsCategories = () => {
 
   useEffect(() => {
     if (defiPositions) {
-      setArbPositions(defiPositions.arbitrum);
-      setEthPositions(defiPositions.ethereum);
-      setScrollPositions(defiPositions.scroll);
+      setArbPositions(defiPositions.arbitrum.protocols);
+      setEthPositions(defiPositions.ethereum.protocols);
+      setScrollPositions(defiPositions.scroll.protocols);
       setEmpty(false);
     } else {
       setEmpty(true);
@@ -78,18 +78,17 @@ const DefiPositionsCategories = () => {
     {
           loading && <SkeletonTable />
       }
-      {network === "arbitrum" &&
-        arbPositions &&
-        Object.entries(arbPositions).map(([key, value]) => (
-          <article key={key}>
+      {network === "arbitrum" && arbPositions &&
+        arbPositions.map((item: EntriesFromResponseType, index) => (
+          <article key={index}>
             <div className="bg-grey-light/10 relative">
               <Badge className="absolute left-[-10px] z-20 top-3">
-                {key}
+                {item[0]}
               </Badge>
               <Table className="">
                 <DefiTableHeader />
                 <TableBody>
-                  <DefiPosition data={value as EachPositionInside[]} />
+                  <DefiPosition data={item[1]} />
                 </TableBody>
               </Table>
             </div>
@@ -98,18 +97,18 @@ const DefiPositionsCategories = () => {
       }
 
       {network === "ethereum" &&
-        ethPositions &&
-        Object.entries(ethPositions).map(([key, value]) => (
-          <article key={key}>
+        ethPositions && 
+        ethPositions.map((item: EntriesFromResponseType, index) => (
+          <article key={index}>
             <div className="bg-grey-light/10 relative">
               <Badge className="absolute left-[-10px] z-20 top-3">
-                {key}
+                {item[0]}
               </Badge>
               <Table className="">
               <DefiTableHeader />
 
                 <TableBody>
-                  <DefiPosition data={value as EachPositionInside[]} />
+                  <DefiPosition data={item[1]} />
                 </TableBody>
               </Table>
             </div>
@@ -118,17 +117,17 @@ const DefiPositionsCategories = () => {
 
       {network === "scroll" &&
         scrollPositions &&
-        Object.entries(scrollPositions).map(([key, value]) => (
-          <article key={key}>
+        scrollPositions.map((item: EntriesFromResponseType, index) => (
+          <article key={index}>
             <div className="bg-grey-light/10 relative">
               <Badge className="absolute left-[-10px] z-20 top-3">
-                {key}
+                {item[0]}
               </Badge>
               <Table className="">
               <DefiTableHeader />
 
                 <TableBody>
-                  <DefiPosition data={value as EachPositionInside[]} />
+                  <DefiPosition data={item[1]} />
                 </TableBody>
               </Table>
             </div>

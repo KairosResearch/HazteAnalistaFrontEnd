@@ -5,13 +5,13 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import Image from 'next/image';
-import {  EachPositionInside } from '@/index';
+import {  Protocol } from '@/index';
 import { Badge } from '@/components/ui/badge';
 
 
 
 type DefiPositionProps = {
-    data: EachPositionInside[];
+    data: Protocol[];
     
 }
 
@@ -21,7 +21,7 @@ const DefiPosition = (
 
     const [totalFiatValueState, setTotalFiatValueState] = React.useState(0)
 
-    const [arrayToShow, setArrayToShow] = React.useState<EachPositionInside[][][]>([])
+    const [arrayToShow, setArrayToShow] = React.useState<Protocol[][][]>([])
     const [arrayType1, setArrayType1] = React.useState<boolean>(false)
     const [arrayType2, setArrayType2] = React.useState<boolean>(false)
     const [arrayType3, setArrayType3] = React.useState<boolean>(false)
@@ -36,7 +36,7 @@ const DefiPosition = (
               }
               acc[key].push(item);
               return acc;
-            }, {} as { [key: string]: EachPositionInside[] });
+            }, {} as { [key: string]: Protocol[] });
           
             // Convertir el objeto en un arreglo de arreglos
             const groupedByNameArray = Object.values(groupedByName);
@@ -52,16 +52,16 @@ const DefiPosition = (
                   }
                   acc[key].push(item);
                   return acc;
-                }, {} as { [key: string]: EachPositionInside[] });
+                }, {} as { [key: string]: Protocol[] });
               
                 return Object.values(grouped);
               });
               
-              console.log(groupedByPositionType);
+              
               setArrayToShow(groupedByPositionType)
 
               //Type 1: More than one position_name with the same position_type
-              //Type 2: Same position_name. Every sub-array has different position_type (more complexity type)
+              //Type 2: Same position_name. Every sub-array has different position_type (more complex type)
               
 
              if(groupedByPositionType.length > 1){
@@ -137,7 +137,7 @@ const DefiPosition = (
                     // Calcular el valor total de fiat_value
                     (() => {
                         const totalFiatValue = position[0].reduce((acc, pos) => {
-                        return acc + pos.positions.fiat_value;
+                        return acc + (pos.positions.fiat_value ?? 0);
                         }, 0);
 
 
@@ -210,9 +210,9 @@ const DefiPosition = (
                         {
                         // Calcular el valor total de fiat_value
                         (() => {
-                            const totalFiatValue = position.reduce((acc, pos) => {
-                            return acc + pos.positions.fiat_value;
-                            }, 0);
+                          const totalFiatValue = position.reduce((acc, pos) => {
+                            return acc + (pos.positions.fiat_value ?? 0);
+                          }, 0);
         
                             // Renderizar el resultado en un TableCell
                             return (

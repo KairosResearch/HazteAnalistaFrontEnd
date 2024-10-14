@@ -42,6 +42,7 @@ const LeftSideForm = ({
   rendimiento,
 }: LeftSideForm) => {
   const formattedRendimiento = rendimiento.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const [value, setValue] = React.useState("");
   return (
     <div className="">
       <div className="nombreblock">
@@ -54,11 +55,13 @@ const LeftSideForm = ({
           render={({ field }) => (
             <>
               <ComboboxName
-              comboSide={null}
+                comboSide={null}
                 projects={projectsList}
                 field={field}
                 setSymbol={setSymbol}
                 clearErrors={clearErrors}
+                value={value}
+                setValue={setValue}
               />
 
               <p className="text-red-500 text-sm mt-2">

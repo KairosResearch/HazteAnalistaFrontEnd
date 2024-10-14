@@ -2,11 +2,15 @@
 
 import React, {useEffect} from 'react'
 // import {getBalances} from '@/services/backend/balances'
-import { usePortafolio } from '@/hooks/usePortafolio';
+import { usePortafolio, useDefiPositions } from '@/hooks/usePortafolio';
 import Loading from '../shared/Loading';
 import { useSelectNetwork } from '@/hooks/usePortafolio'; 
 
-const TotalBalance = () => {
+interface TotalBalanceProps {
+    section: 'wallet' | 'defi';
+}
+
+const TotalBalance = ({section}: TotalBalanceProps) => {
     const {network} = useSelectNetwork();
 
     const [balance, setBalance] = React.useState(0);
@@ -20,6 +24,7 @@ const TotalBalance = () => {
     }, []);
 
     const { portafolio, isLoading } = usePortafolio(address);
+    const { defiPositions, isLoading: isLoadingDefi } = useDefiPositions(address);
 
     useEffect(() => {
         if(isLoading){
@@ -30,19 +35,34 @@ const TotalBalance = () => {
     }, [isLoading]);
 
     useEffect(() => {
-        if(portafolio){
+        if(section === 'wallet' && portafolio) {
+            
+                switch(network){
+                    case 'ethereum':
+                        setBalance(portafolio.ethereum.TotalBalance);
+                        break;
+                    case 'arbitrum':
+                        setBalance(portafolio.arbitrum.TotalBalance);
+                        break;
+                    case 'scroll':
+                        setBalance(portafolio.scroll.TotalBalance);
+                        break;
+                }
+            }
+        if(section === "defi" && defiPositions) {
             switch(network){
                 case 'ethereum':
-                    setBalance(portafolio.ethereum.TotalBalance);
+                    setBalance(defiPositions.ethereum.totalBalance);
                     break;
                 case 'arbitrum':
-                    setBalance(portafolio.arbitrum.TotalBalance);
+                    setBalance(defiPositions.arbitrum.totalBalance);
                     break;
                 case 'scroll':
-                    setBalance(portafolio.scroll.TotalBalance);
+                    setBalance(defiPositions.scroll.totalBalance);
                     break;
             }
         }
+        
     }, [portafolio, network]);
     
   return (
