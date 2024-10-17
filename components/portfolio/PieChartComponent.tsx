@@ -70,6 +70,14 @@ const ChartBalancesWallet = () => {
                 case 'scroll':
                     setChartData(colorAsigner(portafolio.scroll.Balances));
                     break;
+                case 'polygon':
+                    setChartData(colorAsigner(portafolio.polygon.Balances));
+                    break;
+                case 'optimism':
+                    setChartData(colorAsigner(portafolio.optimism.Balances));
+                    break;
+                case 'base':
+                    setChartData(colorAsigner(portafolio.base.Balances))
             }
         }
       }, [portafolio, network]);
@@ -161,6 +169,10 @@ const ChartBalancesWallet = () => {
                           {network === 'ethereum' && portafolio.ethereum.TotalBalance.toLocaleString()}
                           {network === 'arbitrum' && portafolio.arbitrum.TotalBalance.toLocaleString()}
                           {network === 'scroll' && portafolio.scroll.TotalBalance.toLocaleString()}
+                          {network === 'polygon' && portafolio.polygon.TotalBalance.toLocaleString()}
+                          {network === 'optimism' && portafolio.optimism.TotalBalance.toLocaleString()}
+                          {network === 'base' && portafolio.base.TotalBalance.toLocaleString()}
+                          
                         </tspan> 
                         <tspan
                           x={viewBox.cx}

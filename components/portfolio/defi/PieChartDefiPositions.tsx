@@ -70,6 +70,15 @@ const ChartDefiPositions = () => {
                 case 'scroll':
                     setChartData(colorAsigner(defiPositions.scroll.totalBalanceArray));
                     break;
+                case 'polygon':
+                    setChartData(colorAsigner(defiPositions.polygon.totalBalanceArray));
+                    break;
+                case 'optimism':
+                    setChartData(colorAsigner(defiPositions.optimism.totalBalanceArray));
+                    break;
+                case 'base':
+                    setChartData(colorAsigner(defiPositions.base.totalBalanceArray))
+                    break;
             }
         }
       }, [defiPositions, network]);
@@ -111,7 +120,7 @@ const ChartDefiPositions = () => {
           No logramos acceder a ninguna posición DeFi en tu portafolio. Esto puede ser porque:
           <ol>
             <li>- Debes estar logueado en la plataforma con una wallet</li>
-            <li>- La wallet debe estar conectada a la red correspondiente</li>
+            <li>- La wallet debe tener posiciones Defi  en la red correspondiente</li>
             
           </ol>
         </div>
@@ -161,6 +170,9 @@ const ChartDefiPositions = () => {
                           {network === 'ethereum' && defiPositions && defiPositions.ethereum.totalBalance.toLocaleString()}
                           {network === 'arbitrum' && defiPositions && defiPositions.arbitrum.totalBalance.toLocaleString()}
                           {network === 'scroll' && defiPositions && defiPositions.scroll.totalBalance.toLocaleString()}
+                          {network === 'polygon' && defiPositions && defiPositions.polygon.totalBalance.toLocaleString()}
+                          {network === 'optimism' && defiPositions && defiPositions.optimism.totalBalance.toLocaleString()}
+                          {network === 'base' && defiPositions && defiPositions.base.totalBalance.toLocaleString()}
                         </tspan> 
                         <tspan
                           x={viewBox.cx}

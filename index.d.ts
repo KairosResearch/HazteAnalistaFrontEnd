@@ -40,6 +40,10 @@ interface BalancesResponse  {
   arbitrum: {Balances: Balances[], TotalBalance: number};
   scroll:   {Balances: Balances[], TotalBalance: number};
   ethereum: {Balances: Balances[], TotalBalance: number};
+  //Base, polygon and optimism
+  base: {Balances: Balances[], TotalBalance: number};
+  polygon: {Balances: Balances[], TotalBalance: number};
+  optimism: {Balances: Balances[], TotalBalance: number};
 }
 
 // Positions Defi Types and interfaces
@@ -57,6 +61,9 @@ interface DefiPositions {
   // lockedScroll: DefiPositionsBody[];
   // lockedEthereum:   DefiPositionsBody[];
   // stackedEthereum: DefiPositionsBody[];
+  OptimisumPositions: EachNetwork[];
+  PolygonPositions: EachNetwork[];
+  BasePositions: EachNetwork[];
   ArbPositions: EachNetwork[];
   ScrollPositions: EachNetwork[];
   EthereumPositions: EachNetwork[];

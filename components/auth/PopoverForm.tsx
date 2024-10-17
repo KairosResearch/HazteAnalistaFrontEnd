@@ -78,7 +78,7 @@ const PopoverForm = ({ usage }: PopoverFormProps) => {
               <AvatarFallback></AvatarFallback>
             </Avatar>
           </PopoverTrigger>
-          <PopoverContent className="px-3 py-2">
+          <PopoverContent className="px-3 py-2 dark:text-foreground">
             {usage === "userinfo" && (
               <div>
                 <div className="flex flex-col justify-center gap-3">

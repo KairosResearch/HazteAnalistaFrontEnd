@@ -47,6 +47,15 @@ const TotalBalance = ({section}: TotalBalanceProps) => {
                     case 'scroll':
                         setBalance(portafolio.scroll.TotalBalance);
                         break;
+                    case 'polygon':
+                        setBalance(portafolio.polygon.TotalBalance);
+                        break;
+                    case 'optimism':
+                        setBalance(portafolio.optimism.TotalBalance);
+                        break;
+                    case 'base':
+                        setBalance(portafolio.base.TotalBalance);
+
                 }
             }
         if(section === "defi" && defiPositions) {
@@ -60,6 +69,14 @@ const TotalBalance = ({section}: TotalBalanceProps) => {
                 case 'scroll':
                     setBalance(defiPositions.scroll.totalBalance);
                     break;
+                case 'base':
+                    setBalance(defiPositions.base.totalBalance);
+                    break;
+                case 'polygon':
+                    setBalance(defiPositions.polygon.totalBalance);
+                    break;
+                case 'optimism':
+                    setBalance(defiPositions.optimism.totalBalance)
             }
         }
         

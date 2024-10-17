@@ -113,7 +113,7 @@ const page =  () => {
 
         {/* Seccion de posiciones */}
         <section>
-            <section>
+            <section className='mb-9'>
             <Card className='p-6 bg-[#fff] dark:bg-transparent '>
             
 
