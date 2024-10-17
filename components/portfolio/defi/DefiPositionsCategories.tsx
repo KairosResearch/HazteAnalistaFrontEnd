@@ -15,9 +15,13 @@ import { DefiPositionsBody,EachNetwork, EntriesFromResponseType, Protocol } from
 
 const DefiPositionsCategories = () => {
   const [address, setAddress] = React.useState("");
-  const [arbPositions, setArbPositions] = React.useState<EntriesFromResponseType[]>();
-  const [ethPositions, setEthPositions] = React.useState<EntriesFromResponseType[]>();
-  const [scrollPositions, setScrollPositions] = React.useState<EntriesFromResponseType[]>();
+  // const [arbPositions, setArbPositions] = React.useState<EntriesFromResponseType[]>();
+  // const [ethPositions, setEthPositions] = React.useState<EntriesFromResponseType[]>();
+  // const [scrollPositions, setScrollPositions] = React.useState<EntriesFromResponseType[]>();
+  // const [basePositions, setBasePositions] = React.useState<EntriesFromResponseType[]>();
+  // const [polygonPositions, setPolygonPositions] = React.useState<EntriesFromResponseType[]>();
+  // const [optimismPositions, setOptimismPositions] = React.useState<EntriesFromResponseType[]>();
+  const [positions, setPositions] = React.useState<EntriesFromResponseType[]>()
 
   const [loading, setLoading] = React.useState(false);
 
@@ -36,15 +40,33 @@ const DefiPositionsCategories = () => {
   const { defiPositions, isLoading } = useDefiPositions(address);
 
   useEffect(() => {
+    
     if (defiPositions) {
-      setArbPositions(defiPositions.arbitrum.protocols);
-      setEthPositions(defiPositions.ethereum.protocols);
-      setScrollPositions(defiPositions.scroll.protocols);
+      switch (network) {
+          case 'ethereum':
+              setPositions(defiPositions.ethereum.protocols);
+              break;
+          case 'arbitrum':
+              setPositions(defiPositions.arbitrum.protocols);
+              break;
+          case 'scroll':
+              setPositions(defiPositions.scroll.protocols);
+              break;
+          case 'polygon':
+              setPositions(defiPositions.polygon.protocols);
+              break;
+          case 'optimism':
+              setPositions(defiPositions.optimism.protocols);
+              break;
+          case 'base':
+              setPositions(defiPositions.base.protocols)
+              break;
+      }
       setEmpty(false);
-    } else {
-      setEmpty(true);
-    }
-  }, [defiPositions]);
+  } else {
+    setEmpty(true)
+  }
+  }, [defiPositions, network]);
 
     useEffect(() => {
         if (isLoading) {
@@ -78,8 +100,8 @@ const DefiPositionsCategories = () => {
     {
           loading && <SkeletonTable />
       }
-      {network === "arbitrum" && arbPositions &&
-        arbPositions.map((item: EntriesFromResponseType, index) => (
+      {network === "arbitrum" && positions &&
+        positions.map((item: EntriesFromResponseType, index) => (
           <article key={index}>
             <div className="bg-grey-light/10 relative">
               <Badge className="absolute left-[-10px] z-20 top-3">
@@ -97,8 +119,8 @@ const DefiPositionsCategories = () => {
       }
 
       {network === "ethereum" &&
-        ethPositions && 
-        ethPositions.map((item: EntriesFromResponseType, index) => (
+        positions && 
+        positions.map((item: EntriesFromResponseType, index) => (
           <article key={index}>
             <div className="bg-grey-light/10 relative">
               <Badge className="absolute left-[-10px] z-20 top-3">
@@ -116,8 +138,8 @@ const DefiPositionsCategories = () => {
         ))}
 
       {network === "scroll" &&
-        scrollPositions &&
-        scrollPositions.map((item: EntriesFromResponseType, index) => (
+        positions &&
+        positions.map((item: EntriesFromResponseType, index) => (
           <article key={index}>
             <div className="bg-grey-light/10 relative">
               <Badge className="absolute left-[-10px] z-20 top-3">
@@ -133,6 +155,57 @@ const DefiPositionsCategories = () => {
             </div>
           </article>
         ))}
+        {network === "base" && positions &&
+        positions.map((item: EntriesFromResponseType, index) => (
+          <article key={index}>
+            <div className="bg-grey-light/10 relative">
+              <Badge className="absolute left-[-10px] z-20 top-3">
+                {item[0]}
+              </Badge>
+              <Table className="">
+                <DefiTableHeader />
+                <TableBody>
+                  <DefiPosition data={item[1]} />
+                </TableBody>
+              </Table>
+            </div>
+          </article>
+        ))
+      }
+      {network === "polygon" && positions &&
+        positions.map((item: EntriesFromResponseType, index) => (
+          <article key={index}>
+            <div className="bg-grey-light/10 relative">
+              <Badge className="absolute left-[-10px] z-20 top-3">
+                {item[0]}
+              </Badge>
+              <Table className="">
+                <DefiTableHeader />
+                <TableBody>
+                  <DefiPosition data={item[1]} />
+                </TableBody>
+              </Table>
+            </div>
+          </article>
+        ))
+      }
+      {network === "optimism" && positions &&
+        positions.map((item: EntriesFromResponseType, index) => (
+          <article key={index}>
+            <div className="bg-grey-light/10 relative">
+              <Badge className="absolute left-[-10px] z-20 top-3">
+                {item[0]}
+              </Badge>
+              <Table className="">
+                <DefiTableHeader />
+                <TableBody>
+                  <DefiPosition data={item[1]} />
+                </TableBody>
+              </Table>
+            </div>
+          </article>
+        ))
+      }
     </>
   );
 };
