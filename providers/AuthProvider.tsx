@@ -18,8 +18,7 @@ function PrivyProviderWrapper({ children }: { children: React.ReactNode }) {
     <PrivyProvider
       appId={process.env.NEXT_PUBLIC_PRIVY_APP_ID || ""}
       onSuccess={(user, isNewUser) => {
-        console.log("User logged in", user);
-        console.log("Is new user?", isNewUser);
+        
         const id = user?.id;
         const name =
           user?.wallet?.address ||

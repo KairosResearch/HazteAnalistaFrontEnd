@@ -1,5 +1,5 @@
 'use client';
-import React from 'react'
+import React, {useEffect} from 'react'
 import { Card, CardContent } from '@/components/ui/card'
 import Image from 'next/image'
 import ComboboxDemo from '@/components/dashboard/form/ComboboxName'
@@ -20,10 +20,19 @@ const SelectAssetsName = ({
     projectsList
 }: SelectAssetsNameProps) => {
     
-    const {token1, token2, setToken1, setToken2} = useComparativeTokens();    
+    const {token1, token2, setToken1, setToken2} = useComparativeTokens();  
+    
+    //Restarting the value of tokens when page is reloaded
+    useEffect(() => {
+        setToken1('')
+        setToken2('')
+    }, [])
 
     //State to change the side of the combo boxes
     const [changedPosition, setChangedPosition] = React.useState<boolean>(false);
+    //State to store the value of the combo box and change it
+    const [valueA, setValueA] = React.useState("");
+    const [valueB, setValueB] = React.useState("");
     
     //This field var does not affect anything, is just to avoid type errors
     const field= {
@@ -47,13 +56,16 @@ const SelectAssetsName = ({
             <Card className='w-5/12 bg-grey-light/20'>
                     <CardContent className='flex justify-between items-center w-full '>
 
-                        <ComboboxDemo
-                            projects={projectsList}
-                            field={field}
-                            setSymbol={setSymbol}
-                            clearErrors={(name: string) => {return}}
-                            comboSide={changedPosition ? 'right' : 'left'}
-                        />
+                    <ComboboxDemo
+                        projects={projectsList}
+                        field={field}
+                        setSymbol={setSymbol}
+                        value={changedPosition ? valueB : valueA}
+                        setValue={changedPosition ? setValueB : setValueA}
+                        clearErrors={(name: string) => { return; }}
+                        comboSide={'left'}
+                    />
+                        
                      
                       
                     </CardContent>
@@ -68,6 +80,8 @@ const SelectAssetsName = ({
                         setChangedPosition(!changedPosition);
                         setToken1(token2)
                         setToken2(token1)
+                        // setValueA(valueB)
+                        // setValueB(valueA)
                     }}
                 >
 
@@ -77,12 +91,14 @@ const SelectAssetsName = ({
                     <CardContent className='flex justify-between items-center w-full '>
 
                     <ComboboxDemo
-                            projects={projectsList}
-                            field={field}
-                            setSymbol={setSymbol}
-                            clearErrors={(name: string ) => {return}}
-                            comboSide={changedPosition ? 'left' : 'right'}
-                        />
+                        projects={projectsList}
+                        field={field}
+                        setSymbol={setSymbol}
+                        value={changedPosition ? valueA : valueB}
+                        setValue={changedPosition ? setValueA : setValueB}
+                        clearErrors={(name: string) => { return; }}
+                        comboSide={'right'}
+                    />
                         
                   
                   
