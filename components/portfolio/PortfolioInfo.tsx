@@ -42,6 +42,15 @@ const PortfolioInfo = () => {
                 case 'scroll':
                     setTokensData(portafolio.scroll.Balances);
                     break;
+                case 'polygon':
+                    setTokensData(portafolio.polygon.Balances);
+                    break;
+                case 'base':
+                    setTokensData(portafolio.base.Balances);
+                    break;
+                case 'optimism':
+                    setTokensData(portafolio.optimism.Balances);
+                    break;
             }
         }
     }, [portafolio, network]);
