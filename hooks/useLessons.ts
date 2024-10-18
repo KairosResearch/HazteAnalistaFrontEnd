@@ -2,7 +2,6 @@ import useSWR from "swr";
 import { getLessonsByUser } from "../services/backend/lessons";
 import { useMemo } from "react";
 
-
 // Funciones puras fuera del hook
 const calculateCurrentModuleId = (lastLesson: any) => {
   const { id_leccion, id_modulo } = lastLesson || {};
@@ -19,14 +18,14 @@ export const useLessons = () => {
     lessons: [],
     isLoading: true,
     isError: null,
-    mutate: undefined
+    mutate: undefined,
   };
 
   if (typeof window !== "undefined") {
     const guzma = localStorage.getItem("guzma");
     if (guzma) {
       const id = parseInt(guzma);
-      
+
       const { data, error, isLoading, mutate } = useSWR(
         `getLecciones/${id}`,
         getLessonsByUser,
@@ -45,7 +44,7 @@ export const useLessons = () => {
         lessons: data,
         isLoading,
         isError: error,
-        mutate
+        mutate,
       };
     }
   }

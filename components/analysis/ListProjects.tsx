@@ -16,22 +16,30 @@ import SkeletonListItem from "../shared/skeletons/SkeletonListItem";
 import { useProjectId } from "@/hooks/useAnalysis";
 import { useProjects } from "@/hooks/useProjects";
 
-
 const ListProjects = () => {
-  const [projectsSaved, setProjectsSaved] = useState<ProjectsDataWithAnalisis[]>([]);
+  const [projectsSaved, setProjectsSaved] = useState<
+    ProjectsDataWithAnalisis[]
+  >([]);
   const [loading, setLoading] = useState(false);
   const { setProjectId } = useProjectId();
   const [guzma, setGuzma] = useState<number | null>(null);
   useEffect(() => {
-    if (typeof window !== 'undefined' && window.localStorage.getItem("guzma") !== null) {
+    if (
+      typeof window !== "undefined" &&
+      window.localStorage.getItem("guzma") !== null
+    ) {
       setGuzma(Number(window.localStorage.getItem("guzma")));
     }
   }, []);
 
-  const { setNeedAnalysis, dataWithAnalisys: projects, isAnalysisLoading } = useProjects(guzma ?? 0);
+  const {
+    setNeedAnalysis,
+    dataWithAnalisys: projects,
+    isAnalysisLoading,
+  } = useProjects(guzma ?? 0);
 
   useEffect(() => {
-   setNeedAnalysis(true);
+    setNeedAnalysis(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -58,13 +66,13 @@ const ListProjects = () => {
           <SkeletonListItem />
         </div>
       )}
-      {
-        projectsSaved?.length === 0 && !loading && (
-          <div className="flex justify-center items-center h-64">
-            <h2 className="text-2xl text-gray-200">No tienes proyectos guardados</h2>
-          </div>
-        )
-      }
+      {projectsSaved?.length === 0 && !loading && (
+        <div className="flex justify-center items-center h-64">
+          <h2 className="text-2xl text-gray-200">
+            No tienes proyectos guardados
+          </h2>
+        </div>
+      )}
       {projectsSaved?.map((project) => (
         <Card className="p-4" key={project.id_proyecto}>
           <div className="flex flex-row justify-between items-center ">
@@ -99,53 +107,59 @@ const ListProjects = () => {
             </div>
 
             <div className="flex gap-1 md:gap-4 ">
-              {
-                project.tieneAnalisisCualitativo || project.tieneAnalisisCuantitavivo ? (
+              {project.tieneAnalisisCualitativo ||
+              project.tieneAnalisisCuantitavivo ? (
                 <>
-                  <Badge variant={"range"} color="green"><span className="hidden md:inline">Analizado</span></Badge>
-                   <Link
+                  <Badge variant={"range"} color="green">
+                    <span className="hidden md:inline">Analizado</span>
+                  </Badge>
+                  <Link
                     href={`/analysis/${project.proyecto}/edit/${project.id_analisis_cualitativo}/${project.id_analisis_cuantitativo}`}
                     onClick={() => setProjectId(project.id_proyectoInicial)}
                   >
                     <p className=" underline dark:text-gray-200">Editar</p>
                   </Link>
-                  
                 </>
-                 
-                ) : (
-                  <>
-                  <Badge variant={"range"} color="red"><span className="hidden md:inline">Sin analizar</span></Badge>
-                    <Link
-                      href={`/analysis/${project.proyecto}/add/0/0`}
-                      onClick={() => setProjectId(project.id_proyectoInicial)}
-                    >
-                      <p className=" underline  dark:text-gray-200">Realizar análisis</p>
-                    </Link>
-                  </>
-                  
-                )
-
-              }
-              
-              
+              ) : (
+                <>
+                  <Badge variant={"range"} color="red">
+                    <span className="hidden md:inline">Sin analizar</span>
+                  </Badge>
+                  <Link
+                    href={`/analysis/${project.proyecto}/add/0/0`}
+                    onClick={() => setProjectId(project.id_proyectoInicial)}
+                  >
+                    <p className=" underline  dark:text-gray-200">
+                      Realizar análisis
+                    </p>
+                  </Link>
+                </>
+              )}
             </div>
           </div>
           <CardContent>
-          {
-                project.tieneAnalisisCualitativo || project.tieneAnalisisCuantitavivo ? (
-                  <div>
-                  <p>
-                    Progreso del análisis:{(project.respuestaSegundoFetch.filteredCualitative.suma[0] + project.respuestaSegundoFetch.filteredCuantitative.suma[0]) /2} %
-                  </p>
-                  <p>
-                    Progreso del análisis cualitativo: {project.respuestaSegundoFetch.filteredCualitative.suma} %
-                  </p>
-                  <p>
-                      Progreso del análisis cuantitativo: {project.respuestaSegundoFetch.filteredCuantitative.suma} %
-                  </p>
-                </div>
-                ): null}
-            
+            {project.tieneAnalisisCualitativo ||
+            project.tieneAnalisisCuantitavivo ? (
+              <div>
+                <p>
+                  Progreso del análisis:
+                  {(project.respuestaSegundoFetch.filteredCualitative.suma[0] +
+                    project.respuestaSegundoFetch.filteredCuantitative
+                      .suma[0]) /
+                    2}{" "}
+                  %
+                </p>
+                <p>
+                  Progreso del análisis cualitativo:{" "}
+                  {project.respuestaSegundoFetch.filteredCualitative.suma} %
+                </p>
+                <p>
+                  Progreso del análisis cuantitativo:{" "}
+                  {project.respuestaSegundoFetch.filteredCuantitative.suma} %
+                </p>
+              </div>
+            ) : null}
+
             <p className="text-pretty text-foreground/85 dark:text-primary-foreground/85">
               Market Cap: $ {project.market_cap.toLocaleString()}
             </p>

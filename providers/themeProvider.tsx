@@ -3,23 +3,23 @@
 import { ThemeProvider } from "next-themes";
 import { ReactNode, useEffect, useState } from "react";
 
-const ThemeProviderApp  = ( {children, attribute}: Readonly<{
+const ThemeProviderApp = ({
+  children,
+  attribute,
+}: Readonly<{
   children: React.ReactNode;
-  attribute: any
-}> ) => {
+  attribute: any;
+}>) => {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
-
-  
-
   return (
     <>
-    {mounted ? <ThemeProvider attribute={attribute}>
-       {children}
-    </ThemeProvider> : <>{children}</>}
-
-    
+      {mounted ? (
+        <ThemeProvider attribute={attribute}>{children}</ThemeProvider>
+      ) : (
+        <>{children}</>
+      )}
     </>
   );
 };

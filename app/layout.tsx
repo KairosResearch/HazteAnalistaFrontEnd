@@ -21,29 +21,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    
     <html lang="en">
       <body className={inter.className}>
-      
-
-        
         <ContextProvider>
           <PrivyProviderWrapper>
-          <SWRProvider>
-          <ThemeProviderApp
-            attribute="class"
-          >
-            
-              {children}
-              </ThemeProviderApp>
+            <SWRProvider>
+              <ThemeProviderApp attribute="class">{children}</ThemeProviderApp>
             </SWRProvider>
           </PrivyProviderWrapper>
         </ContextProvider>
-        
       </body>
     </html>
-  
-
-
-  );  
+  );
 }

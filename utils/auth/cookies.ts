@@ -53,14 +53,13 @@ export const createCookiesWallets = async (wallet: any, chainType: any) => {
     }
   }
   return null;
-}
-
+};
 
 export const deleteCookieUserId = async () => {
-    try {
-        cookiesStore.delete('userId')
-        return true;
-    } catch (error) {
-        console.error(error)
-    }
-}
+  try {
+    cookiesStore.delete("userId");
+    return true;
+  } catch (error) {
+    console.error(error);
+  }
+};

@@ -22,7 +22,7 @@ export const useAverages = create<AveragesProps>((set) => ({
 }));
 export const useProjectId = create<ProjectIdProps>((set) => ({
   analisisCualitativeId: 0,
-  setAnalisisCualitativeId:(newState: number) => {
+  setAnalisisCualitativeId: (newState: number) => {
     // Guardar en localStorage
     localStorage.setItem("idCualitative", newState.toString());
     // Actualizar el estado en Zustand

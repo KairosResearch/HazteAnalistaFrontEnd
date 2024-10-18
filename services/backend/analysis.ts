@@ -4,15 +4,12 @@ import { AUTH_URL } from "./urls";
 //Get
 export const getSingleAnalysisCualitative = async (id: number) => {
   try {
-    const response = await fetch(
-      `${AUTH_URL}getAnalisisCualitativo/${id}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
+    const response = await fetch(`${AUTH_URL}getAnalisisCualitativo/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
       },
-    );
+    });
     const data = await response.json();
 
     return data;
@@ -22,15 +19,12 @@ export const getSingleAnalysisCualitative = async (id: number) => {
 };
 export const getSingleAnalysisCuantitative = async (id: number) => {
   try {
-    const response = await fetch(
-      `${AUTH_URL}getAnalisisCuantitativo/${id}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
+    const response = await fetch(`${AUTH_URL}getAnalisisCuantitativo/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
       },
-    );
+    });
     const data = await response.json();
 
     return data;

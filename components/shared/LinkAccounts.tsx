@@ -6,8 +6,6 @@ import { useLinkAccount } from "@privy-io/react-auth";
 //ui neded
 // import { Button } from '../ui/button';
 
-
-
 const LinkAccounts = () => {
   const { linkEmail, linkWallet, linkDiscord, linkGithub, linkGoogle } =
     useLinkAccount({

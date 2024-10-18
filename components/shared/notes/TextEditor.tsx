@@ -1,44 +1,44 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Editor, EditorState, RichUtils, ContentState, convertFromHTML, Modifier } from 'draft-js';
-import { Bold, Italic, Underline } from "lucide-react"
-import 'draft-js/dist/Draft.css';
-import { Button } from '@/components/ui/button';
-import { stateToHTML } from 'draft-js-export-html';
-import { useDialogsNotes } from '@/hooks/useDialogs';
-
+import React, { useState, useEffect, useRef } from "react";
 import {
-    ToggleGroup,
-    ToggleGroupItem,
-  } from "@/components/ui/toggle-group"
-import { handleUpdateNote } from '@/actions/notesActions';
-import { useProjects } from '@/hooks/useProjects';
+  Editor,
+  EditorState,
+  RichUtils,
+  ContentState,
+  convertFromHTML,
+  Modifier,
+} from "draft-js";
+import { Bold, Italic, Underline } from "lucide-react";
+import "draft-js/dist/Draft.css";
+import { Button } from "@/components/ui/button";
+import { stateToHTML } from "draft-js-export-html";
+import { useDialogsNotes } from "@/hooks/useDialogs";
+
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { handleUpdateNote } from "@/actions/notesActions";
+import { useProjects } from "@/hooks/useProjects";
 
 // Definir los estilos de resaltado
 const customStyleMap = {
   HIGHLIGHT_YELLOW: {
-    backgroundColor: 'yellow',
+    backgroundColor: "yellow",
   },
   HIGHLIGHT_GREEN: {
-    backgroundColor: 'lightgreen',
+    backgroundColor: "lightgreen",
   },
   HIGHLIGHT_BLUE: {
-    backgroundColor: 'lightblue',
+    backgroundColor: "lightblue",
   },
 };
 
 interface TextEditorProps {
   id: number;
   closeEditor: () => void;
-  updateNote: (guzma: number, id:number, html: string) => void;
+  updateNote: (guzma: number, id: number, html: string) => void;
   note: string | null;
 }
 
-const TextEditor = ({id, closeEditor, updateNote, note}: TextEditorProps) => {
-
+const TextEditor = ({ id, closeEditor, updateNote, note }: TextEditorProps) => {
   // const {initialValue} = useDialogsNotes();
-
-
-
 
   // const [valueInEditor, setValueInEditor] = useState<string | null>(null);
 
@@ -56,14 +56,13 @@ const TextEditor = ({id, closeEditor, updateNote, note}: TextEditorProps) => {
   // }, []);
   // const {  mutate } = useProjects(guzma ?? 0);
 
-
   const [editorState, setEditorState] = useState(() => {
-    console.log('Montando componente de editor por primera vez');
+    console.log("Montando componente de editor por primera vez");
     if (note) {
       const blocksFromHTML = convertFromHTML(note);
       const contentState = ContentState.createFromBlockArray(
         blocksFromHTML.contentBlocks,
-        blocksFromHTML.entityMap
+        blocksFromHTML.entityMap,
       );
       return EditorState.createWithContent(contentState);
     } else {
@@ -76,43 +75,40 @@ const TextEditor = ({id, closeEditor, updateNote, note}: TextEditorProps) => {
     }
   };
   useEffect(() => {
-    console.log('Valor inicial', note);
+    console.log("Valor inicial", note);
     if (note) {
       const blocksFromHTML = convertFromHTML(note);
       const contentState = ContentState.createFromBlockArray(
         blocksFromHTML.contentBlocks,
-        blocksFromHTML.entityMap
+        blocksFromHTML.entityMap,
       );
-      EditorState.createWithContent(contentState)
-      
+      EditorState.createWithContent(contentState);
     }
-    
+
     focusEditor();
   }, [note]);
 
   const editor = useRef<Editor | null>(null);
 
-
-
   const handleKeyCommand = (command: string, editorState: EditorState) => {
     const newState = RichUtils.handleKeyCommand(editorState, command);
     if (newState) {
       setEditorState(newState);
-      return 'handled';
+      return "handled";
     }
-    return 'not-handled';
+    return "not-handled";
   };
 
   const onBoldClick = () => {
-    setEditorState(RichUtils.toggleInlineStyle(editorState, 'BOLD'));
+    setEditorState(RichUtils.toggleInlineStyle(editorState, "BOLD"));
   };
 
   const onItalicClick = () => {
-    setEditorState(RichUtils.toggleInlineStyle(editorState, 'ITALIC'));
+    setEditorState(RichUtils.toggleInlineStyle(editorState, "ITALIC"));
   };
 
   const onUnderlineClick = () => {
-    setEditorState(RichUtils.toggleInlineStyle(editorState, 'UNDERLINE'));
+    setEditorState(RichUtils.toggleInlineStyle(editorState, "UNDERLINE"));
   };
 
   // const onHighlightYellowClick = () => {
@@ -130,54 +126,65 @@ const TextEditor = ({id, closeEditor, updateNote, note}: TextEditorProps) => {
   const handleSendClick = async () => {
     const contentState = editorState.getCurrentContent();
     let html = stateToHTML(contentState, {
-        inlineStyles: {
-          HIGHLIGHT_YELLOW: { style: { backgroundColor: 'yellow' } },
-          HIGHLIGHT_GREEN: { style: { backgroundColor: 'lightgreen' } },
-          HIGHLIGHT_BLUE: { style: { backgroundColor: 'lightblue' } },
-        },
-      });
-      //getting guzma from localstorage
+      inlineStyles: {
+        HIGHLIGHT_YELLOW: { style: { backgroundColor: "yellow" } },
+        HIGHLIGHT_GREEN: { style: { backgroundColor: "lightgreen" } },
+        HIGHLIGHT_BLUE: { style: { backgroundColor: "lightblue" } },
+      },
+    });
+    //getting guzma from localstorage
 
-      console.log(html);
-      const guzma = localStorage.getItem('guzma');
-      if(guzma){
-        console.log('lLegando a subir nota');
-        updateNote(Number(guzma), id, html);
-       
-          setTimeout(() => {
-              
-              closeEditor();
-          }, 3000);        
-        }
-      }
+    console.log(html);
+    const guzma = localStorage.getItem("guzma");
+    if (guzma) {
+      console.log("lLegando a subir nota");
+      updateNote(Number(guzma), id, html);
 
-
-  ;
+      setTimeout(() => {
+        closeEditor();
+      }, 3000);
+    }
+  };
 
   return (
-    <div className='grid gap-9'>
-    
+    <div className="grid gap-9">
       <div className="flex gap-4 dark:text-white">
-      <ToggleGroup variant="outline" type="multiple">
-      <ToggleGroupItem className='p-1 md:p-2' value="bold" aria-label="Toggle bold" onClick={onBoldClick}>
-        <Bold className="h-4 w-4" />  
-      </ToggleGroupItem>
-      <ToggleGroupItem className='p-1 md:p-2' value="italic" aria-label="Toggle italic" onClick={onItalicClick}>
-        <Italic className="h-4 w-4" />
-      </ToggleGroupItem>
-      <ToggleGroupItem className='p-1 md:p-2' value="underline" aria-label="Toggle underline" onClick={onUnderlineClick}>
-        <Underline className="h-4 w-4" />
-      </ToggleGroupItem>
-    </ToggleGroup>
-        
+        <ToggleGroup variant="outline" type="multiple">
+          <ToggleGroupItem
+            className="p-1 md:p-2"
+            value="bold"
+            aria-label="Toggle bold"
+            onClick={onBoldClick}
+          >
+            <Bold className="h-4 w-4" />
+          </ToggleGroupItem>
+          <ToggleGroupItem
+            className="p-1 md:p-2"
+            value="italic"
+            aria-label="Toggle italic"
+            onClick={onItalicClick}
+          >
+            <Italic className="h-4 w-4" />
+          </ToggleGroupItem>
+          <ToggleGroupItem
+            className="p-1 md:p-2"
+            value="underline"
+            aria-label="Toggle underline"
+            onClick={onUnderlineClick}
+          >
+            <Underline className="h-4 w-4" />
+          </ToggleGroupItem>
+        </ToggleGroup>
+
         {/* <button className='bg-yellow-300 h-6 w-8 '  onClick={onHighlightYellowClick}></button>
         <button className='bg-green-200 h-6 w-8' onClick={onHighlightGreenClick}></button>
         <button className='bg-blue-300  h-6 w-8 ' onClick={onHighlightBlueClick}></button> */}
       </div>
-      <div onClick={focusEditor} className="border p-6 min-h-24 h-64 overflow-y-scroll cursor-text dark:text-white"
+      <div
+        onClick={focusEditor}
+        className="border p-6 min-h-24 h-64 overflow-y-scroll cursor-text dark:text-white"
       >
         <Editor
-        
           ref={editor}
           editorState={editorState}
           onChange={setEditorState}
@@ -186,11 +193,7 @@ const TextEditor = ({id, closeEditor, updateNote, note}: TextEditorProps) => {
         />
       </div>
 
-      <Button
-        onClick={handleSendClick}
-      >
-      Guardar
-      </Button>
+      <Button onClick={handleSendClick}>Guardar</Button>
     </div>
   );
 };

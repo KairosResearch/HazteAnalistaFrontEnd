@@ -33,7 +33,7 @@ interface ComboboxDemoProps {
   field: any;
   setSymbol: any;
   clearErrors: any;
-  comboSide: 'left' | 'right' | null;
+  comboSide: "left" | "right" | null;
   value: string;
   setValue: (value: string) => void;
 }
@@ -44,28 +44,25 @@ const ComboboxDemo = ({
   clearErrors,
   setSymbol,
   comboSide,
-  value, 
-  setValue
+  value,
+  setValue,
 }: ComboboxDemoProps) => {
   const [open, setOpen] = React.useState(false);
-  
-  const { isReadyNextTab, setIsReadyNextTab } = useTabsState();
-  const {setToken1, setToken2} = useComparativeTokens()
 
-  if(comboSide === "left") {
-    console.log('valueA', value)
-  } else if(comboSide === "right") {
-    console.log('valueB', value)
+  const { isReadyNextTab, setIsReadyNextTab } = useTabsState();
+  const { setToken1, setToken2 } = useComparativeTokens();
+
+  if (comboSide === "left") {
+    console.log("valueA", value);
+  } else if (comboSide === "right") {
+    console.log("valueB", value);
   } else {
-    console.log('comboSide is null')
+    console.log("comboSide is null");
   }
- 
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        
-      
         <Button
           variant="outline"
           role="combobox"
@@ -75,16 +72,16 @@ const ComboboxDemo = ({
           {value
             ? projects.find((project) => String(project.proyecto) === value)
                 ?.proyecto
-            : comboSide === null ? "Elige un proyecto" 
-            : comboSide === "left" ? "Selecciona A"
-            : "Selecciona B"
-            }
+            : comboSide === null
+              ? "Elige un proyecto"
+              : comboSide === "left"
+                ? "Selecciona A"
+                : "Selecciona B"}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="p-0 w-full">
         <Command>
-        
           <CommandInput placeholder="" />
           <CommandList>
             <CommandEmpty>No se encontró proyecto.</CommandEmpty>
@@ -110,10 +107,10 @@ const ComboboxDemo = ({
                     const ticker = foo();
                     setSymbol(ticker);
                     if (comboSide === "left") {
-                      console.log('Setting token1 on izquierda:', ticker)
+                      console.log("Setting token1 on izquierda:", ticker);
                       setToken1(ticker);
-                    } else if(comboSide === "right"){
-                      console.log('Setting token2 on derecha:', ticker)
+                    } else if (comboSide === "right") {
+                      console.log("Setting token2 on derecha:", ticker);
                       setToken2(ticker);
                     } else null;
 

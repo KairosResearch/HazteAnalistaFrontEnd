@@ -15,7 +15,7 @@ import { handleGetSingleAnalysis } from "@/actions/analisysActions";
 import { useAverages } from "@/hooks/useAnalysis";
 
 //types
-import {BothCatalogos} from '@/index'
+import { BothCatalogos } from "@/index";
 
 type FormContainerProps = {
   // type: "cual" | "cuant";
@@ -122,12 +122,8 @@ const FormContainer = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mode, cuantId, cualId]);
 
-
   return (
     <>
-
-
-
       {(mode === "edit-both" ||
         mode === "edit-cual" ||
         mode === "edit-cuant") &&

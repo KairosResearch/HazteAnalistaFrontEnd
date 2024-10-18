@@ -47,15 +47,9 @@
     --chart-7: 314.03, 40.31%, 62.55%;
     --chart-8: 300, 56.06%, 25.88%;
     --chart-9: 358.18, 100%, 67.65%;
-    
-  
   }
 
- 
-
-
   .dark {
-  
     --background: 0, 0%, 14.51%;
     --foreground: 210, 63.64%, 95.69%;
 
@@ -95,9 +89,7 @@
     --chart-7: 314.03, 40.31%, 62.55%;
     --chart-8: 300, 56.06%, 25.88%;
     --chart-9: 358.18, 100%, 67.65%;
-    
-  } 
-  
+  }
 }
 
 @layer base {
@@ -170,11 +162,10 @@
     @apply border-0 bg-transparent text-dark-black w-full placeholder:text-dark-400 h-[50px] p-16-medium focus-visible:ring-offset-0 p-3 focus-visible:ring-transparent !important;
   }
 
-  .stat{
-    @apply inline-grid grid-cols-1 gap-4 px-1.5 
+  .stat {
+    @apply inline-grid grid-cols-1 gap-4 px-1.5;
   }
 }
-
 
 /*Styles for the lessons*/
 

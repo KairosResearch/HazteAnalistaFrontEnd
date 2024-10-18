@@ -44,8 +44,6 @@ const Lessons = ({ allModules }: LessonsProps) => {
     const meCompota = async () => {
       // setLoading(true);
 
-
-     
       if (allModules != undefined) {
         if (module === 2) {
           const moduleLesson = allModules["Módulo 2"];
@@ -61,17 +59,15 @@ const Lessons = ({ allModules }: LessonsProps) => {
       // setLoading(false);
     };
     meCompota();
-    //eslint-disable-next-line react-hooks/exhaustive-deps   
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [module]);
 
-  
   return (
     <>
       {/* Carousel de lecciones */}
       <div
         className={` hidden md:flex 2xl:p-14 2xl:py-2 2xl:px-20 md:px-10 2xl:mt-9 mt-3 `}
       >
-        
         <Carousel
           opts={{
             loop: true,
@@ -79,12 +75,12 @@ const Lessons = ({ allModules }: LessonsProps) => {
           // className={`w-full ${!activeMenu ? 'md:max-2xl:w-[90%]': ''} `}
         >
           {isLoading && (
-          <div className="flex gap-3">
-            <SkeletonCard />
-            <SkeletonCard />
-            <SkeletonCard />
-          </div>
-        )}
+            <div className="flex gap-3">
+              <SkeletonCard />
+              <SkeletonCard />
+              <SkeletonCard />
+            </div>
+          )}
           <CarouselPrevious></CarouselPrevious>
           <CarouselContent className={` flex items-stretch`}>
             {lessons.map((lesson) => {
@@ -103,7 +99,7 @@ const Lessons = ({ allModules }: LessonsProps) => {
                     lessonNumber={lesson.numero_leccion}
                     link={link}
                     status={
-                      completed.find((item:number) => item === portada.id)
+                      completed.find((item: number) => item === portada.id)
                         ? 1
                         : 0
                     }

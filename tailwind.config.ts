@@ -67,7 +67,7 @@ const config = {
 
         //Light theme staff
 
-        darkerBackground: '#edecef',
+        darkerBackground: "#edecef",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",

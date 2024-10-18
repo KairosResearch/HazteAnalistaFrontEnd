@@ -23,19 +23,16 @@ const FormNumbers = ({ values, title, image }: FormNumbersProps) => {
   return (
     <div className="flex flex-col">
       <FormLabel className="flex items-center text-sm">
-        {
-          iconsFiltered.map((a, index) => (
-            <Image
-              key={index}
-              className={`inline-block pr-1 ${a.clasName}`} 
-              src={a.icon}
-              alt={a.alt}
-              width={20}
-              height={20}
-            />
-          ))
-        }
-        
+        {iconsFiltered.map((a, index) => (
+          <Image
+            key={index}
+            className={`inline-block pr-1 ${a.clasName}`}
+            src={a.icon}
+            alt={a.alt}
+            width={20}
+            height={20}
+          />
+        ))}
         {title}:
       </FormLabel>
       <div>

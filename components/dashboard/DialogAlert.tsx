@@ -1,7 +1,6 @@
-
 //Imports for the component.
 //React
-import React , {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 //Next
 import Image from "next/image";
 //Hooks
@@ -25,13 +24,15 @@ import { Button } from "@/components/ui/button";
 import { TableHead } from "@/components/ui/table";
 import { useProjects } from "@/hooks/useProjects";
 
-
 const DialogAlert = ({ prToDelete, clean }: DialogAlertProps) => {
   //to modify the global state
   const { setUserTableData } = useUserTableData();
   const [guzma, setGuzma] = useState<number | null>(null);
   useEffect(() => {
-    if (typeof window !== 'undefined' && window.localStorage.getItem("guzma") !== null) {
+    if (
+      typeof window !== "undefined" &&
+      window.localStorage.getItem("guzma") !== null
+    ) {
       setGuzma(Number(window.localStorage.getItem("guzma")));
     }
   }, []);
@@ -58,7 +59,7 @@ const DialogAlert = ({ prToDelete, clean }: DialogAlertProps) => {
         // setCount(count + 1);
         // console.log(count);
         // setUserTableData(["Cambio" + count]);
-        mutate()
+        mutate();
         clean();
       }
     }
@@ -89,7 +90,9 @@ const DialogAlert = ({ prToDelete, clean }: DialogAlertProps) => {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter className="my-3">
-            <AlertDialogCancel onClick={() => clean()}>Cancelar</AlertDialogCancel>
+            <AlertDialogCancel onClick={() => clean()}>
+              Cancelar
+            </AlertDialogCancel>
             <AlertDialogAction>
               <Button
                 variant="destructive"

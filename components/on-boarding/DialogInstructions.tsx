@@ -157,29 +157,21 @@ const DialogInstructions = () => {
 
             <div className="">
               <h2 className="text-lg font-semibold text-center mt-0">
-                
-                  {instructionsSteps.find((item) => item.id === step)?.title}
-                
+                {instructionsSteps.find((item) => item.id === step)?.title}
               </h2>
             </div>
             <div className="p-4">
               <p className="text-sm font-semibold text-center mb-4">
-                
-                  {
-                    instructionsSteps.find((item) => item.id === step)
-                      ?.description.split('\n').map((item, index) => (
-                        <>
-                          <span key={index}>
-                            {item}
-                            
-                          </span>
-                          <br />
-                          <br />
-                        </>
-                        
-                      ))
-                  }
-                
+                {instructionsSteps
+                  .find((item) => item.id === step)
+                  ?.description.split("\n")
+                  .map((item, index) => (
+                    <>
+                      <span key={index}>{item}</span>
+                      <br />
+                      <br />
+                    </>
+                  ))}
               </p>
 
               <div className="flex items-center justify-between">

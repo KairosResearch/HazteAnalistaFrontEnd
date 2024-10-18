@@ -1,8 +1,6 @@
-
-
 //Imports for the component.
 //React
-import React, {useEffect, useState}from "react";
+import React, { useEffect, useState } from "react";
 //Next
 import Link from "next/link";
 import Image from "next/image";
@@ -23,9 +21,8 @@ const InfoTabs = ({
   tieneAnalisisCuantitavivo,
   id_analisis_cualitativo,
   id_analisis_cuantitativo,
-  nota
+  nota,
 }: InfoTabsProps) => {
-
   const [editNotaOpen, setEditNotaOpen] = useState<boolean>(false);
   useEffect(() => {
     if (nota) {
@@ -57,7 +54,6 @@ const InfoTabs = ({
           <p>{info.descripcion}</p>
         </div>
       </TabsContent>
-
 
       {/* -------Links ------ */}
 
@@ -95,14 +91,14 @@ const InfoTabs = ({
                   alt="Home"
                   height={20}
                   width={20}
-		  className="hidden dark:inline"
+                  className="hidden dark:inline"
                 />
-<Image
+                <Image
                   src="/dark/icons/info/documento.png"
                   alt="Home"
                   height={20}
                   width={20}
-		  className="inline dark:hidden"
+                  className="inline dark:hidden"
                 />
                 <span className="">Documentación </span>
               </li>
@@ -117,14 +113,14 @@ const InfoTabs = ({
                   alt="Home"
                   height={20}
                   width={20}
-		  className="dark:inline hidden"
+                  className="dark:inline hidden"
                 />
-<Image
+                <Image
                   src="/dark/icons/info/x.png"
                   alt="Home"
                   height={20}
                   width={20}
-		  className="dark:hidden inline"
+                  className="dark:hidden inline"
                 />
                 <span className="">Twitter </span>
               </li>
@@ -138,14 +134,14 @@ const InfoTabs = ({
                   alt="Home"
                   height={20}
                   width={20}
-		  className="dark:inline hidden"
+                  className="dark:inline hidden"
                 />
-<Image
+                <Image
                   src="/dark/icons/info/discord.png"
                   alt="Home"
                   height={20}
                   width={20}
-		  className="inline dark:hidden"
+                  className="inline dark:hidden"
                 />
                 <span className="">Discord </span>
               </li>
@@ -159,14 +155,14 @@ const InfoTabs = ({
                   alt="Home"
                   height={20}
                   width={20}
-		  className="dark:inline hidden"
+                  className="dark:inline hidden"
                 />
-<Image
+                <Image
                   src="/dark/icons/info/github.png"
                   alt="Home"
                   height={20}
                   width={20}
-		  className="dark:hidden inline"
+                  className="dark:hidden inline"
                 />
                 <span className=""> Github</span>
               </li>
@@ -178,7 +174,7 @@ const InfoTabs = ({
         <h2 className="text-xl md:text-2xl font-bold mb-3">
           Financiamiento{" "}
           {info.financiamiento && info.financiamiento != 0 ? (
-            <span>| $  {info.financiamiento.toLocaleString('en-US')}</span>
+            <span>| $ {info.financiamiento.toLocaleString("en-US")}</span>
           ) : (
             <span>| N/A</span>
           )}
@@ -219,10 +215,11 @@ const InfoTabs = ({
         />
       </TabsContent>
       <TabsContent className="min-h-[250px]" value="notes">
-        <h2 className="text-xl md:text-2xl mb-7 font-bold">Nota de proyecto:</h2>
+        <h2 className="text-xl md:text-2xl mb-7 font-bold">
+          Nota de proyecto:
+        </h2>
         {/* <span className="text-xs text-gray-300 mb-3 ">Al crear o editar tu nota, cierra y abre nuevamente el proyecto para ver los cambios*.</span> */}
-          <NoteSection id={info.id} />
-        
+        <NoteSection id={info.id} />
       </TabsContent>
     </Tabs>
   );

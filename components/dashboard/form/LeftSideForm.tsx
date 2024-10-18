@@ -14,7 +14,6 @@ import ComboboxName from "./ComboboxName";
 //   SelectValue,
 // } from "../../ui/select";
 
-
 interface LeftSideForm {
   type: "create" | "update" | null;
   symbol: string;
@@ -41,12 +40,14 @@ const LeftSideForm = ({
   prInfo,
   rendimiento,
 }: LeftSideForm) => {
-  const formattedRendimiento = rendimiento.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const formattedRendimiento = rendimiento.toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
   const [value, setValue] = React.useState("");
   return (
     <div className="">
       <div className="nombreblock">
-      
         <CustomField
           type={type}
           name="nombre"
@@ -91,7 +92,6 @@ const LeftSideForm = ({
 
         {/**Si Ath */}
         <div className="calcblock flex flex-col gap-4 md:gap-7 ">
-          
           <FormNumbers
             values={`${formattedRendimiento} %`}
             title="Rendimiento"

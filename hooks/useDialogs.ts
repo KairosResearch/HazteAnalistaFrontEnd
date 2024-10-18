@@ -19,14 +19,14 @@ export const useDialogInstructions = create<DialogInstrHookProps>((set) => ({
   },
 }));
 
-
 export const useDialogsNotes = create<DialogNotes>((set) => ({
   isOpenNote: false,
   setIsOpenNote: (newState: boolean) => set({ isOpenNote: newState }),
   idProject: 0,
   setIdProject(newProjectId) {
     set({ idProject: newProjectId });
-    },
+  },
   initialValue: null,
-  setInitialValue: (newInitialValue: null |string) => set({initialValue: newInitialValue}) 
+  setInitialValue: (newInitialValue: null | string) =>
+    set({ initialValue: newInitialValue }),
 }));

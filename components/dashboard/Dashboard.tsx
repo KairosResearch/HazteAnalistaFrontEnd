@@ -31,8 +31,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-
-
 //hooks
 import { useProjects } from "@/hooks/useProjects";
 //Ui needed
@@ -47,29 +45,33 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
   const [tableData, setTableData] = useState<TableData[]>([]);
   const [guzma, setGuzma] = useState<number | null>(null);
   const [availableProjects, setAvaliableProjects] = useState(projectsList);
-  
+
   const [loading, setLoading] = useState(false);
   useEffect(() => {
-    if (typeof window !== 'undefined' && window.localStorage.getItem("guzma") !== null) {
+    if (
+      typeof window !== "undefined" &&
+      window.localStorage.getItem("guzma") !== null
+    ) {
       setGuzma(Number(window.localStorage.getItem("guzma")));
     }
   }, []);
 
   const { data: projects, isLoading } = useProjects(guzma ?? 0);
-  
+
   useEffect(() => {
     if (guzma !== null) {
       setLoading(isLoading);
       setTableData(projects as TableData[]);
-      if(typeof projects !== 'string') {
-      const takenProjectsSet = new Set(projects?.map((pr) => pr.proyecto));
-      console.log('takenProjectsSet', takenProjectsSet)
-          // Filtrar projectList para incluir solo proyectos no tomados
-          const availableProjects =
-            projectsList?.filter((pr) => !takenProjectsSet.has(pr.proyecto)) ||
-            [];
-          setAvaliableProjects(availableProjects);
-    }}
+      if (typeof projects !== "string") {
+        const takenProjectsSet = new Set(projects?.map((pr) => pr.proyecto));
+        console.log("takenProjectsSet", takenProjectsSet);
+        // Filtrar projectList para incluir solo proyectos no tomados
+        const availableProjects =
+          projectsList?.filter((pr) => !takenProjectsSet.has(pr.proyecto)) ||
+          [];
+        setAvaliableProjects(availableProjects);
+      }
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [guzma, isLoading, projects]);
   useEffect(() => {
@@ -79,25 +81,18 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [guzma, isLoading]);
 
-
-
-
   const { userTableData } = useUserTableData();
 
   const { setIsOpen } = useDialogItem();
-
-  
 
   const [prToDelete, setPrToDelete] = useState<number[]>([]);
 
   //State to handle the projectList so that user might only add a project
   //that hasn't been added yet
- 
 
   //State for Dialog info about the projects
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedRow, setSelectedRow] = useState<any>(null);
-
 
   const sectores = catalogos[3];
 
@@ -156,7 +151,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                 className=" dark:divide-green-dark divide-foreground dark:hover:bg-[#3B8A48]/10 hover:bg-[#1f1f1f]/10 cursor-pointer"
                 key={data.id_proyecto}
               >
-                <TableCell  className="border-2 border-r-0 sticky left-[-1px] bg-darkerBackground/95 dark:bg-dark-grey/95 z-10">
+                <TableCell className="border-2 border-r-0 sticky left-[-1px] bg-darkerBackground/95 dark:bg-dark-grey/95 z-10">
                   <Checkbox
                     checked={prToDelete.includes(data.id_proyecto)}
                     onCheckedChange={(checked) => {
@@ -170,7 +165,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                     }}
                   />
                 </TableCell>
-                <TableCell 
+                <TableCell
                   onClick={() => {
                     setSelectedRow(data);
                     setIsDialogOpen(true);
@@ -181,7 +176,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                 </TableCell>
 
                 {/* Ticker */}
-                <TableCell 
+                <TableCell
                   onClick={() => {
                     setSelectedRow(data);
                     setIsDialogOpen(true);
@@ -191,7 +186,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                   {data.ticker}
                 </TableCell>
                 {/******Metodo 4E**** */}
-                <TableCell 
+                <TableCell
                   onClick={() => {
                     setSelectedRow(data);
                     setIsDialogOpen(true);
@@ -224,7 +219,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                 </TableCell>
 
                 {/******Decision**** */}
-                <TableCell 
+                <TableCell
                   onClick={() => {
                     setSelectedRow(data);
                     setIsDialogOpen(true);
@@ -248,7 +243,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                 </TableCell>
 
                 {/******Sector**** */}
-                <TableCell 
+                <TableCell
                   className=""
                   onClick={() => {
                     setSelectedRow(data);
@@ -296,7 +291,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                 </TableCell>
 
                 {/******Exchange**** */}
-                <TableCell 
+                <TableCell
                   onClick={() => {
                     setSelectedRow(data);
                     setIsDialogOpen(true);
@@ -322,7 +317,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                 </TableCell>
 
                 {/******precio entrada**** */}
-                <TableCell 
+                <TableCell
                   onClick={() => {
                     setSelectedRow(data);
                     setIsDialogOpen(true);
@@ -333,7 +328,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                 </TableCell>
 
                 {/****** precio actual**** */}
-                <TableCell 
+                <TableCell
                   onClick={() => {
                     setSelectedRow(data);
                     setIsDialogOpen(true);
@@ -344,8 +339,8 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                 </TableCell>
 
                 {/******Si ATH**** */}
-                <TableCell 
-                className="whitespace-nowrap"
+                <TableCell
+                  className="whitespace-nowrap"
                   onClick={() => {
                     setSelectedRow(data);
                     setIsDialogOpen(true);
@@ -354,12 +349,12 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                   {rendimientoCalculator(
                     data.precioEntrada,
                     data.price,
-                  ).toLocaleString('en-US')}{" "}
+                  ).toLocaleString("en-US")}{" "}
                   %
                 </TableCell>
 
                 {/******Market Cap**** */}
-                <TableCell 
+                <TableCell
                   onClick={() => {
                     setSelectedRow(data);
                     setIsDialogOpen(true);
@@ -369,7 +364,7 @@ const Dashboard = ({ catalogos, projectsList }: DashboardProps) => {
                   $ {data.market_cap.toLocaleString()}
                 </TableCell>
                 {/******Rango**** */}
-                <TableCell 
+                <TableCell
                   onClick={() => {
                     setSelectedRow(data);
                     setIsDialogOpen(true);
