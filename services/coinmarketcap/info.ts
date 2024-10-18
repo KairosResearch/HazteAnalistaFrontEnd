@@ -3,7 +3,6 @@
 import { BASE_URL } from "./urls";
 export const getProyectNumbers = async (symbol: string) => {
   try {
-   
     const parameters = {
       symbol: symbol,
       convert: "USD",

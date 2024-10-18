@@ -19,9 +19,6 @@ import { useDialogItem, useDialogInstructions } from "@/hooks/useDialogs";
 //Components
 import DashboardDataForm from "@/components/dashboard/form/DashboardDataForm";
 
-
-
-
 const DialogItem = (props: DialogItemProps) => {
   const { isOpen, setIsOpen, mode } = useDialogItem();
   const { isOpenInstr } = useDialogInstructions();

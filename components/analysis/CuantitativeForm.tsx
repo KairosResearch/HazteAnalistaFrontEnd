@@ -12,8 +12,6 @@ import { Checkbox } from "../ui/checkbox";
 import { AnalysisCatalogs } from "@/index";
 import { ValueObject } from "@/index";
 
-
-
 interface CualitativeFieldsProps {
   mode: "add" | "edit-both" | "edit-cual" | "edit-cuant";
   data: any;
@@ -75,7 +73,10 @@ const CuantitativeFields = ({
                       return iDunno(checked as boolean);
                     }}
                   />
-                  <span className="text-foreground dark:text-grey-light/90"> {item.item}</span>
+                  <span className="text-foreground dark:text-grey-light/90">
+                    {" "}
+                    {item.item}
+                  </span>
                 </div>
               ))}
             </div>

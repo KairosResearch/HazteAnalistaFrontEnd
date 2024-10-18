@@ -12,19 +12,19 @@ interface AveragesProps {
 }
 
 interface Balances {
-    logo: string;
-    simbolo: string;
-    balanceFiat: number;
-    balanceCrypto: number;
-    valorUnitCrypto: number;
+  logo: string;
+  simbolo: string;
+  balanceFiat: number;
+  balanceCrypto: number;
+  valorUnitCrypto: number;
 }
 interface BalancesInPie {
   logo: string;
   simbolo: string;
   balanceFiat: number;
-    balanceCrypto: number;
-    valorUnitCrypto: number;
-  color: string
+  balanceCrypto: number;
+  valorUnitCrypto: number;
+  color: string;
 }
 interface BalancesDefi {
   protocolName: string;
@@ -36,14 +36,14 @@ interface BalancesDefiInPie {
   color: string;
 }
 
-interface BalancesResponse  {
-  arbitrum: {Balances: Balances[], TotalBalance: number};
-  scroll:   {Balances: Balances[], TotalBalance: number};
-  ethereum: {Balances: Balances[], TotalBalance: number};
+interface BalancesResponse {
+  arbitrum: { Balances: Balances[]; TotalBalance: number };
+  scroll: { Balances: Balances[]; TotalBalance: number };
+  ethereum: { Balances: Balances[]; TotalBalance: number };
   //Base, polygon and optimism
-  base: {Balances: Balances[], TotalBalance: number};
-  polygon: {Balances: Balances[], TotalBalance: number};
-  optimism: {Balances: Balances[], TotalBalance: number};
+  base: { Balances: Balances[]; TotalBalance: number };
+  polygon: { Balances: Balances[]; TotalBalance: number };
+  optimism: { Balances: Balances[]; TotalBalance: number };
 }
 
 // Positions Defi Types and interfaces
@@ -71,60 +71,57 @@ interface DefiPositions {
 
 export type EntriesFromResponseType = [string, Protocol[]];
 //Example of what the response looks like
-  //[
-  //  ['protocol1', [protocol1Item1, protocol1Item2]],
-  //  ['protocol2', [protocol2Item1, protocol2Item2]]
-  //]
-  interface DefiPositionsBody {
-    position_name: string,
-    name_protocol: string,
-    position_type: string,
-    monto_loked: number,
-    simbolo: string,
-    fiat_value: number | null,
-    icon_url: {
-      url: string
-    }
-  }
-  
-  
-  
-  interface Protocol  {
-    positions: DefiPositionsBody;
-  }
+//[
+//  ['protocol1', [protocol1Item1, protocol1Item2]],
+//  ['protocol2', [protocol2Item1, protocol2Item2]]
+//]
+interface DefiPositionsBody {
+  position_name: string;
+  name_protocol: string;
+  position_type: string;
+  monto_loked: number;
+  simbolo: string;
+  fiat_value: number | null;
+  icon_url: {
+    url: string;
+  };
+}
 
-  interface DefiPositionsResponsefromServerAction {
-    arbitrum: {
-      totalBalance: number;
-      totalBalanceArray: {
-        protocolName: string;
-        totalBalance: number;
-      }[];
-      
-      protocols: EntriesFromResponseType;
-    }
-    scroll: {
-      totalBalance: number;
-      totalBalanceArray: {
-        protocolName: string;
-        totalBalance: number;
-      }[];
-      
-      protocols: EntriesFromResponseType;
-    }
-    ethereum: {
-      totalBalance: number;
-      totalBalanceArray: {
-        protocolName: string;
-        totalBalance: number;
-      }[];
-      
-      protocols: EntriesFromResponseType;
-    }
-  }
+interface Protocol {
+  positions: DefiPositionsBody;
+}
 
+interface DefiPositionsResponsefromServerAction {
+  arbitrum: {
+    totalBalance: number;
+    totalBalanceArray: {
+      protocolName: string;
+      totalBalance: number;
+    }[];
 
-//---- Hooks props -- - -- - 
+    protocols: EntriesFromResponseType;
+  };
+  scroll: {
+    totalBalance: number;
+    totalBalanceArray: {
+      protocolName: string;
+      totalBalance: number;
+    }[];
+
+    protocols: EntriesFromResponseType;
+  };
+  ethereum: {
+    totalBalance: number;
+    totalBalanceArray: {
+      protocolName: string;
+      totalBalance: number;
+    }[];
+
+    protocols: EntriesFromResponseType;
+  };
+}
+
+//---- Hooks props -- - -- -
 
 interface TabsHookProps {
   isReadyNextTab: boolean;
@@ -150,7 +147,7 @@ interface DialogNotes {
   idProject: number;
   setIdProject: (newProjectId: number) => void;
   initialValue: null | string;
-  setInitialValue: (newState: string| null) => void
+  setInitialValue: (newState: string | null) => void;
 }
 interface AuthLoadingStatusProps {
   isLoading: boolean;
@@ -175,13 +172,12 @@ interface AnalysisCatalogs {
   id: number;
   item: string;
   value: number;
-};
+}
 
 export type BothCatalogos = {
   dropdownNeedsCuantitative: AnalysisCatalogs[];
   dropdownNeedsCualitative: AnalysisCatalogs[];
 };
-
 
 interface UserProps {
   id: number;
@@ -206,9 +202,9 @@ interface TableData {
   precioEntrada: number;
   price: number;
   tieneAnalisisCualitativo: boolean;
-  tieneAnalisisCuantitavivo: boolean
-  id_analisis_cualitativo: number ;
-  id_analisis_cuantitativo: number ;
+  tieneAnalisisCuantitavivo: boolean;
+  id_analisis_cualitativo: number;
+  id_analisis_cuantitativo: number;
   nota: string | null;
 }
 
@@ -353,8 +349,8 @@ interface DialogInfoProps {
     precioEntrada: number;
     tieneAnalisisCualitativo: boolean;
     tieneAnalisisCuantitavivo: boolean;
-    id_analisis_cualitativo: number ;
-    id_analisis_cuantitativo: number ;
+    id_analisis_cualitativo: number;
+    id_analisis_cuantitativo: number;
     nota: string | null;
   } | null;
   catalogos: CatalogosType[][];
@@ -390,8 +386,8 @@ interface InfoTabsProps {
   info: ProyectsInfo;
   tieneAnalisisCualitativo: boolean;
   tieneAnalisisCuantitavivo: boolean;
-  id_analisis_cualitativo: number ;
-  id_analisis_cuantitativo: number ;
+  id_analisis_cualitativo: number;
+  id_analisis_cuantitativo: number;
   nota: string | null;
 }
 
@@ -420,7 +416,7 @@ interface AnalysisFromGetCualitative {
   integrantesEquipo: number[];
   roadmap: number[];
   whitepapaer: number[];
-  suma : number[];
+  suma: number[];
 }
 
 interface AnalysisFromGetCuantitative {
@@ -428,7 +424,7 @@ interface AnalysisFromGetCuantitative {
   metricasExchange: number[];
   onchains: number[];
   tokenomics: number[];
-  suma : number[];
+  suma: number[];
 }
 
 interface AnalysisResponse {
@@ -439,11 +435,11 @@ interface AnalysisResponse {
 interface AnalysisInitialValues {
   filteredCualitative: AnalysisFromGetCualitative;
   filteredCuantitative: {
-    tokenomics: number[]
-    onChain: number[]
-    finance: number[]
-    exchange: number[]
-  }
+    tokenomics: number[];
+    onChain: number[];
+    finance: number[];
+    exchange: number[];
+  };
 }
 interface AllModules {
   "Módulo 1": LessonProps[];
@@ -451,25 +447,24 @@ interface AllModules {
   "Módulo 3": LessonProps[];
 }
 
-
 interface ComparativeInfo {
-      MakCapA:  number;
-      MakCapB: number;
-      ProyecPrecio: number;
-      NoX: number;
-      PorcentajeX: number;
-      Progreso: number;
+  MakCapA: number;
+  MakCapB: number;
+  ProyecPrecio: number;
+  NoX: number;
+  PorcentajeX: number;
+  Progreso: number;
 }
 
 interface LeccionUser {
-    id_usuario: number;
-    id_leccion: number;
-    id_modulo: number;
-    siFinalizo: number;
+  id_usuario: number;
+  id_leccion: number;
+  id_modulo: number;
+  siFinalizo: number;
 }
 interface SelectNetworkProps {
   network: string;
   setNetwork: (newAddress: string) => void;
-//   addresses: string[];
-//   setAddresses: (newAddresses: string[]) => void;
+  //   addresses: string[];
+  //   setAddresses: (newAddresses: string[]) => void;
 }

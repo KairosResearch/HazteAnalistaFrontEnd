@@ -55,19 +55,18 @@ const CurrentLesson = () => {
       ) : (
         <>
           <p>
-            Si aún no has comenzado, empieza a aprender cómo ser un analista de proyectos:
-           
+            Si aún no has comenzado, empieza a aprender cómo ser un analista de
+            proyectos:
           </p>
           <LessonsCard
-          lesson={JSON.parse('{\"id\":9,\"title\":\"Creando un m\étodo - Metodolog\ía 4E\",\"cover\":\"\\/lessonsMainPage\\/module2\\/lesson3.png\",\"modulo\":2}')}
-          lessonNumber={'Lección 3'}
-          link={`/lessons/${9}`}
-          status={0}
-        />
-
+            lesson={JSON.parse(
+              '{"id":9,"title":"Creando un método - Metodología 4E","cover":"\\/lessonsMainPage\\/module2\\/lesson3.png","modulo":2}',
+            )}
+            lessonNumber={"Lección 3"}
+            link={`/lessons/${9}`}
+            status={0}
+          />
         </>
-        
-        
       )}
     </>
   );

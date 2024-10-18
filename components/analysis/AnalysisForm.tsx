@@ -33,12 +33,11 @@ import { ArrowUp } from "lucide-react";
 import { EditIcon } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
-
 //Values and utils
 import { debounce } from "@/utils/index";
 
 //Types:
-import {  AnalysisInitialValues } from "@/index";
+import { AnalysisInitialValues } from "@/index";
 
 import Loading from "../shared/Loading";
 
@@ -46,10 +45,10 @@ interface AnalysisFormProps {
   // type: "cual" | "cuant";
   mode: "add" | "edit-both" | "edit-cual" | "edit-cuant";
 
-  data: any; 
+  data: any;
   initialValues: AnalysisInitialValues | null;
   cualId: number | null;
-  cuantId: number| null;
+  cuantId: number | null;
 }
 
 const AnalysisForm = ({
@@ -57,27 +56,28 @@ const AnalysisForm = ({
   mode,
   data,
   initialValues,
-  cuantId, 
-  cualId
+  cuantId,
+  cualId,
 }: AnalysisFormProps) => {
   const router = useRouter();
 
   const [guzma, setGuzma] = useState<number | null>(null);
-  const dataCualitative = data[0]
-  const dataCuantitative = data[1]
+  const dataCualitative = data[0];
+  const dataCuantitative = data[1];
 
-
- const [buttonCual, setButtonCual] = useState(false);
- const [buttonCuant, setButtonCuant] = useState(false);
+  const [buttonCual, setButtonCual] = useState(false);
+  const [buttonCuant, setButtonCuant] = useState(false);
 
   const { setCaulitativePromedio, cualitativePromedio } = useAverages();
-  const initialPromedioCual = mode === "add" ? 0 : cualitativePromedio/2;
-  const [cualitativeValues, setCualitativeValues] = useState<number>(initialPromedioCual);
-  
+  const initialPromedioCual = mode === "add" ? 0 : cualitativePromedio / 2;
+  const [cualitativeValues, setCualitativeValues] =
+    useState<number>(initialPromedioCual);
+
   const { setCuantitativePromedio, cuantitativePromedio } = useAverages();
-  const initialPromedioCuant = mode === "add" ? 0 : cuantitativePromedio/2;
-  const [cuantitativeValues, setCuantitativeValues] = useState<number>(initialPromedioCuant);
-  
+  const initialPromedioCuant = mode === "add" ? 0 : cuantitativePromedio / 2;
+  const [cuantitativeValues, setCuantitativeValues] =
+    useState<number>(initialPromedioCuant);
+
   const [success, setSuccess] = useState(false);
   // const [bigSuccess, setBigSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -90,35 +90,35 @@ const AnalysisForm = ({
     (mode === "edit-both" || mode === "edit-cual" || mode === "edit-cuant") &&
     a &&
     b
-      ?  {
-            alianzas: a.alianzas,
-            auditorias: a.auditoria,
-            equipo: a.integrantesEquipo,
-            financeCual: a.financiamiento,
-            whitepaper: a.whitepapaer,
-            roadmap: a.roadmap,
-            comunidad: a.comunidad,
-            casosUso: a.caso_uso,
-            tokenomics: b.tokenomics,
-            onChain: b.onChain,
-            finance: b.finance,
-            exchange: b.exchange,
-          }
+      ? {
+          alianzas: a.alianzas,
+          auditorias: a.auditoria,
+          equipo: a.integrantesEquipo,
+          financeCual: a.financiamiento,
+          whitepaper: a.whitepapaer,
+          roadmap: a.roadmap,
+          comunidad: a.comunidad,
+          casosUso: a.caso_uso,
+          tokenomics: b.tokenomics,
+          onChain: b.onChain,
+          finance: b.finance,
+          exchange: b.exchange,
+        }
       : //If mode is add
         {
-            alianzas: [],
-            auditorias: [],
-            equipo: [],
-            financeCual: [],
-            whitepaper: [],
-            roadmap: [],
-            comunidad: [],
-            casosUso: [],
-            tokenomics: [],
-            onChain: [],
-            finance: [],
-            exchange: [],
-        }
+          alianzas: [],
+          auditorias: [],
+          equipo: [],
+          financeCual: [],
+          whitepaper: [],
+          roadmap: [],
+          comunidad: [],
+          casosUso: [],
+          tokenomics: [],
+          onChain: [],
+          finance: [],
+          exchange: [],
+        };
 
   // useEffect(() => {
   //   setCaulitativePromedio(a?.promedio ?? 0);
@@ -162,7 +162,10 @@ const AnalysisForm = ({
   }, [cuantitativeValues]);
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && window.localStorage.getItem("guzma") !== null) {
+    if (
+      typeof window !== "undefined" &&
+      window.localStorage.getItem("guzma") !== null
+    ) {
       setGuzma(Number(window.localStorage.getItem("guzma")));
     }
   }, []);
@@ -194,156 +197,138 @@ const AnalysisForm = ({
       suma: cuantitativePromedio,
     };
     console.log("Backend Values Cuantitative", backendValuesCuantitative);
-      if (
-        typeof window !== "undefined" &&
-        window.localStorage.getItem("guzma") !== null
-      ) {
-        const guzma = Number(window.localStorage.getItem("guzma"));
-        const projectId = Number(localStorage.getItem("projectId"));
-        if (mode === "add") {
+    if (
+      typeof window !== "undefined" &&
+      window.localStorage.getItem("guzma") !== null
+    ) {
+      const guzma = Number(window.localStorage.getItem("guzma"));
+      const projectId = Number(localStorage.getItem("projectId"));
+      if (mode === "add") {
+        console.log("Creando con estos values: ", values);
+        const response = await handleCreateAnalysis(
+          backendValuesCualitative,
+          backendValuesCuantitative,
+          guzma,
+          projectId,
+        );
+        console.log("Response", response);
+        if (response) {
+          // Primero, mostrar el mensaje de éxito
+          setSuccess(true);
+          mutateAnalysis();
 
-          console.log("Creando con estos values: ", values);
-          const response = await handleCreateAnalysis(
-            backendValuesCualitative,
-            backendValuesCuantitative,
-            guzma,
-            projectId,
-            );
-            console.log("Response", response);
-            if (response) {
-              // Primero, mostrar el mensaje de éxito
-              setSuccess(true);
-              mutateAnalysis();
-              
-              // Luego, después de 1 segundo, ocultar el mensaje
-              setTimeout(() => {
-                setSuccess(false);
-                router.push('/analysis');
-              }, 2500);
-              setIsLoading(false);
-              
-            }
-          }
-        else {
-          console.log(cuantId)
-          
-         
-          
+          // Luego, después de 1 segundo, ocultar el mensaje
+          setTimeout(() => {
+            setSuccess(false);
+            router.push("/analysis");
+          }, 2500);
+          setIsLoading(false);
+        }
+      } else {
+        console.log(cuantId);
 
-          const response = await handleUpdateAnalysis(
-            backendValuesCualitative,
-            backendValuesCuantitative,
-            guzma,
-            projectId,
-            cualId??0,
-            cuantId??0
-          );
-          console.log("Response", response);
-          if (response) {
-            // Primero, mostrar el mensaje de éxito
-            setSuccess(true);
-            // Luego, después de 1 segundo, ocultar el mensaje
-            setTimeout(() => {
-              setSuccess(false);
-              router.push('/analysis')
-            }, 2500);
-            setIsLoading(false);
-
-            ;
-          }
-          
-        
-    }
-
-   
-     
+        const response = await handleUpdateAnalysis(
+          backendValuesCualitative,
+          backendValuesCuantitative,
+          guzma,
+          projectId,
+          cualId ?? 0,
+          cuantId ?? 0,
+        );
+        console.log("Response", response);
+        if (response) {
+          // Primero, mostrar el mensaje de éxito
+          setSuccess(true);
+          // Luego, después de 1 segundo, ocultar el mensaje
+          setTimeout(() => {
+            setSuccess(false);
+            router.push("/analysis");
+          }, 2500);
+          setIsLoading(false);
+        }
       }
+    }
   }
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        
-        
-
-
         <div
           className={`z-50 fixed bottom-16 xl:bottom-28 right-5 bg-primary text-dark-black dark:text-white py-2 px-4 rounded-lg shadow-lg
             transition-opacity duration-2500 ${success ? "opacity-100" : "opacity-0"}`}
           onAnimationEnd={() => setSuccess(false)}
         >
           Subido exitosamente!
-          
         </div>
 
         <section className="mb-8">
           <Tabs defaultValue="cualitative">
             <TabsList>
-              <TabsTrigger className="rounded-sm mr-3 border-primary border" value="cualitative" >
+              <TabsTrigger
+                className="rounded-sm mr-3 border-primary border"
+                value="cualitative"
+              >
                 Cualitativo
               </TabsTrigger>
-              <TabsTrigger className="rounded-sm  border-primary border" value="cuantitative">
+              <TabsTrigger
+                className="rounded-sm  border-primary border"
+                value="cuantitative"
+              >
                 Cuantitativo
               </TabsTrigger>
             </TabsList>
             <TabsContent value="cualitative">
-            <Card className="bg-grey-light/15 py-4 px-2 border-primary-foreground/40">
-          <CardContent>
-            <h1 className="text-primary">Análisis cualitativo</h1>
-            <p>Aquí se valoran los aspectos que aportan valor o ventaja a cada proyecto, con el objetivo de identificar las mejores condiciones para su éxito.</p>
-            <CualitativeFields
-              mode={mode}
-              data={dataCualitative}
-              setCualitativeValues={setCualitativeValues}
-            />
-          </CardContent>
-        </Card>
-        </TabsContent>
-        <TabsContent value="cuantitative">
-        <Card className="bg-grey-light/15 py-4 px-2 border-primary-foreground/40">
-          <CardContent>
-            <h1 className="text-primary">Análisis cuantitativo</h1>
-            <p>Se evalúan métricas y datos que reflejan el desempeño del proyecto, determinando si cuenta con bases sólidas para su desarrollo a largo plazo.</p>
+              <Card className="bg-grey-light/15 py-4 px-2 border-primary-foreground/40">
+                <CardContent>
+                  <h1 className="text-primary">Análisis cualitativo</h1>
+                  <p>
+                    Aquí se valoran los aspectos que aportan valor o ventaja a
+                    cada proyecto, con el objetivo de identificar las mejores
+                    condiciones para su éxito.
+                  </p>
+                  <CualitativeFields
+                    mode={mode}
+                    data={dataCualitative}
+                    setCualitativeValues={setCualitativeValues}
+                  />
+                </CardContent>
+              </Card>
+            </TabsContent>
+            <TabsContent value="cuantitative">
+              <Card className="bg-grey-light/15 py-4 px-2 border-primary-foreground/40">
+                <CardContent>
+                  <h1 className="text-primary">Análisis cuantitativo</h1>
+                  <p>
+                    Se evalúan métricas y datos que reflejan el desempeño del
+                    proyecto, determinando si cuenta con bases sólidas para su
+                    desarrollo a largo plazo.
+                  </p>
 
-            <CuantitativeFields
-              mode={mode}
-              data={dataCuantitative}
-              setCuantitativeValues={setCuantitativeValues}
-            />
-          </CardContent>
-        </Card>
-        </TabsContent>
-          
+                  <CuantitativeFields
+                    mode={mode}
+                    data={dataCuantitative}
+                    setCuantitativeValues={setCuantitativeValues}
+                  />
+                </CardContent>
+              </Card>
+            </TabsContent>
           </Tabs>
-        
-      </section>
+        </section>
 
-            
-
-        
         {isLoading && <Loading />}
-        <Button type="submit"
+        <Button
+          type="submit"
           variant={"default"}
-          size={'sm'}
-        className={` 
+          size={"sm"}
+          className={` 
              w-2/12  fixed right-4 dark:bg-primary bg-background text-foreground z-50 md:right-[4.5rem]  2xl:right-36 justify-center mx-auto mt-4 text-left top-40 md:top-32
          
           `}
-          
-          >
-            {
-              mode === "add" &&
-              <ArrowUp />
-            }
+        >
+          {mode === "add" && <ArrowUp />}
 
-            {
-              mode ===  "edit-both" && 
-              <EditIcon />
-            }
-          <span className="hidden md:inline">
-          Guardar 
-          </span>
-          
+          {mode === "edit-both" && <EditIcon />}
+          <span className="hidden md:inline">Guardar</span>
         </Button>
       </form>
     </Form>

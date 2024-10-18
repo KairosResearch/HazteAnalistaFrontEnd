@@ -9,7 +9,6 @@ import Image from "next/image";
 //Values and utilities
 import { tableHeaders } from "@/utils";
 
-
 type DashboardHeaderProps = {
   prToDelete: number[];
   clean: () => void;
@@ -18,9 +17,11 @@ type DashboardHeaderProps = {
 const DashboardHeader = ({ prToDelete, clean }: DashboardHeaderProps) => {
   return (
     <TableHeader className="">
-      <TableRow className="divide-x-2 divide-y sticky top-[-1px] border-t-2 border-primary dark:border-grey-light bg-primary text-primary-foreground
+      <TableRow
+        className="divide-x-2 divide-y sticky top-[-1px] border-t-2 border-primary dark:border-grey-light bg-primary text-primary-foreground
       
-      dark:bg-dark-grey/95 z-[15] divide-primary dark:divide-grey-light">
+      dark:bg-dark-grey/95 z-[15] divide-primary dark:divide-grey-light"
+      >
         <DialogAlert prToDelete={prToDelete} clean={clean} />
         {tableHeaders.map((header) => (
           <TableHead key={header.key} className="">

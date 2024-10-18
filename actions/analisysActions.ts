@@ -11,12 +11,11 @@ import { AnalysisResponse } from "..";
 
 export const handleGetSingleAnalysis = async (
   idCual: number,
-  idCuant: number
-  
+  idCuant: number,
 ) => {
   const allCualitative = await getSingleAnalysisCualitative(idCual);
-  
-  console.log(idCuant)
+
+  console.log(idCuant);
   const allCuantitative = await getSingleAnalysisCuantitative(idCuant);
   console.log("All Cuantitative", allCuantitative);
   return {
@@ -44,15 +43,17 @@ export const handleCreateAnalysis = async (
   // console.log("Request Body", requestBody);
   // console.log(type);
   // if (type === "cual") {
-    const [resCual, resCuant] = await Promise.all([
-      postAnalisisCualitativo(requestBodyCualitative),
-      postAnalisisCuantitativo(requestBodyCuantitative)
+  const [resCual, resCuant] = await Promise.all([
+    postAnalisisCualitativo(requestBodyCualitative),
+    postAnalisisCuantitativo(requestBodyCuantitative),
   ]);
-  
-  if (resCual.message === "Analisis Cualitativo guardado exitosamente!" || resCuant.message === "Analisis Cuantitativo guardado exitosamente!") {
-      return true;
+
+  if (
+    resCual.message === "Analisis Cualitativo guardado exitosamente!" ||
+    resCuant.message === "Analisis Cuantitativo guardado exitosamente!"
+  ) {
+    return true;
   }
-  
 };
 
 export const handleUpdateAnalysis = async (
@@ -60,7 +61,7 @@ export const handleUpdateAnalysis = async (
   dataCuantitative: any,
   guzma: number,
   projectId: number,
-  
+
   analysisCualId: number,
   analysisCuantId: number,
 ) => {
@@ -79,12 +80,12 @@ export const handleUpdateAnalysis = async (
   };
   // console.log("Request Body", requestBody);
   // console.log(type);
-    const [resCual, resCuant] = await Promise.all([
-      updateAnalisisCualitativo(requestBodyCualitative),
-      updateAnalisisCuantitativo(requestBodyCuantitative)
-    ]);
+  const [resCual, resCuant] = await Promise.all([
+    updateAnalisisCualitativo(requestBodyCualitative),
+    updateAnalisisCuantitativo(requestBodyCuantitative),
+  ]);
 
-    if (resCual || resCuant) {
-        return true;
-    }
+  if (resCual || resCuant) {
+    return true;
+  }
 };

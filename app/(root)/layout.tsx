@@ -16,7 +16,7 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
   const lessons = await getLessons();
   return (
     <main className="root">
-      <Navbar 
+      <Navbar
         module1={lessons && lessons["Módulo 1"]}
         module2={lessons && lessons["Módulo 2"]}
         module3={lessons && lessons["Módulo 3"]}
@@ -24,10 +24,10 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
       <Collapser />
 
       <div className="root-container overflow-hidden md:flex">
-        <Sidebar 
-           module1={lessons && lessons["Módulo 1"]}
-           module2={lessons && lessons["Módulo 2"]}
-           module3={lessons && lessons["Módulo 3"]}
+        <Sidebar
+          module1={lessons && lessons["Módulo 1"]}
+          module2={lessons && lessons["Módulo 2"]}
+          module3={lessons && lessons["Módulo 3"]}
         />
 
         <div className="wrapper w-full flex flex-col justify-between relative overflow-auto overflow-y-hidden md:overflow-y-scroll bg-background dark:bg-transparent dark:bg-page-texture">

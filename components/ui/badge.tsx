@@ -23,11 +23,14 @@ const badgeVariants = cva(
       variant: {
         fourE:
           "border border-transparent bg-primary text-primary-foreground text-background ",
-          decisionSeguimiento: "border-transparent  bg-cyan-200 text-foreground dark:text-background ",
-          desicionInvertir: "border-transparent  bg-green-400 text-foreground dark:text-background ",
+        decisionSeguimiento:
+          "border-transparent  bg-cyan-200 text-foreground dark:text-background ",
+        desicionInvertir:
+          "border-transparent  bg-green-400 text-foreground dark:text-background ",
         range: "text-foreground bg-background text-foreground",
-        sectorAndExchange: "bg-primary   text-primary-foreground text-background ",
-        binance: `bg-binance text-[#1E1F24] text-background ` ,
+        sectorAndExchange:
+          "bg-primary   text-primary-foreground text-background ",
+        binance: `bg-binance text-[#1E1F24] text-background `,
         coinbase: `text-background  bg-coinbase dark:text-foreground text-white`,
         kraken: `text-background  bg-kraken`,
         DAO: `dark:text-background  bg-dao`,
@@ -59,7 +62,11 @@ function Badge({ className, variant, color, ...props }: BadgeProps) {
   const colorClass = colorMap[color as keyof typeof colorMap] || colorMap.blue;
   return (
     <div
-      className={cn(badgeVariants({ variant }), className, (variant  === 'range') ? "text-foreground ": " ")}
+      className={cn(
+        badgeVariants({ variant }),
+        className,
+        variant === "range" ? "text-foreground " : " ",
+      )}
       {...props}
     >
       {(variant === "fourE" || variant === "range") && (

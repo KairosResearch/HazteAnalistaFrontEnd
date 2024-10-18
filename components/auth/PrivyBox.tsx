@@ -15,13 +15,12 @@ const PrivyBox = () => {
   const { isLoading } = useAuthLoadingStatus();
   return (
     <>
-    <div className="w-full lg:w-[60%] mt-5 mx-auto">
-      <Button onClick={login} className="w-full">
+      <div className="w-full lg:w-[60%] mt-5 mx-auto">
+        <Button onClick={login} className="w-full">
           Entra
         </Button>
+      </div>
 
-    </div>
-      
       {isLoading && <Loading />}
     </>
   );

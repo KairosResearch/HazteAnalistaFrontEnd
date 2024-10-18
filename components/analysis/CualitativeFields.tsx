@@ -53,38 +53,40 @@ const CualitativeFields = ({
             }
             className=" w-full text-left"
             render={({ field }) => (
-              
-                <div className="w-full flex flex-col gap-3 ml-6">
-                  {item.map((item: any) => (
-                    <div key={item.id} className="flex items-center gap-3">
-
-<Checkbox
-                      
+              <div className="w-full flex flex-col gap-3 ml-6">
+                {item.map((item: any) => (
+                  <div key={item.id} className="flex items-center gap-3">
+                    <Checkbox
                       checked={field.value?.includes(item.id)}
-                      
                       onCheckedChange={(checked) => {
                         const iDunno = (checked: boolean) => {
                           if (checked) {
-                            setCualitativeValues((prev:number) => prev + item.value);
+                            setCualitativeValues(
+                              (prev: number) => prev + item.value,
+                            );
                             field.onChange([...field.value, item.id]);
                           } else {
-                            setCualitativeValues((prev: number) => prev - item.value);
-                            field.onChange(field.value?.filter((value: any) => value !== item.id));
+                            setCualitativeValues(
+                              (prev: number) => prev - item.value,
+                            );
+                            field.onChange(
+                              field.value?.filter(
+                                (value: any) => value !== item.id,
+                              ),
+                            );
                           }
-                        }
-                        
+                        };
 
                         return iDunno(checked as boolean);
                       }}
                     />
-                      <span className="text-foreground dark:text-grey-light/90"> {item.item}</span>
-                        
-                    </div>
-                    
-                    
-                  ))}
-                </div>
-              
+                    <span className="text-foreground dark:text-grey-light/90">
+                      {" "}
+                      {item.item}
+                    </span>
+                  </div>
+                ))}
+              </div>
             )}
           />
         );

@@ -9,17 +9,15 @@ import Image from "next/image";
 
 //Components
 import ModulesAccordion from "./ModulesAccordion";
-import {  LessonProps } from "@/index";
+import { LessonProps } from "@/index";
 
 type SidebarProps = {
-  module1: LessonProps[] | undefined
-    module2: LessonProps[] | undefined
-    module3: LessonProps[] | undefined
-}
+  module1: LessonProps[] | undefined;
+  module2: LessonProps[] | undefined;
+  module3: LessonProps[] | undefined;
+};
 
-const Sidebar = ({
-   module1, module2, module3
-}: SidebarProps) => {
+const Sidebar = ({ module1, module2, module3 }: SidebarProps) => {
   const { activeMenu } = useStateContext();
   //2xl:w-72 xl:w-64 md:w-56
   return (
@@ -28,8 +26,6 @@ const Sidebar = ({
         <aside className="sidebar ">
           <nav className="sidebar-nav">
             <ul className="sidebar-nav_elements">
-              
-
               <Link className="sidebar-nav_element" href="/portfolio">
                 <Image
                   src="/icons/navigation/wallet-fill.svg"
@@ -66,8 +62,6 @@ const Sidebar = ({
                 Dashboard
               </Link>
 
-              
-
               <Link className="sidebar-nav_element" href="/analysis">
                 <Image
                   src="/tools-fill.svg"
@@ -103,15 +97,11 @@ const Sidebar = ({
                 Comparar assets
               </Link>
 
-              
-
-              <ModulesAccordion 
+              <ModulesAccordion
                 module1={module1}
                 module2={module2}
                 module3={module3}
               />
-
-              
 
               {/* <Link 
                             className='sidebar-nav_element'

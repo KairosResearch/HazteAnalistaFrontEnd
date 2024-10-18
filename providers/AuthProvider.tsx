@@ -18,7 +18,6 @@ function PrivyProviderWrapper({ children }: { children: React.ReactNode }) {
     <PrivyProvider
       appId={process.env.NEXT_PUBLIC_PRIVY_APP_ID || ""}
       onSuccess={(user, isNewUser) => {
-        
         const id = user?.id;
         const name =
           user?.wallet?.address ||
@@ -39,9 +38,8 @@ function PrivyProviderWrapper({ children }: { children: React.ReactNode }) {
               } else {
                 if (typeof window !== "undefined" && data !== null) {
                   window.localStorage.setItem("guzma", data.toString());
-                  if(user.wallet?.address){
+                  if (user.wallet?.address) {
                     window.localStorage.setItem("wallet", user.wallet.address);
-                   
                   }
                 }
                 setIsOpenInstr(true);
@@ -56,9 +54,8 @@ function PrivyProviderWrapper({ children }: { children: React.ReactNode }) {
               } else {
                 if (typeof window !== "undefined" && data !== null) {
                   window.localStorage.setItem("guzma", data.toString());
-                  if(user.wallet?.address){
+                  if (user.wallet?.address) {
                     window.localStorage.setItem("wallet", user.wallet.address);
-                   
                   }
                 }
                 router.push("/dashboard");

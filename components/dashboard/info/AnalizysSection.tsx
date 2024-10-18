@@ -1,25 +1,27 @@
 //Imports for the component.
 //React
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 //Next
-import { useRouter } from 'next/navigation'
-import Image from 'next/image'
-import Link from 'next/link'
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import Link from "next/link";
 //Components
-import { TabsContent } from '@/components/ui/tabs'
-import { Button } from '@/components/ui/button'
+import { TabsContent } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
 //Hooks
 import { useProjectId } from "@/hooks/useAnalysis";
 //Values and utilities
-import  {InfoTabsProps} from '@/index'
-import { handleGetSingleAnalysis } from '@/actions/analisysActions';
-
-
+import { InfoTabsProps } from "@/index";
+import { handleGetSingleAnalysis } from "@/actions/analisysActions";
 
 const AnalizysSection = ({
-  info, tieneAnalisisCualitativo, tieneAnalisisCuantitavivo, id_analisis_cualitativo, id_analisis_cuantitativo
+  info,
+  tieneAnalisisCualitativo,
+  tieneAnalisisCuantitavivo,
+  id_analisis_cualitativo,
+  id_analisis_cuantitativo,
 }: InfoTabsProps) => {
-  const router = useRouter()
+  const router = useRouter();
   const { setProjectId } = useProjectId();
   const [cuantitativeTotal, setCuantitativeTotal] = useState(0);
   const [cualitativeTotal, setCualitativeTotal] = useState(0);
@@ -29,24 +31,25 @@ const AnalizysSection = ({
     async function fetchDataAnalysis() {
       console.log(tieneAnalisisCualitativo, tieneAnalisisCuantitavivo);
       if (tieneAnalisisCuantitavivo || tieneAnalisisCualitativo) {
-
-        const response = await handleGetSingleAnalysis(id_analisis_cualitativo, id_analisis_cuantitativo);
+        const response = await handleGetSingleAnalysis(
+          id_analisis_cualitativo,
+          id_analisis_cuantitativo,
+        );
         console.log("recien", response);
         if (response) {
-          if(tieneAnalisisCuantitavivo){
+          if (tieneAnalisisCuantitavivo) {
             setCuantitativeTotal(response.filteredCuantitative.suma[0]);
           }
-          if(tieneAnalisisCualitativo){
+          if (tieneAnalisisCualitativo) {
             setCualitativeTotal(response.filteredCualitative.suma[0]);
           }
-          
         } else {
           console.error("No se pudieron obtener los datos del análisis");
         }
       }
       // if (tieneAnalisisCualitativo) {
       //   const guzma = Number(window.localStorage.getItem("guzma"));
-        
+
       //   const response = await handleGetSingleAnalisys(guzma, info.id);
       //   console.log("recien", response);
       //   if (response) {
@@ -59,15 +62,14 @@ const AnalizysSection = ({
     }
     fetchDataAnalysis();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
+  }, []);
 
   return (
     <div>
-        <div className="h-full">
-          <div className="lg:my-16 xl:my-24 flex justify-center items-center">
-            {(tieneAnalisisCuantitavivo || tieneAnalisisCualitativo) ? (
-              <div className="grid lg:grid-cols-2">
+      <div className="h-full">
+        <div className="lg:my-16 xl:my-24 flex justify-center items-center">
+          {tieneAnalisisCuantitavivo || tieneAnalisisCualitativo ? (
+            <div className="grid lg:grid-cols-2">
               <div className="flex flex-col">
                 <h2 className="flex items-center mt-0">
                   <Image
@@ -86,13 +88,10 @@ const AnalizysSection = ({
                 </div>
                 <div className="pl-5">
                   <span className={`text-gray-500`}>{`
-                    ${(cuantitativeTotal+cualitativeTotal)/2} %
-                  `  
-                  }</span>
+                    ${(cuantitativeTotal + cualitativeTotal) / 2} %
+                  `}</span>
                 </div>
               </div>
-
-              
 
               <div className="flex flex-col">
                 <h2 className="flex items-center mt-0">
@@ -107,7 +106,8 @@ const AnalizysSection = ({
                 </h2>
                 <div>
                   <p className="m-0 text-primary-foreground/90 text-xs">
-                    Esto en base a tu configuración en la sección de cualitativos
+                    Esto en base a tu configuración en la sección de
+                    cualitativos
                   </p>
                 </div>
                 <div className="pl-5">
@@ -139,7 +139,9 @@ const AnalizysSection = ({
                 <Button
                   onClick={() => {
                     setProjectId(info.id);
-                    router.push(`/analysis/${info.proyecto}/edit/${id_analisis_cualitativo}/${id_analisis_cuantitativo}`);
+                    router.push(
+                      `/analysis/${info.proyecto}/edit/${id_analisis_cualitativo}/${id_analisis_cuantitativo}`,
+                    );
                   }}
                   className="w-5/12"
                 >
@@ -147,44 +149,42 @@ const AnalizysSection = ({
                 </Button>
               </div>
             </div>
-            ) : (
-              <Button
-                variant={"outline"}
-                onClick={() => {
-                  setProjectId(info.id);
-                  
-                  router.push(`/analysis/${info.proyecto}/add/0/0`);
-                }}
-              >
-                Crea un análisis express
-              </Button>
-              
-            )}
+          ) : (
+            <Button
+              variant={"outline"}
+              onClick={() => {
+                setProjectId(info.id);
 
-            <div></div>
-          </div>
+                router.push(`/analysis/${info.proyecto}/add/0/0`);
+              }}
+            >
+              Crea un análisis express
+            </Button>
+          )}
 
-          <div>
-            <h2 className="text-xl md:text-2xl font-bold mb-3">
-              Realizado por Kairos Research:
-            </h2>
-
-            {info.link_analisis_kairos ? (
-              <Link
-                href={info.link_analisis_kairos}
-                target="_blank"
-                className="underline w-full mx-auto"
-              >
-                Visita nuestro Análisis
-              </Link>
-            ) : (
-              <p>Estamos trabajando en este análisis!</p>
-            )}
-          </div>
+          <div></div>
         </div>
 
-    </div>
-  )
-}
+        <div>
+          <h2 className="text-xl md:text-2xl font-bold mb-3">
+            Realizado por Kairos Research:
+          </h2>
 
-export default AnalizysSection
+          {info.link_analisis_kairos ? (
+            <Link
+              href={info.link_analisis_kairos}
+              target="_blank"
+              className="underline w-full mx-auto"
+            >
+              Visita nuestro Análisis
+            </Link>
+          ) : (
+            <p>Estamos trabajando en este análisis!</p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default AnalizysSection;

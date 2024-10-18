@@ -1,7 +1,7 @@
 //Imports for the component.
 //React
 import React from "react";
-//Next 
+//Next
 import Image from "next/image";
 //Values and utilities
 import { iconsForm } from "@/utils/index";
@@ -30,7 +30,7 @@ export const CustomField = ({
   className,
   type,
 }: CustomFieldProps) => {
-  const iconsFiltered= iconsForm.filter((icon) => icon.name === name);
+  const iconsFiltered = iconsForm.filter((icon) => icon.name === name);
   return (
     <FormField
       name={name}
@@ -39,11 +39,17 @@ export const CustomField = ({
           {formLabel && (
             <FormLabel>
               <div className="flex gap-2 items-center  md:mb-0">
-                {iconsFiltered  && (
-                  iconsFiltered.map((a, index) =>
-                  <Image key={index} src={a?.icon} alt={a?.alt} width={15} height={15} className={a?.clasName} />
-                  )
-                )}
+                {iconsFiltered &&
+                  iconsFiltered.map((a, index) => (
+                    <Image
+                      key={index}
+                      src={a?.icon}
+                      alt={a?.alt}
+                      width={15}
+                      height={15}
+                      className={a?.clasName}
+                    />
+                  ))}
 
                 <h3 className="p-0 m-0">
                   {(formLabel === "Sector" || formLabel === "Exchange") &&

@@ -20,8 +20,7 @@ interface NavbarLessonsProps {
 }
 
 const NavbarLessons = ({ numParam, modulo, leccion }: NavbarLessonsProps) => {
-
-  const {mutate} = useLessons();
+  const { mutate } = useLessons();
 
   useEffect(() => {
     const setCurrentLesson = async () => {
@@ -40,7 +39,7 @@ const NavbarLessons = ({ numParam, modulo, leccion }: NavbarLessonsProps) => {
 
       if (modulo != undefined) {
         const saveLessonRead = await saveLessonAction(guzma, modulo, numParam);
-        if(saveLessonRead && mutate){
+        if (saveLessonRead && mutate) {
           mutate();
         }
       }

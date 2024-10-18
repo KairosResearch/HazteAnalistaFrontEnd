@@ -21,7 +21,9 @@ export const getLessons = async (): Promise<AllModules | undefined> => {
 
 //This function is the fetcher for the SWR useLessonsHook.
 //The key to that function is the url + the id of the user
-export const getLessonsByUser = async (route: string): Promise<LeccionUser[] | undefined> => {
+export const getLessonsByUser = async (
+  route: string,
+): Promise<LeccionUser[] | undefined> => {
   try {
     const response = await fetch(`${AUTH_URL}${route}`, {
       method: "GET",

@@ -24,13 +24,15 @@ type Props = {
 };
 
 const CurrentModule = ({ allModules }: Props) => {
-  
   const module1 = allModules && allModules["Módulo 1"];
   const module2 = allModules && allModules["Módulo 2"];
   const module3 = allModules && allModules["Módulo 3"];
 
-  const modulesToRender: LessonProps[][] = [module1 as LessonProps[] , module2 as LessonProps[], module3 as LessonProps[]]
-  
+  const modulesToRender: LessonProps[][] = [
+    module1 as LessonProps[],
+    module2 as LessonProps[],
+    module3 as LessonProps[],
+  ];
 
   // const { userGuzma } = useUserGuzma();
   const [lessonsCompleted, setLessonsCompleted] = React.useState<any[]>([]);
@@ -41,7 +43,6 @@ const CurrentModule = ({ allModules }: Props) => {
   const { completed, isLoading, isError } = useLessons();
 
   useEffect(() => {
-    
     if (completed !== undefined && completed !== null) {
       setLessonsCompleted(completed);
     }
@@ -79,7 +80,7 @@ const CurrentModule = ({ allModules }: Props) => {
         </div>
       )}
       {modulesToRender &&
-        modulesToRender.map((mod:LessonProps[] , i: number) => (
+        modulesToRender.map((mod: LessonProps[], i: number) => (
           <div role="row" key={i}>
             <h1></h1>
             <Separator className="mb-6" />

@@ -1,9 +1,14 @@
 "use client";
-import React, {  useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAverages } from "@/hooks/useAnalysis";
 
 const ShowAvarages = () => {
-  const { setCaulitativePromedio, setCuantitativePromedio, cuantitativePromedio, cualitativePromedio } = useAverages();
+  const {
+    setCaulitativePromedio,
+    setCuantitativePromedio,
+    cuantitativePromedio,
+    cualitativePromedio,
+  } = useAverages();
   const [promedio, setPromedio] = useState<number>(0);
 
   useEffect(() => {
@@ -12,18 +17,20 @@ const ShowAvarages = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-
   //Change the promedio (avg) everytime cuantitative and cualitative averages update, this will trigger the useEffect
 
   useEffect(() => {
-    setPromedio((cuantitativePromedio + cualitativePromedio)/2);
+    setPromedio((cuantitativePromedio + cualitativePromedio) / 2);
     console.log("promedio", promedio);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cuantitativePromedio, cualitativePromedio]);
   return (
     <div className="fixed md:sticky md:top-[-1px] h-32 md:h-auto w-1/4  z-20  bg-dark-black/95 text-primary-foreground/70 top-28 right-[-1px] md:w-full rounded flex flex-col text-sm  p-1 px-2">
       <div className="">
-        <h2 className="mt-0"><span className="hidden md:inline">Progreso del proyecto:</span> <span className="">{promedio}%</span> </h2>
+        <h2 className="mt-0">
+          <span className="hidden md:inline">Progreso del proyecto:</span>{" "}
+          <span className="">{promedio}%</span>{" "}
+        </h2>
       </div>
       <div className="hidden md:block">
         <h2>Progreso cualitativo: {cualitativePromedio}%</h2>

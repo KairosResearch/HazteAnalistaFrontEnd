@@ -1,15 +1,14 @@
-import React from 'react'
+import React from "react";
 
 const page = () => {
   return (
     <div>
-        <header>
-        
+      <header>
         <h1 className="text-2xl font-bold mb-4">Examen Virtual</h1>
         <p>Evalua tu aprendizaje</p>
-        </header>
+      </header>
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default page;

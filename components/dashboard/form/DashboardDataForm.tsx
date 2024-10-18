@@ -54,14 +54,15 @@ const DashboardDataForm = ({
   const sector = catalogos[3] as CatalogosType[];
   const [guzma, setGuzma] = useState<number | null>(null);
 
-  
-
   useEffect(() => {
-    if (typeof window !== 'undefined' && window.localStorage.getItem("guzma") !== null) {
+    if (
+      typeof window !== "undefined" &&
+      window.localStorage.getItem("guzma") !== null
+    ) {
       setGuzma(Number(window.localStorage.getItem("guzma")));
     }
   }, []);
-  const {  mutate } = useProjects(guzma ?? 0);
+  const { mutate } = useProjects(guzma ?? 0);
 
   //States for the right use of the form
   //Counter so that everytime the submit is correct, it changes the value of

@@ -47,7 +47,9 @@ const Login = () => {
         <p className="text-center dark:text-white text-primary">
           Bienvenido de nuevo a Kairos Research
         </p>
-        <p className="text-center dark:text-white text-primary">Inicia sesión para continuar</p>
+        <p className="text-center dark:text-white text-primary">
+          Inicia sesión para continuar
+        </p>
       </div>
 
       <PrivyBox />
