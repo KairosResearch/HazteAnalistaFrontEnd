@@ -38,29 +38,23 @@ const Lessons = ({ allModules }: LessonsProps) => {
   const [lessons, setLessons] = React.useState<LessonProps[]>([]);
   const [loading, setLoading] = React.useState<boolean>(false);
 
-  const { module, completed, isLoading } = useLessons();
+  const { completed, isLoading } = useLessons();
+  
+  console.log("completed", module);
 
   useEffect(() => {
-    const meCompota = async () => {
-      // setLoading(true);
-
-      if (allModules != undefined) {
-        if (module === 2) {
-          const moduleLesson = allModules["Módulo 2"];
-          setLessons(moduleLesson);
-        } else if (module === 3) {
-          const moduleLesson = allModules["Módulo 3"];
-          setLessons(moduleLesson);
-        } else if (module === 1) {
-          const moduleLesson = allModules["Módulo 1"];
-          setLessons(moduleLesson);
-        }
+    
+      if(allModules){
+        const moduleLesson = allModules["Módulo 1"];
+        setLessons(moduleLesson);
+      
       }
-      // setLoading(false);
-    };
-    meCompota();
+
+          
     //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [module]);
+  }, []);
+
+  console.log(lessons)
 
   return (
     <>

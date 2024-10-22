@@ -13,7 +13,9 @@ export const getLessons = async (): Promise<AllModules | undefined> => {
     });
 
     const data = await response.json();
+    console.log("data", data.ModulosLecciones);
     return data.ModulosLecciones;
+    
   } catch (err) {
     console.error(err);
   }
