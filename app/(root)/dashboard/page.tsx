@@ -14,6 +14,7 @@ import {
 import { getLessons } from "@/services/backend/lessons";
 import AddProjectButton from "@/components/dashboard/AddProjectButton";
 import { getProjectsList } from "@/services/backend/proyectsInfo";
+import Link from "next/link";
 // import ReloadProjects from "@/components/dashboard/ReloadProjects";
 
 const HomePage = async () => {
@@ -69,7 +70,10 @@ const HomePage = async () => {
       <section className="2xl:py-4 py-2 xl:pt-8" id="lecciones-main-page">
         <div className="md:flex items-center justify-between lessons-header ">
           <h1 className="text-2xl 2xl:text-4xl font-bold ">
+            
+            <Link href="/lessons">
             Aprende a hacer un análisis:
+            </Link>
           </h1>
           {/* <InputSearcher /> */}
         </div>
@@ -80,6 +84,7 @@ const HomePage = async () => {
 
         <Lessons
           // lessons={lessons}
+        
           allModules={allModules}
         />
       </section>
