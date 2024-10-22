@@ -19,6 +19,7 @@ export const getProyects = async (id: any) => {
 
 export const postProyect = async (proyectData: any) => {
   try {
+    console.log("proyectData: ", proyectData);
     const response = await fetch(`${AUTH_URL}saveProyectSegmto`, {
       method: "POST",
       headers: {
@@ -30,6 +31,7 @@ export const postProyect = async (proyectData: any) => {
       return response.status;
     } else {
       const data = await response.json();
+      console.log("data al crear proyecto: ", data);
       return data;
     }
   } catch (err) {

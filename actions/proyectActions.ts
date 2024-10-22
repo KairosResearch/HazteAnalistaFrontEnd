@@ -53,12 +53,16 @@ export const handleSubmitProyectForm = async (
   idUsuario: number,
 ) => {
   try {
+    
     // const {userId} = valuesFromCookies();
     const posted = await postProyect({ ...formData, idUsuario });
     console.log("Que manda: ", posted);
     if (posted === 401) {
       return "praldreadyexists";
-    } else {
+    } else if (posted === 500) {
+      return "server-error";
+    } 
+    else {
       return true;
     }
   } catch (err) {

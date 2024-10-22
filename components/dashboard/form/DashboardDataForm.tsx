@@ -169,6 +169,8 @@ const DashboardDataForm = ({
 
   /*******submit handler********/
   async function onSubmit(values: any) {
+
+   
     //Form is in create mode
 
     if (type === "create") {
@@ -181,7 +183,7 @@ const DashboardDataForm = ({
         idExchange: Number(values.idExchange),
         idSector: values.sectores.length === 0 ? [1] : values.sectores,
         precioActual: prInfo.price ?? 0,
-        precioEntrada: editablePrecio ?? "0",
+        precioEntrada: parseFloat(editablePrecio.replace("," ,".")) ?? 0,
       };
 
       console.log(backendValues);
@@ -202,12 +204,15 @@ const DashboardDataForm = ({
             backendValues,
             guzma ?? 0,
           );
+          
           //if the project already exists, we show an error
           if (newData === "praldreadyexists") {
             setError("nombre", {
               type: "manual",
               message: `Ya guardaste este proyecto`,
             });
+          } else if (newData === "server-error") {
+            alert("Error en el servidor");
           }
           //If the data is sent correctly, we show a success message
           else {

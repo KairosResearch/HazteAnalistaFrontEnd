@@ -263,7 +263,7 @@ export interface BackendValues {
   marketCap: number;
   idExchange: number;
   idSector: any[];
-  precioEntrada: string;
+  precioEntrada: number;
   precioActual: number;
 }
 
